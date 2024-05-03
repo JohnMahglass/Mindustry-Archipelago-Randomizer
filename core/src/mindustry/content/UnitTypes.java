@@ -17,6 +17,7 @@ import mindustry.entities.part.*;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.randomizer.PlanetName;
 import mindustry.type.*;
 import mindustry.type.ammo.*;
 import mindustry.type.unit.*;
@@ -113,6 +114,7 @@ public class UnitTypes{
                     lifetime = 60f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         mace = new UnitType("mace"){{
@@ -147,6 +149,7 @@ public class UnitTypes{
                     hittable = false;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         fortress = new UnitType("fortress"){{
@@ -181,6 +184,7 @@ public class UnitTypes{
                     frontColor = Pal.bulletYellow;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         scepter = new UnitType("scepter"){{
@@ -251,6 +255,7 @@ public class UnitTypes{
                 bullet = smallBullet;
             }}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         reign = new UnitType("reign"){{
@@ -311,6 +316,7 @@ public class UnitTypes{
             }}
 
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -346,6 +352,7 @@ public class UnitTypes{
                     frontColor = Color.white;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         pulsar = new UnitType("pulsar"){{
@@ -402,6 +409,7 @@ public class UnitTypes{
                     }};
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         quasar = new UnitType("quasar"){{
@@ -446,6 +454,7 @@ public class UnitTypes{
                     colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         vela = new UnitType("vela"){{
@@ -530,6 +539,7 @@ public class UnitTypes{
                     maxRange = 120f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         corvus = new UnitType("corvus"){{
@@ -600,6 +610,7 @@ public class UnitTypes{
                     colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -639,6 +650,7 @@ public class UnitTypes{
                     collidesAir = true;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         atrax = new UnitType("atrax"){{
@@ -679,6 +691,7 @@ public class UnitTypes{
                     collidesAir = false;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         spiroct = new UnitType("spiroct"){{
@@ -742,6 +755,7 @@ public class UnitTypes{
                     knockback = -0.65f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         arkyid = new UnitType("arkyid"){{
@@ -843,6 +857,7 @@ public class UnitTypes{
                     statusDuration = 60f * 10;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         toxopid = new UnitType("toxopid"){{
@@ -970,6 +985,7 @@ public class UnitTypes{
                     }};
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -1003,6 +1019,7 @@ public class UnitTypes{
                 }};
                 shootSound = Sounds.pew;
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         horizon = new UnitType("horizon"){{
@@ -1043,6 +1060,7 @@ public class UnitTypes{
                     statusDuration = 60f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         zenith = new UnitType("zenith"){{
@@ -1091,6 +1109,7 @@ public class UnitTypes{
                     weaveMag = 1f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         antumbra = new UnitType("antumbra"){{
@@ -1166,6 +1185,7 @@ public class UnitTypes{
                 }};
             }}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         eclipse = new UnitType("eclipse"){{
@@ -1244,6 +1264,7 @@ public class UnitTypes{
                 shootY = 7.25f;
                 bullet = fragBullet;
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -1269,6 +1290,7 @@ public class UnitTypes{
 
             mineTier = 1;
             mineSpeed = 2.5f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         poly = new UnitType("poly"){{
@@ -1323,6 +1345,7 @@ public class UnitTypes{
                     trailColor = Pal.heal;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         mega = new UnitType("mega"){{
@@ -1376,6 +1399,7 @@ public class UnitTypes{
                     frontColor = Color.white;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         quad = new UnitType("quad"){{
@@ -1447,6 +1471,7 @@ public class UnitTypes{
                     splashDamageRadius = 80f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         oct = new UnitType("oct"){{
@@ -1471,6 +1496,7 @@ public class UnitTypes{
             ammoCapacity = 1;
 
             abilities.add(new ForceFieldAbility(140f, 4f, 7000f, 60f * 8, 8, 0f), new RepairFieldAbility(130f, 60f * 2, 140f));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -1529,6 +1555,7 @@ public class UnitTypes{
                     weaveMag = 2f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         minke = new UnitType("minke"){{
@@ -1588,6 +1615,7 @@ public class UnitTypes{
                     splashDamage = 40f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         bryde = new UnitType("bryde"){{
@@ -1684,6 +1712,7 @@ public class UnitTypes{
                     weaveMag = 1f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         sei = new UnitType("sei"){{
@@ -1775,6 +1804,7 @@ public class UnitTypes{
                     lifetime = 35f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         omura = new UnitType("omura"){{
@@ -1825,6 +1855,7 @@ public class UnitTypes{
                     pierceDamageFactor = 0.5f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -1916,6 +1947,7 @@ public class UnitTypes{
                     splashDamageRadius = 32f;
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         oxynoe = new UnitType("oxynoe"){{
@@ -1992,7 +2024,7 @@ public class UnitTypes{
                     damage = 17f;
                 }};
             }});
-
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         cyerce = new UnitType("cyerce"){{
@@ -2130,6 +2162,7 @@ public class UnitTypes{
                     }};
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         aegires = new UnitType("aegires"){{
@@ -2179,6 +2212,7 @@ public class UnitTypes{
                     }};
                 }});
             }
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         navanax = new UnitType("navanax"){{
@@ -2340,6 +2374,7 @@ public class UnitTypes{
                     });
                 }};
             }});
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion

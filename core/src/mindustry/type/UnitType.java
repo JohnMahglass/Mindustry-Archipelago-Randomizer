@@ -29,6 +29,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.graphics.MultiPacker.*;
 import mindustry.logic.*;
+import mindustry.randomizer.PlanetName;
 import mindustry.type.ammo.*;
 import mindustry.ui.*;
 import mindustry.world.*;
@@ -424,6 +425,8 @@ public class UnitType extends UnlockableContent implements Senseable{
     public float lifetime = 60f * 5f;
     /** ticks that must pass before this missile starts homing. */
     public float homingDelay = 10f;
+
+    public PlanetName fromPlanet;
 
     //REGIONS
 

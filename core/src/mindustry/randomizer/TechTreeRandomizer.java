@@ -1,5 +1,7 @@
 package mindustry.randomizer;
 
+import arc.struct.Seq;
+import mindustry.ctype.UnlockableContent;
 import mindustry.world.Block;
 
 import java.util.ArrayList;
@@ -16,12 +18,12 @@ public abstract class TechTreeRandomizer {
     /**
      * Contain all blocks that can be researched through the planet's tech tree
      */
-    public Collection<Block> planetTechBlocks;
+    public Seq<UnlockableContent> planetTechBlocks;
 
     /**
      * Contain all blocks that are required to clear the tutorial of the planet
      */
-    public Collection<Block> starterTechBlocks;
+    public Seq<UnlockableContent> starterTechBlocks;
 
     /**
      * Randomize the blocks for planetTechBlocks
@@ -38,8 +40,8 @@ public abstract class TechTreeRandomizer {
     public abstract void loadTechBlocks();
 
     public TechTreeRandomizer() {
-        planetTechBlocks = new ArrayList<>();
-        starterTechBlocks = new ArrayList<>();
+        planetTechBlocks = new Seq<>();
+        starterTechBlocks = new Seq<>();
         loadTechBlocks();
         randomizePlanetTechBlocks();
     }

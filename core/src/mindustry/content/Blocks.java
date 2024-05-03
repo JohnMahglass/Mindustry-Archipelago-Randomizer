@@ -13,6 +13,7 @@ import mindustry.entities.part.*;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.randomizer.PlanetName;
 import mindustry.type.*;
 import mindustry.type.unit.*;
 import mindustry.world.*;
@@ -872,6 +873,7 @@ public class Blocks{
             hasItems = true;
 
             consumeItem(Items.coal, 2);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         multiPress = new GenericCrafter("multi-press"){{
@@ -889,6 +891,7 @@ public class Blocks{
             consumePower(1.8f);
             consumeItem(Items.coal, 3);
             consumeLiquid(Liquids.water, 0.1f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         siliconSmelter = new GenericCrafter("silicon-smelter"){{
@@ -905,6 +908,7 @@ public class Blocks{
 
             consumeItems(with(Items.coal, 1, Items.sand, 2));
             consumePower(0.50f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         siliconCrucible = new AttributeCrafter("silicon-crucible"){{
@@ -923,6 +927,7 @@ public class Blocks{
 
             consumeItems(with(Items.coal, 4, Items.sand, 6, Items.pyratite, 1));
             consumePower(4f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         kiln = new GenericCrafter("kiln"){{
@@ -938,6 +943,7 @@ public class Blocks{
 
             consumeItems(with(Items.lead, 1, Items.sand, 1));
             consumePower(0.60f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         plastaniumCompressor = new GenericCrafter("plastanium-compressor"){{
@@ -956,6 +962,7 @@ public class Blocks{
             consumeLiquid(Liquids.oil, 0.25f);
             consumePower(3f);
             consumeItem(Items.titanium, 2);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         phaseWeaver = new GenericCrafter("phase-weaver"){{
@@ -974,6 +981,7 @@ public class Blocks{
             consumeItems(with(Items.thorium, 4, Items.sand, 10));
             consumePower(5f);
             itemCapacity = 20;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         surgeSmelter = new GenericCrafter("surge-smelter"){{
@@ -988,6 +996,7 @@ public class Blocks{
 
             consumePower(4f);
             consumeItems(with(Items.copper, 3, Items.lead, 4, Items.titanium, 2, Items.silicon, 3));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         cryofluidMixer = new GenericCrafter("cryofluid-mixer"){{
@@ -1009,6 +1018,7 @@ public class Blocks{
             consumePower(1f);
             consumeItem(Items.titanium);
             consumeLiquid(Liquids.water, 12f / 60f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         pyratiteMixer = new GenericCrafter("pyratite-mixer"){{
@@ -1022,6 +1032,7 @@ public class Blocks{
 
             consumePower(0.20f);
             consumeItems(with(Items.coal, 1, Items.lead, 2, Items.sand, 2));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         blastMixer = new GenericCrafter("blast-mixer"){{
@@ -1034,6 +1045,7 @@ public class Blocks{
 
             consumeItems(with(Items.pyratite, 1, Items.sporePod, 1));
             consumePower(0.40f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         melter = new GenericCrafter("melter"){{
@@ -1047,6 +1059,7 @@ public class Blocks{
 
             consumePower(1f);
             consumeItem(Items.scrap, 1);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         separator = new Separator("separator"){{
@@ -1065,6 +1078,7 @@ public class Blocks{
             consumeLiquid(Liquids.slag, 4f / 60f);
 
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawRegion("-spinner", 3, true), new DrawDefault());
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         disassembler = new Separator("disassembler"){{
@@ -1085,6 +1099,7 @@ public class Blocks{
             consumeLiquid(Liquids.slag, 0.12f);
 
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawRegion("-spinner", 3, true), new DrawDefault());
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         sporePress = new GenericCrafter("spore-press"){{
@@ -1109,6 +1124,7 @@ public class Blocks{
 
             consumeItem(Items.sporePod, 1);
             consumePower(0.7f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         pulverizer = new GenericCrafter("pulverizer"){{
@@ -1127,6 +1143,7 @@ public class Blocks{
 
             consumeItem(Items.scrap, 1);
             consumePower(0.50f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         coalCentrifuge = new GenericCrafter("coal-centrifuge"){{
@@ -1140,6 +1157,7 @@ public class Blocks{
 
             consumeLiquid(Liquids.oil, 0.1f);
             consumePower(0.7f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         incinerator = new Incinerator("incinerator"){{
@@ -1147,6 +1165,7 @@ public class Blocks{
             health = 90;
             envEnabled |= Env.space;
             consumePower(0.50f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //erekir
@@ -1514,6 +1533,7 @@ public class Blocks{
             health = 80 * wallHealthMultiplier;
             researchCostMultiplier = 0.1f;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         copperWallLarge = new Wall("copper-wall-large"){{
@@ -1521,12 +1541,14 @@ public class Blocks{
             health = 80 * 4 * wallHealthMultiplier;
             size = 2;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         titaniumWall = new Wall("titanium-wall"){{
             requirements(Category.defense, with(Items.titanium, 6));
             health = 110 * wallHealthMultiplier;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         titaniumWallLarge = new Wall("titanium-wall-large"){{
@@ -1534,6 +1556,7 @@ public class Blocks{
             health = 110 * wallHealthMultiplier * 4;
             size = 2;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         plastaniumWall = new Wall("plastanium-wall"){{
@@ -1543,6 +1566,7 @@ public class Blocks{
             absorbLasers = true;
             schematicPriority = 10;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         plastaniumWallLarge = new Wall("plastanium-wall-large"){{
@@ -1553,12 +1577,14 @@ public class Blocks{
             absorbLasers = true;
             schematicPriority = 10;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         thoriumWall = new Wall("thorium-wall"){{
             requirements(Category.defense, with(Items.thorium, 6));
             health = 200 * wallHealthMultiplier;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         thoriumWallLarge = new Wall("thorium-wall-large"){{
@@ -1566,6 +1592,7 @@ public class Blocks{
             health = 200 * wallHealthMultiplier * 4;
             size = 2;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         phaseWall = new Wall("phase-wall"){{
@@ -1574,6 +1601,7 @@ public class Blocks{
             chanceDeflect = 10f;
             flashHit = true;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         phaseWallLarge = new Wall("phase-wall-large"){{
@@ -1583,6 +1611,7 @@ public class Blocks{
             chanceDeflect = 10f;
             flashHit = true;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         surgeWall = new Wall("surge-wall"){{
@@ -1590,6 +1619,7 @@ public class Blocks{
             health = 230 * wallHealthMultiplier;
             lightningChance = 0.05f;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         surgeWallLarge = new Wall("surge-wall-large"){{
@@ -1598,12 +1628,14 @@ public class Blocks{
             size = 2;
             lightningChance = 0.05f;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         door = new Door("door"){{
             requirements(Category.defense, with(Items.titanium, 6, Items.silicon, 4));
             health = 100 * wallHealthMultiplier;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         doorLarge = new Door("door-large"){{
@@ -1613,6 +1645,7 @@ public class Blocks{
             health = 100 * 4 * wallHealthMultiplier;
             size = 2;
             envDisabled |= Env.scorching;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         scrapWall = new Wall("scrap-wall"){{
@@ -1748,6 +1781,7 @@ public class Blocks{
             phaseRangeBoost = 20f;
             health = 80;
             consumeItem(Items.silicon).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         mendProjector = new MendProjector("mend-projector"){{
@@ -1760,6 +1794,7 @@ public class Blocks{
             phaseBoost = 15f;
             scaledHealth = 80;
             consumeItem(Items.phaseFabric).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         overdriveProjector = new OverdriveProjector("overdrive-projector"){{
@@ -1767,6 +1802,7 @@ public class Blocks{
             consumePower(3.50f);
             size = 2;
             consumeItem(Items.phaseFabric).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         overdriveDome = new OverdriveProjector("overdrive-dome"){{
@@ -1778,6 +1814,7 @@ public class Blocks{
             useTime = 300f;
             hasBoost = false;
             consumeItems(with(Items.phaseFabric, 1, Items.silicon, 1));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         forceProjector = new ForceProjector("force-projector"){{
@@ -1792,6 +1829,7 @@ public class Blocks{
 
             itemConsumer = consumeItem(Items.phaseFabric).boost();
             consumePower(4f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         shockMine = new ShockMine("shock-mine"){{
@@ -1802,6 +1840,7 @@ public class Blocks{
             tileDamage = 7f;
             length = 10;
             tendrils = 4;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         radar = new Radar("radar"){{
@@ -1904,6 +1943,7 @@ public class Blocks{
             displayedSpeed = 4.2f;
             buildCostMultiplier = 2f;
             researchCost = with(Items.copper, 5);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         titaniumConveyor = new Conveyor("titanium-conveyor"){{
@@ -1911,6 +1951,7 @@ public class Blocks{
             health = 65;
             speed = 0.08f;
             displayedSpeed = 11f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         plastaniumConveyor = new StackConveyor("plastanium-conveyor"){{
@@ -1918,6 +1959,7 @@ public class Blocks{
             health = 75;
             speed = 4f / 60f;
             itemCapacity = 10;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         armoredConveyor = new ArmoredConveyor("armored-conveyor"){{
@@ -1925,6 +1967,7 @@ public class Blocks{
             health = 180;
             speed = 0.08f;
             displayedSpeed = 11f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         junction = new Junction("junction"){{
@@ -1933,6 +1976,7 @@ public class Blocks{
             capacity = 6;
             health = 30;
             buildCostMultiplier = 6f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         itemBridge = new BufferedItemBridge("bridge-conveyor"){{
@@ -1942,6 +1986,7 @@ public class Blocks{
             speed = 74f;
             arrowSpacing = 6f;
             bufferCapacity = 14;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         phaseConveyor = new ItemBridge("phase-conveyor"){{
@@ -1953,39 +1998,46 @@ public class Blocks{
             pulse = true;
             envEnabled |= Env.space;
             consumePower(0.30f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         sorter = new Sorter("sorter"){{
             requirements(Category.distribution, with(Items.lead, 2, Items.copper, 2));
             buildCostMultiplier = 3f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         invertedSorter = new Sorter("inverted-sorter"){{
             requirements(Category.distribution, with(Items.lead, 2, Items.copper, 2));
             buildCostMultiplier = 3f;
             invert = true;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         router = new Router("router"){{
             requirements(Category.distribution, with(Items.copper, 3));
             buildCostMultiplier = 4f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         distributor = new Router("distributor"){{
             requirements(Category.distribution, with(Items.lead, 4, Items.copper, 4));
             buildCostMultiplier = 3f;
             size = 2;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         overflowGate = new OverflowGate("overflow-gate"){{
             requirements(Category.distribution, with(Items.lead, 2, Items.copper, 4));
             buildCostMultiplier = 3f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         underflowGate = new OverflowGate("underflow-gate"){{
             requirements(Category.distribution, with(Items.lead, 2, Items.copper, 4));
             buildCostMultiplier = 3f;
             invert = true;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         massDriver = new MassDriver("mass-driver"){{
@@ -1995,6 +2047,7 @@ public class Blocks{
             reload = 200f;
             range = 440f;
             consumePower(1.75f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //erekir transport blocks
@@ -2121,6 +2174,7 @@ public class Blocks{
         mechanicalPump = new Pump("mechanical-pump"){{
             requirements(Category.liquid, with(Items.copper, 15, Items.metaglass, 10));
             pumpAmount = 7f / 60f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         rotaryPump = new Pump("rotary-pump"){{
@@ -2130,6 +2184,7 @@ public class Blocks{
             liquidCapacity = 30f;
             hasPower = true;
             size = 2;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         impulsePump = new Pump("impulse-pump"){{
@@ -2139,11 +2194,13 @@ public class Blocks{
             liquidCapacity = 40f;
             hasPower = true;
             size = 3;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         conduit = new Conduit("conduit"){{
             requirements(Category.liquid, with(Items.metaglass, 1));
             health = 45;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         pulseConduit = new Conduit("pulse-conduit"){{
@@ -2151,6 +2208,7 @@ public class Blocks{
             liquidCapacity = 16f;
             liquidPressure = 1.025f;
             health = 90;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         platedConduit = new ArmoredConduit("plated-conduit"){{
@@ -2158,6 +2216,7 @@ public class Blocks{
             liquidCapacity = 16f;
             liquidPressure = 1.025f;
             health = 220;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         liquidRouter = new LiquidRouter("liquid-router"){{
@@ -2165,6 +2224,7 @@ public class Blocks{
             liquidCapacity = 20f;
             underBullets = true;
             solid = false;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         liquidContainer = new LiquidRouter("liquid-container"){{
@@ -2172,6 +2232,7 @@ public class Blocks{
             liquidCapacity = 700f;
             size = 2;
             solid = true;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         liquidTank = new LiquidRouter("liquid-tank"){{
@@ -2180,11 +2241,13 @@ public class Blocks{
             solid = true;
             liquidCapacity = 1800f;
             health = 500;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         liquidJunction = new LiquidJunction("liquid-junction"){{
             requirements(Category.liquid, with(Items.graphite, 4, Items.metaglass, 8));
             solid = false;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         bridgeConduit = new LiquidBridge("bridge-conduit"){{
@@ -2193,6 +2256,7 @@ public class Blocks{
             arrowSpacing = 6f;
             range = 4;
             hasPower = false;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         phaseConduit = new LiquidBridge("phase-conduit"){{
@@ -2204,6 +2268,7 @@ public class Blocks{
             canOverdrive = false;
             pulse = true;
             consumePower(0.30f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //reinforced stuff
@@ -2283,6 +2348,7 @@ public class Blocks{
             requirements(Category.power, with(Items.copper, 1, Items.lead, 3));
             maxNodes = 10;
             laserRange = 6;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         powerNodeLarge = new PowerNode("power-node-large"){{
@@ -2290,6 +2356,7 @@ public class Blocks{
             size = 2;
             maxNodes = 15;
             laserRange = 15f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         surgeTower = new PowerNode("surge-tower"){{
@@ -2298,16 +2365,19 @@ public class Blocks{
             maxNodes = 2;
             laserRange = 40f;
             schematicPriority = -15;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         diode = new PowerDiode("diode"){{
             requirements(Category.power, with(Items.silicon, 10, Items.plastanium, 5, Items.metaglass, 10));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         battery = new Battery("battery"){{
             requirements(Category.power, with(Items.copper, 5, Items.lead, 20));
             consumePowerBuffered(4000f);
             baseExplosiveness = 1f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         batteryLarge = new Battery("battery-large"){{
@@ -2315,6 +2385,7 @@ public class Blocks{
             size = 3;
             consumePowerBuffered(50000f);
             baseExplosiveness = 5f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         combustionGenerator = new ConsumeGenerator("combustion-generator"){{
@@ -2330,6 +2401,7 @@ public class Blocks{
             consume(new ConsumeItemExplode());
 
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         thermalGenerator = new ThermalGenerator("thermal-generator"){{
@@ -2341,6 +2413,7 @@ public class Blocks{
             floating = true;
             ambientSound = Sounds.hum;
             ambientSoundVolume = 0.06f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         steamGenerator = new ConsumeGenerator("steam-generator"){{
@@ -2371,6 +2444,7 @@ public class Blocks{
             new DrawRegion("-cap"),
             new DrawLiquidRegion()
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         differentialGenerator = new ConsumeGenerator("differential-generator"){{
@@ -2388,6 +2462,7 @@ public class Blocks{
 
             consumeItem(Items.pyratite);
             consumeLiquid(Liquids.cryofluid, 0.1f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         rtgGenerator = new ConsumeGenerator("rtg-generator"){{
@@ -2400,17 +2475,20 @@ public class Blocks{
 
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
             consume(new ConsumeItemRadioactive());
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         solarPanel = new SolarGenerator("solar-panel"){{
             requirements(Category.power, with(Items.lead, 10, Items.silicon, 15));
             powerProduction = 0.1f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         largeSolarPanel = new SolarGenerator("solar-panel-large"){{
             requirements(Category.power, with(Items.lead, 80, Items.silicon, 110, Items.phaseFabric, 15));
             size = 3;
             powerProduction = 1.6f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         thoriumReactor = new NuclearReactor("thorium-reactor"){{
@@ -2425,6 +2503,7 @@ public class Blocks{
 
             consumeItem(Items.thorium);
             consumeLiquid(Liquids.cryofluid, heating / coolantPower).update(false);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         impactReactor = new ImpactReactor("impact-reactor"){{
@@ -2440,6 +2519,7 @@ public class Blocks{
             consumePower(25f);
             consumeItem(Items.blastCompound);
             consumeLiquid(Liquids.cryofluid, 0.25f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //erekir
@@ -2667,6 +2747,7 @@ public class Blocks{
             researchCost = with(Items.copper, 10);
 
             consumeLiquid(Liquids.water, 0.05f).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         pneumaticDrill = new Drill("pneumatic-drill"){{
@@ -2676,6 +2757,7 @@ public class Blocks{
             size = 2;
 
             consumeLiquid(Liquids.water, 0.06f).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         laserDrill = new Drill("laser-drill"){{
@@ -2689,6 +2771,7 @@ public class Blocks{
 
             consumePower(1.10f);
             consumeLiquid(Liquids.water, 0.08f).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         blastDrill = new Drill("blast-drill"){{
@@ -2710,6 +2793,7 @@ public class Blocks{
 
             consumePower(3f);
             consumeLiquid(Liquids.water, 0.1f).boost();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         waterExtractor = new SolidPump("water-extractor"){{
@@ -2723,6 +2807,7 @@ public class Blocks{
             envRequired |= Env.groundWater;
 
             consumePower(1.5f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         cultivator = new AttributeCrafter("cultivator"){{
@@ -2750,6 +2835,7 @@ public class Blocks{
 
             consumePower(80f / 60f);
             consumeLiquid(Liquids.water, 18f / 60f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         oilExtractor = new Fracker("oil-extractor"){{
@@ -2767,6 +2853,7 @@ public class Blocks{
             consumeItem(Items.sand);
             consumePower(3f);
             consumeLiquid(Liquids.water, 0.15f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         ventCondenser = new AttributeCrafter("vent-condenser"){{
@@ -2913,6 +3000,7 @@ public class Blocks{
 
             unitCapModifier = 16;
             researchCostMultiplier = 0.07f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         coreNucleus = new CoreBlock("core-nucleus"){{
@@ -2926,6 +3014,7 @@ public class Blocks{
 
             unitCapModifier = 24;
             researchCostMultiplier = 0.11f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         coreBastion = new CoreBlock("core-bastion"){{
@@ -2991,6 +3080,7 @@ public class Blocks{
             size = 2;
             itemCapacity = 300;
             scaledHealth = 55;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         vault = new StorageBlock("vault"){{
@@ -2998,6 +3088,7 @@ public class Blocks{
             size = 3;
             itemCapacity = 1000;
             scaledHealth = 55;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //TODO move tabs?
@@ -3005,6 +3096,7 @@ public class Blocks{
             requirements(Category.effect, with(Items.titanium, 25, Items.silicon, 30));
             speed = 60f / 11f;
             group = BlockGroup.transportation;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         reinforcedContainer = new StorageBlock("reinforced-container"){{
@@ -3080,6 +3172,7 @@ public class Blocks{
             researchCostMultiplier = 0.05f;
 
             limitRange();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         scatter = new ItemTurret("scatter"){{
@@ -3157,6 +3250,7 @@ public class Blocks{
             researchCostMultiplier = 0.05f;
 
             limitRange(2);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         scorch = new ItemTurret("scorch"){{
@@ -3201,6 +3295,7 @@ public class Blocks{
             health = 400;
             shootSound = Sounds.flame;
             coolant = consumeCoolant(0.1f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         hail = new ItemTurret("hail"){{
@@ -3253,6 +3348,7 @@ public class Blocks{
             shootSound = Sounds.bang;
             coolant = consumeCoolant(0.1f);
             limitRange(0f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         wave = new LiquidTurret("wave"){{
@@ -3285,6 +3381,7 @@ public class Blocks{
             range = 110f;
             scaledHealth = 250;
             flags = EnumSet.of(BlockFlag.turret, BlockFlag.extinguisher);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //TODO these may work in space, but what's the point?
@@ -3325,6 +3422,7 @@ public class Blocks{
                 ammoMultiplier = 1f;
                 pierceCap = 4;
             }};
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         arc = new PowerTurret("arc"){{
@@ -3363,6 +3461,7 @@ public class Blocks{
             shootSound = Sounds.spark;
             consumePower(3.3f);
             coolant = consumeCoolant(0.1f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         parallax = new TractorBeamTurret("parallax"){{
@@ -3378,6 +3477,7 @@ public class Blocks{
             rotateSpeed = 10;
 
             consumePower(3f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         swarmer = new ItemTurret("swarmer"){{
@@ -3447,6 +3547,7 @@ public class Blocks{
 
             limitRange(5f);
             coolant = consumeCoolant(0.3f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         salvo = new ItemTurret("salvo"){{
@@ -3529,6 +3630,7 @@ public class Blocks{
 
             limitRange();
             coolant = consumeCoolant(0.2f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         segment = new PointDefenseTurret("segment"){{
@@ -3543,6 +3645,7 @@ public class Blocks{
             bulletDamage = 30f;
             reload = 8f;
             envEnabled |= Env.space;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         tsunami = new LiquidTurret("tsunami"){{
@@ -3607,6 +3710,7 @@ public class Blocks{
             range = 190f;
             scaledHealth = 250;
             flags = EnumSet.of(BlockFlag.turret, BlockFlag.extinguisher);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         fuse = new ItemTurret("fuse"){{
@@ -3645,6 +3749,7 @@ public class Blocks{
                     shootEffect = smokeEffect = Fx.thoriumShoot;
                 }}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         ripple = new ItemTurret("ripple"){{
@@ -3741,6 +3846,7 @@ public class Blocks{
 
             scaledHealth = 130;
             shootSound = Sounds.artillery;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         cyclone = new ItemTurret("cyclone"){{
@@ -3846,6 +3952,7 @@ public class Blocks{
 
             scaledHealth = 145;
             limitRange();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         foreshadow = new ItemTurret("foreshadow"){{
@@ -3890,6 +3997,7 @@ public class Blocks{
 
             coolant = consumeCoolant(1f);
             consumePower(10f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         spectre = new ItemTurret("spectre"){{
@@ -3948,6 +4056,7 @@ public class Blocks{
             coolant = consumeCoolant(1f);
 
             limitRange();
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         meltdown = new LaserTurret("meltdown"){{
@@ -3983,6 +4092,7 @@ public class Blocks{
             scaledHealth = 200;
             coolant = consumeCoolant(0.5f);
             consumePower(17f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         breach = new ItemTurret("breach"){{
@@ -5321,6 +5431,7 @@ public class Blocks{
             );
             size = 3;
             consumePower(1.2f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         airFactory = new UnitFactory("air-factory"){{
@@ -5331,6 +5442,7 @@ public class Blocks{
             );
             size = 3;
             consumePower(1.2f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         navalFactory = new UnitFactory("naval-factory"){{
@@ -5342,6 +5454,7 @@ public class Blocks{
             size = 3;
             consumePower(1.2f);
             floating = true;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         additiveReconstructor = new Reconstructor("additive-reconstructor"){{
@@ -5362,6 +5475,7 @@ public class Blocks{
                 new UnitType[]{UnitTypes.risso, UnitTypes.minke},
                 new UnitType[]{UnitTypes.retusa, UnitTypes.oxynoe}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         multiplicativeReconstructor = new Reconstructor("multiplicative-reconstructor"){{
@@ -5382,6 +5496,7 @@ public class Blocks{
                 new UnitType[]{UnitTypes.atrax, UnitTypes.spiroct},
                 new UnitType[]{UnitTypes.oxynoe, UnitTypes.cyerce}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         exponentialReconstructor = new Reconstructor("exponential-reconstructor"){{
@@ -5404,6 +5519,7 @@ public class Blocks{
                 new UnitType[]{UnitTypes.quasar, UnitTypes.vela},
                 new UnitType[]{UnitTypes.cyerce, UnitTypes.aegires}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         tetrativeReconstructor = new Reconstructor("tetrative-reconstructor"){{
@@ -5426,6 +5542,7 @@ public class Blocks{
                 new UnitType[]{UnitTypes.vela, UnitTypes.corvus},
                 new UnitType[]{UnitTypes.aegires, UnitTypes.navanax}
             );
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         repairPoint = new RepairTurret("repair-point"){{
@@ -5435,6 +5552,7 @@ public class Blocks{
             beamWidth = 0.73f;
             powerUse = 1f;
             pulseRadius = 5f;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         repairTurret = new RepairTurret("repair-turret"){{
@@ -5449,6 +5567,7 @@ public class Blocks{
             coolantUse = 0.16f;
             coolantMultiplier = 1.6f;
             acceptCoolant = true;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -5632,11 +5751,13 @@ public class Blocks{
         payloadConveyor = new PayloadConveyor("payload-conveyor"){{
             requirements(Category.units, with(Items.graphite, 10, Items.copper, 10));
             canOverdrive = false;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         payloadRouter = new PayloadRouter("payload-router"){{
             requirements(Category.units, with(Items.graphite, 15, Items.copper, 10));
             canOverdrive = false;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         reinforcedPayloadConveyor = new PayloadConveyor("reinforced-payload-conveyor"){{
@@ -5805,6 +5926,7 @@ public class Blocks{
             brightness = 0.75f;
             radius = 140f;
             consumePower(0.05f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         //endregion
@@ -5834,6 +5956,7 @@ public class Blocks{
             launchTime = 60f * 20;
             hasPower = true;
             consumePower(4f);
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         interplanetaryAccelerator = new Accelerator("interplanetary-accelerator"){{
@@ -5851,10 +5974,12 @@ public class Blocks{
 
         message = new MessageBlock("message"){{
             requirements(Category.logic, with(Items.graphite, 5, Items.copper, 5));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         switchBlock = new SwitchBlock("switch"){{
             requirements(Category.logic, with(Items.graphite, 5, Items.copper, 5));
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         microProcessor = new LogicBlock("micro-processor"){{
@@ -5862,6 +5987,7 @@ public class Blocks{
 
             instructionsPerTick = 2;
             size = 1;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         logicProcessor = new LogicBlock("logic-processor"){{
@@ -5870,6 +5996,7 @@ public class Blocks{
             instructionsPerTick = 8;
             range = 8 * 22;
             size = 2;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         hyperProcessor = new LogicBlock("hyper-processor"){{
@@ -5881,12 +6008,14 @@ public class Blocks{
             instructionsPerTick = 25;
             range = 8 * 42;
             size = 3;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         memoryCell = new MemoryBlock("memory-cell"){{
             requirements(Category.logic, with(Items.graphite, 30, Items.silicon, 30, Items.copper, 30));
 
             memoryCapacity = 64;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         memoryBank = new MemoryBlock("memory-bank"){{
@@ -5894,6 +6023,7 @@ public class Blocks{
 
             memoryCapacity = 512;
             size = 2;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         logicDisplay = new LogicDisplay("logic-display"){{
@@ -5902,6 +6032,7 @@ public class Blocks{
             displaySize = 80;
 
             size = 3;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         largeLogicDisplay = new LogicDisplay("large-logic-display"){{
@@ -5910,6 +6041,7 @@ public class Blocks{
             displaySize = 176;
 
             size = 6;
+            fromPlanet = PlanetName.SERPULO;
         }};
 
         canvas = new CanvasBlock("canvas"){{

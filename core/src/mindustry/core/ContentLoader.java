@@ -13,6 +13,7 @@ import mindustry.entities.bullet.*;
 import mindustry.game.EventType.*;
 import mindustry.io.*;
 import mindustry.mod.Mods.*;
+import mindustry.randomizer.SerpuloTechTreeRandomizer;
 import mindustry.type.*;
 import mindustry.world.*;
 
@@ -54,7 +55,9 @@ public class ContentLoader{
         Weathers.load();
         Planets.load();
         SectorPresets.load();
-        SerpuloTechTree.load();
+        SerpuloTechTreeRandomizer serpuloRandomizer = new SerpuloTechTreeRandomizer();
+        serpuloRandomizer.loadTechBlocks();
+        serpuloRandomizer.load();
         ErekirTechTree.load();
     }
 

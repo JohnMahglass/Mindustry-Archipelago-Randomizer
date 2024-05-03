@@ -1,10 +1,135 @@
 package mindustry.randomizer;
 
+import arc.struct.Seq;
+import mindustry.Vars;
 import mindustry.content.Blocks;
+import mindustry.content.Items;
+import mindustry.content.Liquids;
+import mindustry.content.Planets;
+import mindustry.content.SerpuloTechTree;
+import mindustry.content.UnitTypes;
+import mindustry.ctype.ContentType;
+import mindustry.ctype.UnlockableContent;
+import mindustry.game.Objectives;
 import mindustry.world.Block;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static mindustry.content.Blocks.*;
+import static mindustry.content.Blocks.additiveReconstructor;
+import static mindustry.content.Blocks.airFactory;
+import static mindustry.content.Blocks.arc;
+import static mindustry.content.Blocks.coalCentrifuge;
+import static mindustry.content.Blocks.combustionGenerator;
+import static mindustry.content.Blocks.conduit;
+import static mindustry.content.Blocks.coreFoundation;
+import static mindustry.content.Blocks.coreNucleus;
+import static mindustry.content.Blocks.cultivator;
+import static mindustry.content.Blocks.cyclone;
+import static mindustry.content.Blocks.door;
+import static mindustry.content.Blocks.exponentialReconstructor;
+import static mindustry.content.Blocks.foreshadow;
+import static mindustry.content.Blocks.fuse;
+import static mindustry.content.Blocks.graphitePress;
+import static mindustry.content.Blocks.groundFactory;
+import static mindustry.content.Blocks.hail;
+import static mindustry.content.Blocks.impactReactor;
+import static mindustry.content.Blocks.junction;
+import static mindustry.content.Blocks.kiln;
+import static mindustry.content.Blocks.lancer;
+import static mindustry.content.Blocks.laserDrill;
+import static mindustry.content.Blocks.launchPad;
+import static mindustry.content.Blocks.massDriver;
+import static mindustry.content.Blocks.mechanicalPump;
+import static mindustry.content.Blocks.meltdown;
+import static mindustry.content.Blocks.mender;
+import static mindustry.content.Blocks.multiplicativeReconstructor;
+import static mindustry.content.Blocks.navalFactory;
+import static mindustry.content.Blocks.parallax;
+import static mindustry.content.Blocks.payloadConveyor;
+import static mindustry.content.Blocks.phaseWall;
+import static mindustry.content.Blocks.phaseWallLarge;
+import static mindustry.content.Blocks.plastaniumWallLarge;
+import static mindustry.content.Blocks.pneumaticDrill;
+import static mindustry.content.Blocks.powerNode;
+import static mindustry.content.Blocks.ripple;
+import static mindustry.content.Blocks.router;
+import static mindustry.content.Blocks.salvo;
+import static mindustry.content.Blocks.scatter;
+import static mindustry.content.Blocks.scorch;
+import static mindustry.content.Blocks.segment;
+import static mindustry.content.Blocks.shockMine;
+import static mindustry.content.Blocks.siliconSmelter;
+import static mindustry.content.Blocks.spectre;
+import static mindustry.content.Blocks.sporePress;
+import static mindustry.content.Blocks.steamGenerator;
+import static mindustry.content.Blocks.surgeWall;
+import static mindustry.content.Blocks.surgeWallLarge;
+import static mindustry.content.Blocks.swarmer;
+import static mindustry.content.Blocks.tetrativeReconstructor;
+import static mindustry.content.Blocks.thermalGenerator;
+import static mindustry.content.Blocks.thoriumReactor;
+import static mindustry.content.Blocks.thoriumWall;
+import static mindustry.content.Blocks.thoriumWallLarge;
+import static mindustry.content.Blocks.tsunami;
+import static mindustry.content.Blocks.wave;
+import static mindustry.content.SectorPresets.biomassFacility;
+import static mindustry.content.SectorPresets.coastline;
+import static mindustry.content.SectorPresets.craters;
+import static mindustry.content.SectorPresets.desolateRift;
+import static mindustry.content.SectorPresets.extractionOutpost;
+import static mindustry.content.SectorPresets.frozenForest;
+import static mindustry.content.SectorPresets.fungalPass;
+import static mindustry.content.SectorPresets.groundZero;
+import static mindustry.content.SectorPresets.impact0078;
+import static mindustry.content.SectorPresets.navalFortress;
+import static mindustry.content.SectorPresets.nuclearComplex;
+import static mindustry.content.SectorPresets.overgrowth;
+import static mindustry.content.SectorPresets.planetaryTerminal;
+import static mindustry.content.SectorPresets.ruinousShores;
+import static mindustry.content.SectorPresets.saltFlats;
+import static mindustry.content.SectorPresets.stainedMountains;
+import static mindustry.content.SectorPresets.tarFields;
+import static mindustry.content.SectorPresets.windsweptIslands;
+import static mindustry.content.TechTree.node;
+import static mindustry.content.TechTree.nodeProduce;
+import static mindustry.content.TechTree.nodeRoot;
+import static mindustry.content.UnitTypes.aegires;
+import static mindustry.content.UnitTypes.antumbra;
+import static mindustry.content.UnitTypes.arkyid;
+import static mindustry.content.UnitTypes.atrax;
+import static mindustry.content.UnitTypes.bryde;
+import static mindustry.content.UnitTypes.corvus;
+import static mindustry.content.UnitTypes.crawler;
+import static mindustry.content.UnitTypes.cyerce;
+import static mindustry.content.UnitTypes.dagger;
+import static mindustry.content.UnitTypes.eclipse;
+import static mindustry.content.UnitTypes.flare;
+import static mindustry.content.UnitTypes.fortress;
+import static mindustry.content.UnitTypes.horizon;
+import static mindustry.content.UnitTypes.mace;
+import static mindustry.content.UnitTypes.mega;
+import static mindustry.content.UnitTypes.minke;
+import static mindustry.content.UnitTypes.mono;
+import static mindustry.content.UnitTypes.navanax;
+import static mindustry.content.UnitTypes.nova;
+import static mindustry.content.UnitTypes.oct;
+import static mindustry.content.UnitTypes.omura;
+import static mindustry.content.UnitTypes.oxynoe;
+import static mindustry.content.UnitTypes.poly;
+import static mindustry.content.UnitTypes.pulsar;
+import static mindustry.content.UnitTypes.quad;
+import static mindustry.content.UnitTypes.quasar;
+import static mindustry.content.UnitTypes.reign;
+import static mindustry.content.UnitTypes.retusa;
+import static mindustry.content.UnitTypes.risso;
+import static mindustry.content.UnitTypes.scepter;
+import static mindustry.content.UnitTypes.sei;
+import static mindustry.content.UnitTypes.spiroct;
+import static mindustry.content.UnitTypes.toxopid;
+import static mindustry.content.UnitTypes.vela;
+import static mindustry.content.UnitTypes.zenith;
 
 /**
  * Class for the initialisation and randomization of Serpulo's tech tree
@@ -16,12 +141,648 @@ public class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
 
     @Override
     public void load() {
+        Planets.serpulo.techTree = nodeRoot("serpulo", coreShard, () -> {
 
+            node(planetTechBlocks.remove(0), () -> {
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(extractionOutpost)), () -> {
+                            //no longer necessary to beat the campaign
+                            //node(interplanetaryAccelerator, Seq.with(new SectorComplete(planetaryTerminal)), () -> {
+
+                            //});
+                        });
+
+                        node(planetTechBlocks.remove(0));
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0));
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0));
+                            });
+                        });
+                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(biomassFacility)), () -> {
+                            node(planetTechBlocks.remove(0));
+                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(stainedMountains)), () -> {
+
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            node(planetTechBlocks.remove(0), () -> {
+                node(planetTechBlocks.remove(0), () -> {
+
+                });
+            });
+
+            node(planetTechBlocks.remove(0), () -> {
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0));
+                                });
+
+                                node(planetTechBlocks.remove(0));
+
+                                node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(windsweptIslands)), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(frozenForest)), () -> {
+                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(biomassFacility)), () -> {
+
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(nuclearComplex)), () -> {
+
+                            });
+
+                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(saltFlats)), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+                        });
+                    });
+
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+
+                        });
+                    });
+
+                    node(planetTechBlocks.remove(0), () -> {
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+
+                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(windsweptIslands)), () -> {
+                                node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(tarFields)), () -> {
+
+                                });
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+
+                                        node(planetTechBlocks.remove(0), () -> {
+                                            node(planetTechBlocks.remove(0), () -> {
+
+                                            });
+                                        });
+
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+                                });
+                            });
+                        });
+
+                        //logic disabled until further notice
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+                                });
+
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+
+                        });
+                    });
+                });
+
+
+                node(planetTechBlocks.remove(0), Seq.with(new Objectives.Research(Items.coal)), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(impact0078)), () -> {
+                                    node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(impact0078)), () -> {
+                                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(impact0078)), () -> {
+
+                                        });
+                                    });
+                                });
+
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), Seq.with(new Objectives.Research(Liquids.cryofluid)), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+                                });
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+
+                            });
+                        });
+                    });
+                });
+            });
+
+            node(planetTechBlocks.remove(0), () -> {
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0));
+
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0));
+                            });
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0));
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0));
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0));
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(nuclearComplex)), () -> {
+
+                                    });
+                                });
+                            });
+
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+                        });
+                    });
+                });
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+
+                            node(planetTechBlocks.remove(0), () -> {
+
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+
+                            node(planetTechBlocks.remove(0), () -> {
+
+                            });
+                        });
+                    });
+                });
+            });
+
+            node(planetTechBlocks.remove(0), () -> {
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+
+                                });
+                            });
+                        });
+                    });
+
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+
+                node(planetTechBlocks.remove(0), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(ruinousShores)), () -> {
+                        node(planetTechBlocks.remove(0), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+                                node(planetTechBlocks.remove(0), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+
+                                        });
+                                    });
+                                });
+                            });
+
+                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(windsweptIslands)), () -> {
+                                node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(coastline)), () -> {
+                                    node(planetTechBlocks.remove(0), () -> {
+                                        node(planetTechBlocks.remove(0), () -> {
+                                            node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(navalFortress)), () -> {
+
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+
+                node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(biomassFacility)), () -> {
+                    node(planetTechBlocks.remove(0), () -> {
+                        node(planetTechBlocks.remove(0), Seq.with(new Objectives.SectorComplete(overgrowth)), () -> {
+                            node(planetTechBlocks.remove(0), () -> {
+
+                            });
+                        });
+                    });
+                });
+            });
+
+            node(groundZero, () -> {
+                node(frozenForest, Seq.with(
+                        new Objectives.SectorComplete(groundZero),
+                        new Objectives.Research(junction),
+                        new Objectives.Research(router)
+                ), () -> {
+                    node(craters, Seq.with(
+                            new Objectives.SectorComplete(frozenForest),
+                            new Objectives.Research(mender),
+                            new Objectives.Research(combustionGenerator)
+                    ), () -> {
+                        node(ruinousShores, Seq.with(
+                                new Objectives.SectorComplete(craters),
+                                new Objectives.Research(graphitePress),
+                                new Objectives.Research(kiln),
+                                new Objectives.Research(mechanicalPump)
+                        ), () -> {
+                            node(windsweptIslands, Seq.with(
+                                    new Objectives.SectorComplete(ruinousShores),
+                                    new Objectives.Research(pneumaticDrill),
+                                    new Objectives.Research(hail),
+                                    new Objectives.Research(siliconSmelter),
+                                    new Objectives.Research(steamGenerator)
+                            ), () -> {
+                                node(tarFields, Seq.with(
+                                        new Objectives.SectorComplete(windsweptIslands),
+                                        new Objectives.Research(coalCentrifuge),
+                                        new Objectives.Research(conduit),
+                                        new Objectives.Research(wave)
+                                ), () -> {
+                                    node(impact0078, Seq.with(
+                                            new Objectives.SectorComplete(tarFields),
+                                            new Objectives.Research(Items.thorium),
+                                            new Objectives.Research(lancer),
+                                            new Objectives.Research(salvo),
+                                            new Objectives.Research(coreFoundation)
+                                    ), () -> {
+                                        node(desolateRift, Seq.with(
+                                                new Objectives.SectorComplete(impact0078),
+                                                new Objectives.Research(thermalGenerator),
+                                                new Objectives.Research(thoriumReactor),
+                                                new Objectives.Research(coreNucleus)
+                                        ), () -> {
+                                            node(planetaryTerminal, Seq.with(
+                                                    new Objectives.SectorComplete(desolateRift),
+                                                    new Objectives.SectorComplete(nuclearComplex),
+                                                    new Objectives.SectorComplete(overgrowth),
+                                                    new Objectives.SectorComplete(extractionOutpost),
+                                                    new Objectives.SectorComplete(saltFlats),
+                                                    new Objectives.Research(risso),
+                                                    new Objectives.Research(minke),
+                                                    new Objectives.Research(bryde),
+                                                    new Objectives.Research(spectre),
+                                                    new Objectives.Research(launchPad),
+                                                    new Objectives.Research(massDriver),
+                                                    new Objectives.Research(impactReactor),
+                                                    new Objectives.Research(additiveReconstructor),
+                                                    new Objectives.Research(exponentialReconstructor)
+                                            ), () -> {
+
+                                            });
+                                        });
+                                    });
+                                });
+
+                                node(extractionOutpost, Seq.with(
+                                        new Objectives.SectorComplete(stainedMountains),
+                                        new Objectives.SectorComplete(windsweptIslands),
+                                        new Objectives.Research(groundFactory),
+                                        new Objectives.Research(nova),
+                                        new Objectives.Research(airFactory),
+                                        new Objectives.Research(mono)
+                                ), () -> {
+
+                                });
+
+                                node(saltFlats, Seq.with(
+                                        new Objectives.SectorComplete(windsweptIslands),
+                                        new Objectives.Research(groundFactory),
+                                        new Objectives.Research(additiveReconstructor),
+                                        new Objectives.Research(airFactory),
+                                        new Objectives.Research(door)
+                                ), () -> {
+                                    node(coastline, Seq.with(
+                                            new Objectives.SectorComplete(windsweptIslands),
+                                            new Objectives.SectorComplete(saltFlats),
+                                            new Objectives.Research(navalFactory),
+                                            new Objectives.Research(payloadConveyor)
+                                    ), () -> {
+                                        node(navalFortress, Seq.with(
+                                                new Objectives.SectorComplete(coastline),
+                                                new Objectives.SectorComplete(extractionOutpost),
+                                                new Objectives.Research(oxynoe),
+                                                new Objectives.Research(minke),
+                                                new Objectives.Research(cyclone),
+                                                new Objectives.Research(ripple)
+                                        ), () -> {
+
+                                        });
+                                    });
+                                });
+                            });
+                        });
+
+                        node(overgrowth, Seq.with(
+                                new Objectives.SectorComplete(craters),
+                                new Objectives.SectorComplete(fungalPass),
+                                new Objectives.Research(cultivator),
+                                new Objectives.Research(sporePress),
+                                new Objectives.Research(additiveReconstructor),
+                                new Objectives.Research(UnitTypes.mace),
+                                new Objectives.Research(UnitTypes.flare)
+                        ), () -> {
+
+                        });
+                    });
+
+                    node(biomassFacility, Seq.with(
+                            new Objectives.SectorComplete(frozenForest),
+                            new Objectives.Research(powerNode),
+                            new Objectives.Research(steamGenerator),
+                            new Objectives.Research(scatter),
+                            new Objectives.Research(graphitePress)
+                    ), () -> {
+                        node(stainedMountains, Seq.with(
+                                new Objectives.SectorComplete(biomassFacility),
+                                new Objectives.Research(pneumaticDrill),
+                                new Objectives.Research(siliconSmelter)
+                        ), () -> {
+                            node(fungalPass, Seq.with(
+                                    new Objectives.SectorComplete(stainedMountains),
+                                    new Objectives.Research(groundFactory),
+                                    new Objectives.Research(door)
+                            ), () -> {
+                                node(nuclearComplex, Seq.with(
+                                        new Objectives.SectorComplete(fungalPass),
+                                        new Objectives.Research(thermalGenerator),
+                                        new Objectives.Research(laserDrill),
+                                        new Objectives.Research(Items.plastanium),
+                                        new Objectives.Research(swarmer)
+                                ), () -> {
+
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            nodeProduce(Items.copper, () -> {
+                nodeProduce(Liquids.water, () -> {
+
+                });
+
+                nodeProduce(Items.lead, () -> {
+                    nodeProduce(Items.titanium, () -> {
+                        nodeProduce(Liquids.cryofluid, () -> {
+
+                        });
+
+                        nodeProduce(Items.thorium, () -> {
+                            nodeProduce(Items.surgeAlloy, () -> {
+
+                            });
+
+                            nodeProduce(Items.phaseFabric, () -> {
+
+                            });
+                        });
+                    });
+
+                    nodeProduce(Items.metaglass, () -> {
+
+                    });
+                });
+
+                nodeProduce(Items.sand, () -> {
+                    nodeProduce(Items.scrap, () -> {
+                        nodeProduce(Liquids.slag, () -> {
+
+                        });
+                    });
+
+                    nodeProduce(Items.coal, () -> {
+                        nodeProduce(Items.graphite, () -> {
+                            nodeProduce(Items.silicon, () -> {
+
+                            });
+                        });
+
+                        nodeProduce(Items.pyratite, () -> {
+                            nodeProduce(Items.blastCompound, () -> {
+
+                            });
+                        });
+
+                        nodeProduce(Items.sporePod, () -> {
+
+                        });
+
+                        nodeProduce(Liquids.oil, () -> {
+                            nodeProduce(Items.plastanium, () -> {
+
+                            });
+                        });
+                    });
+                });
+            });
+        });
     }
 
     @Override
     public void loadTechBlocks() {
-
+        Seq<Block> contentList = Vars.content.blocks();
+        for (UnlockableContent content : contentList){
+            if (content.fromPlanet == PlanetName.SERPULO || content.fromPlanet == PlanetName.ALL) {
+                planetTechBlocks.add(content);
+            }
+        }
     }
 
     public SerpuloTechTreeRandomizer() {

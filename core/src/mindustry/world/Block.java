@@ -25,6 +25,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.graphics.MultiPacker.*;
 import mindustry.logic.*;
+import mindustry.randomizer.PlanetName;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.*;
@@ -39,6 +40,7 @@ import java.util.*;
 import static mindustry.Vars.*;
 
 public class Block extends UnlockableContent implements Senseable{
+
     /** If true, buildings have an ItemModule. */
     public boolean hasItems;
     /** If true, buildings have a LiquidModule. */
