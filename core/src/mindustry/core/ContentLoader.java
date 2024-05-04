@@ -56,7 +56,7 @@ public class ContentLoader{
         Planets.load();
         SectorPresets.load();
         SerpuloTechTreeRandomizer serpuloRandomizer = new SerpuloTechTreeRandomizer();
-        serpuloRandomizer.loadTechBlocks();
+        serpuloRandomizer.loadTechUnlockableContent();
         serpuloRandomizer.load();
         ErekirTechTree.load();
     }

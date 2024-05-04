@@ -20,7 +20,12 @@ public class ErekirTechTreeRandomizer extends TechTreeRandomizer {
     }
 
     @Override
-    public void loadTechBlocks() {
+    public void loadTechUnlockableContent() {
+
+    }
+
+    @Override
+    public void loadStarterTechUnlockableContent() {
 
     }
 

@@ -425,7 +425,7 @@ public class UnitType extends UnlockableContent implements Senseable{
     public float lifetime = 60f * 5f;
     /** ticks that must pass before this missile starts homing. */
     public float homingDelay = 10f;
-    /** the planet which this unit can be found */
+    /** the planet of the unit */
     public PlanetName fromPlanet;
 
     //REGIONS

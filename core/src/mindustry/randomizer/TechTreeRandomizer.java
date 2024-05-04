@@ -2,10 +2,8 @@ package mindustry.randomizer;
 
 import arc.struct.Seq;
 import mindustry.ctype.UnlockableContent;
-import mindustry.world.Block;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Random;
 
 /**
  * Class for the initialisation and randomization of a planet's tech tree
@@ -15,21 +13,38 @@ import java.util.Collection;
  */
 public abstract class TechTreeRandomizer {
 
-    /**
-     * Contain all blocks that can be researched through the planet's tech tree
-     */
-    public Seq<UnlockableContent> planetTechBlocks;
+    /** Seed for randomization, this could be generated when the archipelago world is made? */
+    public long SEED = 1234567891;
 
     /**
-     * Contain all blocks that are required to clear the tutorial of the planet
+     * Contain all UnlockableContent that can be researched through the planet's tech tree
      */
-    public Seq<UnlockableContent> starterTechBlocks;
+    public Seq<UnlockableContent> planetTechUnlockableContent;
 
     /**
-     * Randomize the blocks for planetTechBlocks
+     * Contain all UnlockableContent that are required to clear the tutorial of the planet
      */
-    public void randomizePlanetTechBlocks() {
-        //Need to think of the logic for randomization.
+    public Seq<UnlockableContent> starterTechUnlockableContent;
+
+    /**
+     * Contain UnlockableContent classified as tier 1 for randomization
+     */
+    public Seq<UnlockableContent> tier1TechUnlockableContent;
+    /**
+     * Contain UnlockableContent classified as tier 2 for randomization
+     */
+    public Seq<UnlockableContent> tier2TechUnlockableContent;
+    /**
+     * Contain UnlockableContent classified as tier 3 for randomization
+     */
+    public Seq<UnlockableContent> tier3TechUnlockableContent;
+
+    /**
+     * Randomize the UnlockableContent for randomizePlanetTechUnlockableContent
+     */
+    public void randomizePlanetTechUnlockableContent() {
+        Random random = new Random(SEED);
+
     }
 
     /**
@@ -37,12 +52,19 @@ public abstract class TechTreeRandomizer {
      */
     public abstract void load();
 
-    public abstract void loadTechBlocks();
+    public abstract void loadTechUnlockableContent();
+
+    public abstract void loadStarterTechUnlockableContent();
 
     public TechTreeRandomizer() {
-        planetTechBlocks = new Seq<>();
-        starterTechBlocks = new Seq<>();
-        loadTechBlocks();
-        randomizePlanetTechBlocks();
+        planetTechUnlockableContent = new Seq<>();
+        starterTechUnlockableContent = new Seq<>();
+        tier1TechUnlockableContent = new Seq<>();
+        tier2TechUnlockableContent = new Seq<>();
+        tier3TechUnlockableContent = new Seq<>();
+        loadStarterTechUnlockableContent();
+        loadTechUnlockableContent();
+        randomizePlanetTechUnlockableContent();
     }
+
 }
