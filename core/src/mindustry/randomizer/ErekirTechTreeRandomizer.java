@@ -29,7 +29,7 @@ public class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
     }
 
-    public ErekirTechTreeRandomizer() {
-         super();
+    public ErekirTechTreeRandomizer(long seed) {
+         super(seed);
     }
 }

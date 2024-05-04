@@ -13,13 +13,10 @@ import java.util.Random;
  */
 public abstract class TechTreeRandomizer {
 
-    /** Seed for randomization, this could be generated when the archipelago world is made? */
-    public long SEED = 1234567891;
+    public final int SHUFFLE_CYCLE = 100;
 
-    /**
-     * Contain all UnlockableContent that can be researched through the planet's tech tree
-     */
-    public Seq<UnlockableContent> planetTechUnlockableContent;
+    /** Seed for randomization, this could be generated when the archipelago world is made? */
+    public long seed;
 
     /**
      * Contain all UnlockableContent that are required to clear the tutorial of the planet
@@ -43,8 +40,34 @@ public abstract class TechTreeRandomizer {
      * Randomize the UnlockableContent for randomizePlanetTechUnlockableContent
      */
     public void randomizePlanetTechUnlockableContent() {
-        Random random = new Random(SEED);
+        randomizeSequence(tier1TechUnlockableContent, seed);
+        randomizeSequence(tier2TechUnlockableContent, seed);
+        randomizeSequence(tier3TechUnlockableContent, seed);
+    }
 
+    private void randomizeSequence(Seq sequence, long seed){
+        Random random = new Random(seed);
+        /**
+         * Need to shuffle the content using the SEED so that the same randomization can be
+        rebuild each time
+         */
+        int movingElement = 0;
+        int movedElement = 0;
+        for (int i = 0; i <= SHUFFLE_CYCLE; i++) {
+            movingElement = 0;
+            movedElement = 0;
+            while (movingElement == movedElement) {
+                movingElement = random.nextInt(sequence.size) - 1;
+                movedElement = random.nextInt(sequence.size) - 1;
+                if (movingElement < 0) {
+                    movingElement = 0;
+                }
+                if (movedElement < 0) {
+                    movedElement = 0;
+                }
+            }
+            sequence.swap(movingElement, movedElement);
+        }
     }
 
     /**
@@ -56,8 +79,8 @@ public abstract class TechTreeRandomizer {
 
     public abstract void loadStarterTechUnlockableContent();
 
-    public TechTreeRandomizer() {
-        planetTechUnlockableContent = new Seq<>();
+    public TechTreeRandomizer(long seed) {
+        this.seed = seed;
         starterTechUnlockableContent = new Seq<>();
         tier1TechUnlockableContent = new Seq<>();
         tier2TechUnlockableContent = new Seq<>();

@@ -1,14 +1,12 @@
 package mindustry.randomizer;
 
 import arc.struct.Seq;
-import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
-import mindustry.world.Block;
 
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Blocks.additiveReconstructor;
@@ -758,7 +756,7 @@ public class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
      * to help with the randomization. */
     @Override
     public void loadTechUnlockableContent() {
-        //14 tech, if you are adding/removing something update this number 139 / 167
+        //14 tech, if you are adding/removing something update this number
         tier1TechUnlockableContent.add(junction);
         tier1TechUnlockableContent.add(router);
         tier1TechUnlockableContent.add(distributor);
@@ -925,19 +923,6 @@ public class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
         tier3TechUnlockableContent.add(navanax);
         tier3TechUnlockableContent.add(exponentialReconstructor);
         tier3TechUnlockableContent.add(tetrativeReconstructor);
-
-
-        /*
-        Seq<Block> contentList = Vars.content.blocks();
-        for (UnlockableContent content : contentList){
-            if (content.fromPlanet == PlanetName.SERPULO || content.fromPlanet == PlanetName.ALL) {
-                planetTechUnlockableContent.add(content);
-            }
-        }
-        for (UnlockableContent content : starterTechUnlockableContent){
-            planetTechUnlockableContent.remove(content);
-        }
-         */
     }
 
     @Override
@@ -949,7 +934,7 @@ public class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
         starterTechUnlockableContent.add(scatter);
     }
 
-    public SerpuloTechTreeRandomizer() {
-        super();
+    public SerpuloTechTreeRandomizer(long seed) {
+        super(seed);
     }
 }
