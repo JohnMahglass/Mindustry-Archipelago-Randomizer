@@ -13,7 +13,6 @@ import mindustry.content.TechTree.*;
 import mindustry.game.EventType.*;
 import mindustry.graphics.*;
 import mindustry.graphics.MultiPacker.*;
-import mindustry.randomizer.PlanetName;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.meta.*;

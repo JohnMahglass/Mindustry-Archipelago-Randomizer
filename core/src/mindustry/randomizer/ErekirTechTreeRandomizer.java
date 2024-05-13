@@ -1,9 +1,5 @@
 package mindustry.randomizer;
 
-import mindustry.world.Block;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Class for the initialisation and randomization of Erekir' tech tree
@@ -20,16 +16,16 @@ public class ErekirTechTreeRandomizer extends TechTreeRandomizer {
     }
 
     @Override
-    public void loadTechUnlockableContent() {
+    public void loadUnlockableContent() {
 
     }
 
     @Override
-    public void loadStarterTechUnlockableContent() {
+    public void loadStarterUnlockableContent() {
 
     }
 
-    public ErekirTechTreeRandomizer(long seed) {
-         super(seed);
+    public ErekirTechTreeRandomizer() {
+         super();
     }
 }

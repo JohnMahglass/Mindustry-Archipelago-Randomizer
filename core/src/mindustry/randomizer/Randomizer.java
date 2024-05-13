@@ -17,14 +17,6 @@ public class Randomizer {
     public boolean numberedSectorAreLocation;
 
     public void Randomizer(){
-        initialiseDefaultOptions();
-    }
-
-    private void initialiseDefaultOptions() {
-        this.uid = "default";
-        this.campaign = CampainType.SERPULO;
-        tutorialSkip = false;
-        numberedSectorAreLocation = false;
     }
 
 }

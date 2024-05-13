@@ -29,7 +29,6 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.graphics.MultiPacker.*;
 import mindustry.logic.*;
-import mindustry.randomizer.PlanetName;
 import mindustry.type.ammo.*;
 import mindustry.ui.*;
 import mindustry.world.*;

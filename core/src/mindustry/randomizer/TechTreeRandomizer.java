@@ -13,61 +13,20 @@ import java.util.Random;
  */
 public abstract class TechTreeRandomizer {
 
-    public final int SHUFFLE_CYCLE = 100;
-
-    /** Seed for randomization, this could be generated when the archipelago world is made? */
-    public long seed;
-
     /**
      * Contain all UnlockableContent that are required to clear the tutorial of the planet
      */
-    public Seq<UnlockableContent> starterTechUnlockableContent;
+    public Seq<UnlockableContent> starterUnlockableContent;
 
     /**
-     * Contain UnlockableContent classified as tier 1 for randomization
+     * Contain all UnlockableContent from the planet's tech tree
      */
-    public Seq<UnlockableContent> tier1TechUnlockableContent;
-    /**
-     * Contain UnlockableContent classified as tier 2 for randomization
-     */
-    public Seq<UnlockableContent> tier2TechUnlockableContent;
-    /**
-     * Contain UnlockableContent classified as tier 3 for randomization
-     */
-    public Seq<UnlockableContent> tier3TechUnlockableContent;
+    public Seq<UnlockableContent> planetUnlockableContent;
 
     /**
-     * Randomize the UnlockableContent for randomizePlanetTechUnlockableContent
+     * Randomize the UnlockableContent for the planet's tech tree.
      */
-    public void randomizePlanetTechUnlockableContent() {
-        randomizeSequence(tier1TechUnlockableContent, seed);
-        randomizeSequence(tier2TechUnlockableContent, seed);
-        randomizeSequence(tier3TechUnlockableContent, seed);
-    }
-
-    private void randomizeSequence(Seq sequence, long seed){
-        Random random = new Random(seed);
-        /**
-         * Need to shuffle the content using the SEED so that the same randomization can be
-        rebuild each time
-         */
-        int movingElement = 0;
-        int movedElement = 0;
-        for (int i = 0; i <= SHUFFLE_CYCLE; i++) {
-            movingElement = 0;
-            movedElement = 0;
-            while (movingElement == movedElement) {
-                movingElement = random.nextInt(sequence.size) - 1;
-                movedElement = random.nextInt(sequence.size) - 1;
-                if (movingElement < 0) {
-                    movingElement = 0;
-                }
-                if (movedElement < 0) {
-                    movedElement = 0;
-                }
-            }
-            sequence.swap(movingElement, movedElement);
-        }
+    public void randomizePlanetUnlockableContent() {
     }
 
     /**
@@ -75,19 +34,20 @@ public abstract class TechTreeRandomizer {
      */
     public abstract void load();
 
-    public abstract void loadTechUnlockableContent();
+    /*
+     * Load all unlockable content into a list
+     */
+    public abstract void loadUnlockableContent();
 
-    public abstract void loadStarterTechUnlockableContent();
+    /*
+     * Load all unlockable content that are required to skip the tutorial into a list
+     */
+    public abstract void loadStarterUnlockableContent();
 
-    public TechTreeRandomizer(long seed) {
-        this.seed = seed;
-        starterTechUnlockableContent = new Seq<>();
-        tier1TechUnlockableContent = new Seq<>();
-        tier2TechUnlockableContent = new Seq<>();
-        tier3TechUnlockableContent = new Seq<>();
-        loadStarterTechUnlockableContent();
-        loadTechUnlockableContent();
-        randomizePlanetTechUnlockableContent();
+    public TechTreeRandomizer() {
+        loadUnlockableContent();
+        loadStarterUnlockableContent();
+        //randomizePlanetUnlockableContent();
     }
 
 }
