@@ -122,7 +122,7 @@ public class Planets{
             };
         }};
 
-        serpulo = new Planet("AP TEST serpulo", sun, 1f, 3){{
+        serpulo = new Planet("serpulo", sun, 1f, 3){{
             generator = new SerpuloPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);
             cloudMeshLoader = () -> new MultiMesh(
