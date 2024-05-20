@@ -1,6 +1,6 @@
 {
   "tutorialSkip": false,
-  "campainChoice": "serpulo",
+  "campainChoice": 0,
   "numberedSectorAreLocation": false,
   "allowPause": true
 }

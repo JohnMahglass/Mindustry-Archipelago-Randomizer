@@ -554,13 +554,6 @@ public class ResearchDialog extends BaseDialog{
         void unlock(TechNode node){
             node.content.unlock();
 
-            //unlock parent nodes in multiplayer.
-            TechNode parent = node.parent;
-            while(parent != null){
-                parent.content.unlock();
-                parent = parent.parent;
-            }
-
             checkNodes(root);
             hoverNode = null;
             treeLayout();
