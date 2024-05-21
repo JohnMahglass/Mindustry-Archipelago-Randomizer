@@ -7,25 +7,10 @@ package mindustry.randomizer;
  * @author John Mahglass
  * @version 1.0.0 2024-04-30
  */
-public class ErekirTechTreeRandomizer extends TechTreeRandomizer {
+public abstract class ErekirTechTreeRandomizer implements TechTreeRandomizer {
 
-
-    @Override
-    public void load() {
+    public static void load() {
 
     }
 
-    @Override
-    public void loadUnlockableContent() {
-
-    }
-
-    @Override
-    public void loadStarterUnlockableContent() {
-
-    }
-
-    public ErekirTechTreeRandomizer() {
-         super();
-    }
 }

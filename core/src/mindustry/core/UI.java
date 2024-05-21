@@ -25,6 +25,7 @@ import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.logic.*;
+import mindustry.randomizer.APDialog;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 import mindustry.ui.fragments.*;
@@ -67,7 +68,7 @@ public class UI implements ApplicationListener, Loadable{
     public DatabaseDialog database;
     public ContentInfoDialog content;
     public PlanetDialog planet;
-    public ResearchDialog research;
+    public APDialog research;
     public SchematicsDialog schematics;
     public ModsDialog mods;
     public ColorPicker picker;
@@ -206,7 +207,7 @@ public class UI implements ApplicationListener, Loadable{
         maps = new EditorMapsDialog();
         content = new ContentInfoDialog();
         planet = new PlanetDialog();
-        research = new ResearchDialog();
+        research = new APDialog();
         mods = new ModsDialog();
         schematics = new SchematicsDialog();
         logic = new LogicDialog();

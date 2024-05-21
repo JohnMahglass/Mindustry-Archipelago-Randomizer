@@ -25,6 +25,7 @@ import mindustry.maps.Map;
 import mindustry.maps.*;
 import mindustry.mod.*;
 import mindustry.net.*;
+import mindustry.randomizer.Randomizer;
 import mindustry.service.*;
 import mindustry.ui.dialogs.*;
 import mindustry.world.*;
@@ -219,6 +220,7 @@ public class Vars implements Loadable{
     //the main executor will only have at most [cores] number of threads active
     public static ExecutorService mainExecutor = Threads.executor("Main Executor", OS.cores);
 
+    public static Randomizer randomizer;
     public static FileTree tree = new FileTree();
     public static Net net;
     public static ContentLoader content;
@@ -286,6 +288,7 @@ public class Vars implements Loadable{
             Log.info("[Mindustry] Version: @", Version.buildString());
         }
 
+        randomizer = new Randomizer();
         dataDirectory = settings.getDataDirectory();
         screenshotDirectory = dataDirectory.child("screenshots/");
         customMapDirectory = dataDirectory.child("maps/");

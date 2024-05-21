@@ -8,7 +8,9 @@ import arc.graphics.g2d.TextureAtlas.*;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.annotations.Annotations.*;
+import mindustry.content.Blocks;
 import mindustry.content.TechTree.*;
 import mindustry.game.EventType.*;
 import mindustry.graphics.*;
@@ -21,6 +23,16 @@ import static mindustry.Vars.*;
 
 /** Base interface for an unlockable content type. */
 public abstract class UnlockableContent extends MappableContent{
+    /**
+     * Id of the Archipelago location.
+     */
+    public Integer locationId;
+
+    /**
+     * Original name of the node.
+     */
+    public String originalNodeName;
+
     /** Stat storage for this content. Initialized on demand. */
     public Stats stats = new Stats();
     /** Localized, formal name. Never null. Set to internal name if not found in bundle. */
@@ -59,6 +71,8 @@ public abstract class UnlockableContent extends MappableContent{
         this.description = Core.bundle.getOrNull(getContentType() + "." + this.name + ".description");
         this.details = Core.bundle.getOrNull(getContentType() + "." + this.name + ".details");
         this.unlocked = Core.settings != null && Core.settings.getBool(this.name + "-unlocked", false);
+        this.locationId = null;
+        this.originalNodeName = null;
     }
 
     @Override
@@ -183,6 +197,19 @@ public abstract class UnlockableContent extends MappableContent{
 
             onUnlock();
             Events.fire(new UnlockEvent(this));
+
+            //Notify Multiworld
+            if (locationId != null && originalNodeName != null) {
+                randomizer.locationChecked(locationId, originalNodeName);
+            }
+        }
+    }
+
+    /** Unlocks this content from the randomizer. */
+    public void randomizerUnlock(){
+        if(!unlocked()){
+            unlocked = true;
+            Core.settings.put(name + "-unlocked", true);
         }
     }
 
@@ -222,5 +249,25 @@ public abstract class UnlockableContent extends MappableContent{
 
     public boolean locked(){
         return !unlocked();
+    }
+
+    protected void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    protected void setOriginalNodeName(String originalNodeName) {
+        this.originalNodeName = originalNodeName;
+    }
+
+    /**
+     * Return true if AP item attributes are initialized.
+     * @return If the content is an AP item.
+     */
+    public boolean isApItem(){
+        boolean isApItem = false;
+        if (locationId != null && originalNodeName != null) {
+            isApItem = true;
+        }
+        return isApItem;
     }
 }
