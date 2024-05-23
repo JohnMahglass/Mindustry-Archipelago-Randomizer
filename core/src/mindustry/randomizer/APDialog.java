@@ -54,7 +54,6 @@ import mindustry.ui.dialogs.BaseDialog;
 import mindustry.ui.layout.BranchTreeLayout;
 import mindustry.ui.layout.TreeLayout;
 
-import java.io.Console;
 import java.util.Arrays;
 
 import static mindustry.Vars.content;

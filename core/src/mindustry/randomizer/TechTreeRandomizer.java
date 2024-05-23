@@ -1,10 +1,5 @@
 package mindustry.randomizer;
 
-import arc.struct.Seq;
-import mindustry.ctype.UnlockableContent;
-
-import java.util.Random;
-
 /**
  * Interface for a planet's randomized tech tree.
  *
