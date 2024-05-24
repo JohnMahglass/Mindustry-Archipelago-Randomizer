@@ -106,11 +106,11 @@ public class Randomizer {
      * Initialize the randomizer's list of item depending on the selected campaign
      * @param campaign The selected campaign.
      */
-    public void initialize(CampaignType campaign) {
-        switch (campaign) {
+    public void initialize() {
+        switch (this.campaign) {
             case SERPULO:
                 initializeSerpuloItems();
-                placeItemsIntoLocations();
+                //placeItemsIntoLocations();
                 break;
             case EREKIR:
                 initializeErekirItems();
