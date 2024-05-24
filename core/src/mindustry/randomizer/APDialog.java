@@ -66,7 +66,7 @@ import static mindustry.gen.Tex.buttonDown;
 import static mindustry.gen.Tex.buttonOver;
 
 /**
- * APDialog
+ * APDialog, this class is meant to replace ResearchDialog.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-05-20

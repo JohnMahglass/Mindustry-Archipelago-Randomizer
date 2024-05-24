@@ -6,15 +6,12 @@ import mindustry.content.Liquids;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
-import mindustry.game.Objectives;
-import mindustry.type.Sector;
-import mindustry.type.SectorPreset;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Randomizer
+ * Randomizer for Archipelago multiworld randomizer.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-05-12
@@ -22,9 +19,9 @@ import java.util.Map;
 public class Randomizer {
 
     /**
-     * The campaign type.
+     * Contains the options of the generated game.
      */
-    public CampaignType campaign;
+    public MindustryOptions options;
 
     /**
      * All UnlockableContent with their matching Id
@@ -38,13 +35,18 @@ public class Randomizer {
 
     /**
      * Unlock a UnlockableContent.
-     * @param content The content to unlock.
      */
-    public void unlock(int id, UnlockableContent content){
+    public void unlock(int id){
+        UnlockableContent content = getUnlockableContent(id);
         unlockedItems.put(id, content);
         content.randomizerUnlock();
     }
 
+    /**
+     * Checks whether the plays has received this item.
+     * @param id The Id of the item to be checked.
+     * @return Return True if the player has this item.
+     */
     public boolean hasItem(int id){
         boolean itemReceived = false;
         if (unlockedItems.get(id) != null) {
@@ -54,12 +56,15 @@ public class Randomizer {
     }
 
     /**
-     * Method not implemented
-     * @param locationId
-     * @param itemId
+     * Forward the check to Archipelago, if the item is a Mindustry item, unlock it.
+     * @param locationId The Id of the location
+     * @param itemId The itemId that is contained in the location
      */
     public void locationChecked(int locationId, int itemId){
-        //Method not implemented
+        if (itemId >= Shared.MINDUSTRY_BASE_ID && itemId <= Shared.MINDUSTRY_BASE_ID + 1000) {
+            unlock(itemId);
+        }
+        //send the check to archipelago
     }
 
     /**
@@ -75,7 +80,7 @@ public class Randomizer {
      * Constructor for Randomizer
      */
     public Randomizer(){
-        this.campaign = CampaignType.SERPULO;
+        this.options = new MindustryOptions();
         this.items = new HashMap<Integer, UnlockableContent>();
         this.unlockedItems  = new HashMap<Integer, UnlockableContent>();
     }
@@ -104,10 +109,9 @@ public class Randomizer {
 
     /**
      * Initialize the randomizer's list of item depending on the selected campaign
-     * @param campaign The selected campaign.
      */
     public void initialize() {
-        switch (this.campaign) {
+        switch (options.getCampaignChoice()) {
             case SERPULO:
                 initializeSerpuloItems();
                 //placeItemsIntoLocations();
@@ -131,6 +135,10 @@ public class Randomizer {
      */
     private void placeItemsIntoLocations(int locationId, int itemId) {
         //Method not implemented
+    }
+
+    private UnlockableContent getUnlockableContent(int id) {
+        return items.get(id);
     }
 
     /**
