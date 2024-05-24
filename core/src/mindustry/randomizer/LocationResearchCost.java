@@ -72,4 +72,19 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    public static ItemStack[] req6Item (Item item1, int amount1, Item item2, int amount2,
+                                        Item item3, int amount3, Item item4, int amount4,
+                                        Item item5, int amount5, Item item6, int amount6){
+        ItemStack[] totalResearchCost = new ItemStack[6];
+
+        totalResearchCost[0] = new ItemStack(item1, amount1);
+        totalResearchCost[1] = new ItemStack(item2, amount2);
+        totalResearchCost[2] = new ItemStack(item3, amount3);
+        totalResearchCost[3] = new ItemStack(item4, amount4);
+        totalResearchCost[4] = new ItemStack(item5, amount5);
+        totalResearchCost[5] = new ItemStack(item6, amount6);
+
+        return totalResearchCost;
+    }
+
 }

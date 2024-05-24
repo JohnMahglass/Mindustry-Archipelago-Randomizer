@@ -56,8 +56,7 @@ public class ContentLoader{
         Weathers.load();
         Planets.load();
         SectorPresets.load();
-        //SerpuloTechTreeRandomizer.load();
-        SerpuloTechTree.load();
+        SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
     }
 
