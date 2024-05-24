@@ -56,12 +56,17 @@ public class Randomizer {
     /**
      * Method not implemented
      * @param locationId
-     * @param origialNodeName
+     * @param itemId
      */
-    public void locationChecked(int locationId, String origialNodeName){
+    public void locationChecked(int locationId, int itemId){
         //Method not implemented
     }
 
+    /**
+     * Check if the item is a sector
+     * @param id The Id of the item
+     * @return Return True if the item is a sector
+     */
     public boolean isSector(int id){
         return (id >= Shared.MINDUSTRY_BASE_ID + 166 && id <= Shared.MINDUSTRY_BASE_ID + 182);
     }
@@ -101,10 +106,11 @@ public class Randomizer {
      * Initialize the randomizer's list of item depending on the selected campaign
      * @param campaign The selected campaign.
      */
-    public void initializeItems(CampaignType campaign) {
+    public void initialize(CampaignType campaign) {
         switch (campaign) {
             case SERPULO:
                 initializeSerpuloItems();
+                placeItemsIntoLocations();
                 break;
             case EREKIR:
                 initializeErekirItems();
@@ -116,6 +122,15 @@ public class Randomizer {
                 throw new RuntimeException("Invalid CampaignType");
         }
 
+    }
+
+    /**
+     * Place item into their location
+     * @param locationId The location's id.
+     * @param itemId The item's id.
+     */
+    private void placeItemsIntoLocations(int locationId, int itemId) {
+        //Method not implemented
     }
 
     /**

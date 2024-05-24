@@ -28,6 +28,10 @@ public abstract class UnlockableContent extends MappableContent{
      */
     public Integer locationId;
 
+    /**
+     * Id of item Archipelago placed.
+     */
+    public Integer itemId;
 
     /**
      * Original name of the node.
@@ -198,11 +202,6 @@ public abstract class UnlockableContent extends MappableContent{
 
             onUnlock();
             Events.fire(new UnlockEvent(this));
-
-            //Notify Multiworld
-            if (locationId != null && originalNodeName != null) {
-                randomizer.locationChecked(locationId, originalNodeName);
-            }
         }
     }
 
@@ -211,6 +210,7 @@ public abstract class UnlockableContent extends MappableContent{
         if(!unlocked()){
             unlocked = true;
             Core.settings.put(name + "-unlocked", true);
+            randomizer.locationChecked(locationId, itemId);
         }
     }
 
@@ -254,6 +254,10 @@ public abstract class UnlockableContent extends MappableContent{
 
     protected void setLocationId(int locationId) {
         this.locationId = locationId;
+    }
+
+    protected void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     protected void setOriginalNodeName(String originalNodeName) {

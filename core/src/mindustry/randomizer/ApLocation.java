@@ -14,7 +14,18 @@ public class ApLocation extends Block {
         setLocationId(locationId);
         setOriginalNodeName(originalNodeName);
     }
+
+    private void initialiseApAttributes(String originalNodeName, int locationId, int itemId){
+        setLocationId(locationId);
+        setOriginalNodeName(originalNodeName);
+    }
+
     public ApLocation(String name, String originalNodeName, int locationId) {
+        super(name);
+        initialiseApAttributes(originalNodeName, locationId);
+    }
+
+    public ApLocation(String name, String originalNodeName, int locationId, int itemId) {
         super(name);
         initialiseApAttributes(originalNodeName, locationId);
     }

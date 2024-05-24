@@ -591,10 +591,7 @@ public class APDialog extends BaseDialog {
 
         void unlock(TechTree.TechNode node){
             if (node.content.isApItem()) {
-                Vars.randomizer.locationChecked(node.content.locationId, node.content.originalNodeName);
-                //For debug purpose
-                System.out.print("AP Location:  ID= " + node.content.locationId + "  Original " +
-                        "node name= " + node.content.originalNodeName);
+                Vars.randomizer.locationChecked(node.content.locationId, node.content.itemId);
             }
 
             //Might need to remove this part
