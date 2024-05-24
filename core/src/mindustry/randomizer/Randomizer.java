@@ -6,6 +6,9 @@ import mindustry.content.Liquids;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
+import mindustry.game.Objectives;
+import mindustry.type.Sector;
+import mindustry.type.SectorPreset;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,26 +22,35 @@ import java.util.Map;
 public class Randomizer {
 
     /**
-     * The Archipelago Mindustry base id.
-     */
-    public final int MINDUSTRY_BASE_ID = 777000000;
-
-    /**
      * The campaign type.
      */
     public CampaignType campaign;
 
     /**
-     * UnlockableContent with their matching Id
+     * All UnlockableContent with their matching Id
      */
     public Map<Integer, UnlockableContent> items;
+
+    /**
+     * UnlockableContent that are already unlocked with their matching Id
+     */
+    public Map<Integer, UnlockableContent> unlockedItems;
 
     /**
      * Unlock a UnlockableContent.
      * @param content The content to unlock.
      */
-    public void unlock(UnlockableContent content){
-            content.randomizerUnlock();
+    public void unlock(int id, UnlockableContent content){
+        unlockedItems.put(id, content);
+        content.randomizerUnlock();
+    }
+
+    public boolean hasItem(int id){
+        boolean itemReceived = false;
+        if (unlockedItems.get(id) != null) {
+            itemReceived = true;
+        }
+        return itemReceived;
     }
 
     /**
@@ -50,13 +62,17 @@ public class Randomizer {
         //Method not implemented
     }
 
+    public boolean isSector(int id){
+        return (id >= Shared.MINDUSTRY_BASE_ID + 166 && id <= Shared.MINDUSTRY_BASE_ID + 182);
+    }
+
     /**
      * Constructor for Randomizer
      */
     public Randomizer(){
         this.campaign = CampaignType.SERPULO;
-        this.items  = new HashMap<Integer, UnlockableContent>();
-        initializeItems(campaign);
+        this.items = new HashMap<Integer, UnlockableContent>();
+        this.unlockedItems  = new HashMap<Integer, UnlockableContent>();
     }
 
     /**
@@ -65,7 +81,7 @@ public class Randomizer {
      * @param content The content representing the item.
      */
     private void addItem(int id, UnlockableContent content) {
-        items.put(MINDUSTRY_BASE_ID + id, content);
+        items.put(id, content);
     }
 
     /**
@@ -85,7 +101,7 @@ public class Randomizer {
      * Initialize the randomizer's list of item depending on the selected campaign
      * @param campaign The selected campaign.
      */
-    private void initializeItems(CampaignType campaign) {
+    public void initializeItems(CampaignType campaign) {
         switch (campaign) {
             case SERPULO:
                 initializeSerpuloItems();
@@ -118,206 +134,206 @@ public class Randomizer {
      * Initialize item from Serpulo campaign.
      */
     private void initializeSerpuloItems() {
-        addItem(0, Blocks.coreFoundation);
-        addItem(1, Blocks.coreNucleus);
-        addItem(2, Blocks.conveyor);
-        addItem(3, Blocks.junction);
-        addItem(4, Blocks.router);
-        addItem(5, Blocks.launchPad);
-        addItem(6, Blocks.distributor);
-        addItem(7, Blocks.sorter);
-        addItem(8, Blocks.invertedSorter);
-        addItem(9, Blocks.overflowGate);
-        addItem(10, Blocks.underflowGate);
-        addItem(11, Blocks.container);
-        addItem(12, Blocks.unloader);
-        addItem(13, Blocks.vault);
-        addItem(14, Blocks.itemBridge);
-        addItem(15, Blocks.titaniumConveyor);
-        addItem(16, Blocks.phaseConveyor);
-        addItem(17, Blocks.massDriver);
-        addItem(18, Blocks.payloadConveyor);
-        addItem(19, Blocks.payloadRouter);
-        addItem(20, Blocks.armoredConveyor);
-        addItem(21, Blocks.plastaniumConveyor);
-        addItem(22, Blocks.mechanicalDrill);
-        addItem(23, Blocks.mechanicalPump);
-        addItem(24, Blocks.conduit);
-        addItem(25, Blocks.liquidJunction);
-        addItem(26, Blocks.liquidRouter);
-        addItem(27, Blocks.liquidContainer);
-        addItem(28, Blocks.liquidTank);
-        addItem(29, Blocks.bridgeConduit);
-        addItem(30, Blocks.pulseConduit);
-        addItem(31, Blocks.phaseConduit);
-        addItem(32, Blocks.platedConduit);
-        addItem(33, Blocks.rotaryPump);
-        addItem(34, Blocks.impulsePump);
-        addItem(35, Blocks.graphitePress);
-        addItem(36, Blocks.pneumaticDrill);
-        addItem(37, Blocks.cultivator);
-        addItem(38, Blocks.laserDrill);
-        addItem(39, Blocks.blastDrill);
-        addItem(40, Blocks.waterExtractor);
-        addItem(41, Blocks.oilExtractor);
-        addItem(42, Blocks.pyratiteMixer);
-        addItem(43, Blocks.blastMixer);
-        addItem(44, Blocks.siliconSmelter);
-        addItem(45, Blocks.sporePress);
-        addItem(46, Blocks.coalCentrifuge);
-        addItem(47, Blocks.multiPress);
-        addItem(48, Blocks.siliconCrucible);
-        addItem(49, Blocks.plastaniumCompressor);
-        addItem(50, Blocks.phaseWeaver);
-        addItem(51, Blocks.kiln);
-        addItem(52, Blocks.pulverizer);
-        addItem(53, Blocks.incinerator);
-        addItem(54, Blocks.melter);
-        addItem(55, Blocks.surgeSmelter);
-        addItem(56, Blocks.separator);
-        addItem(57, Blocks.disassembler);
-        addItem(58, Blocks.cryofluidMixer);
-        addItem(59, Blocks.microProcessor);
-        addItem(60, Blocks.switchBlock);
-        addItem(61, Blocks.message);
-        addItem(62, Blocks.logicDisplay);
-        addItem(63, Blocks.largeLogicDisplay);
-        addItem(64, Blocks.memoryCell);
-        addItem(65, Blocks.memoryBank);
-        addItem(66, Blocks.logicProcessor);
-        addItem(67, Blocks.hyperProcessor);
-        addItem(68, Blocks.illuminator);
-        addItem(69, Blocks.combustionGenerator);
-        addItem(70, Blocks.powerNode);
-        addItem(71, Blocks.powerNodeLarge);
-        addItem(72, Blocks.diode);
-        addItem(73, Blocks.surgeTower);
-        addItem(74, Blocks.battery);
-        addItem(75, Blocks.batteryLarge);
-        addItem(76, Blocks.mender);
-        addItem(77, Blocks.mendProjector);
-        addItem(78, Blocks.forceProjector);
-        addItem(79, Blocks.overdriveProjector);
-        addItem(80, Blocks.overdriveDome);
-        addItem(81, Blocks.repairPoint);
-        addItem(82, Blocks.repairTurret);
-        addItem(83, Blocks.steamGenerator);
-        addItem(84, Blocks.thermalGenerator);
-        addItem(85, Blocks.differentialGenerator);
-        addItem(86, Blocks.thoriumReactor);
-        addItem(87, Blocks.impactReactor);
-        addItem(88, Blocks.rtgGenerator);
-        addItem(89, Blocks.solarPanel);
-        addItem(90, Blocks.largeSolarPanel);
-        addItem(91, Blocks.duo);
-        addItem(92, Blocks.copperWall);
-        addItem(93, Blocks.copperWallLarge);
-        addItem(94, Blocks.titaniumWall);
-        addItem(95, Blocks.titaniumWallLarge);
-        addItem(96, Blocks.door);
-        addItem(97, Blocks.doorLarge);
-        addItem(98, Blocks.plastaniumWall);
-        addItem(99, Blocks.plastaniumWallLarge);
-        addItem(100, Blocks.thoriumWall);
-        addItem(101, Blocks.thoriumWallLarge);
-        addItem(102, Blocks.surgeWall);
-        addItem(103, Blocks.surgeWallLarge);
-        addItem(104, Blocks.phaseWall);
-        addItem(105, Blocks.phaseWallLarge);
-        addItem(106, Blocks.scatter);
-        addItem(107, Blocks.hail);
-        addItem(108, Blocks.salvo);
-        addItem(109, Blocks.swarmer);
-        addItem(110, Blocks.cyclone);
-        addItem(111, Blocks.spectre);
-        addItem(112, Blocks.ripple);
-        addItem(113, Blocks.fuse);
-        addItem(114, Blocks.scorch);
-        addItem(115, Blocks.arc);
-        addItem(116, Blocks.wave);
-        addItem(117, Blocks.parallax);
-        addItem(118, Blocks.segment);
-        addItem(119, Blocks.tsunami);
-        addItem(120, Blocks.lancer);
-        addItem(121, Blocks.meltdown);
-        addItem(122, Blocks.foreshadow);
-        addItem(123, Blocks.shockMine);
-        addItem(124, Blocks.groundFactory);
-        addItem(125, UnitTypes.dagger);
-        addItem(126, UnitTypes.mace);
-        addItem(127, UnitTypes.fortress);
-        addItem(128, UnitTypes.scepter);
-        addItem(129, UnitTypes.reign);
-        addItem(130, UnitTypes.nova);
-        addItem(131, UnitTypes.pulsar);
-        addItem(132, UnitTypes.quasar);
-        addItem(133, UnitTypes.vela);
-        addItem(134, UnitTypes.corvus);
-        addItem(135, UnitTypes.crawler);
-        addItem(136, UnitTypes.atrax);
-        addItem(137, UnitTypes.spiroct);
-        addItem(138, UnitTypes.arkyid);
-        addItem(139, UnitTypes.toxopid);
-        addItem(140, Blocks.airFactory);
-        addItem(141, UnitTypes.flare);
-        addItem(142, UnitTypes.horizon);
-        addItem(143, UnitTypes.zenith);
-        addItem(144, UnitTypes.antumbra);
-        addItem(145, UnitTypes.eclipse);
-        addItem(146, UnitTypes.mono);
-        addItem(147, UnitTypes.poly);
-        addItem(148, UnitTypes.mega);
-        addItem(149, UnitTypes.quad);
-        addItem(150, UnitTypes.oct);
-        addItem(151, Blocks.navalFactory);
-        addItem(152, UnitTypes.risso);
-        addItem(153, UnitTypes.minke);
-        addItem(154, UnitTypes.bryde);
-        addItem(155, UnitTypes.sei);
-        addItem(156, UnitTypes.omura);
-        addItem(157, UnitTypes.retusa);
-        addItem(158, UnitTypes.oxynoe);
-        addItem(159, UnitTypes.cyerce);
-        addItem(160, UnitTypes.aegires);
-        addItem(161, UnitTypes.navanax);
-        addItem(162, Blocks.additiveReconstructor);
-        addItem(163, Blocks.multiplicativeReconstructor);
-        addItem(164, Blocks.exponentialReconstructor);
-        addItem(165, Blocks.tetrativeReconstructor);
-        addItem(166, Items.lead);
-        addItem(167, Items.titanium);
-        addItem(168, Items.metaglass);
-        addItem(169, Items.scrap);
-        addItem(170, Items.coal);
-        addItem(171, Liquids.cryofluid);
-        addItem(172, Items.thorium);
-        addItem(173, Items.surgeAlloy);
-        addItem(174, Items.phaseFabric);
-        addItem(175, Items.silicon);
-        addItem(176, Items.blastCompound);
-        addItem(177, Items.plastanium);
-        addItem(178, SectorPresets.frozenForest);
-        addItem(179, SectorPresets.craters);
-        addItem(180, SectorPresets.biomassFacility);
-        addItem(181, SectorPresets.ruinousShores);
-        addItem(182, SectorPresets.windsweptIslands);
-        addItem(183, SectorPresets.tarFields);
-        addItem(184, SectorPresets.impact0078);
-        addItem(185, SectorPresets.desolateRift);
-        addItem(186, SectorPresets.planetaryTerminal);
-        addItem(187, SectorPresets.extractionOutpost);
-        addItem(188, SectorPresets.saltFlats);
-        addItem(189, SectorPresets.coastline);
-        addItem(190, SectorPresets.navalFortress);
-        addItem(191, SectorPresets.overgrowth);
-        addItem(192, SectorPresets.stainedMountains);
-        addItem(193, SectorPresets.fungalPass);
-        addItem(194, SectorPresets.nuclearComplex);
-        addItem(195, Liquids.slag);
-        addItem(196, Items.graphite);
-        addItem(197, Items.pyratite);
-        addItem(198, Items.sporePod);
-        addItem(199, Liquids.oil);
+        addItem(Shared.MINDUSTRY_BASE_ID + 0, Blocks.coreFoundation);
+        addItem(Shared.MINDUSTRY_BASE_ID + 1, Blocks.coreNucleus);
+        addItem(Shared.MINDUSTRY_BASE_ID + 2, Blocks.conveyor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 3, Blocks.junction);
+        addItem(Shared.MINDUSTRY_BASE_ID + 4, Blocks.router);
+        addItem(Shared.MINDUSTRY_BASE_ID + 5, Blocks.launchPad);
+        addItem(Shared.MINDUSTRY_BASE_ID + 6, Blocks.distributor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 7, Blocks.sorter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 8, Blocks.invertedSorter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 9, Blocks.overflowGate);
+        addItem(Shared.MINDUSTRY_BASE_ID + 10, Blocks.underflowGate);
+        addItem(Shared.MINDUSTRY_BASE_ID + 11, Blocks.container);
+        addItem(Shared.MINDUSTRY_BASE_ID + 12, Blocks.unloader);
+        addItem(Shared.MINDUSTRY_BASE_ID + 13, Blocks.vault);
+        addItem(Shared.MINDUSTRY_BASE_ID + 14, Blocks.itemBridge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 15, Blocks.titaniumConveyor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 16, Blocks.phaseConveyor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 17, Blocks.massDriver);
+        addItem(Shared.MINDUSTRY_BASE_ID + 18, Blocks.payloadConveyor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 19, Blocks.payloadRouter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 20, Blocks.armoredConveyor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 21, Blocks.plastaniumConveyor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 22, Blocks.mechanicalDrill);
+        addItem(Shared.MINDUSTRY_BASE_ID + 23, Blocks.mechanicalPump);
+        addItem(Shared.MINDUSTRY_BASE_ID + 24, Blocks.conduit);
+        addItem(Shared.MINDUSTRY_BASE_ID + 25, Blocks.liquidJunction);
+        addItem(Shared.MINDUSTRY_BASE_ID + 26, Blocks.liquidRouter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 27, Blocks.liquidContainer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 28, Blocks.liquidTank);
+        addItem(Shared.MINDUSTRY_BASE_ID + 29, Blocks.bridgeConduit);
+        addItem(Shared.MINDUSTRY_BASE_ID + 30, Blocks.pulseConduit);
+        addItem(Shared.MINDUSTRY_BASE_ID + 31, Blocks.phaseConduit);
+        addItem(Shared.MINDUSTRY_BASE_ID + 32, Blocks.platedConduit);
+        addItem(Shared.MINDUSTRY_BASE_ID + 33, Blocks.rotaryPump);
+        addItem(Shared.MINDUSTRY_BASE_ID + 34, Blocks.impulsePump);
+        addItem(Shared.MINDUSTRY_BASE_ID + 35, Blocks.graphitePress);
+        addItem(Shared.MINDUSTRY_BASE_ID + 36, Blocks.pneumaticDrill);
+        addItem(Shared.MINDUSTRY_BASE_ID + 37, Blocks.cultivator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 38, Blocks.laserDrill);
+        addItem(Shared.MINDUSTRY_BASE_ID + 39, Blocks.blastDrill);
+        addItem(Shared.MINDUSTRY_BASE_ID + 40, Blocks.waterExtractor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 41, Blocks.oilExtractor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 42, Blocks.pyratiteMixer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 43, Blocks.blastMixer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 44, Blocks.siliconSmelter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 45, Blocks.sporePress);
+        addItem(Shared.MINDUSTRY_BASE_ID + 46, Blocks.coalCentrifuge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 47, Blocks.multiPress);
+        addItem(Shared.MINDUSTRY_BASE_ID + 48, Blocks.siliconCrucible);
+        addItem(Shared.MINDUSTRY_BASE_ID + 49, Blocks.plastaniumCompressor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 50, Blocks.phaseWeaver);
+        addItem(Shared.MINDUSTRY_BASE_ID + 51, Blocks.kiln);
+        addItem(Shared.MINDUSTRY_BASE_ID + 52, Blocks.pulverizer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 53, Blocks.incinerator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 54, Blocks.melter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 55, Blocks.surgeSmelter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 56, Blocks.separator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 57, Blocks.disassembler);
+        addItem(Shared.MINDUSTRY_BASE_ID + 58, Blocks.cryofluidMixer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 59, Blocks.microProcessor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 60, Blocks.switchBlock);
+        addItem(Shared.MINDUSTRY_BASE_ID + 61, Blocks.message);
+        addItem(Shared.MINDUSTRY_BASE_ID + 62, Blocks.logicDisplay);
+        addItem(Shared.MINDUSTRY_BASE_ID + 63, Blocks.largeLogicDisplay);
+        addItem(Shared.MINDUSTRY_BASE_ID + 64, Blocks.memoryCell);
+        addItem(Shared.MINDUSTRY_BASE_ID + 65, Blocks.memoryBank);
+        addItem(Shared.MINDUSTRY_BASE_ID + 66, Blocks.logicProcessor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 67, Blocks.hyperProcessor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 68, Blocks.illuminator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 69, Blocks.combustionGenerator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 70, Blocks.powerNode);
+        addItem(Shared.MINDUSTRY_BASE_ID + 71, Blocks.powerNodeLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 72, Blocks.diode);
+        addItem(Shared.MINDUSTRY_BASE_ID + 73, Blocks.surgeTower);
+        addItem(Shared.MINDUSTRY_BASE_ID + 74, Blocks.battery);
+        addItem(Shared.MINDUSTRY_BASE_ID + 75, Blocks.batteryLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 76, Blocks.mender);
+        addItem(Shared.MINDUSTRY_BASE_ID + 77, Blocks.mendProjector);
+        addItem(Shared.MINDUSTRY_BASE_ID + 78, Blocks.forceProjector);
+        addItem(Shared.MINDUSTRY_BASE_ID + 79, Blocks.overdriveProjector);
+        addItem(Shared.MINDUSTRY_BASE_ID + 80, Blocks.overdriveDome);
+        addItem(Shared.MINDUSTRY_BASE_ID + 81, Blocks.repairPoint);
+        addItem(Shared.MINDUSTRY_BASE_ID + 82, Blocks.repairTurret);
+        addItem(Shared.MINDUSTRY_BASE_ID + 83, Blocks.steamGenerator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 84, Blocks.thermalGenerator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 85, Blocks.differentialGenerator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 86, Blocks.thoriumReactor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 87, Blocks.impactReactor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 88, Blocks.rtgGenerator);
+        addItem(Shared.MINDUSTRY_BASE_ID + 89, Blocks.solarPanel);
+        addItem(Shared.MINDUSTRY_BASE_ID + 90, Blocks.largeSolarPanel);
+        addItem(Shared.MINDUSTRY_BASE_ID + 91, Blocks.duo);
+        addItem(Shared.MINDUSTRY_BASE_ID + 92, Blocks.copperWall);
+        addItem(Shared.MINDUSTRY_BASE_ID + 93, Blocks.copperWallLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 94, Blocks.titaniumWall);
+        addItem(Shared.MINDUSTRY_BASE_ID + 95, Blocks.titaniumWallLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 96, Blocks.door);
+        addItem(Shared.MINDUSTRY_BASE_ID + 97, Blocks.doorLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 98, Blocks.plastaniumWall);
+        addItem(Shared.MINDUSTRY_BASE_ID + 99, Blocks.plastaniumWallLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 100, Blocks.thoriumWall);
+        addItem(Shared.MINDUSTRY_BASE_ID + 101, Blocks.thoriumWallLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 102, Blocks.surgeWall);
+        addItem(Shared.MINDUSTRY_BASE_ID + 103, Blocks.surgeWallLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 104, Blocks.phaseWall);
+        addItem(Shared.MINDUSTRY_BASE_ID + 105, Blocks.phaseWallLarge);
+        addItem(Shared.MINDUSTRY_BASE_ID + 106, Blocks.scatter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 107, Blocks.hail);
+        addItem(Shared.MINDUSTRY_BASE_ID + 108, Blocks.salvo);
+        addItem(Shared.MINDUSTRY_BASE_ID + 109, Blocks.swarmer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 110, Blocks.cyclone);
+        addItem(Shared.MINDUSTRY_BASE_ID + 111, Blocks.spectre);
+        addItem(Shared.MINDUSTRY_BASE_ID + 112, Blocks.ripple);
+        addItem(Shared.MINDUSTRY_BASE_ID + 113, Blocks.fuse);
+        addItem(Shared.MINDUSTRY_BASE_ID + 114, Blocks.scorch);
+        addItem(Shared.MINDUSTRY_BASE_ID + 115, Blocks.arc);
+        addItem(Shared.MINDUSTRY_BASE_ID + 116, Blocks.wave);
+        addItem(Shared.MINDUSTRY_BASE_ID + 117, Blocks.parallax);
+        addItem(Shared.MINDUSTRY_BASE_ID + 118, Blocks.segment);
+        addItem(Shared.MINDUSTRY_BASE_ID + 119, Blocks.tsunami);
+        addItem(Shared.MINDUSTRY_BASE_ID + 120, Blocks.lancer);
+        addItem(Shared.MINDUSTRY_BASE_ID + 121, Blocks.meltdown);
+        addItem(Shared.MINDUSTRY_BASE_ID + 122, Blocks.foreshadow);
+        addItem(Shared.MINDUSTRY_BASE_ID + 123, Blocks.shockMine);
+        addItem(Shared.MINDUSTRY_BASE_ID + 124, Blocks.groundFactory);
+        addItem(Shared.MINDUSTRY_BASE_ID + 125, UnitTypes.dagger);
+        addItem(Shared.MINDUSTRY_BASE_ID + 126, UnitTypes.mace);
+        addItem(Shared.MINDUSTRY_BASE_ID + 127, UnitTypes.fortress);
+        addItem(Shared.MINDUSTRY_BASE_ID + 128, UnitTypes.scepter);
+        addItem(Shared.MINDUSTRY_BASE_ID + 129, UnitTypes.reign);
+        addItem(Shared.MINDUSTRY_BASE_ID + 130, UnitTypes.nova);
+        addItem(Shared.MINDUSTRY_BASE_ID + 131, UnitTypes.pulsar);
+        addItem(Shared.MINDUSTRY_BASE_ID + 132, UnitTypes.quasar);
+        addItem(Shared.MINDUSTRY_BASE_ID + 133, UnitTypes.vela);
+        addItem(Shared.MINDUSTRY_BASE_ID + 134, UnitTypes.corvus);
+        addItem(Shared.MINDUSTRY_BASE_ID + 135, UnitTypes.crawler);
+        addItem(Shared.MINDUSTRY_BASE_ID + 136, UnitTypes.atrax);
+        addItem(Shared.MINDUSTRY_BASE_ID + 137, UnitTypes.spiroct);
+        addItem(Shared.MINDUSTRY_BASE_ID + 138, UnitTypes.arkyid);
+        addItem(Shared.MINDUSTRY_BASE_ID + 139, UnitTypes.toxopid);
+        addItem(Shared.MINDUSTRY_BASE_ID + 140, Blocks.airFactory);
+        addItem(Shared.MINDUSTRY_BASE_ID + 141, UnitTypes.flare);
+        addItem(Shared.MINDUSTRY_BASE_ID + 142, UnitTypes.horizon);
+        addItem(Shared.MINDUSTRY_BASE_ID + 143, UnitTypes.zenith);
+        addItem(Shared.MINDUSTRY_BASE_ID + 144, UnitTypes.antumbra);
+        addItem(Shared.MINDUSTRY_BASE_ID + 145, UnitTypes.eclipse);
+        addItem(Shared.MINDUSTRY_BASE_ID + 146, UnitTypes.mono);
+        addItem(Shared.MINDUSTRY_BASE_ID + 147, UnitTypes.poly);
+        addItem(Shared.MINDUSTRY_BASE_ID + 148, UnitTypes.mega);
+        addItem(Shared.MINDUSTRY_BASE_ID + 149, UnitTypes.quad);
+        addItem(Shared.MINDUSTRY_BASE_ID + 150, UnitTypes.oct);
+        addItem(Shared.MINDUSTRY_BASE_ID + 151, Blocks.navalFactory);
+        addItem(Shared.MINDUSTRY_BASE_ID + 152, UnitTypes.risso);
+        addItem(Shared.MINDUSTRY_BASE_ID + 153, UnitTypes.minke);
+        addItem(Shared.MINDUSTRY_BASE_ID + 154, UnitTypes.bryde);
+        addItem(Shared.MINDUSTRY_BASE_ID + 155, UnitTypes.sei);
+        addItem(Shared.MINDUSTRY_BASE_ID + 156, UnitTypes.omura);
+        addItem(Shared.MINDUSTRY_BASE_ID + 157, UnitTypes.retusa);
+        addItem(Shared.MINDUSTRY_BASE_ID + 158, UnitTypes.oxynoe);
+        addItem(Shared.MINDUSTRY_BASE_ID + 159, UnitTypes.cyerce);
+        addItem(Shared.MINDUSTRY_BASE_ID + 160, UnitTypes.aegires);
+        addItem(Shared.MINDUSTRY_BASE_ID + 161, UnitTypes.navanax);
+        addItem(Shared.MINDUSTRY_BASE_ID + 162, Blocks.additiveReconstructor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 163, Blocks.multiplicativeReconstructor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 164, Blocks.exponentialReconstructor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 165, Blocks.tetrativeReconstructor);
+        addItem(Shared.MINDUSTRY_BASE_ID + 166, SectorPresets.frozenForest);
+        addItem(Shared.MINDUSTRY_BASE_ID + 167, SectorPresets.craters);
+        addItem(Shared.MINDUSTRY_BASE_ID + 168, SectorPresets.ruinousShores);
+        addItem(Shared.MINDUSTRY_BASE_ID + 169, SectorPresets.windsweptIslands);
+        addItem(Shared.MINDUSTRY_BASE_ID + 170, SectorPresets.tarFields);
+        addItem(Shared.MINDUSTRY_BASE_ID + 171, SectorPresets.impact0078);
+        addItem(Shared.MINDUSTRY_BASE_ID + 172, SectorPresets.desolateRift);
+        addItem(Shared.MINDUSTRY_BASE_ID + 173, SectorPresets.planetaryTerminal);
+        addItem(Shared.MINDUSTRY_BASE_ID + 174, SectorPresets.extractionOutpost);
+        addItem(Shared.MINDUSTRY_BASE_ID + 175, SectorPresets.saltFlats);
+        addItem(Shared.MINDUSTRY_BASE_ID + 176, SectorPresets.coastline);
+        addItem(Shared.MINDUSTRY_BASE_ID + 177, SectorPresets.navalFortress);
+        addItem(Shared.MINDUSTRY_BASE_ID + 178, SectorPresets.overgrowth);
+        addItem(Shared.MINDUSTRY_BASE_ID + 179, SectorPresets.biomassFacility);
+        addItem(Shared.MINDUSTRY_BASE_ID + 180, SectorPresets.stainedMountains);
+        addItem(Shared.MINDUSTRY_BASE_ID + 181, SectorPresets.fungalPass);
+        addItem(Shared.MINDUSTRY_BASE_ID + 182, SectorPresets.nuclearComplex);
+        addItem(Shared.MINDUSTRY_BASE_ID + 183, Items.lead);
+        addItem(Shared.MINDUSTRY_BASE_ID + 184, Items.titanium);
+        addItem(Shared.MINDUSTRY_BASE_ID + 185, Liquids.cryofluid);
+        addItem(Shared.MINDUSTRY_BASE_ID + 186, Items.thorium);
+        addItem(Shared.MINDUSTRY_BASE_ID + 187, Items.surgeAlloy);
+        addItem(Shared.MINDUSTRY_BASE_ID + 188, Items.phaseFabric);
+        addItem(Shared.MINDUSTRY_BASE_ID + 189, Items.metaglass);
+        addItem(Shared.MINDUSTRY_BASE_ID + 190, Items.scrap);
+        addItem(Shared.MINDUSTRY_BASE_ID + 191, Liquids.slag);
+        addItem(Shared.MINDUSTRY_BASE_ID + 192, Items.coal);
+        addItem(Shared.MINDUSTRY_BASE_ID + 193, Items.graphite);
+        addItem(Shared.MINDUSTRY_BASE_ID + 194, Items.silicon);
+        addItem(Shared.MINDUSTRY_BASE_ID + 195, Items.pyratite);
+        addItem(Shared.MINDUSTRY_BASE_ID + 196, Items.blastCompound);
+        addItem(Shared.MINDUSTRY_BASE_ID + 197, Items.sporePod);
+        addItem(Shared.MINDUSTRY_BASE_ID + 198, Liquids.oil);
+        addItem(Shared.MINDUSTRY_BASE_ID + 199, Items.plastanium);
     }
 
 }

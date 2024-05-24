@@ -73,6 +73,7 @@ import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 import static mindustry.content.TechTree.nodeRoot;
+import mindustry.randomizer.Shared;
 import static mindustry.content.UnitTypes.aegires;
 import static mindustry.content.UnitTypes.antumbra;
 import static mindustry.content.UnitTypes.arkyid;
@@ -118,31 +119,8 @@ import static mindustry.type.ItemStack.with;
  */
 public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
-
     public static void load() {
-
-        /*
-        Vars.randomizer.unlock(Items.sporePod);
-        Vars.randomizer.unlock(Items.pyratite);
-        Vars.randomizer.unlock(Items.graphite);
-        Vars.randomizer.unlock(Items.plastanium);
-        Vars.randomizer.unlock(Items.silicon);
-        Vars.randomizer.unlock(Items.blastCompound);
-        Vars.randomizer.unlock(Items.phaseFabric);
-        Vars.randomizer.unlock(Items.surgeAlloy);
-        Vars.randomizer.unlock(Items.thorium);
-        Vars.randomizer.unlock(Items.scrap);
-        Vars.randomizer.unlock(Items.metaglass);
-        Vars.randomizer.unlock(Items.titanium);
-        Vars.randomizer.unlock(Items.coal);
-
-         */
-
         Planets.serpulo.techTree = nodeRoot("serpulo", coreShard, () -> {
-
-            node(createApLocation("AP-W-00-01", "Victory", -1,
-                    LocationResearchCost.reqCopper(9999)));
-
             node(createApLocation("AP-S-01-01", "Conveyor", 0,
                             LocationResearchCost.req1Item(Items.copper, 5)),
                     () -> {
@@ -154,7 +132,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         node(createApLocation("AP-S-01-04", "Launch Pad", 1,
                                 LocationResearchCost.req4Item(Items.copper, 5400, Items.lead,
                                         7200, Items.titanium, 5200, Items.silicon, 4800)),
-                                Seq.with(new Objectives.SectorComplete(extractionOutpost)), () -> {
+                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 174)), () -> {
 
                         });
 
@@ -172,14 +150,14 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         });
                         node(createApLocation("AP-S-01-10", "Container", 1,
                                 LocationResearchCost.req1Item(Items.titanium, 3300)),
-                                Seq.with(new Objectives.SectorComplete(biomassFacility)), () -> {
+                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 179)), () -> {
                             node(createApLocation("AP-S-01-11", "Unloader", 1,
                                     LocationResearchCost.req2Item(Items.titanium, 700,
                                             Items.silicon, 900)));
                             node(createApLocation("AP-S-01-12", "Vault", 1,
                                     LocationResearchCost.req2Item(Items.titanium, 9200,
                                             Items.thorium, 4300)),
-                                    Seq.with(new Objectives.SectorComplete(stainedMountains)), () -> {
+                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 180)), () -> {
 
                             });
                         });
@@ -190,7 +168,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                             node(createApLocation("AP-S-01-14", "Titanium Conveyor", 1,
                                     LocationResearchCost.req3Item(Items.copper, 80, Items.lead,
                                             80, Items.titanium, 80)),
-                                    Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167)), () -> {
                                 node(createApLocation("AP-S-01-15", "Phase Conveyor", 1,
                                         LocationResearchCost.req4Item(Items.lead, 300, Items.graphite, 300, Items.silicon, 200, Items.phaseFabric, 100)), () -> {
                                     node(createApLocation("AP-S-01-16", "Mass Driver", 1,
@@ -269,7 +247,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-03-09", "Pulse Conduit", 1,
                                         LocationResearchCost.req2Item(Items.metaglass, 80,
                                                 Items.titanium, 100)),
-                                        Seq.with(new Objectives.SectorComplete(windsweptIslands)), () -> {
+                                        Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 169)), () -> {
                                     node(createApLocation("AP-S-03-10", "Phase Conduit", 1,
                                             LocationResearchCost.req4Item(Items.metaglass, 600,
                                                     Items.titanium, 300, Items.silicon, 200,
@@ -306,11 +284,11 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         LocationResearchCost.req2Item(Items.copper, 2400, Items.lead, 900)), () -> {
                     node(createApLocation("AP-S-03-15", "Pneumatic Drill", 1,
                             LocationResearchCost.req2Item(Items.copper, 500, Items.graphite, 300)),
-                            Seq.with(new Objectives.SectorComplete(frozenForest)), () -> {
+                            Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 166)), () -> {
                         node(createApLocation("AP-S-03-16", "Cultivator", 1,
                                 LocationResearchCost.req3Item(Items.copper, 700, Items.lead, 700,
                                  Items.silicon, 300)),
-                                Seq.with(new Objectives.SectorComplete(biomassFacility)), () -> {
+                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 179)), () -> {
 
                         });
 
@@ -322,14 +300,14 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     LocationResearchCost.req4Item(Items.copper, 2100,
                                             Items.titanium, 1500, Items.thorium, 2400,
                                             Items.silicon, 1900)),
-                                    Seq.with(new Objectives.SectorComplete(nuclearComplex)), () -> {
+                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 182)), () -> {
 
                             });
 
                             node(createApLocation("AP-S-03-19", "Water Extractor", 1,
                                     LocationResearchCost.req4Item(Items.copper, 900, Items.lead,
                                             900, Items.metaglass, 900, Items.graphite, 900)),
-                                    Seq.with(new Objectives.SectorComplete(saltFlats)), () -> {
+                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 175)), () -> {
                                 node(createApLocation("AP-S-03-20", "Oil Extractor", 1,
                                         LocationResearchCost.req5Item(Items.copper, 5200,
                                                 Items.lead, 3900, Items.graphite, 6200,
@@ -382,11 +360,11 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     LocationResearchCost.req4Item(Items.lead, 3900,
                                             Items.graphite, 1900, Items.titanium, 2600,
                                             Items.silicon, 2600)),
-                                    Seq.with(new Objectives.SectorComplete(windsweptIslands)), () -> {
+                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 169)), () -> {
                                 node(createApLocation("AP-S-03-29", "Phase Weaver", 1,
                                         LocationResearchCost.req3Item(Items.lead, 4100,
                                                 Items.thorium, 2400, Items.silicon, 4500)),
-                                        Seq.with(new Objectives.SectorComplete(tarFields)), () -> {
+                                        Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 170)), () -> {
 
                                 });
                             });
@@ -395,7 +373,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         node(createApLocation("AP-S-03-30", "Kiln", 1,
                                 LocationResearchCost.req3Item(Items.copper, 1900, Items.lead, 900,
                                         Items.graphite, 900)),
-                                Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167)), () -> {
                             node(createApLocation("AP-S-03-31", "Pulverizer", 1,
                                     LocationResearchCost.req2Item(Items.copper, 900, Items.lead,
                                             700)),
@@ -545,18 +523,18 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-03-57", "Force Projector", 1,
                                         LocationResearchCost.req3Item(Items.lead, 3300,
                                                 Items.titanium, 2400, Items.silicon, 4300)),
-                                        Seq.with(new Objectives.SectorComplete(impact0078)), () -> {
+                                        Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 171)), () -> {
                                     node(createApLocation("AP-S-03-58", "Overdrive Projector", 1,
                                             LocationResearchCost.req4Item(Items.lead, 3300,
                                                     Items.titanium, 2400, Items.silicon, 2400,
                                                     Items.plastanium, 900)),
-                                            Seq.with(new Objectives.SectorComplete(impact0078)), () -> {
+                                            Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 171)), () -> {
                                         node(createApLocation("AP-S-03-59", "Overdrive Dome", 1,
                                                 LocationResearchCost.req5Item(Items.lead, 7200,
                                                         Items.titanium, 4500, Items.silicon, 4500,
                                                         Items.plastanium, 2600, Items.surgeAlloy,
                                                         4100)),
-                                                Seq.with(new Objectives.SectorComplete(impact0078)), () -> {
+                                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 171)), () -> {
 
                                         });
                                     });
@@ -578,7 +556,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         node(createApLocation("AP-S-03-62", "Steam Generator", 1,
                                 LocationResearchCost.req4Item(Items.copper, 1000, Items.lead,
                                         1200, Items.graphite, 700, Items.silicon, 900)),
-                                Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167)), () -> {
                             node(createApLocation("AP-S-03-63", "Thermal Generator", 1,
                                     LocationResearchCost.req5Item(Items.copper, 1200, Items.lead,
                                      1500, Items.metaglass, 1200, Items.graphite, 1000,
@@ -681,7 +659,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 70)), () -> {
                     node(createApLocation("AP-S-04-17", "Hail", 1,
                             LocationResearchCost.req2Item(Items.copper, 1200, Items.graphite, 500)),
-                            Seq.with(new Objectives.SectorComplete(craters)), () -> {
+                            Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167)), () -> {
                         node(createApLocation("AP-S-04-18", "Salvo", 1,
                                 LocationResearchCost.req3Item(Items.copper, 3300, Items.graphite,
                                         2600, Items.titanium, 1500
@@ -700,7 +678,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                     Items.graphite, 11000, Items.thorium, 9200,
                                                     Items.plastanium, 6200, Items.surgeAlloy,
                                                     9200)),
-                                            Seq.with(new Objectives.SectorComplete(nuclearComplex)), () -> {
+                                            Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 182)), () -> {
 
                                     });
                                 });
@@ -776,6 +754,9 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                     });
                 });
             });
+
+            node(createApLocation("AP-W-00-01", "Victory", -1,
+                    LocationResearchCost.reqCopper(9999)));
 
             node(createApLocation("AP-S-05-01", "Ground Factory", 1,
                     LocationResearchCost.req3Item(Items.copper, 1500, Items.lead, 4100,
@@ -911,7 +892,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                     node(createApLocation("AP-S-05-28", "Naval Factory", 1,
                             LocationResearchCost.req3Item(Items.copper, 5200, Items.lead, 4500,
                                     Items.metaglass, 4100)),
-                            Seq.with(new Objectives.SectorComplete(ruinousShores)), () -> {
+                            Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 168)), () -> {
                         node(createApLocation("AP-S-05-29", "Risso", 1,
                                 LocationResearchCost.req2Item(Items.silicon, 1300,
                                         Items.metaglass, 2400)),
@@ -938,7 +919,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                             node(createApLocation("AP-S-05-34", "Retusa", 1,
                                     LocationResearchCost.req3Item(Items.silicon, 900,
                                             Items.metaglass, 1700, Items.titanium, 1300)),
-                                    Seq.with(new Objectives.SectorComplete(windsweptIslands)), () -> {
+                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 169)), () -> {
                                 node(createApLocation("AP-S-05-35", "Oxynoe", 777,
                                         LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite
                                                 , 2800)), Seq.with(new Objectives.SectorComplete(coastline)), () -> {
@@ -951,7 +932,8 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                             node(createApLocation("AP-S-05-38", "Navanax", 777,
                                                     LocationResearchCost.req4Item(Items.silicon, 99000,
                                                             Items.plastanium, 56000, Items.surgeAlloy,
-                                                            46000, Items.phaseFabric, 31000)), Seq.with(new Objectives.SectorComplete(navalFortress)), () -> {
+                                                            46000, Items.phaseFabric, 31000)),
+                                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 177)), () -> {
 
                                             });
                                         });
@@ -965,7 +947,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                 node(createApLocation("AP-S-05-39", "Additive Reconstructor", 1,
                         LocationResearchCost.req3Item(Items.copper, 7200, Items.lead, 4100,
                                 Items.silicon, 3000)),
-                        Seq.with(new Objectives.SectorComplete(biomassFacility)), () -> {
+                        Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 179)), () -> {
                     node(createApLocation("AP-S-05-40", "Multiplicative Reconstructor", 1,
                             LocationResearchCost.req4Item(Items.lead, 26000, Items.titanium,
                                     13000, Items.thorium, 26000, Items.silicon, 17000)), () -> {
@@ -973,7 +955,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 LocationResearchCost.req6Item(Items.lead, 92000, Items.titanium,
                                         92000, Items.thorium, 31000, Items.silicon, 42000,
                                         Items.plastanium, 17000, Items.phaseFabric, 24000)),
-                                Seq.with(new Objectives.SectorComplete(overgrowth)), () -> {
+                                Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 178)), () -> {
                             node(createApLocation("AP-S-05-42", "Tetrative Reconstructor", 1,
                                     LocationResearchCost.req6Item(Items.lead, 199000, Items.thorium,
                                             42000, Items.silicon, 144000, Items.plastanium, 24000,

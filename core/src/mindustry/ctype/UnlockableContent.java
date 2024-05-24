@@ -28,6 +28,7 @@ public abstract class UnlockableContent extends MappableContent{
      */
     public Integer locationId;
 
+
     /**
      * Original name of the node.
      */
