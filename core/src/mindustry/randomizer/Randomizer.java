@@ -43,8 +43,8 @@ public class Randomizer {
     }
 
     /**
-     * Checks whether the plays has received this item.
-     * @param id The Id of the item to be checked.
+     * Checks whether the plays have received this item.
+     * @param id The id of the item to be checked.
      * @return Return True if the player has this item.
      */
     public boolean hasItem(int id){
@@ -57,7 +57,7 @@ public class Randomizer {
 
     /**
      * Forward the check to Archipelago, if the item is a Mindustry item, unlock it.
-     * @param locationId The Id of the location
+     * @param locationId The id of the location
      * @param itemId The itemId that is contained in the location
      */
     public void locationChecked(int locationId, int itemId){
@@ -69,7 +69,7 @@ public class Randomizer {
 
     /**
      * Check if the item is a sector
-     * @param id The Id of the item
+     * @param id The id of the item
      * @return Return True if the item is a sector
      */
     public boolean isSector(int id){
@@ -125,7 +125,6 @@ public class Randomizer {
             default:
                 throw new RuntimeException("Invalid CampaignType");
         }
-
     }
 
     /**
@@ -145,12 +144,14 @@ public class Randomizer {
      * Initialize item from all campaigns.
      */
     private void initializeAllItems() {
+        //Method not implemented
     }
 
     /**
      * Initialize item from Erekir campaign.
      */
     private void initializeErekirItems() {
+        //Method not implemented
     }
 
     /**

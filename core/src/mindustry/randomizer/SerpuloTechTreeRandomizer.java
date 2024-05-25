@@ -1,15 +1,12 @@
 package mindustry.randomizer;
 
 import arc.struct.Seq;
-import mindustry.Vars;
-import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
-import mindustry.type.Category;
 import mindustry.type.ItemStack;
 
 import static mindustry.content.Blocks.*;
@@ -73,44 +70,12 @@ import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 import static mindustry.content.TechTree.nodeRoot;
-import mindustry.randomizer.Shared;
-import static mindustry.content.UnitTypes.aegires;
-import static mindustry.content.UnitTypes.antumbra;
-import static mindustry.content.UnitTypes.arkyid;
-import static mindustry.content.UnitTypes.atrax;
 import static mindustry.content.UnitTypes.bryde;
-import static mindustry.content.UnitTypes.corvus;
-import static mindustry.content.UnitTypes.crawler;
-import static mindustry.content.UnitTypes.cyerce;
-import static mindustry.content.UnitTypes.dagger;
-import static mindustry.content.UnitTypes.eclipse;
-import static mindustry.content.UnitTypes.flare;
-import static mindustry.content.UnitTypes.fortress;
-import static mindustry.content.UnitTypes.horizon;
-import static mindustry.content.UnitTypes.mace;
-import static mindustry.content.UnitTypes.mega;
 import static mindustry.content.UnitTypes.minke;
 import static mindustry.content.UnitTypes.mono;
-import static mindustry.content.UnitTypes.navanax;
 import static mindustry.content.UnitTypes.nova;
-import static mindustry.content.UnitTypes.oct;
-import static mindustry.content.UnitTypes.omura;
 import static mindustry.content.UnitTypes.oxynoe;
-import static mindustry.content.UnitTypes.poly;
-import static mindustry.content.UnitTypes.pulsar;
-import static mindustry.content.UnitTypes.quad;
-import static mindustry.content.UnitTypes.quasar;
-import static mindustry.content.UnitTypes.reign;
-import static mindustry.content.UnitTypes.retusa;
 import static mindustry.content.UnitTypes.risso;
-import static mindustry.content.UnitTypes.scepter;
-import static mindustry.content.UnitTypes.sei;
-import static mindustry.content.UnitTypes.spiroct;
-import static mindustry.content.UnitTypes.toxopid;
-import static mindustry.content.UnitTypes.vela;
-import static mindustry.content.UnitTypes.zenith;
-import static mindustry.type.ItemStack.with;
-
 /**
  * Class for the initialisation and randomization of Serpulo's tech tree
  *
@@ -122,8 +87,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
     public static void load() {
         Planets.serpulo.techTree = nodeRoot("serpulo", coreShard, () -> {
             node(createApLocation("AP-S-01-01", "Conveyor", 0,
-                            LocationResearchCost.req1Item(Items.copper, 5)),
-                    () -> {
+                            LocationResearchCost.req1Item(Items.copper, 5)), () -> {
 
                 node(createApLocation("AP-S-01-02", "Junction", 1,
                         LocationResearchCost.req1Item(Items.copper, 100)), () -> {
@@ -158,13 +122,11 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     LocationResearchCost.req2Item(Items.titanium, 9200,
                                             Items.thorium, 4300)),
                                     Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 180)), () -> {
-
                             });
                         });
 
                         node(createApLocation("AP-S-01-13", "Bridge Conveyor", 1,
-                                LocationResearchCost.req2Item(Items.copper, 200, Items.lead, 200)),
-                                () -> {
+                                LocationResearchCost.req2Item(Items.copper, 200, Items.lead, 200)), () -> {
                             node(createApLocation("AP-S-01-14", "Titanium Conveyor", 1,
                                     LocationResearchCost.req3Item(Items.copper, 80, Items.lead,
                                             80, Items.titanium, 80)),
@@ -172,32 +134,26 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-01-15", "Phase Conveyor", 1,
                                         LocationResearchCost.req4Item(Items.lead, 300, Items.graphite, 300, Items.silicon, 200, Items.phaseFabric, 100)), () -> {
                                     node(createApLocation("AP-S-01-16", "Mass Driver", 1,
-                                            LocationResearchCost.req4Item(Items.lead, 4300,
-                                                    Items.titanium, 4300, Items.thorium, 1500, Items.silicon, 2400)), () -> {
-
+                                            LocationResearchCost.req4Item(Items.lead, 4300, Items.titanium, 4300,
+                                                    Items.thorium, 1500, Items.silicon, 2400)), () -> {
                                     });
                                 });
 
                                 node(createApLocation("AP-S-01-17", "Payload Conveyor", 1,
                                         LocationResearchCost.req2Item(Items.copper, 300,
-                                                Items.graphite, 300)),
-                                        () -> {
+                                                Items.graphite, 300)), () -> {
                                     node(createApLocation("AP-S-01-18", "Payload Router", 1,
                                             LocationResearchCost.req2Item(Items.copper, 300,
-                                                    Items.graphite, 400)),
-                                            () -> {
-
+                                                    Items.graphite, 400)), () -> {
                                     });
                                 });
 
                                 node(createApLocation("AP-S-01-19", "Armored Conveyor", 1,
-                                        LocationResearchCost.req3Item(Items.metaglass, 80,
-                                                Items.thorium, 80, Items.plastanium, 80)),
-                                        () -> {
+                                        LocationResearchCost.req3Item(Items.metaglass, 80, Items.thorium,
+                                                80, Items.plastanium, 80)), () -> {
                                     node(createApLocation("AP-S-01-20", "Plastanium Conveyor", 1,
-                                            LocationResearchCost.req3Item(Items.graphite, 80,
-                                                    Items.silicon, 80, Items.plastanium, 80)), () -> {
-
+                                            LocationResearchCost.req3Item(Items.graphite, 80, Items.silicon,
+                                                    80, Items.plastanium, 80)), () -> {
                                     });
                                 });
                             });
@@ -207,13 +163,11 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
             });
 
             node(createApLocation("AP-S-02-01", "Core: Foundation", 1,
-                    LocationResearchCost.req3Item(Items.copper, 10000,
-                            Items.lead, 10000, Items.silicon, 6400)), () -> {
+                    LocationResearchCost.req3Item(Items.copper, 10000, Items.lead, 10000,
+                            Items.silicon, 6400)), () -> {
                 node(createApLocation("AP-S-02-02", "Core: Nucleus", 1,
-                        LocationResearchCost.req4Item(Items.copper, 47000,
-                                Items.lead, 47000, Items.thorium, 21000, Items.silicon, 28000)),
-                        () -> {
-
+                        LocationResearchCost.req4Item(Items.copper, 47000, Items.lead, 47000,
+                                Items.thorium, 21000, Items.silicon, 28000)), () -> {
                 });
             });
 
@@ -221,14 +175,12 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                     LocationResearchCost.req1Item(Items.copper, 10)), () -> {
 
                 node(createApLocation("AP-S-03-02", "Mechanical Pump", 1,
-                        LocationResearchCost.req2Item(Items.copper, 400, Items.metaglass, 300)),
-                        () -> {
+                        LocationResearchCost.req2Item(Items.copper, 400, Items.metaglass, 300)), () -> {
                     node(createApLocation("AP-S-03-03", "Conduit", 1,
                             LocationResearchCost.req1Item(Items.metaglass, 80)), () -> {
                         node(createApLocation("AP-S-03-04", "Liquid Junction", 1,
-                                LocationResearchCost.req2Item(Items.metaglass, 200,
-                                        Items.graphite, 100)),
-                                () -> {
+                                LocationResearchCost.req2Item(Items.metaglass, 200, Items.graphite,
+                                        100)), () -> {
                             node(createApLocation("AP-S-03-05", "Liquid Router", 1,
                                     LocationResearchCost.req2Item(Items.metaglass, 100,
                                             Items.graphite, 100)), () -> {
@@ -243,7 +195,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-03-08", "Bridge Conduit", 1,
                                         LocationResearchCost.req2Item(Items.metaglass, 200,
                                                 Items.graphite, 100)));
-
                                 node(createApLocation("AP-S-03-09", "Pulse Conduit", 1,
                                         LocationResearchCost.req2Item(Items.metaglass, 80,
                                                 Items.titanium, 100)),
@@ -252,26 +203,21 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                             LocationResearchCost.req4Item(Items.metaglass, 600,
                                                     Items.titanium, 300, Items.silicon, 200,
                                                     Items.phaseFabric, 100)), () -> {
-
                                     });
 
                                     node(createApLocation("AP-S-03-11", "Plated Conduit", 1,
                                             LocationResearchCost.req3Item(Items.metaglass, 80,
                                                     Items.thorium, 100, Items.plastanium, 80)), () -> {
-
                                     });
 
                                     node(createApLocation("AP-S-03-12", "Rotary Pump", 1,
                                             LocationResearchCost.req4Item(Items.copper, 2200,
                                                     Items.metaglass, 1500, Items.titanium, 1000,
-                                                    Items.silicon, 600)),
-                                            () -> {
+                                                    Items.silicon, 600)), () -> {
                                         node(createApLocation("AP-S-03-13", "Impulse Pump", 1,
                                                 LocationResearchCost.req5Item(Items.copper, 2600,
-                                                        Items.metaglass, 3000, Items.titanium,
-                                                        1200, Items.thorium, 1000,
-                                                        Items.silicon, 900)), () -> {
-
+                                                        Items.metaglass, 3000, Items.titanium, 1200,
+                                                        Items.thorium, 1000, Items.silicon, 900)), () -> {
                                         });
                                     });
                                 });
@@ -289,19 +235,15 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 LocationResearchCost.req3Item(Items.copper, 700, Items.lead, 700,
                                  Items.silicon, 300)),
                                 Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 179)), () -> {
-
                         });
 
                         node(createApLocation("AP-S-03-17", "Lazer Drill", 1,
                                 LocationResearchCost.req4Item(Items.copper, 1000, Items.graphite,
-                                        900, Items.titanium, 600, Items.silicon,
-                                        900)), () -> {
+                                        900, Items.titanium, 600, Items.silicon, 900)), () -> {
                             node(createApLocation("AP-S-03-18", "Blast Drill", 1,
                                     LocationResearchCost.req4Item(Items.copper, 2100,
-                                            Items.titanium, 1500, Items.thorium, 2400,
-                                            Items.silicon, 1900)),
-                                    Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 182)), () -> {
-
+                                            Items.titanium, 1500, Items.thorium, 2400, Items.silicon,
+                                            1900)), Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 182)), () -> {
                             });
 
                             node(createApLocation("AP-S-03-19", "Water Extractor", 1,
@@ -310,48 +252,37 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 175)), () -> {
                                 node(createApLocation("AP-S-03-20", "Oil Extractor", 1,
                                         LocationResearchCost.req5Item(Items.copper, 5200,
-                                                Items.lead, 3900, Items.graphite, 6200,
-                                                Items.thorium, 3900, Items.silicon, 2400)),
-                                        () -> {
-
+                                                Items.lead, 3900, Items.graphite, 6200, Items.thorium,
+                                                3900, Items.silicon, 2400)), () -> {
                                 });
                             });
                         });
                     });
 
                     node(createApLocation("AP-S-03-21", "Pyratite Mixer", 1,
-                            LocationResearchCost.req2Item(Items.copper, 1500, Items.lead, 700)),
-                            () -> {
+                            LocationResearchCost.req2Item(Items.copper, 1500, Items.lead, 700)), () -> {
                         node(createApLocation("AP-S-03-22", "Blast Mixer", 1,
-                                LocationResearchCost.req2Item(Items.lead, 900, Items.titanium,
-                                        600)),
-                                () -> {
-
+                                LocationResearchCost.req2Item(Items.lead, 900, Items.titanium, 600)), () -> {
                         });
                     });
 
                     node(createApLocation("AP-S-03-23", "Silicon Smelter", 1,
-                            LocationResearchCost.req2Item(Items.copper, 900, Items.lead, 700)),
-                            () -> {
+                            LocationResearchCost.req2Item(Items.copper, 900, Items.lead, 700)), () -> {
 
                         node(createApLocation("AP-S-03-24", "Spore Press", 1,
                                 LocationResearchCost.req2Item(Items.lead, 1000, Items.silicon,
-                                        900)),
-                                () -> {
+                                        900)), () -> {
                             node(createApLocation("AP-S-03-25", "Coal Centrifuge", 1,
                                     LocationResearchCost.req3Item(Items.lead, 900, Items.graphite
-                                            , 1200, Items.titanium, 600)),
-                                    () -> {
+                                            , 1200, Items.titanium, 600)), () -> {
                                 node(createApLocation("AP-S-03-26", "Multi-Press", 1,
                                         LocationResearchCost.req4Item(Items.lead, 3300,
                                                 Items.graphite, 1500, Items.titanium, 3300,
-                                                Items.silicon, 700)),
-                                        () -> {
+                                                Items.silicon, 700)), () -> {
                                     node(createApLocation("AP-S-03-27", "Silicon Crucible", 1,
                                             LocationResearchCost.req4Item(Items.metaglass, 2600,
                                                     Items.titanium, 4100, Items.silicon, 1900,
                                                     Items.plastanium, 1000)), () -> {
-
                                     });
                                 });
                             });
@@ -365,7 +296,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                         LocationResearchCost.req3Item(Items.lead, 4100,
                                                 Items.thorium, 2400, Items.silicon, 4500)),
                                         Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 170)), () -> {
-
                                 });
                             });
                         });
@@ -376,21 +306,16 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167)), () -> {
                             node(createApLocation("AP-S-03-31", "Pulverizer", 1,
                                     LocationResearchCost.req2Item(Items.copper, 900, Items.lead,
-                                            700)),
-                                    () -> {
+                                            700)), () -> {
                                 node(createApLocation("AP-S-03-32", "Incinerator", 1,
                                         LocationResearchCost.req2Item(Items.lead, 400,
-                                                Items.graphite, 100)),
-                                        () -> {
+                                                Items.graphite, 100)), () -> {
                                     node(createApLocation("AP-S-03-33", "Melter", 1,
                                             LocationResearchCost.req3Item(Items.copper, 900,
-                                                    Items.lead, 1000, Items.graphite, 1400)),
-                                            () -> {
+                                                    Items.lead, 1000, Items.graphite, 1400)), () -> {
                                         node(createApLocation("AP-S-03-34", "Surge Smelter", 1,
                                                 LocationResearchCost.req3Item(Items.lead, 2600,
-                                                        Items.thorium, 2200, Items.silicon, 2600)),
-                                                () -> {
-
+                                                        Items.thorium, 2200, Items.silicon, 2600)), () -> {
                                         });
 
                                         node(createApLocation("AP-S-03-35", "Separator", 1,
@@ -399,19 +324,14 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                             node(createApLocation("AP-S-03-36", "Disassembler",
                                                     1,
                                                     LocationResearchCost.req4Item(Items.titanium,
-                                                     3300, Items.thorium, 2600,
-                                                            Items.silicon, 5200,
-                                                            Items.plastanium, 1200)),
-                                                    () -> {
-
+                                                     3300, Items.thorium, 2600, Items.silicon,
+                                                            5200, Items.plastanium, 1200)), () -> {
                                             });
                                         });
 
                                         node(createApLocation("AP-S-03-37", "Cryofluid Mixer", 1,
                                                 LocationResearchCost.req3Item(Items.lead, 2100,
-                                                        Items.titanium, 1900, Items.silicon, 1200)),
-                                                () -> {
-
+                                                        Items.titanium, 1900, Items.silicon, 1200)), () -> {
                                         });
                                     });
                                 });
@@ -421,37 +341,31 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         //logic disabled until further notice
                         node(createApLocation("AP-S-03-38", "Micro Processor", 1,
                                 LocationResearchCost.req3Item(Items.copper, 3000, Items.lead,
-                                        1500, Items.silicon, 1500)),
-                                () -> {
+                                        1500, Items.silicon, 1500)), () -> {
                             node(createApLocation("AP-S-03-39", "Switch Block", 1,
                                     LocationResearchCost.req2Item(Items.copper, 100,
-                                            Items.graphite, 100)),
-                                    () -> {
+                                            Items.graphite, 100)), () -> {
                                 node(createApLocation("AP-S-03-40", "Message", 1,
                                         LocationResearchCost.req2Item(Items.copper, 100,
                                                 Items.graphite, 100)), () -> {
                                     node(createApLocation("AP-S-03-41", "Logic Display", 1,
                                             LocationResearchCost.req3Item(Items.lead, 3300,
-                                                    Items.metaglass, 1500, Items.silicon, 1500)),
-                                            () -> {
+                                                    Items.metaglass, 1500, Items.silicon, 1500)), () -> {
                                         node(createApLocation("AP-S-03-42", "Large Logic Display",
                                                 1,
                                                 LocationResearchCost.req4Item(Items.lead, 7200,
                                                         Items.metaglass, 3300, Items.silicon,
                                                         5200, Items.phaseFabric, 2400)), () -> {
-
                                         });
                                     });
 
                                     node(createApLocation("AP-S-03-43", "Memory Cell", 1,
                                             LocationResearchCost.req3Item(Items.copper, 900,
-                                                    Items.graphite, 900, Items.silicon, 900)),
-                                            () -> {
+                                                    Items.graphite, 900, Items.silicon, 900)), () -> {
                                         node(createApLocation("AP-S-03-44", "Memory Bank", 1,
                                                 LocationResearchCost.req4Item(Items.copper, 900,
                                                         Items.graphite, 2600, Items.silicon, 2600,
                                                         Items.phaseFabric, 900)), () -> {
-
                                         });
                                     });
                                 });
@@ -464,7 +378,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                             LocationResearchCost.req4Item(Items.lead, 17000,
                                                     Items.thorium, 2400, Items.silicon, 5200,
                                                     Items.surgeAlloy, 1500)), () -> {
-
                                     });
                                 });
                             });
@@ -473,7 +386,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         node(createApLocation("AP-S-03-47", "Illuminator", 1,
                                 LocationResearchCost.req3Item(Items.lead, 200, Items.graphite,
                                         300, Items.silicon, 200)), () -> {
-
                         });
                     });
                 });
@@ -481,11 +393,9 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                 node(createApLocation("AP-S-03-48", "Combustion Generator", 1,
                         LocationResearchCost.req2Item(Items.copper, 700, Items.lead, 400)),
-                        Seq.with(new Objectives.Research(Items.coal))
-                        , () -> {
+                        Seq.with(new Objectives.Research(Items.coal)), () -> {
                     node(createApLocation("AP-S-03-49", "Power Node", 1,
-                            LocationResearchCost.req2Item(Items.copper, 80, Items.lead, 100)),
-                            () -> {
+                            LocationResearchCost.req2Item(Items.copper, 80, Items.lead, 100)), () -> {
                         node(createApLocation("AP-S-03-50", "Large Power Node", 1,
                                 LocationResearchCost.req3Item(Items.lead, 300, Items.titanium,
                                         100, Items.silicon, 100)), () -> {
@@ -495,31 +405,24 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-03-52", "Surge Tower", 1,
                                         LocationResearchCost.req4Item(Items.lead, 300,
                                                 Items.titanium, 200, Items.silicon, 400,
-                                                Items.surgeAlloy, 400)),
-                                        () -> {
-
+                                                Items.surgeAlloy, 400)), () -> {
                                 });
                             });
                         });
 
                         node(createApLocation("AP-S-03-53", "Battery", 1,
-                                LocationResearchCost.req2Item(Items.copper, 100, Items.lead, 600)),
-                                () -> {
+                                LocationResearchCost.req2Item(Items.copper, 100, Items.lead, 600)), () -> {
                             node(createApLocation("AP-S-03-54", "Large Battery", 1,
                                     LocationResearchCost.req3Item(Items.lead, 1500,
-                                            Items.titanium, 600, Items.silicon, 900)),
-                                    () -> {
-
+                                            Items.titanium, 600, Items.silicon, 900)), () -> {
                             });
                         });
 
                         node(createApLocation("AP-S-03-55", "Mender", 1,
-                                LocationResearchCost.req2Item(Items.copper, 700, Items.lead, 900)),
-                                () -> {
+                                LocationResearchCost.req2Item(Items.copper, 700, Items.lead, 900)), () -> {
                             node(createApLocation("AP-S-03-56", "Mend Projector", 1,
                                     LocationResearchCost.req4Item(Items.copper, 1500, Items.lead,
-                                     3300, Items.titanium, 700, Items.silicon, 1200)),
-                                    () -> {
+                                     3300, Items.titanium, 700, Items.silicon, 1200)), () -> {
                                 node(createApLocation("AP-S-03-57", "Force Projector", 1,
                                         LocationResearchCost.req3Item(Items.lead, 3300,
                                                 Items.titanium, 2400, Items.silicon, 4300)),
@@ -532,10 +435,8 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                         node(createApLocation("AP-S-03-59", "Overdrive Dome", 1,
                                                 LocationResearchCost.req5Item(Items.lead, 7200,
                                                         Items.titanium, 4500, Items.silicon, 4500,
-                                                        Items.plastanium, 2600, Items.surgeAlloy,
-                                                        4100)),
+                                                        Items.plastanium, 2600, Items.surgeAlloy, 4100)),
                                                 Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 171)), () -> {
-
                                         });
                                     });
                                 });
@@ -545,9 +446,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                 Items.lead, 900, Items.silicon, 600)), () -> {
                                     node(createApLocation("AP-S-03-61", "Repair Turret", 1,
                                             LocationResearchCost.req3Item(Items.thorium, 2600,
-                                                    Items.silicon, 3000, Items.plastanium, 1900)),
-                                            () -> {
-
+                                                    Items.silicon, 3000, Items.plastanium, 1900)), () -> {
                                     });
                                 });
                             });
@@ -574,7 +473,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                         Items.metaglass, 9200, Items.graphite, 15000,
                                                         Items.thorium, 3300, Items.silicon, 11000,
                                                         Items.surgeAlloy, 9200)), () -> {
-
                                         });
 
                                         node(createApLocation("AP-S-03-67", "Rtg Generator", 1,
@@ -582,7 +480,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                         Items.thorium, 1500, Items.silicon, 2400,
                                                         Items.plastanium, 2400, Items.phaseFabric,
                                                         700)), () -> {
-
                                         });
                                     });
                                 });
@@ -590,13 +487,10 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         });
 
                         node(createApLocation("AP-S-03-68", "Solar Panel", 1,
-                                LocationResearchCost.req2Item(Items.lead, 300, Items.silicon, 400)),
-                                () -> {
+                                LocationResearchCost.req2Item(Items.lead, 300, Items.silicon, 400)), () -> {
                             node(createApLocation("AP-S-03-69", "Large Solar Panel", 1,
-                                    LocationResearchCost.req3Item(Items.lead, 2600, Items.silicon
-                                            , 3700, Items.phaseFabric, 400)),
-                                    () -> {
-
+                                    LocationResearchCost.req3Item(Items.lead, 2600, Items.silicon,
+                                            3700, Items.phaseFabric, 400)), () -> {
                             });
                         });
                     });
@@ -616,8 +510,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                             node(createApLocation("AP-S-04-06", "Door", 1,
                                     LocationResearchCost.req2Item(Items.titanium, 200,
-                                            Items.silicon, 100)),
-                                    () -> {
+                                            Items.silicon, 100)), () -> {
                                 node(createApLocation("AP-S-04-07", "Large Door", 1,
                                         LocationResearchCost.req2Item(Items.titanium, 700,
                                                 Items.silicon, 400)));
@@ -628,7 +521,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-04-09", "Large Plastanium Wall", 1,
                                         LocationResearchCost.req2Item(Items.metaglass, 200,
                                                 Items.plastanium, 600)), () -> {
-
                                 });
                             });
                             node(createApLocation("AP-S-04-10", "Thorium Wall", 1,
@@ -636,17 +528,13 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 node(createApLocation("AP-S-04-11", "Large Thorium Wall", 1,
                                         LocationResearchCost.req1Item(Items.thorium, 700)));
                                 node(createApLocation("AP-S-04-12", "Surge Wall", 1,
-                                        LocationResearchCost.req1Item(Items.surgeAlloy, 200)),
-                                        () -> {
+                                        LocationResearchCost.req1Item(Items.surgeAlloy, 200)), () -> {
                                     node(createApLocation("AP-S-04-13", "Large Surge Wall", 1,
                                             LocationResearchCost.req1Item(Items.surgeAlloy, 700)));
                                     node(createApLocation("AP-S-04-14", "Phase Wall", 1,
-                                            LocationResearchCost.req1Item(Items.phaseFabric, 200)),
-                                            () -> {
+                                            LocationResearchCost.req1Item(Items.phaseFabric, 200)), () -> {
                                         node(createApLocation("AP-S-04-15", "Large Phase Wall",
-                                                1,
-                                                LocationResearchCost.req1Item(Items.phaseFabric,
-                                                        700)));
+                                                1, LocationResearchCost.req1Item(Items.phaseFabric, 700)));
                                     });
                                 });
                             });
@@ -655,43 +543,35 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                 });
 
                 node(createApLocation("AP-S-04-16", "Scatter", 1,
-                        LocationResearchCost.req2Item(Items.copper, 100, Items.lead,
-                                70)), () -> {
+                        LocationResearchCost.req2Item(Items.copper, 100, Items.lead, 70)), () -> {
                     node(createApLocation("AP-S-04-17", "Hail", 1,
                             LocationResearchCost.req2Item(Items.copper, 1200, Items.graphite, 500)),
                             Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167)), () -> {
                         node(createApLocation("AP-S-04-18", "Salvo", 1,
                                 LocationResearchCost.req3Item(Items.copper, 3300, Items.graphite,
-                                        2600, Items.titanium, 1500
-                                        )), () -> {
+                                        2600, Items.titanium, 1500)), () -> {
                             node(createApLocation("AP-S-04-19", "Swarmer", 1,
                                     LocationResearchCost.req4Item(Items.graphite, 1000,
                                             Items.titanium, 1000, Items.silicon, 900,
-                                            Items.plastanium, 1400)),
-                                    () -> {
+                                            Items.plastanium, 1400)), () -> {
                                 node(createApLocation("AP-S-04-20", "Cyclone", 1,
                                         LocationResearchCost.req3Item(Items.copper, 7200,
-                                                Items.titanium, 4300, Items.plastanium, 2600)),
-                                        () -> {
+                                                Items.titanium, 4300, Items.plastanium, 2600)), () -> {
                                     node(createApLocation("AP-S-04-21", "Spectre", 1,
                                             LocationResearchCost.req5Item(Items.copper, 38000,
                                                     Items.graphite, 11000, Items.thorium, 9200,
-                                                    Items.plastanium, 6200, Items.surgeAlloy,
-                                                    9200)),
+                                                    Items.plastanium, 6200, Items.surgeAlloy, 9200)),
                                             Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 182)), () -> {
-
                                     });
                                 });
                             });
 
                             node(createApLocation("AP-S-04-22", "Ripple", 1,
                                     LocationResearchCost.req3Item(Items.copper, 5200,
-                                            Items.graphite, 4600, Items.titanium, 1900)),
-                                    () -> {
+                                            Items.graphite, 4600, Items.titanium, 1900)), () -> {
                                 node(createApLocation("AP-S-04-23", "Fuse", 1,
                                         LocationResearchCost.req3Item(Items.copper, 8200,
                                                 Items.graphite, 8200, Items.thorium, 3300)), () -> {
-
                                 });
                             });
                         });
@@ -699,32 +579,26 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                 });
 
                 node(createApLocation("AP-S-04-24", "Scorch", 1,
-                        LocationResearchCost.req2Item(Items.copper, 700, Items.graphite, 600)),
-                        () -> {
+                        LocationResearchCost.req2Item(Items.copper, 700, Items.graphite, 600)), () -> {
                     node(createApLocation("AP-S-04-25", "Arc", 1,
-                            LocationResearchCost.req2Item(Items.copper, 1500, Items.lead, 1500)),
-                            () -> {
+                            LocationResearchCost.req2Item(Items.copper, 1500, Items.lead, 1500)), () -> {
                         node(createApLocation("AP-S-04-26", "Wave", 1,
                                 LocationResearchCost.req3Item(Items.copper, 700, Items.lead, 2400
                                         , Items.metaglass, 1400)), () -> {
                             node(createApLocation("AP-S-04-27", "Parallax", 1,
                                     LocationResearchCost.req3Item(Items.graphite, 900,
-                                            Items.titanium, 3000, Items.silicon, 4100)),
-                                    () -> {
+                                            Items.titanium, 3000, Items.silicon, 4100)), () -> {
                                 node(createApLocation("AP-S-04-28", "Segment", 1,
                                         LocationResearchCost.req4Item(Items.titanium, 1200,
                                                 Items.thorium, 2600, Items.silicon, 4500,
                                                 Items.phaseFabric, 1200)), () -> {
-
                                 });
                             });
 
                             node(createApLocation("AP-S-04-29", "Tsunami", 1,
                                     LocationResearchCost.req4Item(Items.lead, 15000,
                                             Items.metaglass, 3300, Items.titanium, 9200,
-                                            Items.thorium, 3300)),
-                                    () -> {
-
+                                            Items.thorium, 3300)), () -> {
                             });
                         });
 
@@ -740,15 +614,12 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                 Items.metaglass, 24000, Items.silicon, 24000,
                                                 Items.plastanium, 7200, Items.surgeAlloy, 11000)),
                                         () -> {
-
                                 });
                             });
 
                             node(createApLocation("AP-S-04-33", "Shock Mine", 1,
                                     LocationResearchCost.req2Item(Items.lead, 700, Items.silicon,
-                                     300)),
-                                    () -> {
-
+                                     300)), () -> {
                             });
                         });
                     });
@@ -769,17 +640,14 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     2800)), () -> {
                         node(createApLocation("AP-S-05-04", "Fortress", 1,
                                 LocationResearchCost.req3Item(Items.silicon, 10000,
-                                        Items.titanium, 6100, Items.metaglass, 2800)),
-                                () -> {
+                                        Items.titanium, 6100, Items.metaglass, 2800)), () -> {
                             node(createApLocation("AP-S-05-05", "Scepter", 1,
                                     LocationResearchCost.req3Item(Items.silicon, 83000,
-                                            Items.titanium, 72000, Items. plastanium, 62000)),
-                                    () -> {
+                                            Items.titanium, 72000, Items. plastanium, 62000)), () -> {
                                 node(createApLocation("AP-S-05-06", "Reign", 1,
                                         LocationResearchCost.req4Item(Items.silicon, 99000,
                                                 Items.plastanium, 56000, Items.surgeAlloy, 46000,
                                                 Items.phaseFabric, 31000)), () -> {
-
                                 });
                             });
                         });
@@ -790,8 +658,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     Items.titanium, 1300)), () -> {
                         node(createApLocation("AP-S-05-08", "Pulsar", 1,
                                 LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite
-                                        , 2800)),
-                                () -> {
+                                        , 2800)), () -> {
                             node(createApLocation("AP-S-05-09", "Quasar", 1,
                                     LocationResearchCost.req3Item(Items.silicon, 10000,
                                             Items.titanium, 6100, Items.metaglass, 2800)), () -> {
@@ -802,9 +669,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     node(createApLocation("AP-S-05-11", "Corvus", 1,
                                             LocationResearchCost.req4Item(Items.silicon, 99000,
                                                     Items.plastanium, 56000, Items.surgeAlloy,
-                                                    46000, Items.phaseFabric, 31000)),
-                                            () -> {
-
+                                                    46000, Items.phaseFabric, 31000)), () -> {
                                     });
                                 });
                             });
@@ -812,24 +677,20 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                     });
 
                     node(createApLocation("AP-S-05-12", "Crawler", 1,
-                            LocationResearchCost.req2Item(Items.silicon, 400, Items.coal, 600)),
-                            () -> {
+                            LocationResearchCost.req2Item(Items.silicon, 400, Items.coal, 600)), () -> {
                         node(createApLocation("AP-S-05-13", "Atrax", 1,
                                 LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite
-                                        , 2800)),
-                                () -> {
+                                        , 2800)), () -> {
                             node(createApLocation("AP-S-05-14", "Spiroct", 1,
                                     LocationResearchCost.req3Item(Items.silicon, 10000,
                                             Items.titanium, 6100, Items.metaglass, 2800)), () -> {
                                 node(createApLocation("AP-S-05-15", "Arkyid", 1,
                                         LocationResearchCost.req3Item(Items.silicon, 83000,
-                                                Items.titanium, 72000, Items.plastanium, 62000)),
-                                        () -> {
+                                                Items.titanium, 72000, Items.plastanium, 62000)), () -> {
                                     node(createApLocation("AP-S-05-16", "Toxopid", 1,
                                             LocationResearchCost.req4Item(Items.silicon, 99000,
                                                     Items.plastanium, 56000, Items.surgeAlloy,
                                                     46000, Items.phaseFabric, 31000)), () -> {
-
                                     });
                                 });
                             });
@@ -838,27 +699,22 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                 });
 
                 node(createApLocation("AP-S-05-17", "Air Factory", 1,
-                        LocationResearchCost.req2Item(Items.copper, 1900, Items.lead, 2200)),
-                        () -> {
+                        LocationResearchCost.req2Item(Items.copper, 1900, Items.lead, 2200)), () -> {
                     node(createApLocation("AP-S-05-18", "Flare", 1,
                             LocationResearchCost.req1Item(Items.silicon, 900)), () -> {
                         node(createApLocation("AP-S-05-19", "Horizon", 1,
                                 LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite
-                                        , 2800)),
-                                () -> {
+                                        , 2800)), () -> {
                             node(createApLocation("AP-S-05-20", "Zenith", 777,
                                     LocationResearchCost.req3Item(Items.silicon, 10000,
-                                            Items.titanium, 6100, Items.metaglass, 2800)),
-                                    () -> {
+                                            Items.titanium, 6100, Items.metaglass, 2800)), () -> {
                                 node(createApLocation("AP-S-05-21", "Antumbra", 777,
                                         LocationResearchCost.req3Item(Items.silicon, 83000,
-                                                Items.titanium, 72000, Items.plastanium, 62000)),
-                                        () -> {
+                                                Items.titanium, 72000, Items.plastanium, 62000)), () -> {
                                     node(createApLocation("AP-S-05-22", "Eclipse", 777,
                                             LocationResearchCost.req4Item(Items.silicon, 99000,
                                                     Items.plastanium, 56000, Items.surgeAlloy,
                                                     46000, Items.phaseFabric, 31000)), () -> {
-
                                     });
                                 });
                             });
@@ -866,11 +722,10 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                         node(createApLocation("AP-S-05-23", "Mono", 1,
                                 LocationResearchCost.req2Item(Items.silicon, 2100, Items.lead,
-                                        900)),
-                                () -> {
+                                        900)), () -> {
                             node(createApLocation("AP-S-05-24", "Poly", 777,
-                                    LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite
-                                            , 2800)), () -> {
+                                    LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite,
+                                            2800)), () -> {
                                 node(createApLocation("AP-S-05-25", "Mega", 777,
                                         LocationResearchCost.req3Item(Items.silicon, 10000,
                                                 Items.titanium, 6100, Items.metaglass, 2800)), () -> {
@@ -881,7 +736,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                 LocationResearchCost.req4Item(Items.silicon, 99000,
                                                         Items.plastanium, 56000, Items.surgeAlloy,
                                                         46000, Items.phaseFabric, 31000)), () -> {
-
                                         });
                                     });
                                 });
@@ -895,11 +749,10 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                             Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 168)), () -> {
                         node(createApLocation("AP-S-05-29", "Risso", 1,
                                 LocationResearchCost.req2Item(Items.silicon, 1300,
-                                        Items.metaglass, 2400)),
-                                () -> {
+                                        Items.metaglass, 2400)), () -> {
                             node(createApLocation("AP-S-05-30", "Minke", 777,
-                                    LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite
-                                            , 2800)), () -> {
+                                    LocationResearchCost.req2Item(Items.silicon, 2800, Items.graphite,
+                                            2800)), () -> {
                                 node(createApLocation("AP-S-05-31", "Bryde", 777,
                                         LocationResearchCost.req3Item(Items.silicon, 10000,
                                                 Items.titanium, 6100, Items.metaglass, 2800)), () -> {
@@ -910,7 +763,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                 LocationResearchCost.req4Item(Items.silicon, 99000,
                                                         Items.plastanium, 56000, Items.surgeAlloy,
                                                         46000, Items.phaseFabric, 31000)), () -> {
-
                                         });
                                     });
                                 });
@@ -934,7 +786,6 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                                             Items.plastanium, 56000, Items.surgeAlloy,
                                                             46000, Items.phaseFabric, 31000)),
                                                     Seq.with(new APItemObjective(Shared.MINDUSTRY_BASE_ID + 177)), () -> {
-
                                             });
                                         });
                                     });
@@ -959,9 +810,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                             node(createApLocation("AP-S-05-42", "Tetrative Reconstructor", 1,
                                     LocationResearchCost.req6Item(Items.lead, 199000, Items.thorium,
                                             42000, Items.silicon, 144000, Items.plastanium, 24000,
-                                            Items.phaseFabric, 24000, Items.surgeAlloy, 33000)),
-                                    () -> {
-
+                                            Items.phaseFabric, 24000, Items.surgeAlloy, 33000)), () -> {
                             });
                         });
                     });

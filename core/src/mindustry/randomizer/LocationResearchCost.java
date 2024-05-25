@@ -5,7 +5,7 @@ import mindustry.type.Item;
 import mindustry.type.ItemStack;
 
 /**
- * LocationResearchCost
+ * Research cost for an AP node.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-05-21
@@ -18,6 +18,12 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Require 1 item as research cost
+     * @param item The Item required
+     * @param amount The amount of item required
+     * @return Return the ItemStack[] of required Item for the research.
+     */
     public static ItemStack[] req1Item (Item item, int amount){
         ItemStack[] totalResearchCost = new ItemStack[1];
 
@@ -26,6 +32,12 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Require 2 items as research cost
+     * @param item1 The item required
+     * @param amount1 The amount of item required
+     * @return Return the ItemStack[] of required Item for the research.
+     */
     public static ItemStack[] req2Item (Item item1, int amount1, Item item2, int amount2){
         ItemStack[] totalResearchCost = new ItemStack[2];
 
@@ -35,6 +47,12 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Require 3 items as research cost
+     * @param item1 The item required
+     * @param amount1 The amount of item required
+     * @return Return the ItemStack[] of required Item for the research.
+     */
     public static ItemStack[] req3Item (Item item1, int amount1, Item item2, int amount2,
                                         Item item3, int amount3){
         ItemStack[] totalResearchCost = new ItemStack[3];
@@ -46,6 +64,12 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Require 4 items as research cost
+     * @param item1 The item required
+     * @param amount1 The amount of item required
+     * @return Return the ItemStack[] of required Item for the research.
+     */
     public static ItemStack[] req4Item (Item item1, int amount1, Item item2, int amount2,
                                         Item item3, int amount3, Item item4, int amount4){
         ItemStack[] totalResearchCost = new ItemStack[4];
@@ -58,6 +82,12 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Require 5 items as research cost
+     * @param item1 The item required
+     * @param amount1 The amount of item required
+     * @return Return the ItemStack[] of required Item for the research.
+     */
     public static ItemStack[] req5Item (Item item1, int amount1, Item item2, int amount2,
                                         Item item3, int amount3, Item item4, int amount4,
                                         Item item5, int amount5){
@@ -72,6 +102,12 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Require 6 items as research cost
+     * @param item1 The item required
+     * @param amount1 The amount of item required
+     * @return Return the ItemStack[] of required Item for the research.
+     */
     public static ItemStack[] req6Item (Item item1, int amount1, Item item2, int amount2,
                                         Item item3, int amount3, Item item4, int amount4,
                                         Item item5, int amount5, Item item6, int amount6){
