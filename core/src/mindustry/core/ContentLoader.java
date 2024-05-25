@@ -16,6 +16,7 @@ import mindustry.io.*;
 import mindustry.mod.Mods.*;
 import mindustry.randomizer.Randomizer;
 import mindustry.randomizer.SerpuloTechTreeRandomizer;
+import mindustry.randomizer.Shared;
 import mindustry.type.*;
 import mindustry.world.*;
 
@@ -60,6 +61,9 @@ public class ContentLoader{
         randomizer.initialize();
         SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
+
+
+        randomizer.unlock(Shared.MINDUSTRY_BASE_ID + 2);
     }
 
     /** Creates mod content, if applicable. */

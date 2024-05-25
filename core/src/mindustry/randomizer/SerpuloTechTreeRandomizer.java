@@ -1,6 +1,7 @@
 package mindustry.randomizer;
 
 import arc.struct.Seq;
+import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
@@ -899,54 +900,52 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
             });
 
             node(groundZero, () -> {
-                node(frozenForest, Seq.with(
-                        new Objectives.SectorComplete(groundZero),
+                node(createApLocation("AP-S-06-01", "Frozen Forest", 1), Seq.with(
+                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 166),
                         new Objectives.Research(junction),
                         new Objectives.Research(router)
                 ), () -> {
-                    node(craters, Seq.with(
-                            new Objectives.SectorComplete(frozenForest),
+                    node(createApLocation("AP-S-06-02", "The Craters", 1), Seq.with(
+                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 167),
                             new Objectives.Research(mender),
                             new Objectives.Research(combustionGenerator)
                     ), () -> {
-                        node(ruinousShores, Seq.with(
-                                new Objectives.SectorComplete(craters),
+                        node(createApLocation("AP-S-06-03", "Ruinous Shores", 1), Seq.with(
+                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 168),
                                 new Objectives.Research(graphitePress),
                                 new Objectives.Research(kiln),
                                 new Objectives.Research(mechanicalPump)
                         ), () -> {
-                            node(windsweptIslands, Seq.with(
-                                    new Objectives.SectorComplete(ruinousShores),
+                            node(createApLocation("AP-S-06-04", "Windswept Islands", 1), Seq.with(
+                                    new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 169),
                                     new Objectives.Research(pneumaticDrill),
                                     new Objectives.Research(hail),
                                     new Objectives.Research(siliconSmelter),
                                     new Objectives.Research(steamGenerator)
                             ), () -> {
-                                node(tarFields, Seq.with(
-                                        new Objectives.SectorComplete(windsweptIslands),
+                                node(createApLocation("AP-S-06-05", "Tar Fields", 1), Seq.with(
+                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 170),
                                         new Objectives.Research(coalCentrifuge),
                                         new Objectives.Research(conduit),
                                         new Objectives.Research(wave)
                                 ), () -> {
-                                    node(impact0078, Seq.with(
-                                            new Objectives.SectorComplete(tarFields),
+                                    node(createApLocation("AP-S-06-06", "Impact 0078", 1), Seq.with(
+                                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 171),
                                             new Objectives.Research(Items.thorium),
                                             new Objectives.Research(lancer),
                                             new Objectives.Research(salvo),
                                             new Objectives.Research(coreFoundation)
                                     ), () -> {
-                                        node(desolateRift, Seq.with(
-                                                new Objectives.SectorComplete(impact0078),
+                                        node(createApLocation("AP-S-06-07", "Desolate Rift", 1),
+                                                Seq.with(
+                                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 172),
                                                 new Objectives.Research(thermalGenerator),
                                                 new Objectives.Research(thoriumReactor),
                                                 new Objectives.Research(coreNucleus)
                                         ), () -> {
-                                            node(planetaryTerminal, Seq.with(
-                                                    new Objectives.SectorComplete(desolateRift),
-                                                    new Objectives.SectorComplete(nuclearComplex),
-                                                    new Objectives.SectorComplete(overgrowth),
-                                                    new Objectives.SectorComplete(extractionOutpost),
-                                                    new Objectives.SectorComplete(saltFlats),
+                                            node(createApLocation("AP-S-06-08", "Planetary Launch" +
+                                                    " Terminal", 1), Seq.with(
+                                                    new APSectorObjective(Shared.MINDUSTRY_BASE_ID +173),
                                                     new Objectives.Research(risso),
                                                     new Objectives.Research(minke),
                                                     new Objectives.Research(bryde),
@@ -963,9 +962,9 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     });
                                 });
 
-                                node(extractionOutpost, Seq.with(
-                                        new Objectives.SectorComplete(stainedMountains),
-                                        new Objectives.SectorComplete(windsweptIslands),
+                                node(createApLocation("AP-S-06-09", "Extraction Outpost", 1),
+                                        Seq.with(
+                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 174),
                                         new Objectives.Research(groundFactory),
                                         new Objectives.Research(nova),
                                         new Objectives.Research(airFactory),
@@ -974,22 +973,22 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                                 });
 
-                                node(saltFlats, Seq.with(
-                                        new Objectives.SectorComplete(windsweptIslands),
+                                node(createApLocation("AP-S-06-10", "Salt Flats", 1), Seq.with(
+                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 175),
                                         new Objectives.Research(groundFactory),
                                         new Objectives.Research(additiveReconstructor),
                                         new Objectives.Research(airFactory),
                                         new Objectives.Research(door)
                                 ), () -> {
-                                    node(coastline, Seq.with(
-                                            new Objectives.SectorComplete(windsweptIslands),
+                                    node(createApLocation("AP-S-06-11", "Coastline", 1), Seq.with(
+                                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 176),
                                             new Objectives.SectorComplete(saltFlats),
                                             new Objectives.Research(navalFactory),
                                             new Objectives.Research(payloadConveyor)
                                     ), () -> {
-                                        node(navalFortress, Seq.with(
-                                                new Objectives.SectorComplete(coastline),
-                                                new Objectives.SectorComplete(extractionOutpost),
+                                        node(createApLocation("AP-S-06-12", "Naval Fortress", 1),
+                                                Seq.with(
+                                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 177),
                                                 new Objectives.Research(oxynoe),
                                                 new Objectives.Research(minke),
                                                 new Objectives.Research(cyclone),
@@ -1002,9 +1001,8 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                             });
                         });
 
-                        node(overgrowth, Seq.with(
-                                new Objectives.SectorComplete(craters),
-                                new Objectives.SectorComplete(fungalPass),
+                        node(createApLocation("AP-S-06-13", "Overgrowth", 1), Seq.with(
+                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 178),
                                 new Objectives.Research(cultivator),
                                 new Objectives.Research(sporePress),
                                 new Objectives.Research(additiveReconstructor),
@@ -1015,25 +1013,26 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         });
                     });
 
-                    node(biomassFacility, Seq.with(
-                            new Objectives.SectorComplete(frozenForest),
+                    node(createApLocation("AP-S-06-14", "Biomass Synthesis Facility", 1), Seq.with(
+                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 179),
                             new Objectives.Research(powerNode),
                             new Objectives.Research(steamGenerator),
                             new Objectives.Research(scatter),
                             new Objectives.Research(graphitePress)
                     ), () -> {
-                        node(stainedMountains, Seq.with(
-                                new Objectives.SectorComplete(biomassFacility),
+                        node(createApLocation("AP-S-06-15", "Stained Mountains", 1), Seq.with(
+                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 180),
                                 new Objectives.Research(pneumaticDrill),
                                 new Objectives.Research(siliconSmelter)
                         ), () -> {
-                            node(fungalPass, Seq.with(
-                                    new Objectives.SectorComplete(stainedMountains),
+                            node(createApLocation("AP-S-06-16", "Fungal Pass", 1), Seq.with(
+                                    new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 181),
                                     new Objectives.Research(groundFactory),
                                     new Objectives.Research(door)
                             ), () -> {
-                                node(nuclearComplex, Seq.with(
-                                        new Objectives.SectorComplete(fungalPass),
+                                node(createApLocation("AP-S-06-17", "Nuclear Production Complex",
+                                        1), Seq.with(
+                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 182),
                                         new Objectives.Research(thermalGenerator),
                                         new Objectives.Research(laserDrill),
                                         new Objectives.Research(Items.plastanium),
