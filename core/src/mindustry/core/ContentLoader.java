@@ -61,9 +61,6 @@ public class ContentLoader{
         randomizer.initialize();
         SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
-
-
-        randomizer.unlock(Shared.MINDUSTRY_BASE_ID + 2);
     }
 
     /** Creates mod content, if applicable. */
