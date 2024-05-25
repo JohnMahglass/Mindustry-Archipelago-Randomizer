@@ -35,13 +35,12 @@ public class APItemObjective implements Objectives.Objective {
 
     @Override
     public String display() {
-        if (sector != null) {
-            return Core.bundle.format("requirement.capture", sector.localizedName);
+        if (sector != null) { //localisation?
+            return "Unlock " + sector.localizedName;
         }
         else {
-            return null;
+            return "Unlock " + Vars.randomizer.itemIdToUnlockableContent(itemId).name;
         }
-
     }
 
     @Override

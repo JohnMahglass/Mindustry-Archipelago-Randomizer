@@ -99,7 +99,7 @@ public class Randomizer {
      * @param itemId The itemId of the item.
      * @return The UnlockableContent matching the itemId, or null if no match.
      */
-    private UnlockableContent itemIdToUnlockableContent(int itemId) {
+    public UnlockableContent itemIdToUnlockableContent(int itemId) {
         UnlockableContent content = null;
         if (items.get(itemId) != null) {
             content = items.get(itemId);
