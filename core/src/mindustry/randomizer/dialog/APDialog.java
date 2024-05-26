@@ -1,4 +1,4 @@
-package mindustry.randomizer;
+package mindustry.randomizer.dialog;
 
 import arc.Core;
 import arc.Events;
@@ -31,7 +31,6 @@ import arc.util.Align;
 import arc.util.Nullable;
 import arc.util.Scaling;
 import arc.util.Structs;
-import mindustry.Vars;
 import mindustry.content.Planets;
 import mindustry.content.TechTree;
 import mindustry.core.UI;
@@ -590,11 +589,6 @@ public class APDialog extends BaseDialog {
         }
 
         void unlock(TechTree.TechNode node){
-            if (node.content.isApItem()) {
-                Vars.randomizer.locationChecked(node.content.locationId, node.content.itemId);
-            }
-
-            //Might need to remove this part
             node.content.unlock();
 
             checkNodes(root);

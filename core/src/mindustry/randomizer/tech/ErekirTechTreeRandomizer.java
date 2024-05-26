@@ -1,5 +1,7 @@
-package mindustry.randomizer;
+package mindustry.randomizer.tech;
 
+
+import mindustry.randomizer.tech.TechTreeRandomizer;
 
 /**
  * Class for the initialisation and randomization of Erekir' tech tree
@@ -10,7 +12,7 @@ package mindustry.randomizer;
 public abstract class ErekirTechTreeRandomizer implements TechTreeRandomizer {
 
     public static void load() {
-
+        //Method not implemented
     }
 
 }

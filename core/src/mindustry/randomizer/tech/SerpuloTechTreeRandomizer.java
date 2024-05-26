@@ -1,13 +1,16 @@
-package mindustry.randomizer;
+package mindustry.randomizer.tech;
 
 import arc.struct.Seq;
-import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
+import mindustry.randomizer.APItemObjective;
+import mindustry.randomizer.ApLocation;
+import mindustry.randomizer.LocationResearchCost;
+import mindustry.randomizer.Shared;
 import mindustry.type.ItemStack;
 
 import static mindustry.content.Blocks.*;
@@ -26,7 +29,6 @@ import static mindustry.content.Blocks.graphitePress;
 import static mindustry.content.Blocks.groundFactory;
 import static mindustry.content.Blocks.hail;
 import static mindustry.content.Blocks.impactReactor;
-import static mindustry.content.Blocks.junction;
 import static mindustry.content.Blocks.kiln;
 import static mindustry.content.Blocks.lancer;
 import static mindustry.content.Blocks.laserDrill;
@@ -39,7 +41,6 @@ import static mindustry.content.Blocks.payloadConveyor;
 import static mindustry.content.Blocks.pneumaticDrill;
 import static mindustry.content.Blocks.powerNode;
 import static mindustry.content.Blocks.ripple;
-import static mindustry.content.Blocks.router;
 import static mindustry.content.Blocks.salvo;
 import static mindustry.content.Blocks.scatter;
 import static mindustry.content.Blocks.siliconSmelter;
@@ -50,24 +51,9 @@ import static mindustry.content.Blocks.swarmer;
 import static mindustry.content.Blocks.thermalGenerator;
 import static mindustry.content.Blocks.thoriumReactor;
 import static mindustry.content.Blocks.wave;
-import static mindustry.content.SectorPresets.biomassFacility;
 import static mindustry.content.SectorPresets.coastline;
-import static mindustry.content.SectorPresets.craters;
-import static mindustry.content.SectorPresets.desolateRift;
-import static mindustry.content.SectorPresets.extractionOutpost;
-import static mindustry.content.SectorPresets.frozenForest;
-import static mindustry.content.SectorPresets.fungalPass;
 import static mindustry.content.SectorPresets.groundZero;
-import static mindustry.content.SectorPresets.impact0078;
-import static mindustry.content.SectorPresets.navalFortress;
-import static mindustry.content.SectorPresets.nuclearComplex;
-import static mindustry.content.SectorPresets.overgrowth;
-import static mindustry.content.SectorPresets.planetaryTerminal;
-import static mindustry.content.SectorPresets.ruinousShores;
 import static mindustry.content.SectorPresets.saltFlats;
-import static mindustry.content.SectorPresets.stainedMountains;
-import static mindustry.content.SectorPresets.tarFields;
-import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 import static mindustry.content.TechTree.nodeRoot;
@@ -901,36 +887,36 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
             node(groundZero, () -> {
                 node(createApLocation("AP-S-06-01", "Frozen Forest", 1), Seq.with(
-                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 166),
-                        new Objectives.Research(junction),
-                        new Objectives.Research(router)
+                        new APItemObjective(Shared.MINDUSTRY_BASE_ID + 166)//,
+                        //new Objectives.Research(junction),
+                       // new Objectives.Research(router)
                 ), () -> {
                     node(createApLocation("AP-S-06-02", "The Craters", 1), Seq.with(
-                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 167),
+                            new APItemObjective(Shared.MINDUSTRY_BASE_ID + 167),
                             new Objectives.Research(mender),
                             new Objectives.Research(combustionGenerator)
                     ), () -> {
                         node(createApLocation("AP-S-06-03", "Ruinous Shores", 1), Seq.with(
-                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 168),
+                                new APItemObjective(Shared.MINDUSTRY_BASE_ID + 168),
                                 new Objectives.Research(graphitePress),
                                 new Objectives.Research(kiln),
                                 new Objectives.Research(mechanicalPump)
                         ), () -> {
                             node(createApLocation("AP-S-06-04", "Windswept Islands", 1), Seq.with(
-                                    new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 169),
+                                    new APItemObjective(Shared.MINDUSTRY_BASE_ID + 169),
                                     new Objectives.Research(pneumaticDrill),
                                     new Objectives.Research(hail),
                                     new Objectives.Research(siliconSmelter),
                                     new Objectives.Research(steamGenerator)
                             ), () -> {
                                 node(createApLocation("AP-S-06-05", "Tar Fields", 1), Seq.with(
-                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 170),
+                                        new APItemObjective(Shared.MINDUSTRY_BASE_ID + 170),
                                         new Objectives.Research(coalCentrifuge),
                                         new Objectives.Research(conduit),
                                         new Objectives.Research(wave)
                                 ), () -> {
                                     node(createApLocation("AP-S-06-06", "Impact 0078", 1), Seq.with(
-                                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 171),
+                                            new APItemObjective(Shared.MINDUSTRY_BASE_ID + 171),
                                             new Objectives.Research(Items.thorium),
                                             new Objectives.Research(lancer),
                                             new Objectives.Research(salvo),
@@ -938,14 +924,14 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                     ), () -> {
                                         node(createApLocation("AP-S-06-07", "Desolate Rift", 1),
                                                 Seq.with(
-                                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 172),
+                                                new APItemObjective(Shared.MINDUSTRY_BASE_ID + 172),
                                                 new Objectives.Research(thermalGenerator),
                                                 new Objectives.Research(thoriumReactor),
                                                 new Objectives.Research(coreNucleus)
                                         ), () -> {
                                             node(createApLocation("AP-S-06-08", "Planetary Launch" +
                                                     " Terminal", 1), Seq.with(
-                                                    new APSectorObjective(Shared.MINDUSTRY_BASE_ID +173),
+                                                    new APItemObjective(Shared.MINDUSTRY_BASE_ID +173),
                                                     new Objectives.Research(risso),
                                                     new Objectives.Research(minke),
                                                     new Objectives.Research(bryde),
@@ -964,7 +950,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                                 node(createApLocation("AP-S-06-09", "Extraction Outpost", 1),
                                         Seq.with(
-                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 174),
+                                        new APItemObjective(Shared.MINDUSTRY_BASE_ID + 174),
                                         new Objectives.Research(groundFactory),
                                         new Objectives.Research(nova),
                                         new Objectives.Research(airFactory),
@@ -974,21 +960,21 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 });
 
                                 node(createApLocation("AP-S-06-10", "Salt Flats", 1), Seq.with(
-                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 175),
+                                        new APItemObjective(Shared.MINDUSTRY_BASE_ID + 175),
                                         new Objectives.Research(groundFactory),
                                         new Objectives.Research(additiveReconstructor),
                                         new Objectives.Research(airFactory),
                                         new Objectives.Research(door)
                                 ), () -> {
                                     node(createApLocation("AP-S-06-11", "Coastline", 1), Seq.with(
-                                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 176),
+                                            new APItemObjective(Shared.MINDUSTRY_BASE_ID + 176),
                                             new Objectives.SectorComplete(saltFlats),
                                             new Objectives.Research(navalFactory),
                                             new Objectives.Research(payloadConveyor)
                                     ), () -> {
                                         node(createApLocation("AP-S-06-12", "Naval Fortress", 1),
                                                 Seq.with(
-                                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 177),
+                                                new APItemObjective(Shared.MINDUSTRY_BASE_ID + 177),
                                                 new Objectives.Research(oxynoe),
                                                 new Objectives.Research(minke),
                                                 new Objectives.Research(cyclone),
@@ -1002,7 +988,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                         });
 
                         node(createApLocation("AP-S-06-13", "Overgrowth", 1), Seq.with(
-                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 178),
+                                new APItemObjective(Shared.MINDUSTRY_BASE_ID + 178),
                                 new Objectives.Research(cultivator),
                                 new Objectives.Research(sporePress),
                                 new Objectives.Research(additiveReconstructor),
@@ -1014,25 +1000,25 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                     });
 
                     node(createApLocation("AP-S-06-14", "Biomass Synthesis Facility", 1), Seq.with(
-                            new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 179),
+                            new APItemObjective(Shared.MINDUSTRY_BASE_ID + 179),
                             new Objectives.Research(powerNode),
                             new Objectives.Research(steamGenerator),
                             new Objectives.Research(scatter),
                             new Objectives.Research(graphitePress)
                     ), () -> {
                         node(createApLocation("AP-S-06-15", "Stained Mountains", 1), Seq.with(
-                                new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 180),
+                                new APItemObjective(Shared.MINDUSTRY_BASE_ID + 180),
                                 new Objectives.Research(pneumaticDrill),
                                 new Objectives.Research(siliconSmelter)
                         ), () -> {
                             node(createApLocation("AP-S-06-16", "Fungal Pass", 1), Seq.with(
-                                    new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 181),
+                                    new APItemObjective(Shared.MINDUSTRY_BASE_ID + 181),
                                     new Objectives.Research(groundFactory),
                                     new Objectives.Research(door)
                             ), () -> {
                                 node(createApLocation("AP-S-06-17", "Nuclear Production Complex",
                                         1), Seq.with(
-                                        new APSectorObjective(Shared.MINDUSTRY_BASE_ID + 182),
+                                        new APItemObjective(Shared.MINDUSTRY_BASE_ID + 182),
                                         new Objectives.Research(thermalGenerator),
                                         new Objectives.Research(laserDrill),
                                         new Objectives.Research(Items.plastanium),
@@ -1124,7 +1110,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
      * Create a location in the form of an UnlockableContent with its research cost.
      * @param name Name of the node.
      * @param originalLocationName Name of the item originally contained in the node.
-     * @param locationId Id of the location.
+     * @param locationId id of the location.
      * @param locationResearchCost List of Item required to check this location.
      * @return Return a location in the form a UnlockableContent.
      */

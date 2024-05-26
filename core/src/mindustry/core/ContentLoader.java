@@ -6,7 +6,6 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
-import mindustry.Vars;
 import mindustry.ai.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -14,9 +13,8 @@ import mindustry.entities.bullet.*;
 import mindustry.game.EventType.*;
 import mindustry.io.*;
 import mindustry.mod.Mods.*;
-import mindustry.randomizer.Randomizer;
-import mindustry.randomizer.SerpuloTechTreeRandomizer;
 import mindustry.randomizer.Shared;
+import mindustry.randomizer.tech.SerpuloTechTreeRandomizer;
 import mindustry.type.*;
 import mindustry.world.*;
 
