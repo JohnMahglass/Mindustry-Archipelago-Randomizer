@@ -76,9 +76,6 @@ public abstract class UnlockableContent extends MappableContent{
         this.description = Core.bundle.getOrNull(getContentType() + "." + this.name + ".description");
         this.details = Core.bundle.getOrNull(getContentType() + "." + this.name + ".details");
         this.unlocked = Core.settings != null && Core.settings.getBool(this.name + "-unlocked", false);
-        this.locationId = -1;
-        this.itemId = -1;
-        this.originalNodeName = null;
     }
 
     @Override
@@ -271,7 +268,7 @@ public abstract class UnlockableContent extends MappableContent{
      */
     public boolean isApItem(){
         boolean isApItem = false;
-        if (locationId != null && originalNodeName != null) {
+        if (locationId != null && itemId != null && originalNodeName != null) {
             isApItem = true;
         }
         return isApItem;

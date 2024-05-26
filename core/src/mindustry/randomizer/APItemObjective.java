@@ -36,10 +36,15 @@ public class APItemObjective implements Objectives.Objective {
     @Override
     public String display() {
         if (sector != null) { //localisation?
-            return "Unlock " + sector.localizedName;
+            return "Capture " + sector.localizedName;
         }
         else {
-            return "Unlock " + Vars.randomizer.itemIdToUnlockableContent(itemId).name;
+            if (Vars.randomizer.isMindustryItem(itemId)) {
+                return "Unlock " + Vars.randomizer.itemIdToUnlockableContent(itemId).localizedName;
+            }
+            else {
+                return "AP Item Objective display Error";
+            }
         }
     }
 
@@ -55,7 +60,7 @@ public class APItemObjective implements Objectives.Objective {
     public APItemObjective(int itemId) {
         this.itemId = itemId;
         if (Vars.randomizer.isSector(itemId)) {
-            sector = Vars.randomizer.items.get(itemId);
+            sector = Vars.randomizer.worldState.items.get(itemId);
         }
     }
 }
