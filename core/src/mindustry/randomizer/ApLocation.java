@@ -9,7 +9,7 @@ import mindustry.world.Block;
  * @version 1.0.0 2024-05-20
  */
 public class ApLocation extends Block {
-
+//test
 
     private void initialiseApAttributes(String originalNodeName, int locationId){
         setLocationId(locationId);
