@@ -56,7 +56,7 @@ public class MindustryOptions {
     /**
      * Constructor for MindustryOptions
      */
-    public MindustryOptions() {
+    public MindustryOptions() { //This will need to be filled with slot_data
         this.tutorialSkip = false;
         this.campaignChoice = CampaignType.SERPULO;
         this.numberedSectorAreLocation = false;

@@ -1,13 +1,12 @@
 package mindustry.randomizer;
 
-import arc.Core;
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
 
 /**
- * Create an objective as a requirement for an AP node.
+ * Create an item objective as a requirement for an AP node.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-05-24
@@ -39,7 +38,7 @@ public class APItemObjective implements Objectives.Objective {
             return "Capture " + sector.localizedName;
         }
         else {
-            if (Vars.randomizer.isMindustryItem(itemId)) {
+            if (Vars.randomizer.isMindustryAPItem(itemId)) {
                 return "Unlock " + Vars.randomizer.itemIdToUnlockableContent(itemId).localizedName;
             }
             else {

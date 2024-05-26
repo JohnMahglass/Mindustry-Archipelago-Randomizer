@@ -13,7 +13,7 @@ import mindustry.ctype.UnlockableContent;
 public class Randomizer {
 
     /**
-     * Represent the state the APworld is in.
+     * Represent the state the APWorld is in.
      */
     WorldState worldState;
 
@@ -23,7 +23,7 @@ public class Randomizer {
     public void unlock(int id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         worldState.unlockedItems.put(id, content);
-        content.randomizerUnlock();
+        content.unlock();
     }
 
     /**
@@ -45,7 +45,7 @@ public class Randomizer {
      * @param itemId The itemId that is contained in the location
      */
     public void locationChecked(int locationId, int itemId){
-        if (isMindustryItem(itemId)) { //Item id might not be sent to AP, this needs to be verified
+        if (isMindustryAPItem(itemId)) { //Item id might not be sent to AP, this needs to be verified
             unlock(itemId); //This if statement might not be needed at all
         }
         //send the check to archipelago
@@ -56,7 +56,7 @@ public class Randomizer {
      * within the randomizer.
      * @return If the content is an AP item.
      */
-    public boolean isMindustryItem(Integer itemId){
+    public boolean isMindustryAPItem(Integer itemId){
         boolean isMindustryItem = false;
         if (itemId != null) {
             if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 199) {
@@ -82,7 +82,7 @@ public class Randomizer {
      */
     public UnlockableContent itemIdToUnlockableContent(Integer itemId) {
         UnlockableContent content = null;
-        if (isMindustryItem(itemId)) {
+        if (isMindustryAPItem(itemId)) {
             if (worldState.items.get(itemId) != null) {
                 content = worldState.items.get(itemId);
             }

@@ -23,21 +23,8 @@ import static mindustry.Vars.*;
 
 /** Base interface for an unlockable content type. */
 public abstract class UnlockableContent extends MappableContent{
-    /**
-     * Id of the Archipelago location.
-     */
-    public Integer locationId;
-
-    /**
-     * Id of item Archipelago placed.
-     */
-    public Integer itemId;
-
-    /**
-     * Original name of the node.
-     */
-    public String originalNodeName;
-
+    /** True if this content is used by the randomizer */
+    private boolean randomized;
     /** Stat storage for this content. Initialized on demand. */
     public Stats stats = new Stats();
     /** Localized, formal name. Never null. Set to internal name if not found in bundle. */
@@ -76,6 +63,7 @@ public abstract class UnlockableContent extends MappableContent{
         this.description = Core.bundle.getOrNull(getContentType() + "." + this.name + ".description");
         this.details = Core.bundle.getOrNull(getContentType() + "." + this.name + ".details");
         this.unlocked = Core.settings != null && Core.settings.getBool(this.name + "-unlocked", false);
+        this.randomized = false;
     }
 
     @Override
@@ -203,15 +191,6 @@ public abstract class UnlockableContent extends MappableContent{
         }
     }
 
-    /** Unlocks this content from the randomizer. */
-    public void randomizerUnlock(){
-        if(!unlocked()){
-            unlocked = true;
-            Core.settings.put(name + "-unlocked", true);
-            randomizer.locationChecked(locationId, itemId);
-        }
-    }
-
     /** Unlocks this content, but does not fire any events. */
     public void quietUnlock(){
         if(!unlocked()){
@@ -250,27 +229,20 @@ public abstract class UnlockableContent extends MappableContent{
         return !unlocked();
     }
 
-    protected void setLocationId(int locationId) {
-        this.locationId = locationId;
-    }
-
-    protected void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
-
-    protected void setOriginalNodeName(String originalNodeName) {
-        this.originalNodeName = originalNodeName;
+    /**
+     * Return true if this content is used by the randomizer
+     * @return Return if this content is used by the randomizer
+     */
+    public boolean isRandomized() {
+        return randomized;
     }
 
     /**
-     * Return true if AP item attributes are initialized.
-     * @return If the content is an AP item.
+     * Assign the "randomized" attribute to indicate that this content is used in randomization
+     * @param randomized the new "randomized" attribute
      */
-    public boolean isApItem(){
-        boolean isApItem = false;
-        if (locationId != null && itemId != null && originalNodeName != null) {
-            isApItem = true;
-        }
-        return isApItem;
+    public void setRandomized(boolean randomized) {
+        this.randomized = randomized;
     }
+
 }

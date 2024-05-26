@@ -6,7 +6,6 @@ import mindustry.content.Liquids;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
-import mindustry.randomizer.MindustryOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +19,13 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
  * @version 1.0.0 2024-05-26
  */
 public class WorldState {
+
+    public Map<Integer, String> locations;
+
+    public Map<Integer, String> locationsChecked;
+
+    public Map<Integer, String> checkPending;
+
     /**
      * Contains the options of the generated game.
      */
@@ -35,10 +41,25 @@ public class WorldState {
      */
     public Map<Integer, UnlockableContent> unlockedItems;
 
+    /**
+     * True if there is a check waiting to be sent to the server.
+     * @return True if a check is pending.
+     */
+    public boolean hasCheckPending(){
+        if (checkPending.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public WorldState() {
         this.options = new MindustryOptions();
         this.items = new HashMap<Integer, UnlockableContent>();
         this.unlockedItems  = new HashMap<Integer, UnlockableContent>();
+        this.locations = new HashMap<Integer, String>();
+        this.locationsChecked = new HashMap<Integer, String>();
+        this.checkPending = new HashMap<Integer, String>();
     }
 
     /**

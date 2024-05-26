@@ -12,7 +12,7 @@ import mindustry.randomizer.tech.TechTreeRandomizer;
 public abstract class ErekirTechTreeRandomizer implements TechTreeRandomizer {
 
     public static void load() {
-
+        //Method not implemented
     }
 
 }

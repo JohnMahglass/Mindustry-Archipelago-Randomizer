@@ -31,7 +31,6 @@ import arc.util.Align;
 import arc.util.Nullable;
 import arc.util.Scaling;
 import arc.util.Structs;
-import mindustry.Vars;
 import mindustry.content.Planets;
 import mindustry.content.TechTree;
 import mindustry.core.UI;
@@ -60,7 +59,6 @@ import static mindustry.Vars.content;
 import static mindustry.Vars.iconMed;
 import static mindustry.Vars.mobile;
 import static mindustry.Vars.net;
-import static mindustry.Vars.randomizer;
 import static mindustry.Vars.state;
 import static mindustry.Vars.ui;
 import static mindustry.gen.Tex.buttonDown;
@@ -591,12 +589,8 @@ public class APDialog extends BaseDialog {
         }
 
         void unlock(TechTree.TechNode node){
-            //Node is a location
-            if (randomizer.isMindustryItem(node.content.itemId)) {
-                Vars.randomizer.locationChecked(node.content.locationId, node.content.itemId);
-            } else { //Node is a regular local research
-                node.content.unlock();
-            }
+            node.content.unlock();
+
             checkNodes(root);
             hoverNode = null;
             treeLayout();
