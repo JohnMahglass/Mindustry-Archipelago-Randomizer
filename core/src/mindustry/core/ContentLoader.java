@@ -6,6 +6,7 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.ai.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -20,6 +21,8 @@ import mindustry.world.*;
 
 import static arc.Core.*;
 import static mindustry.Vars.*;
+import static mindustry.content.SectorPresets.biomassFacility;
+import static mindustry.content.SectorPresets.extractionOutpost;
 
 /**
  * Loads all game content.

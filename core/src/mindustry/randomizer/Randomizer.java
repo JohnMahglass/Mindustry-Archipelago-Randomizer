@@ -15,7 +15,7 @@ public class Randomizer {
     /**
      * Represent the state the APWorld is in.
      */
-    WorldState worldState;
+    public WorldState worldState;
 
     /**
      * Unlock a UnlockableContent.

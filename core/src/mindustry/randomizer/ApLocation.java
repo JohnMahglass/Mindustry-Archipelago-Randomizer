@@ -2,6 +2,9 @@ package mindustry.randomizer;
 
 import arc.Core;
 import mindustry.ctype.ContentType;
+import mindustry.ctype.UnlockableContent;
+import mindustry.type.Item;
+import mindustry.type.ItemStack;
 import mindustry.world.Block;
 
 import static mindustry.Vars.randomizer;
@@ -13,6 +16,9 @@ import static mindustry.Vars.randomizer;
  * @version 1.0.0 2024-05-20
  */
 public class ApLocation extends Block {
+
+
+    public ApLocation parent;
 
     /**
      * id of the Archipelago location.
@@ -57,7 +63,6 @@ public class ApLocation extends Block {
         super(name);
         this.locationId = locationId;
         this.originalNodeName = originalNodeName;
-        setRandomized(true);
     }
 
     /**
@@ -72,11 +77,36 @@ public class ApLocation extends Block {
         this.locationId = locationId;
         this.itemId = itemId;
         this.originalNodeName = originalNodeName;
-        setRandomized(true);
     }
 
     @Override
     public ContentType getContentType() {
         return ContentType.block; //Content type irrevelent, this is to prevent an error being raised
+    }
+
+    public void setParent(ApLocation parent){
+        this.parent = parent;
+    }
+
+    public ApLocation getParent(){
+        return this.parent;
+    }
+
+    public boolean hasParent(){
+        return (parent != null);
+    }
+
+    public void addItemToRequirement(Item item, int amount){
+        int requirementAmount = researchCost.length + 1;
+        ItemStack[] newResearchCost = new ItemStack[requirementAmount];
+        if (researchCost.length > 0) {
+            newResearchCost = researchCost.clone();
+        }
+        newResearchCost[requirementAmount] = new ItemStack(item, amount);
+        this.researchCost = newResearchCost.clone();
+    }
+
+    private void initialiseParentRequirement(ApLocation location) {
+
     }
 }
