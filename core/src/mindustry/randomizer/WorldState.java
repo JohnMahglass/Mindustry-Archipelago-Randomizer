@@ -88,7 +88,7 @@ public class WorldState {
      * Initialize item from Serpulo campaign.
      */
     protected void initializeSerpuloItems() {
-        items.put(MINDUSTRY_BASE_ID + 0, Blocks.conveyor);
+        //items.put(MINDUSTRY_BASE_ID + 0, Blocks.conveyor);
         items.put(MINDUSTRY_BASE_ID + 1, Blocks.junction);
         items.put(MINDUSTRY_BASE_ID + 2, Blocks.router);
         items.put(MINDUSTRY_BASE_ID + 3, Blocks.launchPad);
@@ -110,7 +110,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 19, Blocks.plastaniumConveyor);
         items.put(MINDUSTRY_BASE_ID + 20, Blocks.coreFoundation);
         items.put(MINDUSTRY_BASE_ID + 21, Blocks.coreNucleus);
-        items.put(MINDUSTRY_BASE_ID + 22, Blocks.mechanicalDrill);
+        //items.put(MINDUSTRY_BASE_ID + 22, Blocks.mechanicalDrill);
         items.put(MINDUSTRY_BASE_ID + 23, Blocks.mechanicalPump);
         items.put(MINDUSTRY_BASE_ID + 24, Blocks.conduit);
         items.put(MINDUSTRY_BASE_ID + 25, Blocks.liquidJunction);
@@ -179,8 +179,8 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 88, Blocks.rtgGenerator);
         items.put(MINDUSTRY_BASE_ID + 89, Blocks.solarPanel);
         items.put(MINDUSTRY_BASE_ID + 90, Blocks.largeSolarPanel);
-        items.put(MINDUSTRY_BASE_ID + 91, Blocks.duo);
-        items.put(MINDUSTRY_BASE_ID + 92, Blocks.copperWall);
+        //items.put(MINDUSTRY_BASE_ID + 91, Blocks.duo);
+        //items.put(MINDUSTRY_BASE_ID + 92, Blocks.copperWall);
         items.put(MINDUSTRY_BASE_ID + 93, Blocks.copperWallLarge);
         items.put(MINDUSTRY_BASE_ID + 94, Blocks.titaniumWall);
         items.put(MINDUSTRY_BASE_ID + 95, Blocks.titaniumWallLarge);
@@ -194,7 +194,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 103, Blocks.surgeWallLarge);
         items.put(MINDUSTRY_BASE_ID + 104, Blocks.phaseWall);
         items.put(MINDUSTRY_BASE_ID + 105, Blocks.phaseWallLarge);
-        items.put(MINDUSTRY_BASE_ID + 106, Blocks.scatter);
+        //items.put(MINDUSTRY_BASE_ID + 106, Blocks.scatter);
         items.put(MINDUSTRY_BASE_ID + 107, Blocks.hail);
         items.put(MINDUSTRY_BASE_ID + 108, Blocks.salvo);
         items.put(MINDUSTRY_BASE_ID + 109, Blocks.swarmer);
