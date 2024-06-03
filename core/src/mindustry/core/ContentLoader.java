@@ -62,6 +62,7 @@ public class ContentLoader{
         randomizer.initialize();
         SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
+        saveDirectory = dataDirectory.child("randomiser_saves/");
     }
 
     /** Creates mod content, if applicable. */
