@@ -228,21 +228,4 @@ public abstract class UnlockableContent extends MappableContent{
     public boolean locked(){
         return !unlocked();
     }
-
-    /**
-     * Return true if this content is used by the randomizer
-     * @return Return if this content is used by the randomizer
-     */
-    public boolean isRandomized() {
-        return randomized;
-    }
-
-    /**
-     * Assign the "randomized" attribute to indicate that this content is used in randomization
-     * @param randomized the new "randomized" attribute
-     */
-    public void setRandomized(boolean randomized) {
-        this.randomized = randomized;
-    }
-
 }
