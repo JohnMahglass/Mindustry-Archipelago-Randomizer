@@ -94,6 +94,7 @@ public class Randomizer {
      * Initialize the randomizer's list of item depending on the selected campaign
      */
     public void initialize() {
+        worldState.initialize();
         switch (worldState.options.getCampaignChoice()) {
             case SERPULO:
                 worldState.initializeSerpuloItems();
@@ -121,7 +122,7 @@ public class Randomizer {
     }
 
     /**
-     * Place item into their location
+     * Place item into their location.
      * @param locationId The location's id.
      * @param itemId The item's id.
      */

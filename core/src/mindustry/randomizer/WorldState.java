@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -7,6 +8,11 @@ import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,10 +26,19 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
  */
 public class WorldState {
 
+    /**
+     * List of all locations used in the randomisation.
+     */
     public Map<Integer, String> locations;
 
+    /**
+     * List of locations that have been checked and successfully sent.
+     */
     public Map<Integer, String> locationsChecked;
 
+    /**
+     * List of checked locations that have not been successfully sent.
+     */
     public Map<Integer, String> checkPending;
 
     /**
@@ -42,6 +57,16 @@ public class WorldState {
     public Map<Integer, UnlockableContent> unlockedItems;
 
     /**
+     * Whether the run has already been initialized once. (not the first time the player is playing)
+     */
+    private boolean initialized;
+
+    /**
+     * Directory pointing towards the saved files.
+     */
+    private String savedStateDirectory;
+
+    /**
      * True if there is a check waiting to be sent to the server.
      * @return True if a check is pending.
      */
@@ -53,6 +78,9 @@ public class WorldState {
         }
     }
 
+    /**
+     * Constrcutor of the world state.
+     */
     public WorldState() {
         this.options = new MindustryOptions();
         this.items = new HashMap<Integer, UnlockableContent>();
@@ -63,12 +91,70 @@ public class WorldState {
     }
 
     /**
-     * Initialize item from all campaigns.
+     * Initialize world state.
+     */
+    public void initialize(){
+        this.savedStateDirectory = Vars.saveDirectory.path();
+        loadState();
+    }
+
+    /**
+     * Save current state to the save file.
+     */
+    public void saveState(int[] state){
+        String fileName = "worldState.txt";
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeInt(state.length);
+
+            for (int i = 0; i < state.length; i++) {
+                oos.writeInt(state[i]);
+            }
+
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Load the saved state at the start of the game.
+     */
+    private int[] loadState() {
+        String fileName = "worldState.txt";
+        int[] loadedState;
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            int length = ois.readInt();
+            loadedState = new int[length];
+
+            for (int i = 0; i < length; i++) {
+                loadedState[i] = ois.readInt();
+            }
+
+            ois.close();
+            fis.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            loadedState = null;
+        }
+        return loadedState;
+    }
+
+    /**
+     * Initialize items for all campaigns.
      */
     protected void initializeAllItems() {
         //Method not implemented
     }
 
+    /**
+     * Initialize locations for all campaigns
+     */
     protected void initializeAllLocations() {
         //Method not implemented
     }
@@ -80,6 +166,9 @@ public class WorldState {
         //Method not implemented
     }
 
+    /**
+     * Initialize locations from Erekir campaign
+     */
     protected void initializeErekirLocations() {
         //Method not implemented
     }
@@ -290,8 +379,228 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 199, Items.plastanium);
     }
 
-    protected void initializeSerpuloLocations() {
-        //Method not implemented
+    /**
+     * Initialise location for Serpulo campaign.
+     */
+    protected void initializeSerpuloLocations() { //Might not be useful
+        /*
+        locations.put(MINDUSTRY_BASE_ID + 0, "Node Conveyor");
+        locations.put(MINDUSTRY_BASE_ID + 1, "Node Junction");
+        locations.put(MINDUSTRY_BASE_ID + 2, "Node Router");
+        locations.put(MINDUSTRY_BASE_ID + 3, "Node Launch Pad");
+        locations.put(MINDUSTRY_BASE_ID + 4, "Node Distributor");
+        locations.put(MINDUSTRY_BASE_ID + 5, "Node Sorter");
+        locations.put(MINDUSTRY_BASE_ID + 6, "Node Inverted Sorter");
+        locations.put(MINDUSTRY_BASE_ID + 7, "Node Overflow");
+        locations.put(MINDUSTRY_BASE_ID + 8, );
+        locations.put(MINDUSTRY_BASE_ID + 9, );
+        locations.put(MINDUSTRY_BASE_ID + 10, );
+        locations.put(MINDUSTRY_BASE_ID + 11, );
+        locations.put(MINDUSTRY_BASE_ID + 12, );
+        locations.put(MINDUSTRY_BASE_ID + 13, );
+        locations.put(MINDUSTRY_BASE_ID + 14, );
+        locations.put(MINDUSTRY_BASE_ID + 15, );
+        locations.put(MINDUSTRY_BASE_ID + 16, );
+        locations.put(MINDUSTRY_BASE_ID + 17, );
+        locations.put(MINDUSTRY_BASE_ID + 18, );
+        locations.put(MINDUSTRY_BASE_ID + 19, );
+        locations.put(MINDUSTRY_BASE_ID + 20, );
+        locations.put(MINDUSTRY_BASE_ID + 21, );
+        locations.put(MINDUSTRY_BASE_ID + 22, );
+        locations.put(MINDUSTRY_BASE_ID + 23, );
+        locations.put(MINDUSTRY_BASE_ID + 24, );
+        locations.put(MINDUSTRY_BASE_ID + 25, );
+        locations.put(MINDUSTRY_BASE_ID + 26, );
+        locations.put(MINDUSTRY_BASE_ID + 27, );
+        locations.put(MINDUSTRY_BASE_ID + 28, );
+        locations.put(MINDUSTRY_BASE_ID + 29, );
+        locations.put(MINDUSTRY_BASE_ID + 30, );
+        locations.put(MINDUSTRY_BASE_ID + 31, );
+        locations.put(MINDUSTRY_BASE_ID + 32, );
+        locations.put(MINDUSTRY_BASE_ID + 33, );
+        locations.put(MINDUSTRY_BASE_ID + 34, );
+        locations.put(MINDUSTRY_BASE_ID + 35, );
+        locations.put(MINDUSTRY_BASE_ID + 36, );
+        locations.put(MINDUSTRY_BASE_ID + 37, );
+        locations.put(MINDUSTRY_BASE_ID + 38, );
+        locations.put(MINDUSTRY_BASE_ID + 39, );
+        locations.put(MINDUSTRY_BASE_ID + 40, );
+        locations.put(MINDUSTRY_BASE_ID + 41, );
+        locations.put(MINDUSTRY_BASE_ID + 42, );
+        locations.put(MINDUSTRY_BASE_ID + 43, );
+        locations.put(MINDUSTRY_BASE_ID + 44, );
+        locations.put(MINDUSTRY_BASE_ID + 45, );
+        locations.put(MINDUSTRY_BASE_ID + 46, );
+        locations.put(MINDUSTRY_BASE_ID + 47, );
+        locations.put(MINDUSTRY_BASE_ID + 48, );
+        locations.put(MINDUSTRY_BASE_ID + 49, );
+        locations.put(MINDUSTRY_BASE_ID + 50, );
+        locations.put(MINDUSTRY_BASE_ID + 51, );
+        locations.put(MINDUSTRY_BASE_ID + 52, );
+        locations.put(MINDUSTRY_BASE_ID + 53, );
+        locations.put(MINDUSTRY_BASE_ID + 54, );
+        locations.put(MINDUSTRY_BASE_ID + 55, );
+        locations.put(MINDUSTRY_BASE_ID + 56, );
+        locations.put(MINDUSTRY_BASE_ID + 57, );
+        locations.put(MINDUSTRY_BASE_ID + 58, );
+        locations.put(MINDUSTRY_BASE_ID + 59, );
+        locations.put(MINDUSTRY_BASE_ID + 60, );
+        locations.put(MINDUSTRY_BASE_ID + 61, );
+        locations.put(MINDUSTRY_BASE_ID + 62, );
+        locations.put(MINDUSTRY_BASE_ID + 63, );
+        locations.put(MINDUSTRY_BASE_ID + 64, );
+        locations.put(MINDUSTRY_BASE_ID + 65, );
+        locations.put(MINDUSTRY_BASE_ID + 66, );
+        locations.put(MINDUSTRY_BASE_ID + 67, );
+        locations.put(MINDUSTRY_BASE_ID + 68, );
+        locations.put(MINDUSTRY_BASE_ID + 69, );
+        locations.put(MINDUSTRY_BASE_ID + 70, );
+        locations.put(MINDUSTRY_BASE_ID + 71, );
+        locations.put(MINDUSTRY_BASE_ID + 72, );
+        locations.put(MINDUSTRY_BASE_ID + 73, );
+        locations.put(MINDUSTRY_BASE_ID + 74, );
+        locations.put(MINDUSTRY_BASE_ID + 75, );
+        locations.put(MINDUSTRY_BASE_ID + 76, );
+        locations.put(MINDUSTRY_BASE_ID + 77, );
+        locations.put(MINDUSTRY_BASE_ID + 78, );
+        locations.put(MINDUSTRY_BASE_ID + 79, );
+        locations.put(MINDUSTRY_BASE_ID + 80, );
+        locations.put(MINDUSTRY_BASE_ID + 81, );
+        locations.put(MINDUSTRY_BASE_ID + 82, );
+        locations.put(MINDUSTRY_BASE_ID + 83, );
+        locations.put(MINDUSTRY_BASE_ID + 84, );
+        locations.put(MINDUSTRY_BASE_ID + 85, );
+        locations.put(MINDUSTRY_BASE_ID + 86, );
+        locations.put(MINDUSTRY_BASE_ID + 87, );
+        locations.put(MINDUSTRY_BASE_ID + 88, );
+        locations.put(MINDUSTRY_BASE_ID + 89, );
+        locations.put(MINDUSTRY_BASE_ID + 90, );
+        locations.put(MINDUSTRY_BASE_ID + 91, );
+        locations.put(MINDUSTRY_BASE_ID + 92, );
+        locations.put(MINDUSTRY_BASE_ID + 93, );
+        locations.put(MINDUSTRY_BASE_ID + 94, );
+        locations.put(MINDUSTRY_BASE_ID + 95, );
+        locations.put(MINDUSTRY_BASE_ID + 96, );
+        locations.put(MINDUSTRY_BASE_ID + 97, );
+        locations.put(MINDUSTRY_BASE_ID + 98, );
+        locations.put(MINDUSTRY_BASE_ID + 99, );
+        locations.put(MINDUSTRY_BASE_ID + 100, );
+        locations.put(MINDUSTRY_BASE_ID + 101, );
+        locations.put(MINDUSTRY_BASE_ID + 102, );
+        locations.put(MINDUSTRY_BASE_ID + 103, );
+        locations.put(MINDUSTRY_BASE_ID + 104, );
+        locations.put(MINDUSTRY_BASE_ID + 105, );
+        locations.put(MINDUSTRY_BASE_ID + 106, );
+        locations.put(MINDUSTRY_BASE_ID + 107, );
+        locations.put(MINDUSTRY_BASE_ID + 108, );
+        locations.put(MINDUSTRY_BASE_ID + 109, );
+        locations.put(MINDUSTRY_BASE_ID + 110, );
+        locations.put(MINDUSTRY_BASE_ID + 111, );
+        locations.put(MINDUSTRY_BASE_ID + 112, );
+        locations.put(MINDUSTRY_BASE_ID + 113, );
+        locations.put(MINDUSTRY_BASE_ID + 114, );
+        locations.put(MINDUSTRY_BASE_ID + 115, );
+        locations.put(MINDUSTRY_BASE_ID + 116, );
+        locations.put(MINDUSTRY_BASE_ID + 117, );
+        locations.put(MINDUSTRY_BASE_ID + 118, );
+        locations.put(MINDUSTRY_BASE_ID + 119, );
+        locations.put(MINDUSTRY_BASE_ID + 120, );
+        locations.put(MINDUSTRY_BASE_ID + 121, );
+        locations.put(MINDUSTRY_BASE_ID + 122, );
+        locations.put(MINDUSTRY_BASE_ID + 123, );
+        locations.put(MINDUSTRY_BASE_ID + 124, );
+        locations.put(MINDUSTRY_BASE_ID + 125, );
+        locations.put(MINDUSTRY_BASE_ID + 126, );
+        locations.put(MINDUSTRY_BASE_ID + 127, );
+        locations.put(MINDUSTRY_BASE_ID + 128, );
+        locations.put(MINDUSTRY_BASE_ID + 129, );
+        locations.put(MINDUSTRY_BASE_ID + 130, );
+        locations.put(MINDUSTRY_BASE_ID + 131, );
+        locations.put(MINDUSTRY_BASE_ID + 132, );
+        locations.put(MINDUSTRY_BASE_ID + 133, );
+        locations.put(MINDUSTRY_BASE_ID + 134, );
+        locations.put(MINDUSTRY_BASE_ID + 135, );
+        locations.put(MINDUSTRY_BASE_ID + 136, );
+        locations.put(MINDUSTRY_BASE_ID + 137, );
+        locations.put(MINDUSTRY_BASE_ID + 138, );
+        locations.put(MINDUSTRY_BASE_ID + 139, );
+        locations.put(MINDUSTRY_BASE_ID + 140, );
+        locations.put(MINDUSTRY_BASE_ID + 141, );
+        locations.put(MINDUSTRY_BASE_ID + 142, );
+        locations.put(MINDUSTRY_BASE_ID + 143, );
+        locations.put(MINDUSTRY_BASE_ID + 144, );
+        locations.put(MINDUSTRY_BASE_ID + 145, );
+        locations.put(MINDUSTRY_BASE_ID + 146, );
+        locations.put(MINDUSTRY_BASE_ID + 147, );
+        locations.put(MINDUSTRY_BASE_ID + 148, );
+        locations.put(MINDUSTRY_BASE_ID + 149, );
+        locations.put(MINDUSTRY_BASE_ID + 150, );
+        locations.put(MINDUSTRY_BASE_ID + 151, );
+        locations.put(MINDUSTRY_BASE_ID + 152, );
+        locations.put(MINDUSTRY_BASE_ID + 153, );
+        locations.put(MINDUSTRY_BASE_ID + 154, );
+        locations.put(MINDUSTRY_BASE_ID + 155, );
+        locations.put(MINDUSTRY_BASE_ID + 156, );
+        locations.put(MINDUSTRY_BASE_ID + 157, );
+        locations.put(MINDUSTRY_BASE_ID + 158, );
+        locations.put(MINDUSTRY_BASE_ID + 159, );
+        locations.put(MINDUSTRY_BASE_ID + 160, );
+        locations.put(MINDUSTRY_BASE_ID + 161, );
+        locations.put(MINDUSTRY_BASE_ID + 162, );
+        locations.put(MINDUSTRY_BASE_ID + 163, );
+        locations.put(MINDUSTRY_BASE_ID + 164, );
+        locations.put(MINDUSTRY_BASE_ID + 165, );
+        locations.put(MINDUSTRY_BASE_ID + 166, );
+        locations.put(MINDUSTRY_BASE_ID + 167, );
+        locations.put(MINDUSTRY_BASE_ID + 168, );
+        locations.put(MINDUSTRY_BASE_ID + 169, );
+        locations.put(MINDUSTRY_BASE_ID + 170, );
+        locations.put(MINDUSTRY_BASE_ID + 171, );
+        locations.put(MINDUSTRY_BASE_ID + 172, );
+        locations.put(MINDUSTRY_BASE_ID + 173, );
+        locations.put(MINDUSTRY_BASE_ID + 174, );
+        locations.put(MINDUSTRY_BASE_ID + 175, );
+        locations.put(MINDUSTRY_BASE_ID + 176, );
+        locations.put(MINDUSTRY_BASE_ID + 177, );
+        locations.put(MINDUSTRY_BASE_ID + 178, );
+        locations.put(MINDUSTRY_BASE_ID + 179, );
+        locations.put(MINDUSTRY_BASE_ID + 180, );
+        locations.put(MINDUSTRY_BASE_ID + 181, );
+        locations.put(MINDUSTRY_BASE_ID + 182, );
+        locations.put(MINDUSTRY_BASE_ID + 183, );
+        locations.put(MINDUSTRY_BASE_ID + 184, );
+        locations.put(MINDUSTRY_BASE_ID + 185, );
+        locations.put(MINDUSTRY_BASE_ID + 186, );
+        locations.put(MINDUSTRY_BASE_ID + 187, );
+        locations.put(MINDUSTRY_BASE_ID + 188, );
+        locations.put(MINDUSTRY_BASE_ID + 189, );
+        locations.put(MINDUSTRY_BASE_ID + 190, );
+        locations.put(MINDUSTRY_BASE_ID + 191, );
+        locations.put(MINDUSTRY_BASE_ID + 192, );
+        locations.put(MINDUSTRY_BASE_ID + 193, );
+        locations.put(MINDUSTRY_BASE_ID + 194, );
+        locations.put(MINDUSTRY_BASE_ID + 195, );
+        locations.put(MINDUSTRY_BASE_ID + 196, );
+        locations.put(MINDUSTRY_BASE_ID + 197, );
+        locations.put(MINDUSTRY_BASE_ID + 198, );
+        locations.put(MINDUSTRY_BASE_ID + 199, );
+        */
+    }
+
+    /**
+     * Return true if the state has already been initialized.
+     * @return Return whether the state has already been initialized.
+     */
+    public boolean getInitialized() {
+        return initialized;
+    }
+
+    /**
+     * Set initialization status.
+     * @param status The status of the initialization
+     */
+    public void setInitialized(boolean status) {
+        this.initialized = status;
     }
 
 }

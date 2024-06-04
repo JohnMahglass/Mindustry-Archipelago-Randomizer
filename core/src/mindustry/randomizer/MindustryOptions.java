@@ -33,16 +33,12 @@ public class MindustryOptions {
      */
     private boolean allowInvasion;
 
+    /**
+     * If the player choose to skip the tutorial.
+     * @return
+     */
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
-    }
-
-    public boolean getNumberedSectorAreLocation() {
-        return this.numberedSectorAreLocation;
-    }
-
-    public boolean getAllowPause() {
-        return this.allowPause;
     }
 
     public boolean getAllowInvasion() {
@@ -59,8 +55,6 @@ public class MindustryOptions {
     public MindustryOptions() { //This will need to be filled with slot_data
         this.tutorialSkip = false;
         this.campaignChoice = CampaignType.SERPULO;
-        this.numberedSectorAreLocation = false;
-        this.allowPause = true;
         this.allowInvasion = true;
     }
 }
