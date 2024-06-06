@@ -22,7 +22,7 @@ public class Randomizer {
      */
     public void unlock(int id){
         UnlockableContent content = itemIdToUnlockableContent(id);
-        worldState.unlockedItems.put(id, content);
+       // worldState.addCheck(worldState.unlockedItems, id);
         content.unlock();
     }
 
@@ -33,11 +33,16 @@ public class Randomizer {
      */
     public boolean hasItem(int id){
         boolean itemReceived = false;
-        if (worldState.unlockedItems.get(id) != null) {
-            itemReceived = true;
+
+        for (int i = 0; i < worldState.unlockedItems.length; i++) {
+            if (id == worldState.unlockedItems[i]) {
+                itemReceived = true;
+            }
         }
+
         return itemReceived;
     }
+
 
     /**
      * Forward the check to Archipelago, if the item is a Mindustry item, unlock it.

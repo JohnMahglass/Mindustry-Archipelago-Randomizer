@@ -40,14 +40,14 @@ public class ApLocation extends Block {
      */
     @Override
     public void unlock(){
+        WorldState ws = randomizer.worldState;
         if(!unlocked()){
             unlocked = true;
             Core.settings.put(name + "-unlocked", true);
             if (itemId != null) {
                 randomizer.locationChecked(locationId, itemId);
             } else {
-                randomizer.worldState.checkPending.put(locationId, name); //THIS NEEDS TO BE
-                // SAVED LOCALLY
+                //Error needs to be logged
             }
 
         }

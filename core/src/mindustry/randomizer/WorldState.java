@@ -6,25 +6,36 @@ import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
-import mindustry.ctype.UnlockableContent;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.Map;
+
+import mindustry.ctype.UnlockableContent;
+
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
 /**
- * Contain information about what has been done within this World.
+ * Contain and update information about what has been done within this World.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-05-26
  */
 public class WorldState {
+
+    /**
+     * Name of the file containing locations that has been checked.
+     */
+    public String locationCheckedFile = "RandomizerLocationChecked.txt";
+
+    /**
+     * Name of the file containing locations that are pending.
+     */
+    public String checkPendingFile = "RandomizerCheckPending.txt";
 
     /**
      * List of all locations used in the randomisation.
@@ -34,17 +45,12 @@ public class WorldState {
     /**
      * List of locations that have been checked and successfully sent.
      */
-    public Map<Integer, String> locationsChecked;
+    public int[] locationsChecked;
 
     /**
      * List of checked locations that have not been successfully sent.
      */
-    public Map<Integer, String> checkPending;
-
-    /**
-     * Contains the options of the generated game.
-     */
-    public MindustryOptions options;
+    public int[] checkPending;
 
     /**
      * All UnlockableContent with their matching id
@@ -52,9 +58,14 @@ public class WorldState {
     public Map<Integer, UnlockableContent> items;
 
     /**
-     * UnlockableContent that are already unlocked with their matching id
+     * Randomized items that have been received.
      */
-    public Map<Integer, UnlockableContent> unlockedItems;
+    public int[] unlockedItems;
+
+    /**
+     * Contains the options of the generated game.
+     */
+    public MindustryOptions options;
 
     /**
      * Whether the run has already been initialized once. (not the first time the player is playing)
@@ -62,16 +73,11 @@ public class WorldState {
     private boolean initialized;
 
     /**
-     * Directory pointing towards the saved files.
-     */
-    private String savedStateDirectory;
-
-    /**
      * True if there is a check waiting to be sent to the server.
      * @return True if a check is pending.
      */
     public boolean hasCheckPending(){
-        if (checkPending.isEmpty()) {
+        if (checkPending.length == 0 || checkPending == null) {
             return false;
         } else {
             return true;
@@ -83,33 +89,51 @@ public class WorldState {
      */
     public WorldState() {
         this.options = new MindustryOptions();
-        this.items = new HashMap<Integer, UnlockableContent>();
-        this.unlockedItems  = new HashMap<Integer, UnlockableContent>();
-        this.locations = new HashMap<Integer, String>();
-        this.locationsChecked = new HashMap<Integer, String>();
-        this.checkPending = new HashMap<Integer, String>();
+        this.items = null;
+        this.unlockedItems = null;
+        this.locations = null;
+        this.locationsChecked = null;
+        this.checkPending = null;
     }
 
     /**
      * Initialize world state.
      */
     public void initialize(){
-        this.savedStateDirectory = Vars.saveDirectory.path();
-        loadState();
+        loadStates(checkPendingFile, checkPending);
+    }
+
+    /**
+     * Add a check to an array. Note that the state should be saved after using this method by
+     * calling saveState().
+     * @param stateArray
+     * @param newCheck
+     */
+    public int[] addCheck(int[] stateArray, int newCheck){
+        int size;
+        if (stateArray != null) {
+            size = stateArray.length;
+        } else {
+            size = 0;
+        }
+        int[] newState = new int[size + 1];
+        for (int i = 0; i < size; i++) {
+            newState[i] = stateArray[i];
+        }
+        newState[size] = newCheck;
+        return newState;
     }
 
     /**
      * Save current state to the save file.
      */
-    public void saveState(int[] state){
-        String fileName = "worldState.txt";
+    public void saveState(String fileName,int[] state){
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeInt(state.length);
 
-            for (int i = 0; i < state.length; i++) {
-                oos.writeInt(state[i]);
+            if (state != null) {
+                oos.writeObject(state);
             }
 
             oos.close();
@@ -120,10 +144,26 @@ public class WorldState {
     }
 
     /**
+     * Load every saved state
+     */
+    private void loadStates(String fileName,int[] state){
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            state = (int[]) ois.readObject();
+
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Load the saved state at the start of the game.
      */
-    private int[] loadState() {
-        String fileName = "worldState.txt";
+    private int[] loadState(String fileName) {
         int[] loadedState;
         try {
             FileInputStream fis = new FileInputStream(fileName);
