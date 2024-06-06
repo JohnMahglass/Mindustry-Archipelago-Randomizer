@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import mindustry.ctype.UnlockableContent;
@@ -89,9 +90,9 @@ public class WorldState {
      */
     public WorldState() {
         this.options = new MindustryOptions();
-        this.items = null;
+        this.items = new HashMap<>();
         this.unlockedItems = null;
-        this.locations = null;
+        this.locations = new HashMap<>();
         this.locationsChecked = null;
         this.checkPending = null;
     }
