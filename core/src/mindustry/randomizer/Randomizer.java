@@ -22,7 +22,7 @@ public class Randomizer {
      */
     public void unlock(int id){
         UnlockableContent content = itemIdToUnlockableContent(id);
-       // worldState.addCheck(worldState.unlockedItems, id);
+        worldState.addCheck(worldState.unlockedItems, id);
         content.unlock();
     }
 
