@@ -59,11 +59,8 @@ public class ContentLoader{
         Weathers.load();
         Planets.load();
         SectorPresets.load();
-        saveDirectory = dataDirectory.child("randomiser_saves/");
-        randomizer.initialize();
         SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
-
     }
 
     /** Creates mod content, if applicable. */
