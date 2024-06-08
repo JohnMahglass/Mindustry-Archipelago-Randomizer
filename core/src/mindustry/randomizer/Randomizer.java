@@ -125,6 +125,7 @@ public class Randomizer {
     public Randomizer(){
         this.worldState = new WorldState();
         initialize();
+
     }
 
     /**
