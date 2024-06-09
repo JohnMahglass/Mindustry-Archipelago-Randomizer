@@ -3,6 +3,9 @@ package mindustry.randomizer;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
 import mindustry.ctype.UnlockableContent;
+import mindustry.randomizer.client.APClient;
+
+import java.net.URISyntaxException;
 
 /**
  * Randomizer for Archipelago multiworld randomizer.
@@ -11,6 +14,8 @@ import mindustry.ctype.UnlockableContent;
  * @version 1.0.0 2024-05-12
  */
 public class Randomizer {
+
+    APClient randomizerClient;
 
     /**
      * Represent the state the APWorld is in.
@@ -125,7 +130,16 @@ public class Randomizer {
     public Randomizer(){
         this.worldState = new WorldState();
         initialize();
+        this.randomizerClient = new APClient();
 
+        try {
+            randomizerClient.connect("archipelago.gg:52891");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        boolean connected = randomizerClient.isConnected();
+        int test = 1;
     }
 
     /**
