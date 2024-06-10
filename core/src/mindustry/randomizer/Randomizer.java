@@ -2,6 +2,7 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
+import dev.koifysh.archipelago.network.server.RoomInfoPacket;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 
@@ -131,15 +132,7 @@ public class Randomizer {
         this.worldState = new WorldState();
         initialize();
         this.randomizerClient = new APClient();
-
-        try {
-            randomizerClient.connect("archipelago.gg:52891");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        boolean connected = randomizerClient.isConnected();
-        int test = 1;
+        randomizerClient.connectRandomizer("archipelago.gg:55465");
     }
 
     /**

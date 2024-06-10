@@ -1,5 +1,7 @@
 package mindustry.randomizer;
 
+import mindustry.randomizer.enums.CampaignType;
+
 /**
  * Class containing the options for the generated Mindustry game.
  *

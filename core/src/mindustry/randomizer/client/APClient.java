@@ -2,11 +2,11 @@ package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.Print.APPrint;
-import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkItem;
 
 import java.net.URISyntaxException;
+
 
 /**
  * APClient for connecting to Archipelago server.
@@ -16,16 +16,18 @@ import java.net.URISyntaxException;
  */
 public class APClient extends Client {
 
-    DataPackage dataPackage;
+    public DataPackage dataPackage;
+
+    public SlotData slotData;
 
     public APClient () {
         super();
         this.setGame("Mindustry");
         this.setName("Dev");
+        this.dataPackage = getDataPackage();
+
 
         this.getEventManager().registerListener(new ConnectResult(this));
-        //this.dataPackage = getDataPackage();
-
     }
 
     @Override
@@ -41,5 +43,16 @@ public class APClient extends Client {
     @Override
     public void onClose(String Reason, int attemptingReconnect) {
 
+    }
+
+    public void connectRandomizer(String server) {
+        try {
+            connect(server);
+        } catch (URISyntaxException e) { //NEED TO LOG ERROR
+            e.printStackTrace();
+        }
+    }
+    public void connectRandomizer(String server, String password) {
+        //Same as connectRandomizer but with a password
     }
 }

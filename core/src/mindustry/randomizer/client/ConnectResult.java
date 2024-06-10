@@ -12,7 +12,7 @@ import dev.koifysh.archipelago.network.ConnectionResult;
  */
 public class ConnectResult {
 
-    APClient client;
+    private APClient client;
 
     public ConnectResult(APClient client) {
         this.client = client;
@@ -21,9 +21,9 @@ public class ConnectResult {
     @ArchipelagoEventListener
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
-            String connection = "Connection success";
+            client.slotData = event.getSlotData(SlotData.class);
         } else {
-            int test = 1;
+            //Should raise a flag for reconnection / error logging
         }
     }
 }
