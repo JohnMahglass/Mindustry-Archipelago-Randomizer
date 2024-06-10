@@ -39,6 +39,11 @@ public class WorldState {
     public String checkPendingFile = "RandomizerCheckPending.txt";
 
     /**
+     * Name of the file containing the address for the archipelago connection.
+     */
+    public String archipelagoAddressFile = "ArchipelagoAddress.txt";
+
+    /**
      * List of all locations used in the randomisation.
      */
     public Map<Integer, String> locations;

@@ -20,6 +20,26 @@ public class APClient extends Client {
 
     public SlotData slotData;
 
+    private String slotName;
+
+    /**
+     * Getter for slotName
+     *
+     * @return return slotName
+     */
+    public String getSlotName() {
+        return slotName;
+    }
+
+    /**
+     * Assign slotName
+     *
+     * @param slotName Value of slotName
+     */
+    public void setSlotName(String slotName) {
+        this.slotName = slotName;
+    }
+
     private String address;
 
     public APClient () {
