@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
  */
 public class Randomizer {
 
-    APClient randomizerClient;
+    public APClient randomizerClient;
 
     /**
      * Represent the state the APWorld is in.
@@ -132,7 +132,8 @@ public class Randomizer {
         this.worldState = new WorldState();
         initialize();
         this.randomizerClient = new APClient();
-        randomizerClient.connectRandomizer("archipelago.gg:55465");
+        randomizerClient.setAddress("archipelago.gg:55465");
+        randomizerClient.connectRandomizer();
     }
 
     /**

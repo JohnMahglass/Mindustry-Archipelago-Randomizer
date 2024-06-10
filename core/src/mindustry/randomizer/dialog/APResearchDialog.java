@@ -70,7 +70,7 @@ import static mindustry.gen.Tex.buttonOver;
  * @author John Mahglass
  * @version 1.0.0 2024-05-20
  */
-public class APDialog extends BaseDialog {
+public class APResearchDialog extends BaseDialog {
     public static boolean debugShowRequirements = false;
 
     public final float nodeSize = Scl.scl(60f);
@@ -85,7 +85,7 @@ public class APDialog extends BaseDialog {
 
     private boolean showTechSelect;
 
-    public APDialog(){
+    public APResearchDialog(){
         super("");
 
         titleTable.remove();

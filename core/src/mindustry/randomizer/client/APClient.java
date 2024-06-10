@@ -20,12 +20,14 @@ public class APClient extends Client {
 
     public SlotData slotData;
 
+    private String address;
+
     public APClient () {
         super();
         this.setGame("Mindustry");
         this.setName("Dev");
         this.dataPackage = getDataPackage();
-
+        this.address = null;
 
         this.getEventManager().registerListener(new ConnectResult(this));
     }
@@ -45,14 +47,22 @@ public class APClient extends Client {
 
     }
 
-    public void connectRandomizer(String server) {
+    public void connectRandomizer() {
         try {
-            connect(server);
+            connect(address);
         } catch (URISyntaxException e) { //NEED TO LOG ERROR
             e.printStackTrace();
         }
     }
-    public void connectRandomizer(String server, String password) {
+    public void connectRandomizer(String password) {
         //Same as connectRandomizer but with a password
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return this.address;
     }
 }
