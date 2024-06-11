@@ -41,6 +41,10 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.labelWrap("Connection status: " + ((client.isConnected()) ? "Connected":
                 "Not Connected"));
 
+        cont.row();
+        cont.labelWrap("Connection status: " + ((client.isAuthenticated()) ? "Authenticated":
+                "Not Authenticated"));
+
 
 
         cont.row();

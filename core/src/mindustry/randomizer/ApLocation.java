@@ -23,12 +23,12 @@ public class ApLocation extends Block {
     /**
      * id of the Archipelago location.
      */
-    public Integer locationId;
+    public Long locationId;
 
     /**
      * id of item within the node.
      */
-    public Integer itemId;
+    public Long itemId;
 
     /**
      * Original name of the node.
@@ -40,12 +40,11 @@ public class ApLocation extends Block {
      */
     @Override
     public void unlock(){
-        WorldState ws = randomizer.worldState;
         if(!unlocked()){
             unlocked = true;
             Core.settings.put(name + "-unlocked", true);
-            if (itemId != null) {
-                randomizer.locationChecked(locationId, itemId);
+            if (locationId != null) {
+                randomizer.locationChecked(locationId);
             } else {
                 //Error needs to be logged
             }
@@ -59,7 +58,7 @@ public class ApLocation extends Block {
      * @param originalNodeName The name the node used to have.
      * @param locationId The id of the node.
      */
-    public ApLocation(String name, String originalNodeName, int locationId) {
+    public ApLocation(String name, String originalNodeName, Long locationId) {
         super(name);
         this.locationId = locationId;
         this.originalNodeName = originalNodeName;
@@ -72,7 +71,7 @@ public class ApLocation extends Block {
      * @param locationId The id of the node.
      * @param itemId The id of the item contained within the node.
      */
-    public ApLocation(String name, String originalNodeName, int locationId, int itemId) {
+    public ApLocation(String name, String originalNodeName, Long locationId, Long itemId) {
         super(name);
         this.locationId = locationId;
         this.itemId = itemId;

@@ -1,17 +1,18 @@
 package mindustry.randomizer;
 
-import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,10 +39,6 @@ public class WorldState {
      */
     public String checkPendingFile = "RandomizerCheckPending.txt";
 
-    /**
-     * Name of the file containing the address for the archipelago connection.
-     */
-    public String archipelagoAddressFile = "ArchipelagoAddress.txt";
 
     /**
      * List of all locations used in the randomisation.
@@ -51,22 +48,22 @@ public class WorldState {
     /**
      * List of locations that have been checked and successfully sent.
      */
-    public int[] locationsChecked;
+    public ArrayList<Long> locationsChecked;
 
     /**
      * List of checked locations that have not been successfully sent.
      */
-    public int[] checkPending;
+    public ArrayList<Long> checkPending;
 
     /**
      * All UnlockableContent with their matching id
      */
-    public Map<Integer, UnlockableContent> items;
+    public Map<Long, UnlockableContent> items;
 
     /**
      * Randomized items that have been received.
      */
-    public int[] unlockedItems;
+    public Long[] unlockedItems;
 
     /**
      * Contains the options of the generated game.
@@ -82,6 +79,7 @@ public class WorldState {
      * True if there is a check waiting to be sent to the server.
      * @return True if a check is pending.
      */
+    /*
     public boolean hasCheckPending(){
         if (checkPending.length == 0 || checkPending == null) {
             return false;
@@ -89,6 +87,8 @@ public class WorldState {
             return true;
         }
     }
+
+     */
 
     /**
      * Constrcutor of the world state.
@@ -98,15 +98,15 @@ public class WorldState {
         this.items = new HashMap<>();
         this.unlockedItems = null;
         this.locations = new HashMap<>();
-        this.locationsChecked = null;
-        this.checkPending = null;
+        this.locationsChecked = new ArrayList<>();
+        this.checkPending = new ArrayList<>();
     }
 
     /**
      * Initialize world state.
      */
     public void initialize(){
-        loadStates(checkPendingFile, checkPending);
+         loadStates();
     }
 
     /**
@@ -115,25 +115,33 @@ public class WorldState {
      * @param stateArray
      * @param newCheck
      */
-    public int[] addCheck(int[] stateArray, int newCheck){
+    public void addCheck(ArrayList<Long> stateArray, Long newCheck){
+        stateArray.add(newCheck);
+        /*
+
+
+
         int size;
-        if (stateArray != null) {
+        if (stateArray.length > 0) {
             size = stateArray.length;
         } else {
             size = 0;
         }
-        int[] newState = new int[size + 1];
+        Long[] newState = new Long[size + 1];
         for (int i = 0; i < size; i++) {
             newState[i] = stateArray[i];
         }
         newState[size] = newCheck;
-        return newState;
+        stateArray = newState.clone();
+        return stateArray;
+
+         */
     }
 
     /**
      * Save current state to the save file.
      */
-    public void saveState(String fileName,int[] state){
+    public void saveState(String fileName,ArrayList<Long> state){
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -149,46 +157,60 @@ public class WorldState {
         }
     }
 
+    public void saveStates(){
+        saveState(checkPendingFile, checkPending);
+        saveState(locationCheckedFile, locationsChecked);
+    }
+
     /**
      * Load every saved state
      */
-    private void loadStates(String fileName,int[] state){
-        try {
-            FileInputStream fis = new FileInputStream(fileName);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            state = (int[]) ois.readObject();
-
-            ois.close();
-            fis.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    private void loadStates(){
+        checkPending = loadState(checkPendingFile);
+        locationsChecked = loadState(locationCheckedFile);
     }
 
     /**
      * Load the saved state at the start of the game.
      */
-    private int[] loadState(String fileName) {
-        int[] loadedState;
+    private ArrayList<Long> loadState(String fileName) {
+        ArrayList<Long> loadedState;
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            int length = ois.readInt();
-            loadedState = new int[length];
 
-            for (int i = 0; i < length; i++) {
-                loadedState[i] = ois.readInt();
+            loadedState = (ArrayList<Long>) ois.readObject();
+            if (loadedState == null) {
+                loadedState = new ArrayList<>();
             }
 
             ois.close();
             fis.close();
-
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             loadedState = null;
         }
         return loadedState;
+    }
+
+    private void wipeState(String fileName) {
+        ArrayList<Long> state = new ArrayList<>();
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+                oos.writeObject(state);
+
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void wipeStates() {
+        wipeState(locationCheckedFile);
+        wipeState(checkPendingFile);
     }
 
     /**

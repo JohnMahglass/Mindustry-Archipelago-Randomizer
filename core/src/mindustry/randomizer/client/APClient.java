@@ -46,11 +46,13 @@ public class APClient extends Client {
 
     public APClient () {
         super();
-        this.setGame("Mindustry");
         this.loadAdressSlotName();
+        this.setGame("Mindustry");
+        this.setName(getSlotName());
         this.dataPackage = getDataPackage();
 
         this.getEventManager().registerListener(new ConnectResult(this));
+        this.getEventManager().registerListener(new ReceiveItem());
     }
 
     private void loadAdressSlotName() {
@@ -79,6 +81,10 @@ public class APClient extends Client {
     @Override
     public void onClose(String Reason, int attemptingReconnect) {
 
+    }
+
+    public boolean isAuthenticated() {
+        return false; //TEMPORARY
     }
 
     public void connectRandomizer() {

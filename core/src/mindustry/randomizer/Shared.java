@@ -10,5 +10,5 @@ public abstract class Shared {
     /**
      * AP Mindustry base id.
      */
-    public static final int MINDUSTRY_BASE_ID = 777000000;
+    public static final Long MINDUSTRY_BASE_ID = 777000000L;
 }

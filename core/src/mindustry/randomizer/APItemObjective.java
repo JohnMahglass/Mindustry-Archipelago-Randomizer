@@ -16,7 +16,7 @@ public class APItemObjective implements Objectives.Objective {
     /**
      * The id of the item required
      */
-    int itemId;
+    Long itemId;
 
     /**
      * The sector tied to this objective (if applicable).
@@ -56,7 +56,7 @@ public class APItemObjective implements Objectives.Objective {
      * Constructor of ApItemObjective
      * @param itemId The id of the item required to clear to objective.
      */
-    public APItemObjective(int itemId) {
+    public APItemObjective(Long itemId) {
         this.itemId = itemId;
         if (Vars.randomizer.isSector(itemId)) {
             sector = Vars.randomizer.worldState.items.get(itemId);

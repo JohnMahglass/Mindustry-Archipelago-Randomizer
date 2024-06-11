@@ -15,6 +15,7 @@ import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
+import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.content.TechTree.*;
 import mindustry.core.*;
@@ -98,6 +99,7 @@ public class SettingsMenuDialog extends BaseDialog{
                 }
                 Core.settings.clear();
                 Core.settings.putAll(map);
+                randomizer.worldState.wipeStates();
 
                 for(Fi file : dataDirectory.list()){
                     file.deleteDirectory();
@@ -128,6 +130,7 @@ public class SettingsMenuDialog extends BaseDialog{
                         }
                     });
                     settings.remove("unlocks");
+                    randomizer.worldState.wipeStates();
                 });
             }).marginLeft(4);
 
@@ -150,6 +153,7 @@ public class SettingsMenuDialog extends BaseDialog{
                             slot.delete();
                         }
                     }
+                    randomizer.worldState.wipeStates();
                 });
             }).marginLeft(4);
 

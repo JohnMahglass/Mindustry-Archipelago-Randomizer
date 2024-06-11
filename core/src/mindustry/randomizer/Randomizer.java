@@ -26,9 +26,9 @@ public class Randomizer {
     /**
      * Unlock a UnlockableContent.
      */
-    public void unlock(int id){
+
+    public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
-        worldState.addCheck(worldState.unlockedItems, id);
         content.unlock();
     }
 
@@ -37,7 +37,7 @@ public class Randomizer {
      * @param id The id of the item to be checked.
      * @return Return True if the player has this item.
      */
-    public boolean hasItem(int id){
+    public boolean hasItem(Long id){
         boolean itemReceived = false;
 
         for (int i = 0; i < worldState.unlockedItems.length; i++) {
@@ -51,15 +51,24 @@ public class Randomizer {
 
 
     /**
-     * Forward the check to Archipelago, if the item is a Mindustry item, unlock it.
+     * Forward the check to Archipelago.
      * @param locationId The id of the location
-     * @param itemId The itemId that is contained in the location
      */
-    public void locationChecked(int locationId, int itemId){
-        if (isMindustryAPItem(itemId)) { //Item id might not be sent to AP, this needs to be verified
-            unlock(itemId); //This if statement might not be needed at all
+    public void locationChecked(Long locationId){
+        if (locationId == -1) { //VICTORY CONDITION MET
+            //Send victory event to AP
+            return;
         }
-        //send the check to archipelago
+        boolean success = false;
+        if (randomizerClient.isConnected()) {
+            //Try to send check to archipelago
+            success = true;
+        }
+        if (!randomizerClient.isConnected() || !success) {
+            worldState.addCheck(worldState.checkPending, locationId);
+        }
+        worldState.addCheck(worldState.locationsChecked, locationId);
+        worldState.saveStates();
     }
 
     /**
@@ -67,7 +76,7 @@ public class Randomizer {
      * within the randomizer.
      * @return If the content is an AP item.
      */
-    public boolean isMindustryAPItem(Integer itemId){
+    public boolean isMindustryAPItem(Long itemId){
         boolean isMindustryItem = false;
         if (itemId != null) {
             if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 199) {
@@ -82,7 +91,7 @@ public class Randomizer {
      * @param id The id of the item
      * @return Return True if the item is a sector
      */
-    public boolean isSector(int id){
+    public boolean isSector(Long id){
         return (id >= MINDUSTRY_BASE_ID + 166 && id <= MINDUSTRY_BASE_ID + 182);
     }
 
@@ -91,7 +100,7 @@ public class Randomizer {
      * @param itemId The itemId of the item.
      * @return The UnlockableContent matching the itemId, or null if no match.
      */
-    public UnlockableContent itemIdToUnlockableContent(Integer itemId) {
+    public UnlockableContent itemIdToUnlockableContent(Long itemId) {
         UnlockableContent content = null;
         if (isMindustryAPItem(itemId)) {
             if (worldState.items.get(itemId) != null) {
@@ -140,7 +149,7 @@ public class Randomizer {
      * @param locationId The location's id.
      * @param itemId The item's id.
      */
-    private void placeItemsIntoLocations(int locationId, int itemId) {
+    private void placeItemsIntoLocations(Long locationId, Long itemId) {
         //Method not implemented
     }
 
