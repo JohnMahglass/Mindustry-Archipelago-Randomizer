@@ -1,5 +1,6 @@
 package mindustry.randomizer.client;
 
+import arc.Core;
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.parts.DataPackage;
@@ -22,6 +23,8 @@ public class APClient extends Client {
 
     private String slotName;
 
+    private String address;
+
     /**
      * Getter for slotName
      *
@@ -40,16 +43,27 @@ public class APClient extends Client {
         this.slotName = slotName;
     }
 
-    private String address;
 
     public APClient () {
         super();
         this.setGame("Mindustry");
-        this.setName("Dev");
+        this.loadAdressSlotName();
         this.dataPackage = getDataPackage();
-        this.address = null;
 
         this.getEventManager().registerListener(new ConnectResult(this));
+    }
+
+    private void loadAdressSlotName() {
+        if (Core.settings.getString("APaddress") != null) {
+            setAddress(Core.settings.getString("APaddress"));
+        } else {
+            setAddress("");
+        }
+        if (Core.settings.getString("APslotName") != null) {
+            setSlotName(Core.settings.getString("APslotName"));
+        } else {
+            setSlotName("");
+        }
     }
 
     @Override
@@ -69,7 +83,9 @@ public class APClient extends Client {
 
     public void connectRandomizer() {
         try {
-            connect(address);
+            if (address != null) {
+                connect(address);
+            }
         } catch (URISyntaxException e) { //NEED TO LOG ERROR
             e.printStackTrace();
         }

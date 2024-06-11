@@ -16,23 +16,26 @@ public class ArchipelagoDialog extends BaseDialog {
 
     String newAddress;
     String newSlotName;
+    boolean settingChanged;
 
     public ArchipelagoDialog() {
         super("Archipelago");
         this.client = randomizer.randomizerClient;
         this.newAddress = null;
         this.newSlotName = null;
+        this.settingChanged = false;
         addCloseButton();
         setup();
     }
 
     private void setup() {
         cont.row();
-        cont.labelWrap("Address: " + ((client.getAddress() != null) ? client.getAddress() :
-                "Address not set"));
+        cont.labelWrap("Address: " + ((Core.settings.getString("APaddress") != null) ?
+                Core.settings.getString("APaddress") : "Address not set"));
 
         cont.row();
-        cont.labelWrap("Player name: " + (client.getMyName()));
+        cont.labelWrap("Player name: " + ((Core.settings.getString("APslotName") != null ?
+                Core.settings.getString("APslotName") : "Name not set")));
 
         cont.row();
         cont.labelWrap("Connection status: " + ((client.isConnected()) ? "Connected":
@@ -41,13 +44,13 @@ public class ArchipelagoDialog extends BaseDialog {
 
 
         cont.row();
-        cont.labelWrap("New Address: ").padBottom(50f);
+        cont.labelWrap("New Address: ").padBottom(55f);
         cont.field("", text -> {
             newAddress = text;
         }).size(320f, 54f).maxTextLength(100);
 
         cont.row();
-        cont.labelWrap("New SlotName: ").padBottom(50f);
+        cont.labelWrap("New SlotName: ").padBottom(55f);
         cont.field("", text -> {
             newSlotName = text;
         }).size(320f, 54f).maxTextLength(100);
@@ -57,67 +60,35 @@ public class ArchipelagoDialog extends BaseDialog {
             if (newAddress != null) {
                 client.setAddress(newAddress);
                 Core.settings.put("APaddress", newAddress);
+                settingChanged = true;
             }
             if (newSlotName != null) {
                 client.setSlotName(newSlotName);
                 Core.settings.put("APslotName", newSlotName);
+                settingChanged = true;
             }
+            if (settingChanged) {
+                reload();
+                settingChanged = false;
+            }
+        }).size(140f, 60f).pad(4f);
+
+        cont.row();
+        cont.button("Connect", () -> {
+           client.connectRandomizer();
+            reload();
             hide();
-        }).size(140f, 60f).pad(4f);;
+        }).size(140f, 60f).pad(4f);
+        cont.button("Disconnect", () -> {
+            client.disconnect();
+            reload();
+            hide();
+        }).size(140f, 60f).pad(4f);
 
+    }
 
-
-
-
-
-
-        /*
-        cont.table(Tex.button, t -> {
-            t.defaults().size(280f, 60f).left();
-
-            t.labelWrap("Address: " + ((client.getAddress() != null) ? client.getAddress() :
-                    "Address not set"));
-
-            t.labelWrap("Player name: " + (client.getMyName()));
-
-            t.labelWrap("Connection status: " + ((client.isConnected()) ? "Connected":
-            "Not Connected"));
-
-
-
-
-            t.labelWrap("New Address: ");
-            t.field("", text -> {
-                newAddress = text;
-            });
-
-
-            t.button("Apply", () -> {
-                if (newAddress != null) {
-                    client.setAddress(newAddress);
-                    Core.settings.put("APaddress", newAddress);
-                }
-                hide();
-            });
-
-
-            t.labelWrap("New SlotName: ");
-            t.field("", text -> {
-                newSlotName = text;
-            });
-
-
-            t.button("Apply", () -> {
-                if (newSlotName != null) {
-                    client.setSlotName(newSlotName);
-                    Core.settings.put("APslotName", newSlotName);
-                }
-                hide();
-            });
-
-
-        });
-        */
-
+    public void reload() {
+        cont.clearChildren();
+        setup();
     }
 }

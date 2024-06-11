@@ -132,8 +132,7 @@ public class Randomizer {
         this.worldState = new WorldState();
         initialize();
         this.randomizerClient = new APClient();
-        //randomizerClient.setAddress("archipelago.gg:55465");
-        //randomizerClient.connectRandomizer();
+        randomizerClient.connectRandomizer();
     }
 
     /**
