@@ -1,6 +1,7 @@
 package mindustry.randomizer.dialog;
 
 import arc.Core;
+import arc.util.Align;
 import mindustry.randomizer.client.APClient;
 import mindustry.ui.dialogs.BaseDialog;
 import static mindustry.Vars.randomizer;
@@ -12,17 +13,18 @@ import static mindustry.Vars.randomizer;
  * @version 1.0.0 2024-06-10
  */
 public class ArchipelagoDialog extends BaseDialog {
-    APClient client;
-
-    String newAddress;
-    String newSlotName;
-    boolean settingChanged;
+    private APClient client;
+    private String newAddress;
+    private String newSlotName;
+    private String newPassword;
+    private boolean settingChanged;
 
     public ArchipelagoDialog() {
         super("Archipelago");
         this.client = randomizer.randomizerClient;
         this.newAddress = null;
         this.newSlotName = null;
+        this.newPassword = null;
         this.settingChanged = false;
         addCloseButton();
         setup();
@@ -38,13 +40,16 @@ public class ArchipelagoDialog extends BaseDialog {
                 Core.settings.getString("APslotName") : "Name not set")));
 
         cont.row();
+        cont.labelWrap("Password: " + ((Core.settings.getString("APpassword") != null ?
+                obfuscatePassword() : "Password not set")));
+
+        cont.row();
         cont.labelWrap("Connection status: " + ((client.isConnected()) ? "Connected":
                 "Not Connected"));
 
         cont.row();
         cont.labelWrap("Connection status: " + ((client.isAuthenticated()) ? "Authenticated":
                 "Not Authenticated"));
-
 
 
         cont.row();
@@ -60,7 +65,13 @@ public class ArchipelagoDialog extends BaseDialog {
         }).size(320f, 54f).maxTextLength(100);
 
         cont.row();
-        cont.button("Apply", () -> {
+        cont.labelWrap("New Password: ").padBottom(55f);
+        cont.field("", text -> {
+            newPassword = text;
+        }).size(320f, 54f).maxTextLength(100);
+
+        cont.row();
+        cont.button("Apply changes", () -> {
             if (newAddress != null) {
                 client.setAddress(newAddress);
                 Core.settings.put("APaddress", newAddress);
@@ -69,6 +80,11 @@ public class ArchipelagoDialog extends BaseDialog {
             if (newSlotName != null) {
                 client.setSlotName(newSlotName);
                 Core.settings.put("APslotName", newSlotName);
+                settingChanged = true;
+            }
+            if (newPassword != null) {
+                client.setPassword(newPassword);
+                Core.settings.put("APpassword", newPassword);
                 settingChanged = true;
             }
             if (settingChanged) {
@@ -81,17 +97,32 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.button("Connect", () -> {
            client.connectRandomizer();
             reload();
-            hide();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {
             client.disconnect();
             reload();
-            hide();
         }).size(140f, 60f).pad(4f);
-
     }
 
-    public void reload() {
+    private String obfuscatePassword() {
+        String obfuscatedString = "";
+        if (Core.settings.getString("APpassword") != null &&
+                !(Core.settings.getString("APpassword").isEmpty())) {
+            int charAmount = Core.settings.getString("APpassword").length();
+            for (int i = 0; i < charAmount; i++) {
+                obfuscatedString += "*";
+            }
+        } else {
+            obfuscatedString = "Password not Set";
+        }
+
+        return obfuscatedString;
+    }
+
+    /**
+     * Reload dialog
+     */
+    private void reload() {
         cont.clearChildren();
         setup();
     }

@@ -144,6 +144,10 @@ public class Randomizer {
         randomizerClient.connectRandomizer();
     }
 
+    private void showItemReceived(String message) {
+        //Use unlock popup for item received message
+    }
+
     /**
      * Place item into their location.
      * @param locationId The location's id.

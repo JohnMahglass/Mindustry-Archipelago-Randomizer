@@ -25,6 +25,30 @@ public class APClient extends Client {
 
     private String address;
 
+    private String password;
+
+    /**
+     * Getter for password
+     *
+     * @return Return password
+     */
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Assign variable password
+     *
+     * @param password Value of password
+     */
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
     /**
      * Getter for slotName
      *
@@ -46,7 +70,7 @@ public class APClient extends Client {
 
     public APClient () {
         super();
-        this.loadAdressSlotName();
+        this.loadInfo();
         this.setGame("Mindustry");
         this.setName(getSlotName());
         this.dataPackage = getDataPackage();
@@ -55,7 +79,7 @@ public class APClient extends Client {
         this.getEventManager().registerListener(new ReceiveItem());
     }
 
-    private void loadAdressSlotName() {
+    private void loadInfo() {
         if (Core.settings.getString("APaddress") != null) {
             setAddress(Core.settings.getString("APaddress"));
         } else {
@@ -65,6 +89,11 @@ public class APClient extends Client {
             setSlotName(Core.settings.getString("APslotName"));
         } else {
             setSlotName("");
+        }
+        if (Core.settings.getString("APpassword") != null) {
+            setPassword(Core.settings.getString("APpassword"));
+        } else {
+            setPassword("");
         }
     }
 
@@ -96,7 +125,7 @@ public class APClient extends Client {
             e.printStackTrace();
         }
     }
-    public void connectRandomizer(String password) {
+    public void connectRandomizerPassword() {
         //Same as connectRandomizer but with a password
     }
 
