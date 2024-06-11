@@ -2,7 +2,10 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
+import arc.Events;
 import dev.koifysh.archipelago.network.server.RoomInfoPacket;
+import mindustry.Vars;
+import mindustry.core.UI;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 
@@ -144,8 +147,9 @@ public class Randomizer {
         randomizerClient.connectRandomizer();
     }
 
-    private void showItemReceived(String message) {
-        //Use unlock popup for item received message
+    public void showItemReceived() {
+        Vars.ui.showInfoToast("Research received!", 15f);
+        Vars.ui.consolefrag.addMessage("Research received!");
     }
 
     /**

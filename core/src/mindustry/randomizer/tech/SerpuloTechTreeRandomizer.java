@@ -6,7 +6,6 @@ import mindustry.content.Liquids;
 import mindustry.content.Planets;
 import mindustry.content.UnitTypes;
 import mindustry.game.Objectives;
-import mindustry.randomizer.APItemObjective;
 import mindustry.randomizer.ApLocation;
 import mindustry.randomizer.LocationResearchCost;
 import mindustry.randomizer.Shared;

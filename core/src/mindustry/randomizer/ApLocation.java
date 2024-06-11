@@ -3,10 +3,12 @@ package mindustry.randomizer;
 import arc.Core;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
+import mindustry.gen.Sounds;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 
+import static mindustry.Vars.content;
 import static mindustry.Vars.randomizer;
 
 /**
@@ -42,13 +44,14 @@ public class ApLocation extends Block {
     public void unlock(){
         if(!unlocked()){
             unlocked = true;
+            Sounds.unlock.play();
             Core.settings.put(name + "-unlocked", true);
             if (locationId != null) {
                 randomizer.locationChecked(locationId);
+                randomizer.showItemReceived();
             } else {
                 //Error needs to be logged
             }
-
         }
     }
 
