@@ -48,7 +48,6 @@ public class ApLocation extends Block {
             Core.settings.put(name + "-unlocked", true);
             if (locationId != null) {
                 randomizer.locationChecked(locationId);
-                randomizer.showItemReceived();
             } else {
                 //Error needs to be logged
             }

@@ -22,6 +22,11 @@ public class ConnectResult {
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
             client.slotData = event.getSlotData(SlotData.class);
+            //Notifiy user that they are connected
+
+            //Store item that are to be received and try to unlock them all.
+
+
         } else {
             //Should raise a flag for reconnection / error logging
         }

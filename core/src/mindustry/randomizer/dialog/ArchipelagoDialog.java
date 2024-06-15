@@ -1,10 +1,18 @@
 package mindustry.randomizer.dialog;
 
 import arc.Core;
-import arc.util.Align;
+import arc.scene.ui.layout.Table;
+import mindustry.content.TechTree;
+import mindustry.ctype.UnlockableContent;
+import mindustry.gen.Icon;
 import mindustry.randomizer.client.APClient;
 import mindustry.ui.dialogs.BaseDialog;
+
+import static arc.Core.settings;
+import static mindustry.Vars.content;
 import static mindustry.Vars.randomizer;
+import static mindustry.Vars.ui;
+import static mindustry.Vars.universe;
 
 /**
  * Dialog for Archipelago settings.
@@ -102,6 +110,17 @@ public class ArchipelagoDialog extends BaseDialog {
             client.disconnect();
             reload();
         }).size(140f, 60f).pad(4f);
+
+        cont.row();
+        cont.button("Clear data", Icon.trash, () -> {
+            ui.showConfirm("@confirm", "Wipe local data related to Archipelago. It is not " +
+                            "recommended you use this setting unless you have finished playing a " +
+                            "game.",
+                    () -> {
+                randomizer.worldState.wipeStates();
+            });
+        }).size(150f, 60f).pad(4f);
+
     }
 
     private String obfuscatePassword() {

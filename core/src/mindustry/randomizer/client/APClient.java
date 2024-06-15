@@ -2,9 +2,12 @@ package mindustry.randomizer.client;
 
 import arc.Core;
 import dev.koifysh.archipelago.Client;
+import dev.koifysh.archipelago.ItemFlags;
 import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkItem;
+import mindustry.Vars;
+import mindustry.randomizer.Randomizer;
 
 import java.net.URISyntaxException;
 
@@ -17,6 +20,7 @@ import java.net.URISyntaxException;
  */
 public class APClient extends Client {
 
+    private Randomizer randomizer;
     public DataPackage dataPackage;
 
     public SlotData slotData;
@@ -68,12 +72,16 @@ public class APClient extends Client {
     }
 
 
-    public APClient () {
+    public APClient (Randomizer randomizer) {
         super();
+        this.randomizer = randomizer;
         this.loadInfo();
         this.setGame("Mindustry");
+        this.setItemsHandlingFlags(ItemFlags.SEND_ITEMS + ItemFlags.SEND_OWN_ITEMS);
         this.setName(getSlotName());
         this.dataPackage = getDataPackage();
+
+        randomizer.worldState.itemToBeReceived.addAll(getItemManager().getReceivedItemIDs());
 
         this.getEventManager().registerListener(new ConnectResult(this));
         this.getEventManager().registerListener(new ReceiveItem());

@@ -2,14 +2,11 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
-import arc.Events;
-import dev.koifysh.archipelago.network.server.RoomInfoPacket;
 import mindustry.Vars;
-import mindustry.core.UI;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 
-import java.net.URISyntaxException;
+import java.util.HashSet;
 
 /**
  * Randomizer for Archipelago multiworld randomizer.
@@ -29,10 +26,10 @@ public class Randomizer {
     /**
      * Unlock a UnlockableContent.
      */
-
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.unlock();
+        showItemReceived(content.localizedName);
     }
 
     /**
@@ -52,7 +49,6 @@ public class Randomizer {
         return itemReceived;
     }
 
-
     /**
      * Forward the check to Archipelago.
      * @param locationId The id of the location
@@ -65,6 +61,9 @@ public class Randomizer {
         boolean success = false;
         if (randomizerClient.isConnected()) {
             //Try to send check to archipelago
+            HashSet<Long> location = new HashSet<>();
+            location.add(locationId);
+            randomizerClient.getLocationManager().addCheckedLocations(location);
             success = true;
         }
         if (!randomizerClient.isConnected() || !success) {
@@ -122,7 +121,6 @@ public class Randomizer {
             case SERPULO:
                 worldState.initializeSerpuloItems();
                 worldState.initializeSerpuloLocations();
-                //placeItemsIntoLocations();
                 break;
             case EREKIR:
                 worldState.initializeErekirItems();
@@ -143,22 +141,13 @@ public class Randomizer {
     public Randomizer(){
         this.worldState = new WorldState();
         initialize();
-        this.randomizerClient = new APClient();
+        this.randomizerClient = new APClient(this);
         randomizerClient.connectRandomizer();
     }
 
-    public void showItemReceived() {
-        Vars.ui.showInfoToast("Research received!", 15f);
-        Vars.ui.consolefrag.addMessage("Research received!");
-    }
-
-    /**
-     * Place item into their location.
-     * @param locationId The location's id.
-     * @param itemId The item's id.
-     */
-    private void placeItemsIntoLocations(Long locationId, Long itemId) {
-        //Method not implemented
+    public void showItemReceived(String researchName) {
+        Vars.ui.showInfoToast( researchName +" received!", 15f);
+        Vars.ui.consolefrag.addMessage(researchName + " received!");
     }
 
 }

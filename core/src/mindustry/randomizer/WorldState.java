@@ -6,7 +6,6 @@ import mindustry.content.Liquids;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 
-import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,6 +38,11 @@ public class WorldState {
      */
     public String checkPendingFile = "RandomizerCheckPending.txt";
 
+    /**
+     * Name of the file containing item that are queued for unlock.
+     */
+    public String itemToBeReceivedFile = "RandomizerItemToBeReceived.txt";
+
 
     /**
      * List of all locations used in the randomisation.
@@ -56,6 +60,11 @@ public class WorldState {
     public ArrayList<Long> checkPending;
 
     /**
+     * List of item that are queued to be received.
+     */
+    public ArrayList<Long> itemToBeReceived;
+
+    /**
      * All UnlockableContent with their matching id
      */
     public Map<Long, UnlockableContent> items;
@@ -70,25 +79,19 @@ public class WorldState {
      */
     public MindustryOptions options;
 
-    /**
-     * Whether the run has already been initialized once. (not the first time the player is playing)
-     */
-    private boolean initialized;
 
     /**
      * True if there is a check waiting to be sent to the server.
      * @return True if a check is pending.
      */
-    /*
     public boolean hasCheckPending(){
-        if (checkPending.length == 0 || checkPending == null) {
+        if (checkPending.isEmpty() || checkPending == null) {
             return false;
         } else {
             return true;
         }
     }
 
-     */
 
     /**
      * Constrcutor of the world state.
@@ -100,6 +103,7 @@ public class WorldState {
         this.locations = new HashMap<>();
         this.locationsChecked = new ArrayList<>();
         this.checkPending = new ArrayList<>();
+        this.itemToBeReceived = new ArrayList<>();
     }
 
     /**
@@ -117,25 +121,6 @@ public class WorldState {
      */
     public void addCheck(ArrayList<Long> stateArray, Long newCheck){
         stateArray.add(newCheck);
-        /*
-
-
-
-        int size;
-        if (stateArray.length > 0) {
-            size = stateArray.length;
-        } else {
-            size = 0;
-        }
-        Long[] newState = new Long[size + 1];
-        for (int i = 0; i < size; i++) {
-            newState[i] = stateArray[i];
-        }
-        newState[size] = newCheck;
-        stateArray = newState.clone();
-        return stateArray;
-
-         */
     }
 
     /**
@@ -160,6 +145,7 @@ public class WorldState {
     public void saveStates(){
         saveState(checkPendingFile, checkPending);
         saveState(locationCheckedFile, locationsChecked);
+        saveState(itemToBeReceivedFile, itemToBeReceived);
     }
 
     /**
@@ -168,6 +154,7 @@ public class WorldState {
     private void loadStates(){
         checkPending = loadState(checkPendingFile);
         locationsChecked = loadState(locationCheckedFile);
+        itemToBeReceived = loadState(itemToBeReceivedFile);
     }
 
     /**
@@ -188,7 +175,7 @@ public class WorldState {
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            loadedState = null;
+            loadedState = new ArrayList<>();
         }
         return loadedState;
     }
@@ -211,6 +198,7 @@ public class WorldState {
     public void wipeStates() {
         wipeState(locationCheckedFile);
         wipeState(checkPendingFile);
+        wipeState(itemToBeReceivedFile);
     }
 
     /**
@@ -653,22 +641,6 @@ public class WorldState {
         locations.put(MINDUSTRY_BASE_ID + 198, );
         locations.put(MINDUSTRY_BASE_ID + 199, );
         */
-    }
-
-    /**
-     * Return true if the state has already been initialized.
-     * @return Return whether the state has already been initialized.
-     */
-    public boolean getInitialized() {
-        return initialized;
-    }
-
-    /**
-     * Set initialization status.
-     * @param status The status of the initialization
-     */
-    public void setInitialized(boolean status) {
-        this.initialized = status;
     }
 
 }

@@ -1,7 +1,5 @@
 package mindustry.randomizer.client;
 
-import com.google.gson.annotations.SerializedName;
-import mindustry.randomizer.enums.CampaignType;
 
 /**
  * SlotData

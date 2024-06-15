@@ -2,7 +2,6 @@ package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.CheckedLocationsEvent;
-import dev.koifysh.archipelago.events.ReceiveItemEvent;
 
 /**
  * LocationChecked
