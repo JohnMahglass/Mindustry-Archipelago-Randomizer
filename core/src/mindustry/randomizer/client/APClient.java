@@ -87,20 +87,22 @@ public class APClient extends Client {
     }
 
     private void loadInfo() {
-        if (Core.settings.getString("APaddress") != null) {
-            setAddress(Core.settings.getString("APaddress"));
-        } else {
-            setAddress("");
-        }
-        if (Core.settings.getString("APslotName") != null) {
-            setSlotName(Core.settings.getString("APslotName"));
-        } else {
-            setSlotName("");
-        }
-        if (Core.settings.getString("APpassword") != null) {
-            setPassword(Core.settings.getString("APpassword"));
-        } else {
-            setPassword("");
+        if (Core.settings != null) {
+            if (Core.settings.getString("APaddress") != null) {
+                setAddress(Core.settings.getString("APaddress"));
+            } else {
+                setAddress("");
+            }
+            if (Core.settings.getString("APslotName") != null) {
+                setSlotName(Core.settings.getString("APslotName"));
+            } else {
+                setSlotName("");
+            }
+            if (Core.settings.getString("APpassword") != null) {
+                setPassword(Core.settings.getString("APpassword"));
+            } else {
+                setPassword("");
+            }
         }
     }
 
