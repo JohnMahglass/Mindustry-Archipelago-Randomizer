@@ -1,4 +1,4 @@
-package mindustry.randomizer;
+package mindustry.randomizer.techtree;
 
 import mindustry.content.Items;
 import mindustry.type.Item;

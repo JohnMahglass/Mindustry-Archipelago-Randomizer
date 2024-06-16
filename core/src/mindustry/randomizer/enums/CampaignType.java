@@ -1,4 +1,4 @@
-package mindustry.randomizer;
+package mindustry.randomizer.enums;
 
 /**
  * Type of campaign for the randomizer.

@@ -353,7 +353,7 @@ public class ResearchDialog extends BaseDialog{
         if(!locked && (node.parent == null || node.parent.visible)) node.visible = true;
         node.selectable = selectable(node.node);
         for(TechTreeNode l : node.children){
-            l.visible = true;
+            l.visible = !locked && l.parent.visible;
             checkNodes(l);
         }
 

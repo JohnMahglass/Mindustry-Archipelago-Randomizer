@@ -6,7 +6,6 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
-import mindustry.Vars;
 import mindustry.ai.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -14,15 +13,13 @@ import mindustry.entities.bullet.*;
 import mindustry.game.EventType.*;
 import mindustry.io.*;
 import mindustry.mod.Mods.*;
-import mindustry.randomizer.Shared;
-import mindustry.randomizer.tech.SerpuloTechTreeRandomizer;
+import mindustry.randomizer.Randomizer;
+import mindustry.randomizer.techtree.SerpuloTechTreeRandomizer;
 import mindustry.type.*;
 import mindustry.world.*;
 
 import static arc.Core.*;
 import static mindustry.Vars.*;
-import static mindustry.content.SectorPresets.biomassFacility;
-import static mindustry.content.SectorPresets.extractionOutpost;
 
 /**
  * Loads all game content.
@@ -59,11 +56,9 @@ public class ContentLoader{
         Weathers.load();
         Planets.load();
         SectorPresets.load();
-        saveDirectory = dataDirectory.child("randomiser_saves/");
-        randomizer.initialize();
         SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
-
+        randomizer = new Randomizer();
     }
 
     /** Creates mod content, if applicable. */
