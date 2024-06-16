@@ -1,4 +1,4 @@
-package mindustry.randomizer;
+package mindustry.randomizer.techtree;
 
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;

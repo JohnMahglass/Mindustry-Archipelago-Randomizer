@@ -1,7 +1,5 @@
-package mindustry.randomizer.tech;
+package mindustry.randomizer.techtree;
 
-
-import mindustry.randomizer.tech.TechTreeRandomizer;
 
 /**
  * Class for the initialisation and randomization of Erekir' tech tree

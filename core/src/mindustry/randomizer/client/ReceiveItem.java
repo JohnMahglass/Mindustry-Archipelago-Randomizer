@@ -15,6 +15,7 @@ public class ReceiveItem {
     @ArchipelagoEventListener
     public static void onReceiveItem(ReceiveItemEvent event) {
         Vars.randomizer.unlock(event.getItemID());
+        Vars.randomizer.worldState.saveStates();
     }
 
 }

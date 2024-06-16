@@ -1,4 +1,4 @@
-package mindustry.randomizer.tech;
+package mindustry.randomizer.techtree;
 
 import arc.struct.Seq;
 import mindustry.content.Items;
@@ -6,8 +6,6 @@ import mindustry.content.Liquids;
 import mindustry.content.Planets;
 import mindustry.content.UnitTypes;
 import mindustry.game.Objectives;
-import mindustry.randomizer.ApLocation;
-import mindustry.randomizer.LocationResearchCost;
 import mindustry.randomizer.Shared;
 import mindustry.type.ItemStack;
 
@@ -666,7 +664,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
             });
 
             node(createApLocation("AP-W-00-01", "Victory", -1L,
-                    LocationResearchCost.reqCopper(9999)));
+                    LocationResearchCost.reqCopper(500)));
 
             node(createApLocation("AP-S-05-01", "Ground Factory", 124L,
                     LocationResearchCost.req3Item(Items.copper, 1500, Items.lead, 4100,

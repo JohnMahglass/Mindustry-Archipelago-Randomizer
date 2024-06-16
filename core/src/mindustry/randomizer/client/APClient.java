@@ -81,9 +81,8 @@ public class APClient extends Client {
         this.setName(getSlotName());
         this.dataPackage = getDataPackage();
 
-        randomizer.worldState.itemToBeReceived.addAll(getItemManager().getReceivedItemIDs());
-
         this.getEventManager().registerListener(new ConnectResult(this));
+        this.getEventManager().registerListener(new LocationChecked());
         this.getEventManager().registerListener(new ReceiveItem());
     }
 

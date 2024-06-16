@@ -1,14 +1,13 @@
-package mindustry.randomizer;
+package mindustry.randomizer.techtree;
 
 import arc.Core;
 import mindustry.ctype.ContentType;
-import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Sounds;
+import mindustry.randomizer.Shared;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 
-import static mindustry.Vars.content;
 import static mindustry.Vars.randomizer;
 
 /**
@@ -62,7 +61,7 @@ public class ApLocation extends Block {
      */
     public ApLocation(String name, String originalNodeName, Long locationId) {
         super(name);
-        this.locationId = locationId;
+        this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.originalNodeName = originalNodeName;
     }
 
@@ -75,7 +74,7 @@ public class ApLocation extends Block {
      */
     public ApLocation(String name, String originalNodeName, Long locationId, Long itemId) {
         super(name);
-        this.locationId = locationId;
+        this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.itemId = itemId;
         this.originalNodeName = originalNodeName;
     }

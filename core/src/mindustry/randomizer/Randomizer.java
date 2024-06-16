@@ -2,6 +2,7 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
+import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
@@ -54,23 +55,24 @@ public class Randomizer {
      * @param locationId The id of the location
      */
     public void locationChecked(Long locationId){
-        if (locationId == -1) { //VICTORY CONDITION MET
+        if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET
             //Send victory event to AP
+            randomizerClient.setGameState(ClientStatus.CLIENT_GOAL);
             return;
         }
         boolean success = false;
         if (randomizerClient.isConnected()) {
             //Try to send check to archipelago
-            HashSet<Long> location = new HashSet<>();
-            location.add(locationId);
-            randomizerClient.getLocationManager().addCheckedLocations(location);
-            success = true;
+            success = randomizerClient.checkLocation(locationId);
         }
         if (!randomizerClient.isConnected() || !success) {
+            //Check could not be send
             worldState.addCheck(worldState.checkPending, locationId);
         }
         worldState.addCheck(worldState.locationsChecked, locationId);
         worldState.saveStates();
+        //DEBUG
+        Vars.ui.consolefrag.addMessage("Location id '" + locationId.toString() + "' checked");
     }
 
     /**
@@ -105,7 +107,18 @@ public class Randomizer {
     public UnlockableContent itemIdToUnlockableContent(Long itemId) {
         UnlockableContent content = null;
         if (isMindustryAPItem(itemId)) {
-            if (worldState.items.get(itemId) != null) {
+            if (worldState.isProgressive(itemId)) {
+                for (ProgressiveItem item : worldState.progressiveItems) {
+                    if (item.id.equals(itemId) && !item.allReceived) {
+                        content = item.items.get(item.amountItemReceived);
+                        item.amountItemReceived++;
+                        if (item.amountItemReceived == item.itemAmount) {
+                            item.allReceived = true;
+                        }
+                    }
+                }
+            } else {
+                //ItemId - BaseId = index of item
                 content = worldState.items.get(itemId);
             }
         }
@@ -146,7 +159,7 @@ public class Randomizer {
     }
 
     public void showItemReceived(String researchName) {
-        Vars.ui.showInfoToast( researchName +" received!", 15f);
+        Vars.ui.showInfoToast( researchName +" received!", 8f);
         Vars.ui.consolefrag.addMessage(researchName + " received!");
     }
 

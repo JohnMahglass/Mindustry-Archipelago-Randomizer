@@ -1,4 +1,4 @@
-package mindustry.randomizer.tech;
+package mindustry.randomizer.techtree;
 
 /**
  * Interface for a planet's randomized tech tree.

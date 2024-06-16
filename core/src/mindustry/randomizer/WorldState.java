@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import mindustry.ctype.UnlockableContent;
+import mindustry.entities.Units;
+import mindustry.randomizer.enums.ProgressiveItemType;
 
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
@@ -43,6 +46,9 @@ public class WorldState {
      */
     public String itemToBeReceivedFile = "RandomizerItemToBeReceived.txt";
 
+    public String progressiveItemsFile = "RandomizerProgressiveItems.txt";
+
+    public ArrayList<ProgressiveItem> progressiveItems;
 
     /**
      * List of all locations used in the randomisation.
@@ -104,6 +110,7 @@ public class WorldState {
         this.locationsChecked = new ArrayList<>();
         this.checkPending = new ArrayList<>();
         this.itemToBeReceived = new ArrayList<>();
+        this.progressiveItems = new ArrayList<>();
     }
 
     /**
@@ -120,13 +127,23 @@ public class WorldState {
      * @param newCheck
      */
     public void addCheck(ArrayList<Long> stateArray, Long newCheck){
-        stateArray.add(newCheck);
+        boolean checkExist = false;
+        for (Long check : stateArray) {
+            if (check.equals(newCheck)) {
+               checkExist = true;
+            }
+        }
+        if (!checkExist) {
+            stateArray.add(newCheck);
+        } else {
+            //log error
+        }
     }
 
     /**
      * Save current state to the save file.
      */
-    public void saveState(String fileName,ArrayList<Long> state){
+    public void saveState(String fileName,ArrayList<?> state){
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -146,6 +163,7 @@ public class WorldState {
         saveState(checkPendingFile, checkPending);
         saveState(locationCheckedFile, locationsChecked);
         saveState(itemToBeReceivedFile, itemToBeReceived);
+        //saveState(progressiveItemsFile, progressiveItems);
     }
 
     /**
@@ -155,20 +173,31 @@ public class WorldState {
         checkPending = loadState(checkPendingFile);
         locationsChecked = loadState(locationCheckedFile);
         itemToBeReceived = loadState(itemToBeReceivedFile);
+        //progressiveItems = loadState(progressiveItemsFile);
+    }
+
+    public boolean isProgressive(Long itemId) {
+        boolean progressive = false;
+        for (ProgressiveItem item : progressiveItems) {
+            if (item.id.equals(itemId)) {
+                progressive = true;
+            }
+        }
+        return progressive;
     }
 
     /**
-     * Load the saved state at the start of the game.
+     * Load the saved state.
      */
-    private ArrayList<Long> loadState(String fileName) {
-        ArrayList<Long> loadedState;
+    private <T> ArrayList<T> loadState(String fileName) {
+        ArrayList<T> loadedState = new ArrayList<>();
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            loadedState = (ArrayList<Long>) ois.readObject();
-            if (loadedState == null) {
-                loadedState = new ArrayList<>();
+            Object obj = ois.readObject();
+            if (obj instanceof ArrayList<?>) {
+                loadedState = (ArrayList<T>) obj;
             }
 
             ois.close();
@@ -180,8 +209,10 @@ public class WorldState {
         return loadedState;
     }
 
-    private void wipeState(String fileName) {
-        ArrayList<Long> state = new ArrayList<>();
+
+
+    private void wipeState(String fileName, ArrayList state) {
+        state.clear();
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -196,9 +227,10 @@ public class WorldState {
     }
 
     public void wipeStates() {
-        wipeState(locationCheckedFile);
-        wipeState(checkPendingFile);
-        wipeState(itemToBeReceivedFile);
+        wipeState(locationCheckedFile, locationsChecked);
+        wipeState(checkPendingFile, checkPending);
+        wipeState(itemToBeReceivedFile, itemToBeReceived);
+        wipeState(progressiveItemsFile, progressiveItems);
     }
 
     /**
@@ -233,7 +265,7 @@ public class WorldState {
      * Initialize item from Serpulo campaign.
      */
     protected void initializeSerpuloItems() {
-        //items.put(MINDUSTRY_BASE_ID + 0, Blocks.conveyor);
+        items.put(MINDUSTRY_BASE_ID + 0, Blocks.conveyor);
         items.put(MINDUSTRY_BASE_ID + 1, Blocks.junction);
         items.put(MINDUSTRY_BASE_ID + 2, Blocks.router);
         items.put(MINDUSTRY_BASE_ID + 3, Blocks.launchPad);
@@ -255,7 +287,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 19, Blocks.plastaniumConveyor);
         items.put(MINDUSTRY_BASE_ID + 20, Blocks.coreFoundation);
         items.put(MINDUSTRY_BASE_ID + 21, Blocks.coreNucleus);
-        //items.put(MINDUSTRY_BASE_ID + 22, Blocks.mechanicalDrill);
+        items.put(MINDUSTRY_BASE_ID + 22, Blocks.mechanicalDrill);
         items.put(MINDUSTRY_BASE_ID + 23, Blocks.mechanicalPump);
         items.put(MINDUSTRY_BASE_ID + 24, Blocks.conduit);
         items.put(MINDUSTRY_BASE_ID + 25, Blocks.liquidJunction);
@@ -324,8 +356,8 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 88, Blocks.rtgGenerator);
         items.put(MINDUSTRY_BASE_ID + 89, Blocks.solarPanel);
         items.put(MINDUSTRY_BASE_ID + 90, Blocks.largeSolarPanel);
-        //items.put(MINDUSTRY_BASE_ID + 91, Blocks.duo);
-        //items.put(MINDUSTRY_BASE_ID + 92, Blocks.copperWall);
+        items.put(MINDUSTRY_BASE_ID + 91, Blocks.duo);
+        items.put(MINDUSTRY_BASE_ID + 92, Blocks.copperWall);
         items.put(MINDUSTRY_BASE_ID + 93, Blocks.copperWallLarge);
         items.put(MINDUSTRY_BASE_ID + 94, Blocks.titaniumWall);
         items.put(MINDUSTRY_BASE_ID + 95, Blocks.titaniumWallLarge);
@@ -339,7 +371,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 103, Blocks.surgeWallLarge);
         items.put(MINDUSTRY_BASE_ID + 104, Blocks.phaseWall);
         items.put(MINDUSTRY_BASE_ID + 105, Blocks.phaseWallLarge);
-        //items.put(MINDUSTRY_BASE_ID + 106, Blocks.scatter);
+        items.put(MINDUSTRY_BASE_ID + 106, Blocks.scatter);
         items.put(MINDUSTRY_BASE_ID + 107, Blocks.hail);
         items.put(MINDUSTRY_BASE_ID + 108, Blocks.salvo);
         items.put(MINDUSTRY_BASE_ID + 109, Blocks.swarmer);
@@ -359,46 +391,97 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 123, Blocks.shockMine);
         items.put(MINDUSTRY_BASE_ID + 124, Blocks.groundFactory);
         items.put(MINDUSTRY_BASE_ID + 125, UnitTypes.dagger);
-        items.put(MINDUSTRY_BASE_ID + 126, UnitTypes.mace);
-        items.put(MINDUSTRY_BASE_ID + 127, UnitTypes.fortress);
-        items.put(MINDUSTRY_BASE_ID + 128, UnitTypes.scepter);
-        items.put(MINDUSTRY_BASE_ID + 129, UnitTypes.reign);
-        items.put(MINDUSTRY_BASE_ID + 130, UnitTypes.nova);
-        items.put(MINDUSTRY_BASE_ID + 131, UnitTypes.pulsar);
-        items.put(MINDUSTRY_BASE_ID + 132, UnitTypes.quasar);
-        items.put(MINDUSTRY_BASE_ID + 133, UnitTypes.vela);
-        items.put(MINDUSTRY_BASE_ID + 134, UnitTypes.corvus);
-        items.put(MINDUSTRY_BASE_ID + 135, UnitTypes.crawler);
-        items.put(MINDUSTRY_BASE_ID + 136, UnitTypes.atrax);
-        items.put(MINDUSTRY_BASE_ID + 137, UnitTypes.spiroct);
-        items.put(MINDUSTRY_BASE_ID + 138, UnitTypes.arkyid);
-        items.put(MINDUSTRY_BASE_ID + 139, UnitTypes.toxopid);
-        items.put(MINDUSTRY_BASE_ID + 140, Blocks.airFactory);
-        items.put(MINDUSTRY_BASE_ID + 141, UnitTypes.flare);
-        items.put(MINDUSTRY_BASE_ID + 142, UnitTypes.horizon);
-        items.put(MINDUSTRY_BASE_ID + 143, UnitTypes.zenith);
-        items.put(MINDUSTRY_BASE_ID + 144, UnitTypes.antumbra);
-        items.put(MINDUSTRY_BASE_ID + 145, UnitTypes.eclipse);
-        items.put(MINDUSTRY_BASE_ID + 146, UnitTypes.mono);
-        items.put(MINDUSTRY_BASE_ID + 147, UnitTypes.poly);
-        items.put(MINDUSTRY_BASE_ID + 148, UnitTypes.mega);
-        items.put(MINDUSTRY_BASE_ID + 149, UnitTypes.quad);
-        items.put(MINDUSTRY_BASE_ID + 150, UnitTypes.oct);
-        items.put(MINDUSTRY_BASE_ID + 151, Blocks.navalFactory);
-        items.put(MINDUSTRY_BASE_ID + 152, UnitTypes.risso);
-        items.put(MINDUSTRY_BASE_ID + 153, UnitTypes.minke);
-        items.put(MINDUSTRY_BASE_ID + 154, UnitTypes.bryde);
-        items.put(MINDUSTRY_BASE_ID + 155, UnitTypes.sei);
-        items.put(MINDUSTRY_BASE_ID + 156, UnitTypes.omura);
-        items.put(MINDUSTRY_BASE_ID + 157, UnitTypes.retusa);
-        items.put(MINDUSTRY_BASE_ID + 158, UnitTypes.oxynoe);
-        items.put(MINDUSTRY_BASE_ID + 159, UnitTypes.cyerce);
-        items.put(MINDUSTRY_BASE_ID + 160, UnitTypes.aegires);
-        items.put(MINDUSTRY_BASE_ID + 161, UnitTypes.navanax);
-        items.put(MINDUSTRY_BASE_ID + 162, Blocks.additiveReconstructor);
-        items.put(MINDUSTRY_BASE_ID + 163, Blocks.multiplicativeReconstructor);
-        items.put(MINDUSTRY_BASE_ID + 164, Blocks.exponentialReconstructor);
-        items.put(MINDUSTRY_BASE_ID + 165, Blocks.tetrativeReconstructor);
+        items.put(MINDUSTRY_BASE_ID + 126, null); //Progressive Ground Unit Type A
+
+        ProgressiveItem item1 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_A,
+                MINDUSTRY_BASE_ID + 126, 4);
+        item1.items.add(UnitTypes.mace);
+        item1.items.add(UnitTypes.fortress);
+        item1.items.add(UnitTypes.scepter);
+        item1.items.add(UnitTypes.reign);
+        progressiveItems.add(item1);
+
+
+        items.put(MINDUSTRY_BASE_ID + 127, null); //Progressive Ground Unit Type B
+
+        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_B,
+                MINDUSTRY_BASE_ID + 127, 5);
+        item2.items.add(UnitTypes.nova);
+        item2.items.add(UnitTypes.pulsar);
+        item2.items.add(UnitTypes.quasar);
+        item2.items.add(UnitTypes.vela);
+        item2.items.add(UnitTypes.corvus);
+        progressiveItems.add(item2);
+
+        items.put(MINDUSTRY_BASE_ID + 128, null); //Progressive Ground Unit Type C
+
+        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_C,
+                MINDUSTRY_BASE_ID + 128, 5);
+        item3.items.add(UnitTypes.crawler);
+        item3.items.add(UnitTypes.atrax);
+        item3.items.add(UnitTypes.spiroct);
+        item3.items.add(UnitTypes.arkyid);
+        item3.items.add(UnitTypes.toxopid);
+        progressiveItems.add(item3);
+
+        items.put(MINDUSTRY_BASE_ID + 129, Blocks.airFactory);
+        items.put(MINDUSTRY_BASE_ID + 130, UnitTypes.flare);
+
+        items.put(MINDUSTRY_BASE_ID + 131, null); //Progressive Air Unit Type A
+
+        ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.S_AIR_UNIT_A,
+                MINDUSTRY_BASE_ID + 131, 4);
+        item4.items.add(UnitTypes.horizon);
+        item4.items.add(UnitTypes.zenith);
+        item4.items.add(UnitTypes.antumbra);
+        item4.items.add(UnitTypes.eclipse);
+        progressiveItems.add(item4);
+
+        items.put(MINDUSTRY_BASE_ID + 132, null); //Progressive Air Unit Type B
+
+        ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.S_AIR_UNIT_B,
+                MINDUSTRY_BASE_ID + 132, 5);
+        item5.items.add(UnitTypes.mono);
+        item5.items.add(UnitTypes.poly);
+        item5.items.add(UnitTypes.mega);
+        item5.items.add(UnitTypes.quad);
+        item5.items.add(UnitTypes.oct);
+        progressiveItems.add(item5);
+
+        items.put(MINDUSTRY_BASE_ID + 133, Blocks.navalFactory);
+        items.put(MINDUSTRY_BASE_ID + 134, UnitTypes.risso);
+
+        items.put(MINDUSTRY_BASE_ID + 135, null); //Progressive Naval Unit Type A
+
+        ProgressiveItem item6 = new ProgressiveItem(ProgressiveItemType.S_NAVAL_UNIT_A,
+                MINDUSTRY_BASE_ID + 135, 4);
+        item6.items.add(UnitTypes.minke);
+        item6.items.add(UnitTypes.bryde);
+        item6.items.add(UnitTypes.sei);
+        item6.items.add(UnitTypes.omura);
+        progressiveItems.add(item6);
+
+        items.put(MINDUSTRY_BASE_ID + 136, null); //Progressive Naval Unit Type B
+
+        ProgressiveItem item7 = new ProgressiveItem(ProgressiveItemType.S_NAVAL_UNIT_B,
+                MINDUSTRY_BASE_ID + 136, 5);
+        item7.items.add(UnitTypes.retusa);
+        item7.items.add(UnitTypes.oxynoe);
+        item7.items.add(UnitTypes.cyerce);
+        item7.items.add(UnitTypes.aegires);
+        item7.items.add(UnitTypes.navanax);
+        progressiveItems.add(item7);
+
+        items.put(MINDUSTRY_BASE_ID + 137, null); //Progressive Reconstructor
+
+        ProgressiveItem item8 = new ProgressiveItem(ProgressiveItemType.S_RECONSTRUCTOR,
+                MINDUSTRY_BASE_ID + 137, 4);
+        item8.items.add(Blocks.additiveReconstructor);
+        item8.items.add(Blocks.multiplicativeReconstructor);
+        item8.items.add(Blocks.exponentialReconstructor);
+        item8.items.add(Blocks.tetrativeReconstructor);
+        progressiveItems.add(item8);
+
         items.put(MINDUSTRY_BASE_ID + 166, SectorPresets.frozenForest);
         items.put(MINDUSTRY_BASE_ID + 167, SectorPresets.craters);
         items.put(MINDUSTRY_BASE_ID + 168, SectorPresets.ruinousShores);

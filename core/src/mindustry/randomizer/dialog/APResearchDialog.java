@@ -591,7 +591,6 @@ public class APResearchDialog extends BaseDialog {
         void unlock(TechTree.TechNode node){
             node.content.unlock();
 
-            checkNodes(root);
             hoverNode = null;
             treeLayout();
             rebuild();

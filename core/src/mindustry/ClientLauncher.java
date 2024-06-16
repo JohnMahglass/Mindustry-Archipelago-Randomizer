@@ -19,7 +19,6 @@ import mindustry.graphics.*;
 import mindustry.maps.*;
 import mindustry.mod.*;
 import mindustry.net.*;
-import mindustry.randomizer.Randomizer;
 import mindustry.ui.*;
 
 import static arc.Core.*;
