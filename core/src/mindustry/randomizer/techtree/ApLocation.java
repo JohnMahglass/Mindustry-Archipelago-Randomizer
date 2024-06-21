@@ -2,6 +2,7 @@ package mindustry.randomizer.techtree;
 
 import arc.Core;
 import mindustry.ctype.ContentType;
+import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Sounds;
 import mindustry.randomizer.Shared;
 import mindustry.type.Item;
@@ -34,7 +35,7 @@ public class ApLocation extends Block {
     /**
      * Original name of the node.
      */
-    public String originalNodeName;
+    public UnlockableContent content;
 
     /**
      * Check the location. If the location has no id, add the location to the pending check list.
@@ -56,27 +57,27 @@ public class ApLocation extends Block {
     /**
      * Constructor of ApLocation
      * @param name The name of the node.
-     * @param originalNodeName The name the node used to have.
+     * @param content The content of the original node
      * @param locationId The id of the node.
      */
-    public ApLocation(String name, String originalNodeName, Long locationId) {
+    public ApLocation(String name, UnlockableContent content, Long locationId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
-        this.originalNodeName = originalNodeName;
+        this.content = content;
     }
 
     /**
      * Constructor of ApLocation
      * @param name The name of the node.
-     * @param originalNodeName The name the node used to have.
+     * @param content The original content of the node.
      * @param locationId The id of the node.
      * @param itemId The id of the item contained within the node.
      */
-    public ApLocation(String name, String originalNodeName, Long locationId, Long itemId) {
+    public ApLocation(String name, UnlockableContent content, Long locationId, Long itemId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.itemId = itemId;
-        this.originalNodeName = originalNodeName;
+        this.content = content;
     }
 
     @Override
