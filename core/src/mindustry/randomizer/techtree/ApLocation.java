@@ -64,6 +64,10 @@ public class ApLocation extends Block {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.content = content;
+
+        if (content != null) {
+            this.researchCost = content.researchRequirements();
+        }
     }
 
     /**

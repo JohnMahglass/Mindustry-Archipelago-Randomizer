@@ -137,8 +137,8 @@ public class APResearchDialog extends BaseDialog {
             Core.app.post(this::checkMargin);
 
             Planet currPlanet = ui.planet.isShown() ?
-                    ui.planet.state.planet :
-                    state.isCampaign() ? state.rules.sector.planet : null;
+                ui.planet.state.planet :
+                state.isCampaign() ? state.rules.sector.planet : null;
 
             if(currPlanet != null && currPlanet.techTree != null){
                 switchTree(currPlanet.techTree);
@@ -390,7 +390,7 @@ public class APResearchDialog extends BaseDialog {
         if(!locked && (node.parent == null || node.parent.visible)) node.visible = true;
         node.selectable = selectable(node.node);
         for(TechTreeNode l : node.children){
-            l.visible = true;
+            l.visible = !locked && l.parent.visible;
             checkNodes(l);
         }
 
@@ -591,6 +591,7 @@ public class APResearchDialog extends BaseDialog {
         void unlock(TechTree.TechNode node){
             node.content.unlock();
 
+            checkNodes(root);
             hoverNode = null;
             treeLayout();
             rebuild();
