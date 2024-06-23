@@ -5,6 +5,7 @@ import arc.func.*;
 import arc.scene.style.*;
 import arc.struct.*;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
 import mindustry.type.*;
@@ -30,6 +31,48 @@ public class TechTree{
 
     public static TechNode node(UnlockableContent content, Runnable children){
         return node(content, content.researchRequirements(), children);
+    }
+
+    public static TechNode apNode(UnlockableContent content, Runnable children){
+        TechNode node = node(content, content.researchRequirements(), children);
+        node.isApNode = true;
+        return node;
+    }
+
+    public static TechNode apNode(UnlockableContent content, ItemStack[] requirements,
+                                Seq<Objective> objectives, Runnable children){
+        TechNode node = new TechNode(context, content, requirements);
+        if(objectives != null){
+            node.objectives.addAll(objectives);
+        }
+
+        TechNode prev = context;
+        context = node;
+        children.run();
+        context = prev;
+        node.isApNode = true;
+
+        return node;
+    }
+
+    public static TechNode apNode(UnlockableContent content, ItemStack[] requirements,
+                                Runnable children){
+        TechNode node = node(content, requirements, null, children);
+        node.isApNode = true;
+        return node;
+    }
+
+    public static TechNode apNode(UnlockableContent content, Seq<Objective> objectives,
+                                Runnable children){
+        TechNode node = node(content, content.researchRequirements(), objectives, children);
+        node.isApNode = true;
+        return node;
+    }
+
+    public static TechNode apNode(UnlockableContent block){
+        TechNode node = node(block, () -> {});
+        node.isApNode = true;
+        return node;
     }
 
     public static TechNode node(UnlockableContent content, ItemStack[] requirements, Runnable children){
@@ -71,6 +114,8 @@ public class TechTree{
     }
 
     public static class TechNode{
+        /** Node created by the randomizer */
+        public boolean isApNode = false;
         /** Depth in tech tree. */
         public int depth;
         /** Icon displayed in tech tree selector. */

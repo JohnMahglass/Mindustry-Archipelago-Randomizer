@@ -31,6 +31,7 @@ import arc.util.Align;
 import arc.util.Nullable;
 import arc.util.Scaling;
 import arc.util.Structs;
+import mindustry.Vars;
 import mindustry.content.Planets;
 import mindustry.content.TechTree;
 import mindustry.core.UI;
@@ -41,6 +42,7 @@ import mindustry.gen.Sounds;
 import mindustry.gen.Tex;
 import mindustry.graphics.Pal;
 import mindustry.input.Binding;
+import mindustry.randomizer.techtree.ApLocation;
 import mindustry.type.Item;
 import mindustry.type.ItemSeq;
 import mindustry.type.ItemStack;
@@ -59,6 +61,7 @@ import static mindustry.Vars.content;
 import static mindustry.Vars.iconMed;
 import static mindustry.Vars.mobile;
 import static mindustry.Vars.net;
+import static mindustry.Vars.randomizer;
 import static mindustry.Vars.state;
 import static mindustry.Vars.ui;
 import static mindustry.gen.Tex.buttonDown;
@@ -213,6 +216,7 @@ public class APResearchDialog extends BaseDialog {
             }
         });
     }
+
 
     @Override
     public Dialog show(){
@@ -495,16 +499,29 @@ public class APResearchDialog extends BaseDialog {
                 button.touchable(() -> !node.visible ? Touchable.disabled : Touchable.enabled);
                 button.userObject = node.node;
                 button.setSize(nodeSize);
-                button.update(() -> {
-                    float offset = (Core.graphics.getHeight() % 2) / 2f;
-                    button.setPosition(node.x + panX + width / 2f, node.y + panY + height / 2f + offset, Align.center);
-                    button.getStyle().up = !locked(node.node) ? Tex.buttonOver : !selectable(node.node) || !canSpend(node.node) ? Tex.buttonRed : Tex.button;
+                if (node.node.isApNode) {
+                    button.update(() -> {
+                        float offset = (Core.graphics.getHeight() % 2) / 2f;
+                        button.setPosition(node.x + panX + width / 2f, node.y + panY + height / 2f + offset, Align.center);
+                        button.getStyle().up = !locked(node.node) ? Tex.buttonOver : !selectable(node.node) || !canSpend(node.node) ? Tex.buttonRed : Tex.button;
 
-                    ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? node.node.content.uiIcon : Icon.lock.getRegion());
-                    button.getImage().setColor(!locked(node.node) ? Color.white : node.selectable ? Color.gray : Pal.gray);
-                    button.getImage().layout();
-                });
-                addChild(button);
+                        ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? randomizer.getApIcon() : Icon.lock.getRegion());
+                        button.getImage().setColor(!locked(node.node) ? Color.white : node.selectable ? Color.gray : Pal.gray);
+                        button.getImage().layout();
+                    });
+                    addChild(button);
+                } else {
+                    button.update(() -> {
+                        float offset = (Core.graphics.getHeight() % 2) / 2f;
+                        button.setPosition(node.x + panX + width / 2f, node.y + panY + height / 2f + offset, Align.center);
+                        button.getStyle().up = !locked(node.node) ? Tex.buttonOver : !selectable(node.node) || !canSpend(node.node) ? Tex.buttonRed : Tex.button;
+
+                        ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? node.node.content.uiIcon : Icon.lock.getRegion());
+                        button.getImage().setColor(!locked(node.node) ? Color.white : node.selectable ? Color.gray : Pal.gray);
+                        button.getImage().layout();
+                    });
+                    addChild(button);
+                }
             }
 
             if(mobile){

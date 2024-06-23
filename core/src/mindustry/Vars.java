@@ -4,6 +4,8 @@ import arc.*;
 import arc.assets.*;
 import arc.files.*;
 import arc.graphics.*;
+import arc.graphics.g2d.TextureRegion;
+import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
@@ -34,6 +36,8 @@ import mindustry.world.meta.*;
 
 import java.io.*;
 import java.nio.charset.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -297,6 +301,7 @@ public class Vars implements Loadable{
         modDirectory = dataDirectory.child("mods/");
         schematicDirectory = dataDirectory.child("schematics/");
         bebuildDirectory = dataDirectory.child("be_builds/");
+
         emptyMap = new Map(new StringMap());
 
         if(tree == null) tree = new FileTree();

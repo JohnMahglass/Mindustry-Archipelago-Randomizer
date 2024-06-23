@@ -2,12 +2,19 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
+import arc.Core;
+import arc.files.Fi;
+import arc.graphics.Texture;
+import arc.graphics.g2d.TextureRegion;
 import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.techtree.ApLocation;
 
-import java.util.HashSet;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 /**
  * Randomizer for Archipelago multiworld randomizer.
@@ -16,6 +23,8 @@ import java.util.HashSet;
  * @version 1.0.0 2024-05-12
  */
 public class Randomizer {
+
+    private TextureRegion apIcon;
 
     public APClient randomizerClient;
 
@@ -99,6 +108,7 @@ public class Randomizer {
         return (id >= MINDUSTRY_BASE_ID + 166 && id <= MINDUSTRY_BASE_ID + 182);
     }
 
+
     /**
      * Return UnlockableContent matching the itemId.
      * @param itemId The itemId of the item.
@@ -129,6 +139,7 @@ public class Randomizer {
      * Initialize the randomizer's list of item depending on the selected campaign
      */
     public void initialize() {
+        setApIcon();
         worldState.initialize();
         switch (worldState.options.getCampaignChoice()) {
             case SERPULO:
@@ -148,6 +159,16 @@ public class Randomizer {
         }
     }
 
+    private void setApIcon() {
+        apIcon = new TextureRegion();
+        Path currentRelativePath = Paths.get("");
+        Fi iconFile = new Fi(currentRelativePath.toAbsolutePath() + "/ap.png");
+        Texture apTexture = new Texture(iconFile);
+        TextureRegion iconRegion = new TextureRegion();
+        iconRegion.set(apTexture);
+        apIcon.set(iconRegion);
+    }
+
     /**
      * Constructor for Randomizer
      */
@@ -161,6 +182,10 @@ public class Randomizer {
     public void showItemReceived(String researchName) {
         Vars.ui.showInfoToast( researchName +" received!", 8f);
         Vars.ui.consolefrag.addMessage(researchName + " received!");
+    }
+
+    public TextureRegion getApIcon() {
+        return this.apIcon;
     }
 
 }

@@ -6,6 +6,7 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.ai.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -56,9 +57,9 @@ public class ContentLoader{
         Weathers.load();
         Planets.load();
         SectorPresets.load();
+        randomizer = new Randomizer();
         SerpuloTechTreeRandomizer.load();
         ErekirTechTree.load();
-        randomizer = new Randomizer();
     }
 
     /** Creates mod content, if applicable. */

@@ -8,6 +8,8 @@ package mindustry.randomizer.techtree;
  */
 public interface TechTreeRandomizer {
 
+
+
     /**
      * Load the tech tree into the planet
      */

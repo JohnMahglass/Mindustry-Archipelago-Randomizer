@@ -19,6 +19,7 @@ import java.util.Map;
 import mindustry.ctype.UnlockableContent;
 import mindustry.entities.Units;
 import mindustry.randomizer.enums.ProgressiveItemType;
+import mindustry.randomizer.techtree.ApLocation;
 
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
@@ -64,6 +65,8 @@ public class WorldState {
      * List of checked locations that have not been successfully sent.
      */
     public ArrayList<Long> checkPending;
+
+    public ArrayList<ApLocation> apLocations;
 
     /**
      * List of item that are queued to be received.
@@ -111,6 +114,7 @@ public class WorldState {
         this.checkPending = new ArrayList<>();
         this.itemToBeReceived = new ArrayList<>();
         this.progressiveItems = new ArrayList<>();
+        this.apLocations = new ArrayList<>();
     }
 
     /**

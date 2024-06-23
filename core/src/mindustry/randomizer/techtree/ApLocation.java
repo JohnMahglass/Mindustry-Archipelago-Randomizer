@@ -1,6 +1,10 @@
 package mindustry.randomizer.techtree;
 
 import arc.Core;
+import arc.files.Fi;
+import arc.graphics.Texture;
+import arc.graphics.g2d.TextureRegion;
+import mindustry.Vars;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Sounds;
@@ -8,6 +12,9 @@ import mindustry.randomizer.Shared;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static mindustry.Vars.randomizer;
 
@@ -37,6 +44,7 @@ public class ApLocation extends Block {
      */
     public UnlockableContent content;
 
+
     /**
      * Check the location. If the location has no id, add the location to the pending check list.
      */
@@ -64,7 +72,6 @@ public class ApLocation extends Block {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.content = content;
-
         if (content != null) {
             this.researchCost = content.researchRequirements();
         }
@@ -82,6 +89,9 @@ public class ApLocation extends Block {
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.itemId = itemId;
         this.content = content;
+        if (content != null) {
+            this.researchCost = content.researchRequirements();
+        }
     }
 
     @Override
