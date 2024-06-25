@@ -591,62 +591,32 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
             node(groundZero, () -> {
                 node(frozenForest, Seq.with(
-                        new Objectives.SectorComplete(groundZero),
-                        new Objectives.Research(junction),
-                        new Objectives.Research(router)
+                        new Objectives.SectorComplete(groundZero)
                 ), () -> {
                     node(craters, Seq.with(
-                            new Objectives.SectorComplete(frozenForest),
-                            new Objectives.Research(mender),
-                            new Objectives.Research(combustionGenerator)
+                            new Objectives.SectorComplete(frozenForest)
                     ), () -> {
                         node(ruinousShores, Seq.with(
-                                new Objectives.SectorComplete(craters),
-                                new Objectives.Research(graphitePress),
-                                new Objectives.Research(kiln),
-                                new Objectives.Research(mechanicalPump)
+                                new Objectives.SectorComplete(craters)
                         ), () -> {
                             node(windsweptIslands, Seq.with(
-                                    new Objectives.SectorComplete(ruinousShores),
-                                    new Objectives.Research(pneumaticDrill),
-                                    new Objectives.Research(hail),
-                                    new Objectives.Research(siliconSmelter),
-                                    new Objectives.Research(steamGenerator)
+                                    new Objectives.SectorComplete(ruinousShores)
                             ), () -> {
                                 node(tarFields, Seq.with(
-                                        new Objectives.SectorComplete(windsweptIslands),
-                                        new Objectives.Research(coalCentrifuge),
-                                        new Objectives.Research(conduit),
-                                        new Objectives.Research(wave)
+                                        new Objectives.SectorComplete(windsweptIslands)
                                 ), () -> {
                                     node(impact0078, Seq.with(
-                                            new Objectives.SectorComplete(tarFields),
-                                            new Objectives.Research(Items.thorium),
-                                            new Objectives.Research(lancer),
-                                            new Objectives.Research(salvo),
-                                            new Objectives.Research(coreFoundation)
+                                            new Objectives.SectorComplete(tarFields)
                                     ), () -> {
                                         node(desolateRift, Seq.with(
-                                                new Objectives.SectorComplete(impact0078),
-                                                new Objectives.Research(thermalGenerator),
-                                                new Objectives.Research(thoriumReactor),
-                                                new Objectives.Research(coreNucleus)
+                                                new Objectives.SectorComplete(impact0078)
                                         ), () -> {
                                             node(planetaryTerminal, Seq.with(
                                                     new Objectives.SectorComplete(desolateRift),
                                                     new Objectives.SectorComplete(nuclearComplex),
                                                     new Objectives.SectorComplete(overgrowth),
                                                     new Objectives.SectorComplete(extractionOutpost),
-                                                    new Objectives.SectorComplete(saltFlats),
-                                                    new Objectives.Research(risso),
-                                                    new Objectives.Research(minke),
-                                                    new Objectives.Research(bryde),
-                                                    new Objectives.Research(spectre),
-                                                    new Objectives.Research(launchPad),
-                                                    new Objectives.Research(massDriver),
-                                                    new Objectives.Research(impactReactor),
-                                                    new Objectives.Research(additiveReconstructor),
-                                                    new Objectives.Research(exponentialReconstructor)
+                                                    new Objectives.SectorComplete(saltFlats)
                                             ), () -> {
 
                                             });
@@ -656,35 +626,21 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                                 node(extractionOutpost, Seq.with(
                                         new Objectives.SectorComplete(stainedMountains),
-                                        new Objectives.SectorComplete(windsweptIslands),
-                                        new Objectives.Research(groundFactory),
-                                        new Objectives.Research(nova),
-                                        new Objectives.Research(airFactory),
-                                        new Objectives.Research(mono)
+                                        new Objectives.SectorComplete(windsweptIslands)
                                 ), () -> {
 
                                 });
 
                                 node(saltFlats, Seq.with(
-                                        new Objectives.SectorComplete(windsweptIslands),
-                                        new Objectives.Research(groundFactory),
-                                        new Objectives.Research(additiveReconstructor),
-                                        new Objectives.Research(airFactory),
-                                        new Objectives.Research(door)
+                                        new Objectives.SectorComplete(windsweptIslands)
                                 ), () -> {
                                     node(coastline, Seq.with(
                                             new Objectives.SectorComplete(windsweptIslands),
-                                            new Objectives.SectorComplete(saltFlats),
-                                            new Objectives.Research(navalFactory),
-                                            new Objectives.Research(payloadConveyor)
+                                            new Objectives.SectorComplete(saltFlats)
                                     ), () -> {
                                         node(navalFortress, Seq.with(
                                                 new Objectives.SectorComplete(coastline),
-                                                new Objectives.SectorComplete(extractionOutpost),
-                                                new Objectives.Research(oxynoe),
-                                                new Objectives.Research(minke),
-                                                new Objectives.Research(cyclone),
-                                                new Objectives.Research(ripple)
+                                                new Objectives.SectorComplete(extractionOutpost)
                                         ), () -> {
 
                                         });
@@ -695,40 +651,24 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
 
                         node(overgrowth, Seq.with(
                                 new Objectives.SectorComplete(craters),
-                                new Objectives.SectorComplete(fungalPass),
-                                new Objectives.Research(cultivator),
-                                new Objectives.Research(sporePress),
-                                new Objectives.Research(additiveReconstructor),
-                                new Objectives.Research(mace),
-                                new Objectives.Research(flare)
+                                new Objectives.SectorComplete(fungalPass)
                         ), () -> {
 
                         });
                     });
 
                     node(biomassFacility, Seq.with(
-                            new Objectives.SectorComplete(frozenForest),
-                            new Objectives.Research(powerNode),
-                            new Objectives.Research(steamGenerator),
-                            new Objectives.Research(scatter),
-                            new Objectives.Research(graphitePress)
+                            new Objectives.SectorComplete(frozenForest)
                     ), () -> {
                         node(stainedMountains, Seq.with(
-                                new Objectives.SectorComplete(biomassFacility),
-                                new Objectives.Research(pneumaticDrill),
-                                new Objectives.Research(siliconSmelter)
+                                new Objectives.SectorComplete(biomassFacility)
                         ), () -> {
                             node(fungalPass, Seq.with(
                                     new Objectives.SectorComplete(stainedMountains),
-                                    new Objectives.Research(groundFactory),
-                                    new Objectives.Research(door)
+                                    new Objectives.Research(groundFactory)
                             ), () -> {
                                 node(nuclearComplex, Seq.with(
-                                        new Objectives.SectorComplete(fungalPass),
-                                        new Objectives.Research(thermalGenerator),
-                                        new Objectives.Research(laserDrill),
-                                        new Objectives.Research(Items.plastanium),
-                                        new Objectives.Research(swarmer)
+                                        new Objectives.SectorComplete(fungalPass)
                                 ), () -> {
 
                                 });

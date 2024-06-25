@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import static mindustry.content.SectorPresets.frozenForest;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
 import arc.Core;
@@ -179,8 +180,13 @@ public class Randomizer {
         randomizerClient.connectRandomizer();
     }
 
+    public void showMessage (String message, float duration) {
+        Vars.ui.showInfoToast(message, duration);
+    }
+
     public void showItemReceived(String researchName) {
-        Vars.ui.showInfoToast( researchName +" received!", 8f);
+        showMessage( researchName +" received!", 8f);
+        //For Debug
         Vars.ui.consolefrag.addMessage(researchName + " received!");
     }
 

@@ -40,6 +40,9 @@ public class ArchipelagoDialog extends BaseDialog {
 
     private void setup() {
         cont.row();
+        cont.labelWrap("This options menu is still in developement, values might not be accurate");
+
+        cont.row();
         cont.labelWrap("Address: " + ((Core.settings.getString("APaddress") != null) ?
                 Core.settings.getString("APaddress") : "Address not set"));
 
@@ -56,7 +59,8 @@ public class ArchipelagoDialog extends BaseDialog {
                 "Not Connected"));
 
         cont.row();
-        cont.labelWrap("Connection status: " + ((client.isAuthenticated()) ? "Authenticated":
+        cont.labelWrap("Connection status(not working): " + ((client.isAuthenticated()) ?
+                "Authenticated":
                 "Not Authenticated"));
 
 
@@ -81,16 +85,19 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.row();
         cont.button("Apply changes", () -> {
             if (newAddress != null) {
+                client.disconnect();
                 client.setAddress(newAddress);
                 Core.settings.put("APaddress", newAddress);
                 settingChanged = true;
             }
             if (newSlotName != null) {
+                client.disconnect();
                 client.setSlotName(newSlotName);
                 Core.settings.put("APslotName", newSlotName);
                 settingChanged = true;
             }
             if (newPassword != null) {
+                client.disconnect();
                 client.setPassword(newPassword);
                 Core.settings.put("APpassword", newPassword);
                 settingChanged = true;
@@ -103,7 +110,10 @@ public class ArchipelagoDialog extends BaseDialog {
 
         cont.row();
         cont.button("Connect", () -> {
-           client.connectRandomizer();
+            if(client.isConnected()) {
+                client.disconnect();
+            }
+            client.connectRandomizer();
             reload();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {

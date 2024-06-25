@@ -3,6 +3,7 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.network.ConnectionResult;
+import mindustry.Vars;
 
 /**
  * ConnectResult
@@ -22,13 +23,20 @@ public class ConnectResult {
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
             client.slotData = event.getSlotData(SlotData.class);
-            //Notifiy user that they are connected
-
-            //Store item that are to be received and try to unlock them all.
-
-
+            //Inform player that they are connected
         } else {
-            //Should raise a flag for reconnection / error logging
+            //Inform player that they are not connected
+            if (event.getResult() == ConnectionResult.InvalidSlot) {
+
+            } else if (event.getResult() == ConnectionResult.InvalidPassword) {
+
+            } else if (event.getResult() == ConnectionResult.SlotAlreadyTaken) {
+
+            } else if (event.getResult() == ConnectionResult.IncompatibleVersion) {
+
+            } else {
+                //Unknown error
+            }
         }
     }
 }

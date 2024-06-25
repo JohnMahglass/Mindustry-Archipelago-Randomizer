@@ -69,6 +69,7 @@ public class APClient extends Client {
      */
     public void setSlotName(String slotName) {
         this.slotName = slotName;
+        setName(slotName);
     }
 
 
@@ -127,7 +128,7 @@ public class APClient extends Client {
 
     public void connectRandomizer() {
         try {
-            if (address != null) {
+            if (address != null && slotName != null) {
                 connect(address);
             }
         } catch (URISyntaxException e) { //NEED TO LOG ERROR
