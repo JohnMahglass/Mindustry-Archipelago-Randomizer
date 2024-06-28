@@ -1,9 +1,7 @@
 package mindustry.randomizer;
 
-import static mindustry.content.SectorPresets.frozenForest;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
-import arc.Core;
 import arc.files.Fi;
 import arc.graphics.Texture;
 import arc.graphics.g2d.TextureRegion;
@@ -11,7 +9,6 @@ import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
-import mindustry.randomizer.techtree.ApLocation;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -176,7 +173,7 @@ public class Randomizer {
     public Randomizer(){
         this.worldState = new WorldState();
         initialize();
-        this.randomizerClient = new APClient(this);
+        this.randomizerClient = new APClient();
         randomizerClient.connectRandomizer();
     }
 

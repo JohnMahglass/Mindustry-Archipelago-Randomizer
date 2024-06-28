@@ -1,10 +1,6 @@
 package mindustry.randomizer.techtree;
 
 import arc.Core;
-import arc.files.Fi;
-import arc.graphics.Texture;
-import arc.graphics.g2d.TextureRegion;
-import mindustry.Vars;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Sounds;
@@ -12,9 +8,6 @@ import mindustry.randomizer.Shared;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static mindustry.Vars.randomizer;
 

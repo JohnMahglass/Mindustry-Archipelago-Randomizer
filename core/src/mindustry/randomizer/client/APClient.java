@@ -6,8 +6,7 @@ import dev.koifysh.archipelago.ItemFlags;
 import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkItem;
-import mindustry.Vars;
-import mindustry.randomizer.Randomizer;
+import mindustry.randomizer.enums.ConnectionStatus;
 
 import java.net.URISyntaxException;
 
@@ -20,7 +19,6 @@ import java.net.URISyntaxException;
  */
 public class APClient extends Client {
 
-    private Randomizer randomizer;
     public DataPackage dataPackage;
 
     public SlotData slotData;
@@ -30,6 +28,8 @@ public class APClient extends Client {
     private String address;
 
     private String password;
+
+    public ConnectionStatus connectionStatus;
 
     /**
      * Getter for password
@@ -52,7 +52,6 @@ public class APClient extends Client {
     }
 
 
-
     /**
      * Getter for slotName
      *
@@ -73,13 +72,13 @@ public class APClient extends Client {
     }
 
 
-    public APClient (Randomizer randomizer) {
+    public APClient () {
         super();
-        this.randomizer = randomizer;
         this.loadInfo();
         this.setGame("Mindustry");
         this.setItemsHandlingFlags(ItemFlags.SEND_ITEMS + ItemFlags.SEND_OWN_ITEMS);
         this.setName(getSlotName());
+        this.connectionStatus = ConnectionStatus.NotConnected;
         this.dataPackage = getDataPackage();
 
         this.getEventManager().registerListener(new ConnectResult(this));
@@ -122,9 +121,6 @@ public class APClient extends Client {
 
     }
 
-    public boolean isAuthenticated() {
-        return false; //TEMPORARY
-    }
 
     public void connectRandomizer() {
         try {

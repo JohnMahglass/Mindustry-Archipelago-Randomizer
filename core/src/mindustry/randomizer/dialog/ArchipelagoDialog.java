@@ -1,18 +1,16 @@
 package mindustry.randomizer.dialog;
 
 import arc.Core;
-import arc.scene.ui.layout.Table;
-import mindustry.content.TechTree;
-import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.enums.ConnectionStatus;
 import mindustry.ui.dialogs.BaseDialog;
 
-import static arc.Core.settings;
-import static mindustry.Vars.content;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
-import static mindustry.Vars.universe;
 
 /**
  * Dialog for Archipelago settings.
@@ -26,6 +24,7 @@ public class ArchipelagoDialog extends BaseDialog {
     private String newSlotName;
     private String newPassword;
     private boolean settingChanged;
+    private ConnectionStatus displayedStatus;
 
     public ArchipelagoDialog() {
         super("Archipelago");
@@ -39,8 +38,17 @@ public class ArchipelagoDialog extends BaseDialog {
     }
 
     private void setup() {
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                verifyConnectionStatus();
+            }
+        };
+
         cont.row();
-        cont.labelWrap("This options menu is still in developement, values might not be accurate");
+        cont.labelWrap("This options menu is still in development, values might not be accurate");
 
         cont.row();
         cont.labelWrap("Address: " + ((Core.settings.getString("APaddress") != null) ?
@@ -55,14 +63,7 @@ public class ArchipelagoDialog extends BaseDialog {
                 obfuscatePassword() : "Password not set")));
 
         cont.row();
-        cont.labelWrap("Connection status: " + ((client.isConnected()) ? "Connected":
-                "Not Connected"));
-
-        cont.row();
-        cont.labelWrap("Connection status(not working): " + ((client.isAuthenticated()) ?
-                "Authenticated":
-                "Not Authenticated"));
-
+        cont.labelWrap("Connection status: " + getConnectionStatus());
 
         cont.row();
         cont.labelWrap("New Address: ").padBottom(55f);
@@ -103,6 +104,7 @@ public class ArchipelagoDialog extends BaseDialog {
                 settingChanged = true;
             }
             if (settingChanged) {
+                client.connectionStatus = ConnectionStatus.NotConnected;
                 reload();
                 settingChanged = false;
             }
@@ -114,10 +116,12 @@ public class ArchipelagoDialog extends BaseDialog {
                 client.disconnect();
             }
             client.connectRandomizer();
+            timer.schedule(task, 2000);
             reload();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {
             client.disconnect();
+            client.connectionStatus = ConnectionStatus.NotConnected;
             reload();
         }).size(140f, 60f).pad(4f);
 
@@ -131,6 +135,43 @@ public class ArchipelagoDialog extends BaseDialog {
             });
         }).size(150f, 60f).pad(4f);
 
+    }
+
+    private void verifyConnectionStatus() {
+        if (client.connectionStatus != displayedStatus) {
+            reload();
+        }
+    }
+
+    private String getConnectionStatus() {
+        String status;
+        switch (client.connectionStatus) {
+            case Success:
+                status = "Connected";
+                displayedStatus = ConnectionStatus.Success;
+                break;
+            case InvalidSlot:
+                status = "Invalid slot";
+                displayedStatus = ConnectionStatus.InvalidSlot;
+                break;
+            case InvalidPassword:
+                status = "Invalid password";
+                displayedStatus = ConnectionStatus.InvalidPassword;
+                break;
+            case SlotAlreadyTaken:
+                status = "Slot already taken";
+                displayedStatus = ConnectionStatus.SlotAlreadyTaken;
+                break;
+            case IncompatibleVersion:
+                status = "Incompatible version";
+                displayedStatus = ConnectionStatus.IncompatibleVersion;
+                break;
+            default:
+                status = "Not connected";
+                displayedStatus = ConnectionStatus.NotConnected;
+                break;
+        }
+        return status;
     }
 
     private String obfuscatePassword() {

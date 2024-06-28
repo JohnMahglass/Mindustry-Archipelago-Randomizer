@@ -12,12 +12,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import mindustry.ctype.UnlockableContent;
-import mindustry.entities.Units;
 import mindustry.randomizer.enums.ProgressiveItemType;
 import mindustry.randomizer.techtree.ApLocation;
 

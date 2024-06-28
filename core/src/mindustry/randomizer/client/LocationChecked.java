@@ -13,7 +13,6 @@ public class LocationChecked {
 
     @ArchipelagoEventListener
     public static void onLocationCheck(CheckedLocationsEvent event) {
-        int test = 1;
     }
 
 }
