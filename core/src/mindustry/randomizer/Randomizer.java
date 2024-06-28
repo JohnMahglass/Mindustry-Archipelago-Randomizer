@@ -22,8 +22,6 @@ import java.nio.file.Paths;
  */
 public class Randomizer {
 
-    private TextureRegion apIcon;
-
     public APClient randomizerClient;
 
     /**
@@ -137,7 +135,6 @@ public class Randomizer {
      * Initialize the randomizer's list of item depending on the selected campaign
      */
     public void initialize() {
-        setApIcon();
         worldState.initialize();
         switch (worldState.options.getCampaignChoice()) {
             case SERPULO:
@@ -155,16 +152,6 @@ public class Randomizer {
             default:
                 throw new RuntimeException("Invalid CampaignType");
         }
-    }
-
-    private void setApIcon() {
-        apIcon = new TextureRegion();
-        Path currentRelativePath = Paths.get("");
-        Fi iconFile = new Fi(currentRelativePath.toAbsolutePath() + "/ap.png");
-        Texture apTexture = new Texture(iconFile);
-        TextureRegion iconRegion = new TextureRegion();
-        iconRegion.set(apTexture);
-        apIcon.set(iconRegion);
     }
 
     /**
@@ -185,10 +172,6 @@ public class Randomizer {
         showMessage( researchName +" received!", 8f);
         //For Debug
         Vars.ui.consolefrag.addMessage(researchName + " received!");
-    }
-
-    public TextureRegion getApIcon() {
-        return this.apIcon;
     }
 
 }
