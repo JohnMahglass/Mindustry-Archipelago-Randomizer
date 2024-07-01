@@ -2,16 +2,10 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
-import arc.files.Fi;
-import arc.graphics.Texture;
-import arc.graphics.g2d.TextureRegion;
 import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 /**
@@ -59,7 +53,7 @@ public class Randomizer {
      * Forward the check to Archipelago.
      * @param locationId The id of the location
      */
-    public void locationChecked(Long locationId){
+    public void checkLocation(Long locationId){
         if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET
             //Send victory event to AP
             randomizerClient.setGameState(ClientStatus.CLIENT_GOAL);
@@ -78,6 +72,19 @@ public class Randomizer {
         worldState.saveStates();
         //DEBUG
         Vars.ui.consolefrag.addMessage("Location id '" + locationId.toString() + "' checked");
+    }
+
+    public void checkPendingLocation (Long id) {
+        boolean succes = false;
+        succes = randomizerClient.checkLocation(id);
+        if (succes) {
+            for (Long locationId : worldState.checkPending) {
+                if (locationId.equals(id)) {
+                    worldState.checkPending.remove(locationId);
+                    int test = 1;
+                }
+            }
+        }
     }
 
     /**

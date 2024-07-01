@@ -48,7 +48,7 @@ public class ApLocation extends Block {
             Sounds.unlock.play();
             Core.settings.put(name + "-unlocked", true);
             if (locationId != null) {
-                randomizer.locationChecked(locationId);
+                randomizer.checkLocation(locationId);
             } else {
                 //Error needs to be logged
             }

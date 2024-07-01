@@ -3,6 +3,7 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.network.ConnectionResult;
+import mindustry.Vars;
 import mindustry.randomizer.enums.ConnectionStatus;
 
 /**
@@ -24,6 +25,11 @@ public class ConnectResult {
         if (event.getResult() == ConnectionResult.Success) {
             client.slotData = event.getSlotData(SlotData.class);
             client.connectionStatus = ConnectionStatus.Success;
+            if (Vars.randomizer.worldState.checkPending.size() > 0) {
+                for (Long locationId : Vars.randomizer.worldState.checkPending) {
+                    Vars.randomizer.checkPendingLocation(locationId);
+                }
+            }
             //Inform player that they are connected
         } else {
             //Inform player that they are not connected
