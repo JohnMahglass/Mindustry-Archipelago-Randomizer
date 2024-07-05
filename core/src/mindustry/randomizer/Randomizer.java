@@ -67,6 +67,8 @@ public class Randomizer {
         if (!randomizerClient.isConnected() || !success) {
             //Check could not be send
             worldState.addCheck(worldState.checkPending, locationId);
+            //Send message to player to inform them that they are not connected and that the
+            // check will be sent when they reconnect
         }
         worldState.addCheck(worldState.locationsChecked, locationId);
         worldState.saveStates();
@@ -74,17 +76,23 @@ public class Randomizer {
         Vars.ui.consolefrag.addMessage("Location id '" + locationId.toString() + "' checked");
     }
 
-    public void checkPendingLocation (Long id) {
-        boolean succes = false;
-        succes = randomizerClient.checkLocation(id);
-        if (succes) {
-            for (Long locationId : worldState.checkPending) {
-                if (locationId.equals(id)) {
-                    worldState.checkPending.remove(locationId);
-                    int test = 1;
-                }
+    public void sendPendingLocations () {
+        boolean succes;
+        int amountPending = worldState.checkPending.size();
+        for (Long locationId : worldState.checkPending) {
+            succes = checkPendingLocation(locationId);
+            if (succes) {
+                amountPending--;
             }
         }
+        if (amountPending == 0) { //Every check has been succesfully sent
+            worldState.checkPending.clear();
+            worldState.saveStates();
+        }
+    }
+
+    private boolean checkPendingLocation (Long id) {
+        return randomizerClient.checkLocation(id);
     }
 
     /**

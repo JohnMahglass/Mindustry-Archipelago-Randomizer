@@ -26,9 +26,7 @@ public class ConnectResult {
             client.slotData = event.getSlotData(SlotData.class);
             client.connectionStatus = ConnectionStatus.Success;
             if (Vars.randomizer.worldState.checkPending.size() > 0) {
-                for (Long locationId : Vars.randomizer.worldState.checkPending) {
-                    Vars.randomizer.checkPendingLocation(locationId);
-                }
+                Vars.randomizer.sendPendingLocations();
             }
             //Inform player that they are connected
         } else {
