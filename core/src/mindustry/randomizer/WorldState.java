@@ -31,19 +31,9 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 public class WorldState {
 
     /**
-     * Name of the file containing locations that has been checked.
-     */
-    public String locationCheckedFile = "RandomizerLocationChecked.txt";
-
-    /**
      * Name of the file containing locations that are pending.
      */
     public String checkPendingFile = "RandomizerCheckPending.txt";
-
-    /**
-     * Name of the file containing item that are queued for unlock.
-     */
-    public String itemToBeReceivedFile = "RandomizerItemToBeReceived.txt";
 
     public String progressiveItemsFile = "RandomizerProgressiveItems.txt";
 
@@ -65,11 +55,6 @@ public class WorldState {
     public ArrayList<Long> checkPending;
 
     public ArrayList<ApLocation> apLocations;
-
-    /**
-     * List of item that are queued to be received.
-     */
-    public ArrayList<Long> itemToBeReceived;
 
     /**
      * All UnlockableContent with their matching id
@@ -110,7 +95,6 @@ public class WorldState {
         this.locations = new HashMap<>();
         this.locationsChecked = new ArrayList<>();
         this.checkPending = new ArrayList<>();
-        this.itemToBeReceived = new ArrayList<>();
         this.progressiveItems = new ArrayList<>();
         this.apLocations = new ArrayList<>();
     }
@@ -163,8 +147,6 @@ public class WorldState {
 
     public void saveStates(){
         saveState(checkPendingFile, checkPending);
-        saveState(locationCheckedFile, locationsChecked);
-        saveState(itemToBeReceivedFile, itemToBeReceived);
     }
 
     /**
@@ -172,8 +154,6 @@ public class WorldState {
      */
     private void loadStates(){
         checkPending = loadState(checkPendingFile);
-        locationsChecked = loadState(locationCheckedFile);
-        itemToBeReceived = loadState(itemToBeReceivedFile);
     }
 
     public boolean isProgressive(Long itemId) {
@@ -227,9 +207,7 @@ public class WorldState {
     }
 
     public void wipeStates() {
-        wipeState(locationCheckedFile, locationsChecked);
         wipeState(checkPendingFile, checkPending);
-        wipeState(itemToBeReceivedFile, itemToBeReceived);
         wipeState(progressiveItemsFile, progressiveItems);
     }
 

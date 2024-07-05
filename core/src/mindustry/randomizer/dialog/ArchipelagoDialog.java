@@ -48,9 +48,6 @@ public class ArchipelagoDialog extends BaseDialog {
         };
 
         cont.row();
-        cont.labelWrap("This options menu is still in development, values might not be accurate");
-
-        cont.row();
         cont.labelWrap("Address: " + ((Core.settings.getString("APaddress") != null) ?
                 Core.settings.getString("APaddress") : "Address not set"));
 
@@ -86,19 +83,19 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.row();
         cont.button("Apply changes", () -> {
             if (newAddress != null) {
-                client.disconnect();
+                disconnectClient();
                 client.setAddress(newAddress);
                 Core.settings.put("APaddress", newAddress);
                 settingChanged = true;
             }
             if (newSlotName != null) {
-                client.disconnect();
+                disconnectClient();
                 client.setSlotName(newSlotName);
                 Core.settings.put("APslotName", newSlotName);
                 settingChanged = true;
             }
             if (newPassword != null) {
-                client.disconnect();
+                disconnectClient();
                 client.setPassword(newPassword);
                 Core.settings.put("APpassword", newPassword);
                 settingChanged = true;
@@ -112,15 +109,13 @@ public class ArchipelagoDialog extends BaseDialog {
 
         cont.row();
         cont.button("Connect", () -> {
-            if(client.isConnected()) {
-                client.disconnect();
-            }
+            disconnectClient();
             client.connectRandomizer();
             timer.schedule(task, 2000);
             reload();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {
-            client.disconnect();
+            disconnectClient();
             client.connectionStatus = ConnectionStatus.NotConnected;
             reload();
         }).size(140f, 60f).pad(4f);
@@ -135,6 +130,12 @@ public class ArchipelagoDialog extends BaseDialog {
             });
         }).size(150f, 60f).pad(4f);
 
+    }
+
+    private void disconnectClient() {
+        if (client.isConnected()) {
+            client.disconnect();
+        }
     }
 
     private void verifyConnectionStatus() {
