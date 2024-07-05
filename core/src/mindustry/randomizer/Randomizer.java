@@ -146,15 +146,12 @@ public class Randomizer {
         switch (worldState.options.getCampaignChoice()) {
             case SERPULO:
                 worldState.initializeSerpuloItems();
-                worldState.initializeSerpuloLocations();
                 break;
             case EREKIR:
                 worldState.initializeErekirItems();
-                worldState.initializeErekirLocations();
                 break;
             case ALL:
                 worldState.initializeAllItems();
-                worldState.initializeAllLocations();
                 break;
             default:
                 throw new RuntimeException("Invalid CampaignType");

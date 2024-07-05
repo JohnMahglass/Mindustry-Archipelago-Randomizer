@@ -69,7 +69,7 @@ public class Vars implements Loadable{
     /** global charset, since Android doesn't support the Charsets class */
     public static final Charset charset = Charset.forName("UTF-8");
     /** main application name, capitalized */
-    public static final String appName = "Mindustry";
+    public static final String appName = "AP_Mindustry";
     /** Github API URL. */
     public static final String ghApi = "https://api.github.com";
     /** URL for discord invite. */
@@ -433,7 +433,7 @@ public class Vars implements Loadable{
         settings.setAppName(appName);
 
         if(steam || (Version.modifier != null && Version.modifier.contains("steam"))){
-            settings.setDataDirectory(Core.files.local("saves/"));
+            settings.setDataDirectory(Core.files.local("APsaves/"));
         }
 
         settings.defaults("locale", "default", "blocksync", true);
