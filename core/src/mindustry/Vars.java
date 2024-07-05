@@ -433,7 +433,7 @@ public class Vars implements Loadable{
         settings.setAppName(appName);
 
         if(steam || (Version.modifier != null && Version.modifier.contains("steam"))){
-            settings.setDataDirectory(Core.files.local("APsaves/"));
+            settings.setDataDirectory(Core.files.local("saves/"));
         }
 
         settings.defaults("locale", "default", "blocksync", true);
