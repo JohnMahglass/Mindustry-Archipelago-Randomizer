@@ -29,7 +29,8 @@ public class Randomizer {
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.unlock();
-        showItemReceived(content.localizedName);
+        //DEBUG
+        sendMessage(content.localizedName + " Researched");
     }
 
     /**
@@ -72,8 +73,6 @@ public class Randomizer {
         }
         worldState.addCheck(worldState.locationsChecked, locationId);
         worldState.saveStates();
-        //DEBUG
-        Vars.ui.consolefrag.addMessage("Location id '" + locationId.toString() + "' checked");
     }
 
     public void sendPendingLocations () {
@@ -176,14 +175,9 @@ public class Randomizer {
         randomizerClient.connectRandomizer();
     }
 
-    public void showMessage (String message, float duration) {
-        Vars.ui.showInfoToast(message, duration);
+    public void sendMessage (String message) {
+        Vars.ui.chatfrag.addMessage(message);
     }
 
-    public void showItemReceived(String researchName) {
-        showMessage( researchName +" received!", 8f);
-        //For Debug
-        Vars.ui.consolefrag.addMessage(researchName + " received!");
-    }
 
 }

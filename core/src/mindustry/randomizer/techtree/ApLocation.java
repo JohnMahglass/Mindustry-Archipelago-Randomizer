@@ -10,6 +10,7 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 
 import static mindustry.Vars.randomizer;
+import static mindustry.Vars.ui;
 
 /**
  * Node acting as a location for AP
@@ -49,6 +50,8 @@ public class ApLocation extends Block {
             Core.settings.put(name + "-unlocked", true);
             if (locationId != null) {
                 randomizer.checkLocation(locationId);
+                //DEBUG
+                ui.chatfrag.addMessage(name + " checked");
             } else {
                 //Error needs to be logged
             }

@@ -1,4 +1,4 @@
-package mindustry.randomizer.dialog;
+package mindustry.randomizer.ui;
 
 import arc.Core;
 import mindustry.gen.Icon;

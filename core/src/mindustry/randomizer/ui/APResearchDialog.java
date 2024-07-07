@@ -1,4 +1,4 @@
-package mindustry.randomizer.dialog;
+package mindustry.randomizer.ui;
 
 import arc.Core;
 import arc.Events;
@@ -59,7 +59,6 @@ import static mindustry.Vars.content;
 import static mindustry.Vars.iconMed;
 import static mindustry.Vars.mobile;
 import static mindustry.Vars.net;
-import static mindustry.Vars.randomizer;
 import static mindustry.Vars.state;
 import static mindustry.Vars.ui;
 import static mindustry.gen.Tex.buttonDown;
