@@ -120,7 +120,7 @@ import static mindustry.content.UnitTypes.zenith;
  * @author John Mahglass
  * @version 1.0.0 2024-04-30
  */
-public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
+public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
 
     public static void load() {
         Planets.serpulo.techTree = nodeRoot("serpulo", coreShard, () -> {
@@ -259,7 +259,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                                 });
                             });
 
-                            apNode(createApLocation("AP-S-03-28", plastaniumConveyor, 49L),
+                            apNode(createApLocation("AP-S-03-28", plastaniumCompressor, 49L),
                                     Seq.with(new SectorComplete(windsweptIslands)), () -> {
                                         apNode(createApLocation("AP-S-03-29", phaseWeaver, 50L),
                                         Seq.with(new SectorComplete(tarFields),
@@ -465,7 +465,7 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
                 });
             });
 
-            apNode(createApLocation("AP-W-00-01", null, -1L,
+            apNode(createApLocation("Victory", null, -1L,
                     LocationResearchCost.reqCopper(2000)));
 
             apNode(createApLocation("AP-S-05-01", groundFactory, 124L), () -> {
@@ -740,68 +740,5 @@ public abstract class SerpuloTechTreeRandomizer implements TechTreeRandomizer {
         });
     }
 
-    private long toBaseId(Long id) {
-        return Shared.MINDUSTRY_BASE_ID + id;
-    }
-
-    /**
-     * Create a location in the form of an UnlockableContent WITH NO research cost.
-     * @param name Name of the node.
-     * @param content Content originally contained in the node.
-     * @param locationId Id of the location.
-     * @return Return a location in the form a UnlockableContent.
-     */
-    private static ApLocation createApLocation(String name, UnlockableContent content,
-                                               Long locationId){
-        ApLocation location = new ApLocation(name, content, locationId);
-        Vars.randomizer.worldState.apLocations.add(location);
-        return location;
-    }
-
-    /**
-     * Create a location in the form of an UnlockableContent with its research cost.
-     * @param name Name of the node.
-     * @param content content that was originally contained in the node.
-     * @param locationId id of the location.
-     * @param locationResearchCost List of Item required to check this location.
-     * @return Return a location in the form a UnlockableContent.
-     */
-    private static ApLocation createApLocation(String name, UnlockableContent content,
-                                               Long locationId,
-                                                      ItemStack[] locationResearchCost){
-        ApLocation apContent = new ApLocation(name, content, locationId);
-
-        apContent.researchCost = locationResearchCost;
-        return apContent;
-    }
-
-    /**
-     * Create a location in the form of an UnlockableContent with its research cost.
-     * @param name Name of the node.
-     * @param content Content originally contained in the node.
-     * @param locationId id of the location.
-     * @param locationResearchCost List of Item required to check this location.
-     * @param parent ApLocation parent to this one
-     * @return Return a location in the form a UnlockableContent.
-     */
-    private static ApLocation createApLocation(String name, UnlockableContent content,
-                                               Long locationId,
-                                                      ItemStack[] locationResearchCost,
-                                                      ApLocation parent){
-        ApLocation apContent = new ApLocation(name, content, locationId);
-        apContent.researchCost = locationResearchCost;
-        return apContent;
-    }
-
-    private TextureRegion setApIcon() {
-        TextureRegion texture = null;
-        Path currentRelativePath = Paths.get("");
-        String iconPath = currentRelativePath.toAbsolutePath() + "/ap.png";
-        Texture apTexture = new Texture(new Fi(iconPath));
-        if (apTexture != null) {
-            texture = new TextureRegion(apTexture);
-        }
-        return texture;
-    }
 
 }
