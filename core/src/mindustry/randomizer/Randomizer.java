@@ -29,8 +29,6 @@ public class Randomizer {
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.unlock();
-        //DEBUG
-        //sendLocalMessage(content.localizedName + " Researched");
     }
 
     /**
