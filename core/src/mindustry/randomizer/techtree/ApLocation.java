@@ -49,9 +49,8 @@ public class ApLocation extends Block {
             Sounds.unlock.play();
             Core.settings.put(name + "-unlocked", true);
             if (locationId != null) {
-                randomizer.checkLocation(locationId);
-                //DEBUG
-                ui.chatfrag.addMessage(name + " checked");
+                randomizer.checkLocation(locationId, name);
+
             } else {
                 //Error needs to be logged
             }

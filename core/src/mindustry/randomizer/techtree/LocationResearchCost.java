@@ -6,6 +6,7 @@ import mindustry.type.ItemStack;
 
 /**
  * Research cost for an AP node.
+ * NOTE:This class is no longer used as requirement for node are now tied to their research
  *
  * @author John Mahglass
  * @version 1.0.0 2024-05-21

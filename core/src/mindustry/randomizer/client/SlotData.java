@@ -1,6 +1,8 @@
 package mindustry.randomizer.client;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * SlotData
  *
@@ -8,20 +10,30 @@ package mindustry.randomizer.client;
  * @version 1.0.0 2024-06-10
  */
 public class SlotData {
-    public boolean tutorialSkip;
-    public int campaignChoice;
-    public int sectorBehavior;
-    public int ressourceBehavior;
-    public boolean disableInvasion;
-    public boolean earlyRessources;
-    public boolean deathlink = false;
+    @SerializedName("tutorial_skip")
+    private boolean tutorialSkip = false;
+
+    @SerializedName("campaign_choice")
+    private int campaignChoice = 0;
+
+    @SerializedName("sector_behavior")
+    private int sectorBehavior = 0;
+
+    @SerializedName("ressource_behavior")
+    private int ressourceBehavior = 0;
+
+    @SerializedName("disable_invasions")
+    private boolean disableInvasions = false;
+
+    @SerializedName("death_link")
+    private boolean deathLink = false;
 
     /**
      * Getter for tutorialSkip
      *
      * @return return tutorialSkip
      */
-    public boolean isTutorialSkip() {
+    public boolean getTutorialSkip() {
         return tutorialSkip;
     }
 
@@ -57,17 +69,8 @@ public class SlotData {
      *
      * @return return disableInvasion
      */
-    public boolean isDisableInvasion() {
-        return disableInvasion;
-    }
-
-    /**
-     * Getter for earlyRessources
-     *
-     * @return return earlyRessources
-     */
-    public boolean isEarlyRessources() {
-        return earlyRessources;
+    public boolean getDisableInvasions() {
+        return disableInvasions;
     }
 
     /**
@@ -75,8 +78,8 @@ public class SlotData {
      *
      * @return return deathlink
      */
-    public boolean isDeathlink() {
-        return deathlink;
+    public boolean getDeathlink() {
+        return deathLink;
     }
 
 }

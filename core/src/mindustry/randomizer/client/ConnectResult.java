@@ -24,13 +24,13 @@ public class ConnectResult {
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
             client.slotData = event.getSlotData(SlotData.class);
+            Vars.randomizer.worldState.options.fillOptions(client.slotData);
             client.connectionStatus = ConnectionStatus.Success;
             if (Vars.randomizer.worldState.checkPending.size() > 0) {
                 Vars.randomizer.sendPendingLocations();
             }
-            //Inform player that they are connected
+            Vars.randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");
         } else {
-            //Inform player that they are not connected
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
             } else if (event.getResult() == ConnectionResult.InvalidPassword) {
@@ -42,6 +42,8 @@ public class ConnectResult {
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
             }
+            Vars.randomizer.sendLocalMessage("Not connected. To connect, go to Settings -> " +
+                    "Archipelago");
         }
     }
 }

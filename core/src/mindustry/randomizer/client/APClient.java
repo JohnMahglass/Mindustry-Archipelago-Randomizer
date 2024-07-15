@@ -6,9 +6,13 @@ import dev.koifysh.archipelago.ItemFlags;
 import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkItem;
+import dev.koifysh.archipelago.parts.NetworkPlayer;
+import mindustry.Vars;
 import mindustry.randomizer.enums.ConnectionStatus;
 
 import java.net.URISyntaxException;
+
+import static mindustry.Vars.randomizer;
 
 
 /**
@@ -19,17 +23,17 @@ import java.net.URISyntaxException;
  */
 public class APClient extends Client {
 
-    public DataPackage dataPackage;
+    public ConnectionStatus connectionStatus;
 
-    public SlotData slotData;
+    protected SlotData slotData;
+
+    private DataPackage dataPackage;
 
     private String slotName;
 
     private String address;
 
     private String password;
-
-    public ConnectionStatus connectionStatus;
 
     /**
      * Getter for password
@@ -42,7 +46,7 @@ public class APClient extends Client {
     }
 
     /**
-     * Assign variable password
+     * Assign password
      *
      * @param password Value of password
      */
@@ -106,9 +110,28 @@ public class APClient extends Client {
         }
     }
 
+    public void sendChatMessage(String message) {
+        if (Vars.ui.chatfrag != null) {
+            sendChat(message);
+        }
+
+    }
+
     @Override
     public void onPrintJson(APPrint apPrint, String type, int player, NetworkItem item) {
+        if (type.equals("Chat")) {
+            randomizer.sendLocalMessage(getPlayerName(apPrint.slot) + ": " + apPrint.message);
+        }
+    }
 
+    private String getPlayerName(int slot) {
+        String playerName = "";
+        for (NetworkPlayer player : client.getRoomInfo().networkPlayers) {
+            if (player.slot == slot) {
+                playerName = player.name;
+            }
+        }
+        return  playerName;
     }
 
     @Override

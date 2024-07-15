@@ -30,7 +30,7 @@ public class Randomizer {
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.unlock();
         //DEBUG
-        sendMessage(content.localizedName + " Researched");
+        //sendLocalMessage(content.localizedName + " Researched");
     }
 
     /**
@@ -54,7 +54,7 @@ public class Randomizer {
      * Forward the check to Archipelago.
      * @param locationId The id of the location
      */
-    public void checkLocation(Long locationId){
+    public void checkLocation(Long locationId, String locationName){
         if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET
             //Send victory event to AP
             randomizerClient.setGameState(ClientStatus.CLIENT_GOAL);
@@ -66,17 +66,19 @@ public class Randomizer {
             success = randomizerClient.checkLocation(locationId);
         }
         if (!randomizerClient.isConnected() || !success) {
-            //Check could not be send
+            //Check could not be send, added to check pending list.
             worldState.addCheck(worldState.checkPending, locationId);
-            //Send message to player to inform them that they are not connected and that the
-            // check will be sent when they reconnect
+            sendLocalMessage("ERROR: You are not connected, pending checks will be sent when " +
+                    "reconnected");
         }
+        //Add location to checked list and save world state.
         worldState.addCheck(worldState.locationsChecked, locationId);
         worldState.saveStates();
     }
 
     public void sendPendingLocations () {
         boolean succes;
+        sendLocalMessage("Reconnected, sending pending check...");
         int amountPending = worldState.checkPending.size();
         for (Long locationId : worldState.checkPending) {
             succes = checkPendingLocation(locationId);
@@ -87,6 +89,10 @@ public class Randomizer {
         if (amountPending == 0) { //Every check has been succesfully sent
             worldState.checkPending.clear();
             worldState.saveStates();
+            sendLocalMessage("All pending check has been sent!");
+        } else { //Not every check has been sent.
+            sendLocalMessage("ERROR: Pending check remaining. You can try to send the checks again by " +
+                    "reconnecting to Archipelago.");
         }
     }
 
@@ -102,7 +108,7 @@ public class Randomizer {
     public boolean isMindustryAPItem(Long itemId){
         boolean isMindustryItem = false;
         if (itemId != null) {
-            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 199) {
+            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
                 isMindustryItem = true;
             }
         }
@@ -138,7 +144,6 @@ public class Randomizer {
                     }
                 }
             } else {
-                //ItemId - BaseId = index of item
                 content = worldState.items.get(itemId);
             }
         }
@@ -175,8 +180,8 @@ public class Randomizer {
         randomizerClient.connectRandomizer();
     }
 
-    public void sendMessage (String message) {
-        Vars.ui.chatfrag.addMessage(message);
+    public void sendLocalMessage (String message) {
+        Vars.ui.chatfrag.addLocalMessage(message);
     }
 
 

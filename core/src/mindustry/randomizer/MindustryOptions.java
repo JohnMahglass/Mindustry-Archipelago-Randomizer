@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import mindustry.randomizer.client.SlotData;
 import mindustry.randomizer.enums.CampaignType;
 
 /**
@@ -10,6 +11,8 @@ import mindustry.randomizer.enums.CampaignType;
  */
 public class MindustryOptions {
 
+    private boolean optionsFilled;
+
     /**
      * If the tutorial is to be skipped. Also unlock tutorial-related tech.
      */
@@ -18,22 +21,18 @@ public class MindustryOptions {
     /**
      * The selected campaign.
      */
-    private CampaignType campaignChoice;
+    private int campaignChoice;
+
+    private int sectorBehavior;
+
+    private int ressourceBehavior;
+
+    private boolean deathLink;
 
     /**
-     * Add sector clear as a location.
+     * Disable invasion.
      */
-    private boolean numberedSectorAreLocation;
-
-    /**
-     * Allow the use of the pause button (space)
-     */
-    private boolean allowPause;
-
-    /**
-     * Allow invasion.
-     */
-    private boolean allowInvasion;
+    private boolean disableInvasions;
 
     /**
      * If the player choose to skip the tutorial.
@@ -43,20 +42,60 @@ public class MindustryOptions {
         return this.tutorialSkip;
     }
 
-    public boolean getAllowInvasion() {
-        return this.allowInvasion;
+    public boolean getDisableInvasion() {
+        return this.disableInvasions;
+    }
+
+    public boolean getDeathLink() {
+        return this.deathLink;
+    }
+
+    public boolean getOptionsFilled() {
+        return this.optionsFilled;
     }
 
     public CampaignType getCampaignChoice() {
-        return this.campaignChoice;
+        CampaignType type;
+            switch (campaignChoice) {
+                case 0:
+                    type = CampaignType.SERPULO;
+                    break;
+                case 1:
+                    type = CampaignType.EREKIR;
+                    break;
+                case 2:
+                    type = CampaignType.ALL;
+                    break;
+                default:
+                    type = CampaignType.SERPULO;
+                    break;
+            }
+        return type;
+    }
+
+    public void fillOptions (SlotData slotData) {
+        if (slotData != null) {
+            this.deathLink = slotData.getDeathlink();
+            this.tutorialSkip = slotData.getTutorialSkip();
+            this.disableInvasions = slotData.getDisableInvasions();
+            this.sectorBehavior = slotData.getSectorBehavior();
+            this.ressourceBehavior = slotData.getRessourceBehavior();
+            this.campaignChoice = slotData.getCampaignChoice();
+
+            this.optionsFilled = true;
+        }
     }
 
     /**
      * Constructor for MindustryOptions
      */
     public MindustryOptions() { //This will need to be filled with slot_data
+        this.optionsFilled = false;
         this.tutorialSkip = false;
-        this.campaignChoice = CampaignType.SERPULO;
-        this.allowInvasion = true;
+        this.campaignChoice = 0;
+        this.disableInvasions = false;
+        this.ressourceBehavior = 0;
+        this.sectorBehavior = 0;
+        this.deathLink = false;
     }
 }

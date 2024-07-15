@@ -27,6 +27,7 @@ import static arc.Core.scene;
 import static mindustry.Vars.maxTextLength;
 import static mindustry.Vars.mobile;
 import static mindustry.Vars.player;
+import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
 
 /**
@@ -37,6 +38,11 @@ import static mindustry.Vars.ui;
  * @version 1.0.0 2024-07-05
  */
 public class APChatFragment extends Table {
+
+    private boolean blockAPMessage = true;
+
+
+
     private static final int messagesShown = 10;
     private Seq<String> messages = new Seq<>();
     private float fadetime;
@@ -266,6 +272,15 @@ public class APChatFragment extends Table {
     }
 
     public void addMessage(String message){
+        boolean isCommand = false;
+        if (isCommand) {
+
+        } else {
+            randomizer.randomizerClient.sendChatMessage(message);
+        }
+    }
+
+    public void addLocalMessage(String message){
         if(message == null) return;
         messages.insert(0, message);
 
@@ -306,5 +321,22 @@ public class APChatFragment extends Table {
         public boolean isValid(){
             return valid.get();
         }
+    }
+
+    /**
+     * Getter for blockAPMessage
+     *
+     * @return return blockAPMessage
+     */
+    public boolean isBlockAPMessage() {
+        return blockAPMessage;
+    }
+
+    /**
+     * Unblock AP message from being displayed in chat. This should only be called when the game
+     * is done loading.
+     */
+    public void unblockAPMessage() {
+        blockAPMessage = false;
     }
 }
