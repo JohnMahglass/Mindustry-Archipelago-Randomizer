@@ -111,8 +111,12 @@ public class APClient extends Client {
     }
 
     public void sendChatMessage(String message) {
-        if (Vars.ui.chatfrag != null) {
-            sendChat(message);
+        if (isConnected()) {
+            if (Vars.ui.chatfrag != null) {
+                sendChat(message);
+            }
+        } else {
+            randomizer.sendLocalMessage("ERROR: You are not connected, message cannot be sent.");
         }
 
     }

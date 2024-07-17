@@ -1,5 +1,7 @@
 package mindustry.randomizer;
 
+import arc.Core;
+import mindustry.Vars;
 import mindustry.randomizer.client.SlotData;
 import mindustry.randomizer.enums.CampaignType;
 
@@ -54,7 +56,16 @@ public class MindustryOptions {
         return this.optionsFilled;
     }
 
-    public CampaignType getCampaignChoice() {
+    public int getRessourceBehavior() {
+        return this.ressourceBehavior;
+    }
+
+    public int getSectorBehavior() {
+        return this.sectorBehavior;
+    }
+
+    public int getCampaignChoice() {
+        /*
         CampaignType type;
             switch (campaignChoice) {
                 case 0:
@@ -71,6 +82,8 @@ public class MindustryOptions {
                     break;
             }
         return type;
+         */
+        return this.campaignChoice;
     }
 
     public void fillOptions (SlotData slotData) {
@@ -83,7 +96,27 @@ public class MindustryOptions {
             this.campaignChoice = slotData.getCampaignChoice();
 
             this.optionsFilled = true;
+            saveOptions();
+            Core.settings.put("APhasConnected", true);
         }
+    }
+
+    private void saveOptions() {
+        Core.settings.put("APdeathLink", getDeathLink());
+        Core.settings.put("APtutorialSkip", getTutorialSkip());
+        Core.settings.put("APdisableInvasions", getDisableInvasion());
+        Core.settings.put("APsectorBehavior", getSectorBehavior());
+        Core.settings.put("APressourceBehavior", getRessourceBehavior());
+        Core.settings.put("APcampaignChoice", getCampaignChoice());
+    }
+
+    public void loadOptions() {
+        this.deathLink = Core.settings.getBool("APdeathLink");
+        this.tutorialSkip = Core.settings.getBool("APtutorialSkip");
+        this.disableInvasions = Core.settings.getBool("APdisableInvasions");
+        this.sectorBehavior = Core.settings.getInt("APsectorBehavior");
+        this.ressourceBehavior = Core.settings.getInt("APressourceBehavior");
+        this.campaignChoice = Core.settings.getInt("APcampaignChoice");
     }
 
     /**

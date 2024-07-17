@@ -274,7 +274,9 @@ public class APChatFragment extends Table {
     public void addMessage(String message){
         boolean isCommand = false;
         if (isCommand) {
+            //Detect if this is an AP command or client command.
 
+            //Handle command
         } else {
             randomizer.randomizerClient.sendChatMessage(message);
         }

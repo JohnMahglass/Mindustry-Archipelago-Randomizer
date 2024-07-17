@@ -2,8 +2,11 @@ package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
+import arc.Core;
 import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
+import mindustry.content.Blocks;
+import mindustry.content.SectorPresets;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 
@@ -22,6 +25,11 @@ public class Randomizer {
      * Represent the state the APWorld is in.
      */
     public WorldState worldState;
+
+    /**
+     * True if the played has connected to the game previously.
+     */
+    public boolean hasConnectedPreviously;
 
     /**
      * Unlock a UnlockableContent.
@@ -149,37 +157,66 @@ public class Randomizer {
     }
 
     /**
-     * Initialize the randomizer's list of item depending on the selected campaign
+     * Initialize the randomizer's list of item and apply options
      */
     public void initialize() {
         worldState.initialize();
         switch (worldState.options.getCampaignChoice()) {
-            case SERPULO:
+            case 0: //Serpulo
                 worldState.initializeSerpuloItems();
+                if (worldState.options.getTutorialSkip()) {
+                    unlockSerpuloTutorialItems();
+                }
                 break;
-            case EREKIR:
+            case 1: //Erekir
                 worldState.initializeErekirItems();
+                if (worldState.options.getTutorialSkip()) {
+                    //Unlock Erekir tutorial items
+                }
                 break;
-            case ALL:
+            case 2: //All
                 worldState.initializeAllItems();
+                if (worldState.options.getTutorialSkip()) {
+                    unlockSerpuloTutorialItems();
+                    //Unlock Erekir tutorial items
+                }
                 break;
             default:
                 throw new RuntimeException("Invalid CampaignType");
         }
     }
 
+    private static void unlockSerpuloTutorialItems() {
+        Blocks.conveyor.unlock();
+        Blocks.duo.unlock();
+        Blocks.scatter.unlock();
+        Blocks.mechanicalDrill.unlock();
+        Blocks.copperWall.unlock();
+        SectorPresets.frozenForest.unlock();
+    }
+
     /**
      * Constructor for Randomizer
      */
     public Randomizer(){
+        this.hasConnectedPreviously = false;
+        if (Core.settings.getBool("APhasConnected")) {
+            this.hasConnectedPreviously = true;
+        }
         this.worldState = new WorldState();
-        initialize();
+        //initialize();
         this.randomizerClient = new APClient();
         randomizerClient.connectRandomizer();
     }
 
     public void sendLocalMessage (String message) {
         Vars.ui.chatfrag.addLocalMessage(message);
+    }
+
+    public void applyOptions() {
+        if (worldState.options.getOptionsFilled() ) {
+
+        }
     }
 
 

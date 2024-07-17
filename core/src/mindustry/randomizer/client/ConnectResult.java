@@ -1,5 +1,6 @@
 package mindustry.randomizer.client;
 
+import arc.Core;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.network.ConnectionResult;
@@ -23,9 +24,12 @@ public class ConnectResult {
     @ArchipelagoEventListener
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
-            client.slotData = event.getSlotData(SlotData.class);
-            Vars.randomizer.worldState.options.fillOptions(client.slotData);
             client.connectionStatus = ConnectionStatus.Success;
+            client.slotData = event.getSlotData(SlotData.class);
+            if (!Vars.randomizer.hasConnectedPreviously) {
+                Vars.randomizer.worldState.options.fillOptions(client.slotData);
+            }
+            Vars.randomizer.initialize();
             if (Vars.randomizer.worldState.checkPending.size() > 0) {
                 Vars.randomizer.sendPendingLocations();
             }
