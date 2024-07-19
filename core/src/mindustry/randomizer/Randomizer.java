@@ -6,9 +6,14 @@ import arc.Core;
 import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.content.Blocks;
+import mindustry.content.Items;
+import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
+import mindustry.content.TechTree;
+import mindustry.ctype.Content;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.type.Sector;
 
 
 /**
@@ -160,29 +165,8 @@ public class Randomizer {
      * Initialize the randomizer's list of item and apply options
      */
     public void initialize() {
-        worldState.initialize();
-        switch (worldState.options.getCampaignChoice()) {
-            case 0: //Serpulo
-                worldState.initializeSerpuloItems();
-                if (worldState.options.getTutorialSkip()) {
-                    unlockSerpuloTutorialItems();
-                }
-                break;
-            case 1: //Erekir
-                worldState.initializeErekirItems();
-                if (worldState.options.getTutorialSkip()) {
-                    //Unlock Erekir tutorial items
-                }
-                break;
-            case 2: //All
-                worldState.initializeAllItems();
-                if (worldState.options.getTutorialSkip()) {
-                    unlockSerpuloTutorialItems();
-                    //Unlock Erekir tutorial items
-                }
-                break;
-            default:
-                throw new RuntimeException("Invalid CampaignType");
+        if (worldState.options != null) {
+            applyOptions();
         }
     }
 
@@ -192,7 +176,9 @@ public class Randomizer {
         Blocks.scatter.unlock();
         Blocks.mechanicalDrill.unlock();
         Blocks.copperWall.unlock();
+        SectorPresets.groundZero.unlock();
         SectorPresets.frozenForest.unlock();
+        SectorPresets.frozenForest.alwaysUnlocked = true;
     }
 
     /**
@@ -204,8 +190,10 @@ public class Randomizer {
             this.hasConnectedPreviously = true;
         }
         this.worldState = new WorldState();
-        //initialize();
         this.randomizerClient = new APClient();
+        if (hasConnectedPreviously) {
+            initialize();
+        }
         randomizerClient.connectRandomizer();
     }
 
@@ -214,10 +202,72 @@ public class Randomizer {
     }
 
     public void applyOptions() {
-        if (worldState.options.getOptionsFilled() ) {
-
+        if (worldState.options.getOptionsFilled()) {
+            switch (worldState.options.getCampaignChoice()) {
+                case 0: //Serpulo
+                    worldState.initializeSerpuloItems();
+                    if (worldState.options.getTutorialSkip()) {
+                        unlockSerpuloTutorialItems();
+                    }
+                    break;
+                case 1: //Erekir
+                    worldState.initializeErekirItems();
+                    if (worldState.options.getTutorialSkip()) {
+                        //Unlock Erekir tutorial items
+                    }
+                    break;
+                case 2: //All
+                    worldState.initializeAllItems();
+                    if (worldState.options.getTutorialSkip()) {
+                        unlockSerpuloTutorialItems();
+                        //Unlock Erekir tutorial items
+                    }
+                    break;
+                default:
+                    throw new RuntimeException("Invalid CampaignType");
+            }
         }
     }
 
 
+    public boolean allowFreeLaunch(Sector sector) {
+        boolean allow = false;
+
+        switch (worldState.options.getCampaignChoice()) {
+            case 0: //Serpulo
+                allow = serpuloFreeLaunchTarget(sector);
+                break;
+            case 1: //Erekir
+                allow = erekirFreeLaunchTarget(sector);
+                break;
+            case 2: //All
+                if (serpuloFreeLaunchTarget(sector) || erekirFreeLaunchTarget(sector)) {
+                    allow = true;
+                }
+                break;
+            default:
+                break;
+        }
+        return allow;
+    }
+
+    public boolean erekirFreeLaunchTarget(Sector sector) {
+        boolean allow = false;
+        if (Core.settings.getBool("APfreeLaunchErekir") && sector.planet.name.equals("erekir")) {
+            if (sector.id == 88) { //86 -> Aegis
+                allow = true;
+            }
+        }
+        return allow;
+    }
+
+    public boolean serpuloFreeLaunchTarget(Sector sector) {
+        boolean allow = false;
+        if (Core.settings.getBool("APfreeLaunchSerpulo")) {
+            if (sector.id == 86 && sector.planet.name.equals("serpulo")) { //86 -> frozen forest
+                allow = true;
+            }
+        }
+        return allow;
+    }
 }

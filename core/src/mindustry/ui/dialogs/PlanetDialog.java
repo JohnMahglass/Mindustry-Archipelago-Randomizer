@@ -390,7 +390,7 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         if(mode == select) return sector.hasBase() && launchSector != null && sector.planet == launchSector.planet;
         //cannot launch to existing sector w/ accelerator TODO test
         if(mode == planetLaunch) return sector.id == sector.planet.startSector;
-        if(sector.hasBase() || sector.id == sector.planet.startSector) return true;
+        if(sector.hasBase() || sector.id == sector.planet.startSector || randomizer.allowFreeLaunch(sector)) return true;
         //preset sectors can only be selected once unlocked
         if(sector.preset != null){
             TechNode node = sector.preset.techNode;
@@ -1179,8 +1179,9 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
 
     void playSelected(){
         if(selected == null) return;
-
         Sector sector = selected;
+
+
 
         if(sector.isBeingPlayed()){
             //already at this sector
@@ -1233,6 +1234,14 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
                 //clear loadout information, so only the basic loadout gets used
                 universe.clearLoadoutInfo();
                 //free launch.
+
+                if (randomizer.serpuloFreeLaunchTarget(sector)) {
+                    settings.put("APfreeLaunchSerpulo", false);
+                }
+                if (randomizer.erekirFreeLaunchTarget(sector)) {
+                    settings.put("APfreeLaunchErekir", false);
+                }
+
                 control.playSector(sector);
             }else{
                 CoreBlock block = sector.allowLaunchSchematics() ? (from.info.bestCoreType instanceof CoreBlock b ? b : (CoreBlock)from.planet.defaultCore) : (CoreBlock)from.planet.defaultCore;

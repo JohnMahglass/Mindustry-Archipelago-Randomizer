@@ -97,13 +97,7 @@ public class WorldState {
         this.checkPending = new ArrayList<>();
         this.progressiveItems = new ArrayList<>();
         this.apLocations = new ArrayList<>();
-    }
-
-    /**
-     * Initialize world state.
-     */
-    public void initialize(){
-         loadStates();
+        loadStates();
     }
 
     /**

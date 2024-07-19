@@ -53,7 +53,13 @@ public class MindustryOptions {
     }
 
     public boolean getOptionsFilled() {
-        return this.optionsFilled;
+        boolean filled;
+        if (this.optionsFilled || Vars.randomizer.hasConnectedPreviously) {
+            filled = true;
+        } else {
+            filled = false;
+        }
+        return filled;
     }
 
     public int getRessourceBehavior() {
@@ -98,6 +104,17 @@ public class MindustryOptions {
             this.optionsFilled = true;
             saveOptions();
             Core.settings.put("APhasConnected", true);
+            if (tutorialSkip) {
+                if (campaignChoice == 0) {
+                    Core.settings.put("APfreeLaunchSerpulo", true);
+                } else if (campaignChoice == 1) {
+                    Core.settings.put("APfreeLaunchErekir", true);
+                } else if (campaignChoice == 2) {
+                    Core.settings.put("APfreeLaunchSerpulo", true);
+                    Core.settings.put("APfreeLaunchErekir", true);
+                }
+
+            }
         }
     }
 
@@ -117,18 +134,25 @@ public class MindustryOptions {
         this.sectorBehavior = Core.settings.getInt("APsectorBehavior");
         this.ressourceBehavior = Core.settings.getInt("APressourceBehavior");
         this.campaignChoice = Core.settings.getInt("APcampaignChoice");
+        this.optionsFilled = true;
     }
 
     /**
      * Constructor for MindustryOptions
      */
-    public MindustryOptions() { //This will need to be filled with slot_data
-        this.optionsFilled = false;
-        this.tutorialSkip = false;
-        this.campaignChoice = 0;
-        this.disableInvasions = false;
-        this.ressourceBehavior = 0;
-        this.sectorBehavior = 0;
-        this.deathLink = false;
+    public MindustryOptions() {
+        //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
+        if (Core.settings.getBool("APhasConnected")) {
+            loadOptions();
+        } else {
+            this.optionsFilled = false;
+            this.tutorialSkip = false;
+            this.campaignChoice = -1;
+            this.disableInvasions = false;
+            this.ressourceBehavior = 0;
+            this.sectorBehavior = 0;
+            this.deathLink = false;
+        }
+
     }
 }

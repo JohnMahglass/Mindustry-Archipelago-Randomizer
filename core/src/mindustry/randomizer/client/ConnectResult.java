@@ -28,8 +28,8 @@ public class ConnectResult {
             client.slotData = event.getSlotData(SlotData.class);
             if (!Vars.randomizer.hasConnectedPreviously) {
                 Vars.randomizer.worldState.options.fillOptions(client.slotData);
+                Vars.randomizer.initialize();
             }
-            Vars.randomizer.initialize();
             if (Vars.randomizer.worldState.checkPending.size() > 0) {
                 Vars.randomizer.sendPendingLocations();
             }
