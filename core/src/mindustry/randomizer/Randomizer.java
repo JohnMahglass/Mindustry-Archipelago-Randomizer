@@ -182,7 +182,7 @@ public class Randomizer {
      */
     public Randomizer(){
         this.hasConnectedPreviously = false;
-        if (Core.settings.getBool("APhasConnected")) {
+        if (Core.settings != null && Core.settings.getBool("APhasConnected")) {
             this.hasConnectedPreviously = true;
         }
         this.worldState = new WorldState();
@@ -190,7 +190,6 @@ public class Randomizer {
         if (hasConnectedPreviously) {
             initialize();
         }
-        randomizerClient.connectRandomizer();
     }
 
     public void sendLocalMessage (String message) {

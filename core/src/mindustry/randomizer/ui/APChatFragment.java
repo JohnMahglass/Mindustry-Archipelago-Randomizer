@@ -85,9 +85,6 @@ public class APChatFragment extends Table {
                     historyPos--;
                     updateChat();
                 }
-                if(input.keyTap(Binding.chat_mode)){
-                    nextMode();
-                }
                 scrollPos = (int) Mathf.clamp(scrollPos + input.axis(Binding.chat_scroll), 0, Math.max(0, messages.size - messagesShown));
             }
         });
@@ -257,23 +254,6 @@ public class APChatFragment extends Table {
         chatfield.setText(mode.normalizedPrefix() + history.get(historyPos));
         updateCursor();
     }
-
-    public void nextMode(){
-        ChatMode prev = mode;
-
-        do{
-            mode = mode.next();
-        }while(!mode.isValid());
-
-        if(chatfield.getText().startsWith(prev.normalizedPrefix())){
-            chatfield.setText(mode.normalizedPrefix() + chatfield.getText().substring(prev.normalizedPrefix().length()));
-        }else{
-            chatfield.setText(mode.normalizedPrefix());
-        }
-
-        updateCursor();
-    }
-
 
     public void clearChatInput(){
         historyPos = 0;

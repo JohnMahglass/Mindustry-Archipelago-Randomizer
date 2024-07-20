@@ -141,7 +141,7 @@ public class MindustryOptions {
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
-        if (Core.settings.getBool("APhasConnected")) {
+        if (Core.settings != null && Core.settings.getBool("APhasConnected")) {
             loadOptions();
         } else {
             this.optionsFilled = false;
