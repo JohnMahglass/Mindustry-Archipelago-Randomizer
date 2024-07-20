@@ -6,7 +6,7 @@ import mindustry.randomizer.enums.ProgressiveItemType;
 import java.util.ArrayList;
 
 /**
- * ProgressiveItem
+ * ProgressiveItem for Archipelago logic.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-06-16

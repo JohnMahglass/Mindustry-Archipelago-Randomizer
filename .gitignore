@@ -41,9 +41,7 @@ steam_appid.txt
 /core/assets/cache/
 /ios/src/mindustry/gen/
 /core/src/mindustry/gen/
-/core/assets/RandomizerLocationChecked.txt
 /core/assets/RandomizerCheckPending.txt
-/core/assets/RandomizerItemToBeReceived.txt
 /core/assets/RandomizerProgressiveItems.txt
 ios/robovm.properties
 packr-out/

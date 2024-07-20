@@ -35,8 +35,9 @@ public class WorldState {
      */
     public String checkPendingFile = "RandomizerCheckPending.txt";
 
-    public String progressiveItemsFile = "RandomizerProgressiveItems.txt";
-
+    /**
+     * List of all progressive items.
+     */
     public ArrayList<ProgressiveItem> progressiveItems;
 
     /**
@@ -54,6 +55,9 @@ public class WorldState {
      */
     public ArrayList<Long> checkPending;
 
+    /**
+     * List of all locations.
+     */
     public ArrayList<ApLocation> apLocations;
 
     /**
@@ -84,10 +88,6 @@ public class WorldState {
         }
     }
 
-
-    /**
-     * Constrcutor of the world state.
-     */
     public WorldState() {
         this.options = new MindustryOptions();
         this.items = new HashMap<>();
@@ -139,6 +139,9 @@ public class WorldState {
         }
     }
 
+    /**
+     * Save every state locally.
+     */
     public void saveStates(){
         saveState(checkPendingFile, checkPending);
     }
@@ -184,7 +187,11 @@ public class WorldState {
     }
 
 
-
+    /**
+     * Wipe local state.
+     * @param fileName The file to be wiped
+     * @param state The array to be wiped.
+     */
     private void wipeState(String fileName, ArrayList state) {
         state.clear();
         try {
@@ -200,9 +207,11 @@ public class WorldState {
         }
     }
 
+    /**
+     * Wipe every states.
+     */
     public void wipeStates() {
         wipeState(checkPendingFile, checkPending);
-        wipeState(progressiveItemsFile, progressiveItems);
     }
 
     /**
@@ -212,14 +221,12 @@ public class WorldState {
         //Method not implemented
     }
 
-
     /**
      * Initialize item from Erekir campaign.
      */
     protected void initializeErekirItems() {
         //Method not implemented
     }
-
 
     /**
      * Initialize item from Serpulo campaign.

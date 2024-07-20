@@ -23,6 +23,7 @@ import static mindustry.Vars.randomizer;
  */
 public class APClient extends Client {
 
+
     public ConnectionStatus connectionStatus;
 
     protected SlotData slotData;
@@ -35,41 +36,21 @@ public class APClient extends Client {
 
     private String password;
 
-    /**
-     * Getter for password
-     *
-     * @return Return password
-     */
+
     @Override
     public String getPassword() {
         return password;
     }
 
-    /**
-     * Assign password
-     *
-     * @param password Value of password
-     */
     @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
-
-    /**
-     * Getter for slotName
-     *
-     * @return return slotName
-     */
     public String getSlotName() {
         return slotName;
     }
 
-    /**
-     * Assign slotName
-     *
-     * @param slotName Value of slotName
-     */
     public void setSlotName(String slotName) {
         this.slotName = slotName;
         setName(slotName);
@@ -90,6 +71,9 @@ public class APClient extends Client {
         this.getEventManager().registerListener(new ReceiveItem());
     }
 
+    /**
+     * Load locally saved connection information.
+     */
     private void loadInfo() {
         if (Core.settings != null) {
             if (Core.settings.getString("APaddress") != null) {
@@ -110,6 +94,10 @@ public class APClient extends Client {
         }
     }
 
+    /**
+     * Send a chat message to Archipelago
+     * @param message The message to be sent
+     */
     public void sendChatMessage(String message) {
         if (isConnected()) {
             if (Vars.ui.chatfrag != null) {
@@ -118,7 +106,6 @@ public class APClient extends Client {
         } else {
             randomizer.sendLocalMessage("ERROR: You are not connected, message cannot be sent.");
         }
-
     }
 
     @Override
@@ -128,6 +115,11 @@ public class APClient extends Client {
         }
     }
 
+    /**
+     * Get player name from their slot id.
+     * @param slot The slot id of the player.
+     * @return Return the name of the player.
+     */
     private String getPlayerName(int slot) {
         String playerName = "";
         for (NetworkPlayer player : client.getRoomInfo().networkPlayers) {
@@ -148,7 +140,9 @@ public class APClient extends Client {
 
     }
 
-
+    /**
+     * Attempt to connect to Archipelago using the information provided by the user.
+     */
     public void connectRandomizer() {
         try {
             if (address != null && slotName != null) {
@@ -157,9 +151,6 @@ public class APClient extends Client {
         } catch (URISyntaxException e) { //NEED TO LOG ERROR
             e.printStackTrace();
         }
-    }
-    public void connectRandomizerPassword() {
-        //Same as connectRandomizer but with a password
     }
 
     public void setAddress(String address) {

@@ -12,6 +12,9 @@ import mindustry.randomizer.client.SlotData;
  */
 public class MindustryOptions {
 
+    /**
+     * If the options has been filled and are not default.
+     */
     private boolean optionsFilled;
 
     /**
@@ -24,10 +27,19 @@ public class MindustryOptions {
      */
     private int campaignChoice;
 
+    /**
+     * Indicate how should sector behave.
+     */
     private int sectorBehavior;
 
+    /**
+     * Indicate how should ressource behave.
+     */
     private int ressourceBehavior;
 
+    /**
+     * If death link is activated
+     */
     private boolean deathLink;
 
     /**
@@ -35,10 +47,6 @@ public class MindustryOptions {
      */
     private boolean disableInvasions;
 
-    /**
-     * If the player choose to skip the tutorial.
-     * @return
-     */
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
     }
@@ -70,27 +78,13 @@ public class MindustryOptions {
     }
 
     public int getCampaignChoice() {
-        /*
-        CampaignType type;
-            switch (campaignChoice) {
-                case 0:
-                    type = CampaignType.SERPULO;
-                    break;
-                case 1:
-                    type = CampaignType.EREKIR;
-                    break;
-                case 2:
-                    type = CampaignType.ALL;
-                    break;
-                default:
-                    type = CampaignType.SERPULO;
-                    break;
-            }
-        return type;
-         */
         return this.campaignChoice;
     }
 
+    /**
+     * Fill the options with the options received from AP
+     * @param slotData slot data containing the player's options.
+     */
     public void fillOptions (SlotData slotData) {
         if (slotData != null) {
             this.deathLink = slotData.getDeathlink();
@@ -117,6 +111,9 @@ public class MindustryOptions {
         }
     }
 
+    /**
+     * Save options locally
+     */
     private void saveOptions() {
         Core.settings.put("APdeathLink", getDeathLink());
         Core.settings.put("APtutorialSkip", getTutorialSkip());
@@ -126,6 +123,9 @@ public class MindustryOptions {
         Core.settings.put("APcampaignChoice", getCampaignChoice());
     }
 
+    /**
+     * Load options locally
+     */
     public void loadOptions() {
         this.deathLink = Core.settings.getBool("APdeathLink");
         this.tutorialSkip = Core.settings.getBool("APtutorialSkip");
@@ -137,7 +137,8 @@ public class MindustryOptions {
     }
 
     /**
-     * Constructor for MindustryOptions
+     * Constructor for MindustryOptions, if the user has never connected to a game, load default
+     * options in the meantime.
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
@@ -152,6 +153,6 @@ public class MindustryOptions {
             this.sectorBehavior = 0;
             this.deathLink = false;
         }
-
     }
+
 }

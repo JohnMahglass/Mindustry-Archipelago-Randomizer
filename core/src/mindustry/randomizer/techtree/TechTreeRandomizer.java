@@ -5,7 +5,7 @@ import mindustry.ctype.UnlockableContent;
 import mindustry.type.ItemStack;
 
 /**
- * Interface for a planet's randomized tech tree.
+ * A planet's randomized tech tree.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-04-30
@@ -51,24 +51,5 @@ abstract class TechTreeRandomizer {
         apContent.researchCost = locationResearchCost;
         return apContent;
     }
-
-    /**
-     * Create a location in the form of an UnlockableContent with its research cost.
-     * @param name Name of the node.
-     * @param content Content originally contained in the node.
-     * @param locationId id of the location.
-     * @param locationResearchCost List of Item required to check this location.
-     * @param parent ApLocation parent to this one
-     * @return Return a location in the form a UnlockableContent.
-     */
-    protected static ApLocation createApLocation(String name, UnlockableContent content,
-                                               Long locationId,
-                                               ItemStack[] locationResearchCost,
-                                               ApLocation parent){
-        ApLocation apContent = new ApLocation(name, content, locationId);
-        apContent.researchCost = locationResearchCost;
-        return apContent;
-    }
-
 
 }

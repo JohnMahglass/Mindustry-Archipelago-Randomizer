@@ -31,17 +31,17 @@ import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
 
 /**
- * APChatFragment replacing ChatFragment. This chat is able to be open in the main menu and can
- * be used without being in multiplayer.
+ * APChatFragment replacing ChatFragment. This chat can be used without multiplayer.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-07-05
  */
 public class APChatFragment extends Table {
 
+    /**
+     * If true, will block any message from being received
+     */
     private boolean blockAPMessage = true;
-
-
 
     private static final int messagesShown = 10;
     private Seq<String> messages = new Seq<>();
@@ -270,6 +270,10 @@ public class APChatFragment extends Table {
         return shown;
     }
 
+    /**
+     * verify if the message is a command before processing it.
+     * @param message The message to be verified.
+     */
     public void addMessage(String message){
         boolean isCommand = false;
         if (isCommand) {
@@ -281,11 +285,15 @@ public class APChatFragment extends Table {
         }
     }
 
+    /**
+     * Add a message to the chat without sending it to Archipelago
+     * @param message The messaged to be added.
+     */
     public void addLocalMessage(String message){
         if(message == null) return;
         messages.insert(0, message);
 
-        fadetime += 1f;
+        fadetime += 2f;
         fadetime = Math.min(fadetime, messagesShown) + 1f;
 
         if(scrollPos > 0) scrollPos++;
@@ -324,11 +332,6 @@ public class APChatFragment extends Table {
         }
     }
 
-    /**
-     * Getter for blockAPMessage
-     *
-     * @return return blockAPMessage
-     */
     public boolean isBlockAPMessage() {
         return blockAPMessage;
     }

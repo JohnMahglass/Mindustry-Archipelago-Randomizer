@@ -25,11 +25,13 @@ public class ConnectResult {
         if (event.getResult() == ConnectionResult.Success) {
             client.connectionStatus = ConnectionStatus.Success;
             client.slotData = event.getSlotData(SlotData.class);
-            if (!Vars.randomizer.hasConnectedPreviously) {
+            if (!Vars.randomizer.hasConnectedPreviously) { //First time the player is connecting
+                // to the game
                 Vars.randomizer.worldState.options.fillOptions(client.slotData);
                 Vars.randomizer.initialize();
             }
-            if (Vars.randomizer.worldState.checkPending.size() > 0) {
+            while (Vars.randomizer.worldState.hasCheckPending()) { // The player has item
+                // waiting to be sent to Archipelago
                 Vars.randomizer.sendPendingLocations();
             }
             Vars.randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");

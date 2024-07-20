@@ -20,6 +20,9 @@ import mindustry.type.Sector;
  */
 public class Randomizer {
 
+    /**
+     * Client for the randomizer.
+     */
     public APClient randomizerClient;
 
     /**
@@ -53,7 +56,6 @@ public class Randomizer {
                 itemReceived = true;
             }
         }
-
         return itemReceived;
     }
 
@@ -83,6 +85,9 @@ public class Randomizer {
         worldState.saveStates();
     }
 
+    /**
+     * Send pending location to Archipelago
+     */
     public void sendPendingLocations () {
         boolean succes;
         sendLocalMessage("Reconnected, sending pending check...");
@@ -103,6 +108,11 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Check a location that was pending.
+     * @param id The Id of the location
+     * @return Return if the operation was a success.
+     */
     private boolean checkPendingLocation (Long id) {
         return randomizerClient.checkLocation(id);
     }
@@ -128,7 +138,7 @@ public class Randomizer {
      * @return Return True if the item is a sector
      */
     public boolean isSector(Long id){
-        return (id >= MINDUSTRY_BASE_ID + 166 && id <= MINDUSTRY_BASE_ID + 182);
+        return (id >= MINDUSTRY_BASE_ID + 138 && id <= MINDUSTRY_BASE_ID + 154);
     }
 
 
@@ -158,7 +168,7 @@ public class Randomizer {
     }
 
     /**
-     * Initialize the randomizer's list of item and apply options
+     * Initialize the randomizer
      */
     public void initialize() {
         if (worldState.options != null) {
@@ -166,6 +176,9 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Unlock Serpulo's tutorial research and unlock Frozen Forest.
+     */
     private static void unlockSerpuloTutorialItems() {
         Blocks.conveyor.quietUnlock();
         Blocks.duo.quietUnlock();
@@ -177,9 +190,6 @@ public class Randomizer {
         SectorPresets.frozenForest.alwaysUnlocked = true;
     }
 
-    /**
-     * Constructor for Randomizer
-     */
     public Randomizer(){
         this.hasConnectedPreviously = false;
         if (Core.settings != null && Core.settings.getBool("APhasConnected")) {
@@ -192,12 +202,19 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Send a message locally
+     * @param message The message to be sent.
+     */
     public void sendLocalMessage (String message) {
         if (Vars.ui.chatfrag != null && Vars.ui.hudfrag != null) {
             Vars.ui.chatfrag.addLocalMessage(message);
         }
     }
 
+    /**
+     * Apply options.
+     */
     public void applyOptions() {
         if (worldState.options.getOptionsFilled()) {
             switch (worldState.options.getCampaignChoice()) {
@@ -226,10 +243,13 @@ public class Randomizer {
         }
     }
 
-
+    /**
+     * Verify if the player is allowed for a free launch.
+     * @param sector The sector to launch to
+     * @return Return True if the player can launch for free.
+     */
     public boolean allowFreeLaunch(Sector sector) {
         boolean allow = false;
-
         switch (worldState.options.getCampaignChoice()) {
             case 0: //Serpulo
                 allow = serpuloFreeLaunchTarget(sector);
@@ -248,6 +268,11 @@ public class Randomizer {
         return allow;
     }
 
+    /**
+     * Verify if the sector is a valid sector for a free launch on Erekir
+     * @param sector The sector to verify.
+     * @return Return true if the sector is valid.
+     */
     public boolean erekirFreeLaunchTarget(Sector sector) {
         boolean allow = false;
         if (Core.settings.getBool("APfreeLaunchErekir") && sector.planet.name.equals("erekir")) {
@@ -258,6 +283,11 @@ public class Randomizer {
         return allow;
     }
 
+    /**
+     * Verify if the sector is a valid sector for a free launch on Serpulo
+     * @param sector The sector to verify.
+     * @return Return true if the sector is valid.
+     */
     public boolean serpuloFreeLaunchTarget(Sector sector) {
         boolean allow = false;
         if (Core.settings.getBool("APfreeLaunchSerpulo")) {

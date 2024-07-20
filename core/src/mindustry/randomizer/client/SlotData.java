@@ -28,56 +28,27 @@ public class SlotData {
     @SerializedName("death_link")
     private boolean deathLink = false;
 
-    /**
-     * Getter for tutorialSkip
-     *
-     * @return return tutorialSkip
-     */
+
     public boolean getTutorialSkip() {
         return tutorialSkip;
     }
 
-    /**
-     * Getter for campaignChoice
-     *
-     * @return return campaignChoice
-     */
     public int getCampaignChoice() {
         return campaignChoice;
     }
 
-    /**
-     * Getter for sectorBehavior
-     *
-     * @return return sectorBehavior
-     */
     public int getSectorBehavior() {
         return sectorBehavior;
     }
 
-    /**
-     * Getter for ressourceBehavior
-     *
-     * @return return ressourceBehavior
-     */
     public int getRessourceBehavior() {
         return ressourceBehavior;
     }
 
-    /**
-     * Getter for disableInvasion
-     *
-     * @return return disableInvasion
-     */
     public boolean getDisableInvasions() {
         return disableInvasions;
     }
 
-    /**
-     * Getter for deathlink
-     *
-     * @return return deathlink
-     */
     public boolean getDeathlink() {
         return deathLink;
     }

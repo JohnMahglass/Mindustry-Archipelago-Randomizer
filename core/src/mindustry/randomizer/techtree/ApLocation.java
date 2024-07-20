@@ -18,9 +18,6 @@ import static mindustry.Vars.randomizer;
  */
 public class ApLocation extends Block {
 
-
-    public ApLocation parent;
-
     /**
      * id of the Archipelago location.
      */
@@ -38,7 +35,7 @@ public class ApLocation extends Block {
 
 
     /**
-     * Check the location. If the location has no id, add the location to the pending check list.
+     * Unlock the node and its content and send a check to Archipelago
      */
     @Override
     public void unlock(){
@@ -56,12 +53,6 @@ public class ApLocation extends Block {
     }
 
 
-    /**
-     * Constructor of ApLocation
-     * @param name The name of the node.
-     * @param content The content of the original node
-     * @param locationId The id of the node.
-     */
     public ApLocation(String name, UnlockableContent content, Long locationId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
@@ -71,13 +62,6 @@ public class ApLocation extends Block {
         }
     }
 
-    /**
-     * Constructor of ApLocation
-     * @param name The name of the node.
-     * @param content The original content of the node.
-     * @param locationId The id of the node.
-     * @param itemId The id of the item contained within the node.
-     */
     public ApLocation(String name, UnlockableContent content, Long locationId, Long itemId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
@@ -93,29 +77,4 @@ public class ApLocation extends Block {
         return ContentType.block; //Content type irrevelent, this is to prevent an error being raised
     }
 
-    public void setParent(ApLocation parent){
-        this.parent = parent;
-    }
-
-    public ApLocation getParent(){
-        return this.parent;
-    }
-
-    public boolean hasParent(){
-        return (parent != null);
-    }
-
-    public void addItemToRequirement(Item item, int amount){
-        int requirementAmount = researchCost.length + 1;
-        ItemStack[] newResearchCost = new ItemStack[requirementAmount];
-        if (researchCost.length > 0) {
-            newResearchCost = researchCost.clone();
-        }
-        newResearchCost[requirementAmount] = new ItemStack(item, amount);
-        this.researchCost = newResearchCost.clone();
-    }
-
-    private void initialiseParentRequirement(ApLocation location) {
-
-    }
 }

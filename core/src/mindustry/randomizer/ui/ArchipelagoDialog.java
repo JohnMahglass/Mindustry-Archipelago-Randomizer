@@ -132,12 +132,18 @@ public class ArchipelagoDialog extends BaseDialog {
 
     }
 
+    /**
+     * Disconnect the client from the current session.
+     */
     private void disconnectClient() {
         if (client.isConnected()) {
             client.disconnect();
         }
     }
 
+    /**
+     * Update ConnectionStatus
+     */
     private void verifyConnectionStatus() {
         if (client.connectionStatus != displayedStatus) {
             reload();
@@ -175,6 +181,10 @@ public class ArchipelagoDialog extends BaseDialog {
         return status;
     }
 
+    /**
+     * Obfuscate the password from view.
+     * @return The obfuscated string.
+     */
     private String obfuscatePassword() {
         String obfuscatedString = "";
         if (Core.settings.getString("APpassword") != null &&
