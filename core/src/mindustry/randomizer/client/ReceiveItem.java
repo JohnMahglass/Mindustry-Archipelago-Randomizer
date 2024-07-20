@@ -17,7 +17,7 @@ public class ReceiveItem {
         String receivingPlayerName = Vars.randomizer.randomizerClient.getSlotName();
         Vars.randomizer.unlock(event.getItemID());
         Vars.randomizer.worldState.saveStates();
-        if (!Vars.ui.chatfrag.isBlockAPMessage()) {
+        if (Vars.ui.chatfrag != null && !Vars.ui.chatfrag.isBlockAPMessage()) {
             if (event.getPlayerID() == Vars.randomizer.randomizerClient.getSlot()) { //The player's
                 // own item
                 Vars.randomizer.sendLocalMessage(receivingPlayerName + " found their " +

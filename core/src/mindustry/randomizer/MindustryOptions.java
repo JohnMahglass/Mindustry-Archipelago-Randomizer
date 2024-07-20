@@ -3,7 +3,6 @@ package mindustry.randomizer;
 import arc.Core;
 import mindustry.Vars;
 import mindustry.randomizer.client.SlotData;
-import mindustry.randomizer.enums.CampaignType;
 
 /**
  * Class containing the options for the generated Mindustry game.

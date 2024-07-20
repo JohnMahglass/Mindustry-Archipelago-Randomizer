@@ -3,14 +3,12 @@ package mindustry.randomizer.techtree;
 import arc.Core;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
-import mindustry.gen.Sounds;
 import mindustry.randomizer.Shared;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 
 import static mindustry.Vars.randomizer;
-import static mindustry.Vars.ui;
 
 /**
  * Node acting as a location for AP
@@ -44,18 +42,19 @@ public class ApLocation extends Block {
      */
     @Override
     public void unlock(){
-        if(!unlocked()){
+        if(!unlocked && !alwaysUnlocked){
             unlocked = true;
-            Sounds.unlock.play();
             Core.settings.put(name + "-unlocked", true);
+            Core.settings.put(content.name + "-unlocked", true);
+
             if (locationId != null) {
                 randomizer.checkLocation(locationId, name);
-
             } else {
                 //Error needs to be logged
             }
         }
     }
+
 
     /**
      * Constructor of ApLocation

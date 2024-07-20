@@ -6,11 +6,7 @@ import arc.Core;
 import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.content.Blocks;
-import mindustry.content.Items;
-import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
-import mindustry.content.TechTree;
-import mindustry.ctype.Content;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 import mindustry.type.Sector;
@@ -41,7 +37,7 @@ public class Randomizer {
      */
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
-        content.unlock();
+        content.quietUnlock();
     }
 
     /**
@@ -171,13 +167,13 @@ public class Randomizer {
     }
 
     private static void unlockSerpuloTutorialItems() {
-        Blocks.conveyor.unlock();
-        Blocks.duo.unlock();
-        Blocks.scatter.unlock();
-        Blocks.mechanicalDrill.unlock();
-        Blocks.copperWall.unlock();
-        SectorPresets.groundZero.unlock();
-        SectorPresets.frozenForest.unlock();
+        Blocks.conveyor.quietUnlock();
+        Blocks.duo.quietUnlock();
+        Blocks.scatter.quietUnlock();
+        Blocks.mechanicalDrill.quietUnlock();
+        Blocks.copperWall.quietUnlock();
+        SectorPresets.groundZero.quietUnlock();
+        SectorPresets.frozenForest.quietUnlock();
         SectorPresets.frozenForest.alwaysUnlocked = true;
     }
 
@@ -198,7 +194,9 @@ public class Randomizer {
     }
 
     public void sendLocalMessage (String message) {
-        Vars.ui.chatfrag.addLocalMessage(message);
+        if (Vars.ui.chatfrag != null && Vars.ui.hudfrag != null) {
+            Vars.ui.chatfrag.addLocalMessage(message);
+        }
     }
 
     public void applyOptions() {

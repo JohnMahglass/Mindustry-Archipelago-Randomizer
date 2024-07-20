@@ -1,6 +1,5 @@
 package mindustry.randomizer.client;
 
-import arc.Core;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.network.ConnectionResult;
