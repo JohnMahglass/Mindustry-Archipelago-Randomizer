@@ -1,6 +1,5 @@
 package mindustry.randomizer.client;
 
-import arc.Core;
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.ItemFlags;
 import dev.koifysh.archipelago.Print.APPrint;
@@ -13,6 +12,7 @@ import mindustry.randomizer.enums.ConnectionStatus;
 import java.net.URISyntaxException;
 
 import static mindustry.Vars.randomizer;
+import static arc.Core.settings;
 
 
 /**
@@ -22,7 +22,6 @@ import static mindustry.Vars.randomizer;
  * @version 1.0.0 2024-06-07
  */
 public class APClient extends Client {
-
 
     public ConnectionStatus connectionStatus;
 
@@ -34,18 +33,6 @@ public class APClient extends Client {
 
     private String address;
 
-    private String password;
-
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getSlotName() {
         return slotName;
@@ -54,44 +41,6 @@ public class APClient extends Client {
     public void setSlotName(String slotName) {
         this.slotName = slotName;
         setName(slotName);
-    }
-
-
-    public APClient () {
-        super();
-        this.loadInfo();
-        this.setGame("Mindustry");
-        this.setItemsHandlingFlags(ItemFlags.SEND_ITEMS + ItemFlags.SEND_OWN_ITEMS);
-        this.setName(getSlotName());
-        this.connectionStatus = ConnectionStatus.NotConnected;
-        this.dataPackage = getDataPackage();
-
-        this.getEventManager().registerListener(new ConnectResult(this));
-        this.getEventManager().registerListener(new LocationChecked());
-        this.getEventManager().registerListener(new ReceiveItem());
-    }
-
-    /**
-     * Load locally saved connection information.
-     */
-    private void loadInfo() {
-        if (Core.settings != null) {
-            if (Core.settings.getString("APaddress") != null) {
-                setAddress(Core.settings.getString("APaddress"));
-            } else {
-                setAddress("");
-            }
-            if (Core.settings.getString("APslotName") != null) {
-                setSlotName(Core.settings.getString("APslotName"));
-            } else {
-                setSlotName("");
-            }
-            if (Core.settings.getString("APpassword") != null) {
-                setPassword(Core.settings.getString("APpassword"));
-            } else {
-                setPassword("");
-            }
-        }
     }
 
     /**
@@ -113,21 +62,6 @@ public class APClient extends Client {
         if (type.equals("Chat")) {
             randomizer.sendLocalMessage(getPlayerName(apPrint.slot) + ": " + apPrint.message);
         }
-    }
-
-    /**
-     * Get player name from their slot id.
-     * @param slot The slot id of the player.
-     * @return Return the name of the player.
-     */
-    private String getPlayerName(int slot) {
-        String playerName = "";
-        for (NetworkPlayer player : client.getRoomInfo().networkPlayers) {
-            if (player.slot == slot) {
-                playerName = player.name;
-            }
-        }
-        return  playerName;
     }
 
     @Override
@@ -160,4 +94,59 @@ public class APClient extends Client {
     public String getAddress() {
         return this.address;
     }
+
+
+    public APClient () {
+        super();
+        this.loadInfo();
+        this.setGame("Mindustry");
+        this.setItemsHandlingFlags(ItemFlags.SEND_ITEMS + ItemFlags.SEND_OWN_ITEMS);
+        this.setName(getSlotName());
+        this.connectionStatus = ConnectionStatus.NotConnected;
+        this.dataPackage = getDataPackage();
+
+        this.getEventManager().registerListener(new ConnectResult(this));
+        this.getEventManager().registerListener(new LocationChecked());
+        this.getEventManager().registerListener(new ReceiveItem());
+    }
+
+
+    /**
+     * Load locally saved connection information.
+     */
+    private void loadInfo() {
+        if (settings != null) {
+            if (settings.getString("APaddress") != null) {
+                setAddress(settings.getString("APaddress"));
+            } else {
+                setAddress("");
+            }
+            if (settings.getString("APslotName") != null) {
+                setSlotName(settings.getString("APslotName"));
+            } else {
+                setSlotName("");
+            }
+            if (settings.getString("APpassword") != null) {
+                setPassword(settings.getString("APpassword"));
+            } else {
+                setPassword("");
+            }
+        }
+    }
+
+    /**
+     * Get player name from their slot id.
+     * @param slot The slot id of the player.
+     * @return Return the name of the player.
+     */
+    private String getPlayerName(int slot) {
+        String playerName = "";
+        for (NetworkPlayer player : client.getRoomInfo().networkPlayers) {
+            if (player.slot == slot) {
+                playerName = player.name;
+            }
+        }
+        return  playerName;
+    }
+
 }

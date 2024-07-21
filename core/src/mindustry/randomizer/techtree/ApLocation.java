@@ -4,8 +4,6 @@ import arc.Core;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.Shared;
-import mindustry.type.Item;
-import mindustry.type.ItemStack;
 import mindustry.world.Block;
 
 import static mindustry.Vars.randomizer;

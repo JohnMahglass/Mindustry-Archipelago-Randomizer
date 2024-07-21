@@ -1,8 +1,9 @@
 package mindustry.randomizer;
 
-import arc.Core;
-import mindustry.Vars;
 import mindustry.randomizer.client.SlotData;
+
+import static arc.Core.settings;
+import static mindustry.Vars.randomizer;
 
 /**
  * Class containing the options for the generated Mindustry game.
@@ -61,7 +62,7 @@ public class MindustryOptions {
 
     public boolean getOptionsFilled() {
         boolean filled;
-        if (this.optionsFilled || Vars.randomizer.hasConnectedPreviously) {
+        if (this.optionsFilled || randomizer.hasConnectedPreviously) {
             filled = true;
         } else {
             filled = false;
@@ -96,45 +97,21 @@ public class MindustryOptions {
 
             this.optionsFilled = true;
             saveOptions();
-            Core.settings.put("APhasConnected", true);
+            settings.put("APhasConnected", true);
             if (tutorialSkip) {
                 if (campaignChoice == 0) {
-                    Core.settings.put("APfreeLaunchSerpulo", true);
+                    settings.put("APfreeLaunchSerpulo", true);
                 } else if (campaignChoice == 1) {
-                    Core.settings.put("APfreeLaunchErekir", true);
+                    settings.put("APfreeLaunchErekir", true);
                 } else if (campaignChoice == 2) {
-                    Core.settings.put("APfreeLaunchSerpulo", true);
-                    Core.settings.put("APfreeLaunchErekir", true);
+                    settings.put("APfreeLaunchSerpulo", true);
+                    settings.put("APfreeLaunchErekir", true);
                 }
 
             }
         }
     }
 
-    /**
-     * Save options locally
-     */
-    private void saveOptions() {
-        Core.settings.put("APdeathLink", getDeathLink());
-        Core.settings.put("APtutorialSkip", getTutorialSkip());
-        Core.settings.put("APdisableInvasions", getDisableInvasion());
-        Core.settings.put("APsectorBehavior", getSectorBehavior());
-        Core.settings.put("APressourceBehavior", getRessourceBehavior());
-        Core.settings.put("APcampaignChoice", getCampaignChoice());
-    }
-
-    /**
-     * Load options locally
-     */
-    public void loadOptions() {
-        this.deathLink = Core.settings.getBool("APdeathLink");
-        this.tutorialSkip = Core.settings.getBool("APtutorialSkip");
-        this.disableInvasions = Core.settings.getBool("APdisableInvasions");
-        this.sectorBehavior = Core.settings.getInt("APsectorBehavior");
-        this.ressourceBehavior = Core.settings.getInt("APressourceBehavior");
-        this.campaignChoice = Core.settings.getInt("APcampaignChoice");
-        this.optionsFilled = true;
-    }
 
     /**
      * Constructor for MindustryOptions, if the user has never connected to a game, load default
@@ -142,7 +119,7 @@ public class MindustryOptions {
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
-        if (Core.settings != null && Core.settings.getBool("APhasConnected")) {
+        if (settings != null && settings.getBool("APhasConnected")) {
             loadOptions();
         } else {
             this.optionsFilled = false;
@@ -153,6 +130,32 @@ public class MindustryOptions {
             this.sectorBehavior = 0;
             this.deathLink = false;
         }
+    }
+
+
+    /**
+     * Save options locally
+     */
+    private void saveOptions() {
+        settings.put("APdeathLink", getDeathLink());
+        settings.put("APtutorialSkip", getTutorialSkip());
+        settings.put("APdisableInvasions", getDisableInvasion());
+        settings.put("APsectorBehavior", getSectorBehavior());
+        settings.put("APressourceBehavior", getRessourceBehavior());
+        settings.put("APcampaignChoice", getCampaignChoice());
+    }
+
+    /**
+     * Load options locally
+     */
+    private void loadOptions() {
+        this.deathLink = settings.getBool("APdeathLink");
+        this.tutorialSkip = settings.getBool("APtutorialSkip");
+        this.disableInvasions = settings.getBool("APdisableInvasions");
+        this.sectorBehavior = settings.getInt("APsectorBehavior");
+        this.ressourceBehavior = settings.getInt("APressourceBehavior");
+        this.campaignChoice = settings.getInt("APcampaignChoice");
+        this.optionsFilled = true;
     }
 
 }

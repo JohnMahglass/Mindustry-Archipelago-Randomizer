@@ -19,6 +19,8 @@ import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.enums.ProgressiveItemType;
 import mindustry.randomizer.techtree.ApLocation;
 
+import static arc.Core.settings;
+
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
@@ -88,6 +90,33 @@ public class WorldState {
         }
     }
 
+    /**
+     * Save every state locally.
+     */
+    public void saveStates(){
+        saveState(checkPendingFile, checkPending);
+    }
+
+    /**
+     * Wipe every states.
+     */
+    public void wipeStates() {
+        wipeState(checkPendingFile, checkPending);
+        settings.remove("APhasConnected");
+        settings.remove("APdeathLink");
+        settings.remove("APtutorialSkip");
+        settings.remove("APdisableInvasions");
+        settings.remove("APsectorBehavior");
+        settings.remove("APressourceBehavior");
+        settings.remove("APcampaignChoice");
+        settings.remove("APaddress");
+        settings.remove("APslotName");
+        settings.remove("APpassword");
+        settings.remove("APfreeLaunchSerpulo");
+        settings.remove("APfreeLaunchErekir");
+    }
+
+
     public WorldState() {
         this.options = new MindustryOptions();
         this.items = new HashMap<>();
@@ -100,30 +129,11 @@ public class WorldState {
         loadStates();
     }
 
-    /**
-     * Add a check to an array. Note that the state should be saved after using this method by
-     * calling saveState().
-     * @param stateArray
-     * @param newCheck
-     */
-    public void addCheck(ArrayList<Long> stateArray, Long newCheck){
-        boolean checkExist = false;
-        for (Long check : stateArray) {
-            if (check.equals(newCheck)) {
-               checkExist = true;
-            }
-        }
-        if (!checkExist) {
-            stateArray.add(newCheck);
-        } else {
-            //log error
-        }
-    }
 
     /**
      * Save current state to the save file.
      */
-    public void saveState(String fileName,ArrayList<?> state){
+    private void saveState(String fileName,ArrayList<?> state){
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -140,27 +150,10 @@ public class WorldState {
     }
 
     /**
-     * Save every state locally.
-     */
-    public void saveStates(){
-        saveState(checkPendingFile, checkPending);
-    }
-
-    /**
      * Load every saved state
      */
     private void loadStates(){
         checkPending = loadState(checkPendingFile);
-    }
-
-    public boolean isProgressive(Long itemId) {
-        boolean progressive = false;
-        for (ProgressiveItem item : progressiveItems) {
-            if (item.id.equals(itemId)) {
-                progressive = true;
-            }
-        }
-        return progressive;
     }
 
     /**
@@ -186,7 +179,6 @@ public class WorldState {
         return loadedState;
     }
 
-
     /**
      * Wipe local state.
      * @param fileName The file to be wiped
@@ -198,7 +190,7 @@ public class WorldState {
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-                oos.writeObject(state);
+            oos.writeObject(state);
 
             oos.close();
             fos.close();
@@ -207,11 +199,35 @@ public class WorldState {
         }
     }
 
+
     /**
-     * Wipe every states.
+     * Add a check to an array. Note that the state should be saved after using this method by
+     * calling saveState().
+     * @param stateArray
+     * @param newCheck
      */
-    public void wipeStates() {
-        wipeState(checkPendingFile, checkPending);
+    protected void addCheck(ArrayList<Long> stateArray, Long newCheck){
+        boolean checkExist = false;
+        for (Long check : stateArray) {
+            if (check.equals(newCheck)) {
+               checkExist = true;
+            }
+        }
+        if (!checkExist) {
+            stateArray.add(newCheck);
+        } else {
+            //log error
+        }
+    }
+
+    protected boolean isProgressive(Long itemId) {
+        boolean progressive = false;
+        for (ProgressiveItem item : progressiveItems) {
+            if (item.id.equals(itemId)) {
+                progressive = true;
+            }
+        }
+        return progressive;
     }
 
     /**

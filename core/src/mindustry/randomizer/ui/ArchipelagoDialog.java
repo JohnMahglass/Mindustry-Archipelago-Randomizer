@@ -28,7 +28,7 @@ public class ArchipelagoDialog extends BaseDialog {
 
     public ArchipelagoDialog() {
         super("Archipelago");
-        this.client = randomizer.randomizerClient;
+        this.client = randomizer.getClient();
         this.newAddress = null;
         this.newSlotName = null;
         this.newPassword = null;

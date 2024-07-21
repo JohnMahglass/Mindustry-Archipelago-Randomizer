@@ -4,6 +4,8 @@ import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import mindustry.Vars;
 
+import static mindustry.Vars.randomizer;
+
 /**
  * ReceiveItem
  *
@@ -14,16 +16,15 @@ public class ReceiveItem {
 
     @ArchipelagoEventListener
     public static void onReceiveItem(ReceiveItemEvent event) {
-        String receivingPlayerName = Vars.randomizer.randomizerClient.getSlotName();
-        Vars.randomizer.unlock(event.getItemID());
-        Vars.randomizer.worldState.saveStates();
+        randomizer.unlock(event.getItemID());
+        randomizer.worldState.saveStates();
         if (Vars.ui.chatfrag != null && !Vars.ui.chatfrag.isBlockAPMessage()) {
-            if (event.getPlayerID() == Vars.randomizer.randomizerClient.getSlot()) { //The player's
+            if (event.getPlayerID() == randomizer.getPlayerSlot()) { //The player's
                 // own item
-                Vars.randomizer.sendLocalMessage(receivingPlayerName + " found their " +
+                randomizer.sendLocalMessage(randomizer.getPlayerName() + " found their " +
                         event.getItemName() + "(" + event.getLocationName() + ")");
             } else { //Item is being sent by another player
-                Vars.randomizer.sendLocalMessage(event.getPlayerName() + " found " + receivingPlayerName +
+                randomizer.sendLocalMessage(event.getPlayerName() + " found " + randomizer.getPlayerName() +
                         " " + event.getItemName() + "(" + event.getLocationName() + ")");
             }
         }

@@ -3,8 +3,9 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.network.ConnectionResult;
-import mindustry.Vars;
 import mindustry.randomizer.enums.ConnectionStatus;
+
+import static mindustry.Vars.randomizer;
 
 /**
  * ConnectResult
@@ -25,16 +26,16 @@ public class ConnectResult {
         if (event.getResult() == ConnectionResult.Success) {
             client.connectionStatus = ConnectionStatus.Success;
             client.slotData = event.getSlotData(SlotData.class);
-            if (!Vars.randomizer.hasConnectedPreviously) { //First time the player is connecting
+            if (!randomizer.hasConnectedPreviously) { //First time the player is connecting
                 // to the game
-                Vars.randomizer.worldState.options.fillOptions(client.slotData);
-                Vars.randomizer.initialize();
+                randomizer.worldState.options.fillOptions(client.slotData);
+                randomizer.initialize();
             }
-            while (Vars.randomizer.worldState.hasCheckPending()) { // The player has item
+            while (randomizer.worldState.hasCheckPending()) { // The player has item
                 // waiting to be sent to Archipelago
-                Vars.randomizer.sendPendingLocations();
+                randomizer.sendPendingLocations();
             }
-            Vars.randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");
+            randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
@@ -47,7 +48,7 @@ public class ConnectResult {
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
             }
-            Vars.randomizer.sendLocalMessage("Not connected. To connect, go to Settings -> " +
+            randomizer.sendLocalMessage("Not connected. To connect, go to Settings -> " +
                     "Archipelago");
         }
     }

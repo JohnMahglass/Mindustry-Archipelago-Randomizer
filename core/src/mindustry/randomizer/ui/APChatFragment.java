@@ -281,7 +281,7 @@ public class APChatFragment extends Table {
 
             //Handle command
         } else {
-            randomizer.randomizerClient.sendChatMessage(message);
+            randomizer.sendArchipelagoMessage(message);
         }
     }
 

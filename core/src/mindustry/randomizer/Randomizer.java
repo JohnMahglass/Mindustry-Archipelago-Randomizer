@@ -1,8 +1,8 @@
 package mindustry.randomizer;
 
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
+import static arc.Core.settings;
 
-import arc.Core;
 import dev.koifysh.archipelago.ClientStatus;
 import mindustry.Vars;
 import mindustry.content.Blocks;
@@ -23,7 +23,7 @@ public class Randomizer {
     /**
      * Client for the randomizer.
      */
-    public APClient randomizerClient;
+    private APClient randomizerClient;
 
     /**
      * Represent the state the APWorld is in.
@@ -35,28 +35,13 @@ public class Randomizer {
      */
     public boolean hasConnectedPreviously;
 
+
     /**
      * Unlock a UnlockableContent.
      */
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.quietUnlock();
-    }
-
-    /**
-     * Checks whether the plays have received this item.
-     * @param id The id of the item to be checked.
-     * @return Return True if the player has this item.
-     */
-    public boolean hasItem(Long id){
-        boolean itemReceived = false;
-
-        for (int i = 0; i < worldState.unlockedItems.length; i++) {
-            if (id == worldState.unlockedItems[i]) {
-                itemReceived = true;
-            }
-        }
-        return itemReceived;
     }
 
     /**
@@ -109,15 +94,6 @@ public class Randomizer {
     }
 
     /**
-     * Check a location that was pending.
-     * @param id The Id of the location
-     * @return Return if the operation was a success.
-     */
-    private boolean checkPendingLocation (Long id) {
-        return randomizerClient.checkLocation(id);
-    }
-
-    /**
      * Return true if AP item attributes are initialized.
      * within the randomizer.
      * @return If the content is an AP item.
@@ -141,6 +117,45 @@ public class Randomizer {
         return (id >= MINDUSTRY_BASE_ID + 138 && id <= MINDUSTRY_BASE_ID + 154);
     }
 
+    /**
+     * Return the player's name. If no name is found, name the player "Name not set"
+     * @return The name of the player.
+     */
+    public String getPlayerName() {
+        String name = "";
+        if (randomizerClient.isConnected()){
+            name = randomizerClient.getSlotName();
+        } else {
+            if (!settings.getString("APslotName").isEmpty()) {
+                name = settings.getString("APslotName");
+            } else {
+                name = "Name not set";
+            }
+        }
+        return name;
+    }
+
+    /**
+     * Return the slot number of the player
+     * @return Slot number of the player
+     */
+    public int getPlayerSlot() {
+        int slot;
+        if (randomizerClient.isConnected()){
+            slot = randomizerClient.getSlot();
+        } else {
+            slot = -1; //This needs to be changed.
+        }
+        return slot;
+    }
+
+    /**
+     * Return the client. This method should not be used outside of the Archipelago settings Dialog.
+     * @return The randomizer client.
+     */
+    public APClient getClient() {
+        return this.randomizerClient;
+    }
 
     /**
      * Return UnlockableContent matching the itemId.
@@ -177,32 +192,6 @@ public class Randomizer {
     }
 
     /**
-     * Unlock Serpulo's tutorial research and unlock Frozen Forest.
-     */
-    private static void unlockSerpuloTutorialItems() {
-        Blocks.conveyor.quietUnlock();
-        Blocks.duo.quietUnlock();
-        Blocks.scatter.quietUnlock();
-        Blocks.mechanicalDrill.quietUnlock();
-        Blocks.copperWall.quietUnlock();
-        SectorPresets.groundZero.quietUnlock();
-        SectorPresets.frozenForest.quietUnlock();
-        SectorPresets.frozenForest.alwaysUnlocked = true;
-    }
-
-    public Randomizer(){
-        this.hasConnectedPreviously = false;
-        if (Core.settings != null && Core.settings.getBool("APhasConnected")) {
-            this.hasConnectedPreviously = true;
-        }
-        this.worldState = new WorldState();
-        this.randomizerClient = new APClient();
-        if (hasConnectedPreviously) {
-            initialize();
-        }
-    }
-
-    /**
      * Send a message locally
      * @param message The message to be sent.
      */
@@ -213,33 +202,12 @@ public class Randomizer {
     }
 
     /**
-     * Apply options.
+     * Send a message to Archipelago if connected.
+     * @param message The message to be sent.
      */
-    public void applyOptions() {
-        if (worldState.options.getOptionsFilled()) {
-            switch (worldState.options.getCampaignChoice()) {
-                case 0: //Serpulo
-                    worldState.initializeSerpuloItems();
-                    if (worldState.options.getTutorialSkip()) {
-                        unlockSerpuloTutorialItems();
-                    }
-                    break;
-                case 1: //Erekir
-                    worldState.initializeErekirItems();
-                    if (worldState.options.getTutorialSkip()) {
-                        //Unlock Erekir tutorial items
-                    }
-                    break;
-                case 2: //All
-                    worldState.initializeAllItems();
-                    if (worldState.options.getTutorialSkip()) {
-                        unlockSerpuloTutorialItems();
-                        //Unlock Erekir tutorial items
-                    }
-                    break;
-                default:
-                    throw new RuntimeException("Invalid CampaignType");
-            }
+    public void sendArchipelagoMessage (String message) {
+        if (randomizerClient.isConnected() && !message.isEmpty()) {
+            randomizerClient.sendChatMessage(message);
         }
     }
 
@@ -275,7 +243,7 @@ public class Randomizer {
      */
     public boolean erekirFreeLaunchTarget(Sector sector) {
         boolean allow = false;
-        if (Core.settings.getBool("APfreeLaunchErekir") && sector.planet.name.equals("erekir")) {
+        if (settings.getBool("APfreeLaunchErekir") && sector.planet.name.equals("erekir")) {
             if (sector.id == 88) { //86 -> Aegis
                 allow = true;
             }
@@ -290,11 +258,96 @@ public class Randomizer {
      */
     public boolean serpuloFreeLaunchTarget(Sector sector) {
         boolean allow = false;
-        if (Core.settings.getBool("APfreeLaunchSerpulo")) {
+        if (settings.getBool("APfreeLaunchSerpulo")) {
             if (sector.id == 86 && sector.planet.name.equals("serpulo")) { //86 -> frozen forest
                 allow = true;
             }
         }
         return allow;
     }
+
+    /**
+     * Checks whether the plays have received this item.
+     * @param id The id of the item to be checked.
+     * @return Return True if the player has this item.
+     */
+    public boolean hasItem(Long id){
+        boolean itemReceived = false;
+
+        for (int i = 0; i < worldState.unlockedItems.length; i++) {
+            if (id == worldState.unlockedItems[i]) {
+                itemReceived = true;
+            }
+        }
+        return itemReceived;
+    }
+
+
+    public Randomizer(){
+        this.hasConnectedPreviously = false;
+        if (settings != null && settings.getBool("APhasConnected")) {
+            this.hasConnectedPreviously = true;
+        }
+        this.worldState = new WorldState();
+        this.randomizerClient = new APClient();
+        if (hasConnectedPreviously) {
+            initialize();
+        }
+    }
+
+
+    /**
+     * Check a location that was pending.
+     * @param id The Id of the location
+     * @return Return if the operation was a success.
+     */
+    private boolean checkPendingLocation (Long id) {
+        return randomizerClient.checkLocation(id);
+    }
+
+    /**
+     * Unlock Serpulo's tutorial research and unlock Frozen Forest.
+     */
+    private static void unlockSerpuloTutorialItems() {
+        Blocks.conveyor.quietUnlock();
+        Blocks.duo.quietUnlock();
+        Blocks.scatter.quietUnlock();
+        Blocks.mechanicalDrill.quietUnlock();
+        Blocks.copperWall.quietUnlock();
+        SectorPresets.groundZero.quietUnlock();
+        SectorPresets.frozenForest.quietUnlock();
+        SectorPresets.frozenForest.alwaysUnlocked = true;
+    }
+
+    /**
+     * Apply options.
+     */
+    private void applyOptions() {
+        if (worldState.options.getOptionsFilled()) {
+            switch (worldState.options.getCampaignChoice()) {
+                case 0: //Serpulo
+                    worldState.initializeSerpuloItems();
+                    if (worldState.options.getTutorialSkip()) {
+                        unlockSerpuloTutorialItems();
+                    }
+                    break;
+                case 1: //Erekir
+                    worldState.initializeErekirItems();
+                    if (worldState.options.getTutorialSkip()) {
+                        //Unlock Erekir tutorial items
+                    }
+                    break;
+                case 2: //All
+                    worldState.initializeAllItems();
+                    if (worldState.options.getTutorialSkip()) {
+                        unlockSerpuloTutorialItems();
+                        //Unlock Erekir tutorial items
+                    }
+                    break;
+                default:
+                    throw new RuntimeException("Invalid CampaignType");
+            }
+        }
+    }
+
 }

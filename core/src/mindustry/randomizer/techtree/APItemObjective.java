@@ -1,9 +1,10 @@
 package mindustry.randomizer.techtree;
 
 import arc.scene.ui.layout.Table;
-import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
+
+import static mindustry.Vars.randomizer;
 
 /**
  * Create an item objective as a requirement for an AP node.
@@ -29,17 +30,17 @@ public class APItemObjective implements Objectives.Objective {
      */
     @Override
     public boolean complete() {
-        return Vars.randomizer.hasItem(itemId);
+        return randomizer.hasItem(itemId);
     }
 
     @Override
     public String display() {
-        if (sector != null) { //localisation?
+        if (sector != null) {
             return "Capture " + sector.localizedName;
         }
         else {
-            if (Vars.randomizer.isMindustryAPItem(itemId)) {
-                return "Unlock " + Vars.randomizer.itemIdToUnlockableContent(itemId).localizedName;
+            if (randomizer.isMindustryAPItem(itemId)) {
+                return "Unlock " + randomizer.itemIdToUnlockableContent(itemId).localizedName;
             }
             else {
                 return "AP Item Objective display Error";
@@ -58,8 +59,8 @@ public class APItemObjective implements Objectives.Objective {
      */
     public APItemObjective(Long itemId) {
         this.itemId = itemId;
-        if (Vars.randomizer.isSector(itemId)) {
-            sector = Vars.randomizer.worldState.items.get(itemId);
+        if (randomizer.isSector(itemId)) {
+            sector = randomizer.worldState.items.get(itemId);
         }
     }
 }

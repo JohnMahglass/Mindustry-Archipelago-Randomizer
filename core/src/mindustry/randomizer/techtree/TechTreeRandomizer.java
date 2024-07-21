@@ -1,8 +1,9 @@
 package mindustry.randomizer.techtree;
 
-import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.type.ItemStack;
+
+import static mindustry.Vars.randomizer;
 
 /**
  * A planet's randomized tech tree.
@@ -11,8 +12,6 @@ import mindustry.type.ItemStack;
  * @version 1.0.0 2024-04-30
  */
 abstract class TechTreeRandomizer {
-
-
 
     /**
      * Load the tech tree into the planet
@@ -31,7 +30,7 @@ abstract class TechTreeRandomizer {
     protected static ApLocation createApLocation(String name, UnlockableContent content,
                                                Long locationId){
         ApLocation location = new ApLocation(name, content, locationId);
-        Vars.randomizer.worldState.apLocations.add(location);
+        randomizer.worldState.apLocations.add(location);
         return location;
     }
 
