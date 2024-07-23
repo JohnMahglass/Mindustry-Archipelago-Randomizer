@@ -39,12 +39,16 @@ public class ConnectResult {
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
+                randomizer.sendLocalMessage("Connection failed: Invalid Slot Name.");
             } else if (event.getResult() == ConnectionResult.InvalidPassword) {
                 client.connectionStatus = ConnectionStatus.InvalidPassword;
+                randomizer.sendLocalMessage("Connection failed: Invalid Password.");
             } else if (event.getResult() == ConnectionResult.SlotAlreadyTaken) {
                 client.connectionStatus = ConnectionStatus.SlotAlreadyTaken;
+                randomizer.sendLocalMessage("Connection failed: Slot already taken.");
             } else if (event.getResult() == ConnectionResult.IncompatibleVersion) {
                 client.connectionStatus = ConnectionStatus.IncompatibleVersion;
+                randomizer.sendLocalMessage("Connection failed: Incompatible version");
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
             }

@@ -502,7 +502,11 @@ public class APResearchDialog extends BaseDialog {
                         button.setPosition(node.x + panX + width / 2f, node.y + panY + height / 2f + offset, Align.center);
                         button.getStyle().up = !locked(node.node) ? Tex.buttonOver : !selectable(node.node) || !canSpend(node.node) ? Tex.buttonRed : Tex.button;
 
-                        ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? Icon.box.getRegion() : Icon.lock.getRegion());
+                        if (node.node.content != null && node.node.content.name.startsWith("Victory")) {
+                            ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? Icon.star.getRegion() : Icon.lock.getRegion());
+                        } else {
+                            ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? Icon.box.getRegion() : Icon.lock.getRegion());
+                        }
                         button.getImage().setColor(!locked(node.node) ? Color.white : node.selectable ? Color.gray : Pal.gray);
                         button.getImage().layout();
                     });
@@ -612,6 +616,7 @@ public class APResearchDialog extends BaseDialog {
             Core.scene.act();
             Sounds.unlock.play();
             Events.fire(new EventType.ResearchEvent(node.content));
+            ui.hudfrag.blockfrag.rebuild();
         }
 
         void rebuild(){

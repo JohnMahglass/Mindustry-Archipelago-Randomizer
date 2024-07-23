@@ -2661,7 +2661,7 @@ public class Blocks{
         mechanicalDrill = new Drill("mechanical-drill"){{
             requirements(Category.production, with(Items.copper, 12));
             tier = 2;
-            drillTime = 25;
+            drillTime = 600;
             size = 2;
             //mechanical drill doesn't work in space
             envEnabled ^= Env.space;

@@ -1,9 +1,10 @@
 package mindustry.randomizer.techtree;
 
 import arc.Core;
-import mindustry.Vars;
+import arc.Events;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
+import mindustry.game.EventType;
 import mindustry.randomizer.Shared;
 import mindustry.world.Block;
 
@@ -41,6 +42,8 @@ public class ApLocation extends Block {
         if(!unlocked && !alwaysUnlocked){
             unlocked = true;
             Core.settings.put(name + "-unlocked", true);
+            onUnlock();
+            Events.fire(new EventType.UnlockEvent(this));
             if (locationId != null) {
                 randomizer.checkLocation(locationId, name);
             } else {

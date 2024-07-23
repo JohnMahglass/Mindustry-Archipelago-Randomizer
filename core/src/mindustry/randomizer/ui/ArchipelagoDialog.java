@@ -111,7 +111,7 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.button("Connect", () -> {
             disconnectClient();
             client.connectRandomizer();
-            timer.schedule(task, 2000);
+            timer.schedule(task, 1500);
             reload();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {

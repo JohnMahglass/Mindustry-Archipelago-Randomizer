@@ -14,6 +14,7 @@ import arc.scene.ui.ImageButton.*;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.annotations.Annotations.*;
 import mindustry.content.*;
 import mindustry.core.GameState.*;
@@ -520,14 +521,29 @@ public class HudFragment{
                 Table in = new Table();
 
                 //create texture stack for displaying
-                Image image = new Image(content.uiIcon);
+                Image image = new Image();
+                if (content.name.startsWith("AP-")) { //Archipelago node
+                    image = new Image(Icon.box);
+                } else if (content.name.startsWith("Victory")) { //Victory node
+                    image = new Image(Icon.star);
+                } else { //Vanilla node
+                    image = new Image(content.uiIcon);
+                }
+
                 image.setScaling(Scaling.fit);
 
                 in.add(image).size(8 * 6).pad(2);
 
                 //add to table
                 table.add(in).padRight(8);
-                table.add("@unlocked");
+                if (content.name.startsWith("AP-")) { //Archipelago node
+                    table.add("Location sent!");
+                } else if (content.name.startsWith("Victory")) { //Victory node
+                    table.add("Victory condition(s) met!");
+                } else { //Vanilla node
+                    table.add("@unlocked");
+                }
+
                 table.pack();
 
                 //create container table which will align and move

@@ -45,7 +45,9 @@
 
 Whenver you want to play the game you will need to repeat step 5 to 9.
 
+## Known bugs
 
+1. When you unlock a new category of research, you might need to back to the menu and enter the map again for your UI to register the new category.
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.

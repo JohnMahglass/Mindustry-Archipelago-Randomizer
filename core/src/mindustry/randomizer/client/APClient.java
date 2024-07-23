@@ -71,7 +71,7 @@ public class APClient extends Client {
 
     @Override
     public void onClose(String Reason, int attemptingReconnect) {
-
+        randomizer.sendLocalMessage("Connection closed due to : " + Reason);
     }
 
     /**
