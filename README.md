@@ -12,12 +12,15 @@
 - **Randomizer is working for Serpulo's campaign only at the moment.**
 - **Currently, only the "Skip Tutorial" option has been implemented**, you can change the other option in the YAML but they will most likely make the game unstable right now.
 - Most node from the research tree has been replaced with location checks.
+- A "Victory" node has been added, researching this node will inform Archipelago that the player has finished their World. (Campaign clear logic not implemented yet)
 - A new menu has been added in Settings to configure Archipelago's settings.
 - You can use the chat to send messages to other client (If they support it).
 - Client and Archipelago commands have not yet been added but are coming soon. In the meantime, please use the text client to use commands.
 
 
 ## How to build and play the game.
+
+### **THIS IS NOT A RELEASE. THERE ARE NO EXECUTABLE FILES AT THE MOMENT, YOU WILL NEED TO BUILD THE GAME TO BE ABLE TO PLAY IT.**
 
 ### Windows
 1. Make sure you have [JDK 16-17](https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot) installed.
@@ -26,7 +29,7 @@
 
 3. Navigate to the directory you would like to install the program.
 
-4. Open cmd and type "git clone https://github.com/JohnMahglass/   Mindustry-Archipelago-Randomizer".
+4. Open cmd and type "git clone https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer".
 
 5. Open the folder of the project and open the cmd again. **Make sure you are in the project directory.**
 

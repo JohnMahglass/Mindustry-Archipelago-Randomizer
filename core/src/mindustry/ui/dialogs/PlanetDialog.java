@@ -215,9 +215,12 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         }
 
         //unlock defaults for older campaign saves (TODO move? where to?)
+        //Disabled since players always end up receiving these item in the randomizer.
+        /*
         if(content.planets().contains(p -> p.sectors.contains(Sector::hasBase)) || Blocks.scatter.unlocked() || Blocks.router.unlocked()){
             Seq.with(Blocks.junction, Blocks.mechanicalDrill, Blocks.conveyor, Blocks.duo, Items.copper, Items.lead).each(UnlockableContent::quietUnlock);
         }
+         */
     }
 
     /** show with no limitations, just as a map. */

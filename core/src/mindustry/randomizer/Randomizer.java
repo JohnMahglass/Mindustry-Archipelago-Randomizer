@@ -42,6 +42,10 @@ public class Randomizer {
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.quietUnlock();
+        if (Vars.ui.hudfrag.shown && Vars.ui.hudfrag.blockfrag != null) {
+            Vars.ui.hudfrag.blockfrag.rebuild(); //Update the UI with new block since Research
+            // Event is no longer fired
+        }
     }
 
     /**

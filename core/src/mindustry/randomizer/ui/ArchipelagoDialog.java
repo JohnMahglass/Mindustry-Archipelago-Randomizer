@@ -116,7 +116,6 @@ public class ArchipelagoDialog extends BaseDialog {
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {
             disconnectClient();
-            client.connectionStatus = ConnectionStatus.NotConnected;
             reload();
         }).size(140f, 60f).pad(4f);
 
@@ -126,7 +125,9 @@ public class ArchipelagoDialog extends BaseDialog {
                             "recommended you use this setting unless you have finished playing a " +
                             "game.",
                     () -> {
+                disconnectClient();
                 randomizer.worldState.wipeStates();
+                reload();
             });
         }).size(150f, 60f).pad(4f);
 
@@ -138,6 +139,7 @@ public class ArchipelagoDialog extends BaseDialog {
     private void disconnectClient() {
         if (client.isConnected()) {
             client.disconnect();
+            client.connectionStatus = ConnectionStatus.NotConnected;
         }
     }
 

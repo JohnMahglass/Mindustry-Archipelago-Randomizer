@@ -1,6 +1,7 @@
 package mindustry.randomizer.techtree;
 
 import arc.Core;
+import mindustry.Vars;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.Shared;
@@ -29,7 +30,7 @@ public class ApLocation extends Block {
     /**
      * Original name of the node.
      */
-    public UnlockableContent content;
+    public UnlockableContent originalContent;
 
 
     /**
@@ -40,8 +41,6 @@ public class ApLocation extends Block {
         if(!unlocked && !alwaysUnlocked){
             unlocked = true;
             Core.settings.put(name + "-unlocked", true);
-            Core.settings.put(content.name + "-unlocked", true);
-
             if (locationId != null) {
                 randomizer.checkLocation(locationId, name);
             } else {
@@ -54,7 +53,7 @@ public class ApLocation extends Block {
     public ApLocation(String name, UnlockableContent content, Long locationId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
-        this.content = content;
+        this.originalContent = content;
         if (content != null) {
             this.researchCost = content.researchRequirements();
         }
@@ -64,7 +63,7 @@ public class ApLocation extends Block {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.itemId = itemId;
-        this.content = content;
+        this.originalContent = content;
         if (content != null) {
             this.researchCost = content.researchRequirements();
         }

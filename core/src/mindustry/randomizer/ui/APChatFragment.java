@@ -293,7 +293,7 @@ public class APChatFragment extends Table {
         if(message == null) return;
         messages.insert(0, message);
 
-        fadetime += 2f;
+        fadetime += 3f;
         fadetime = Math.min(fadetime, messagesShown) + 1f;
 
         if(scrollPos > 0) scrollPos++;
