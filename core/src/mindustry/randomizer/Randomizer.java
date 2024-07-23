@@ -42,10 +42,6 @@ public class Randomizer {
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
         content.quietUnlock();
-        if (Vars.ui.hudfrag.shown && Vars.ui.hudfrag.blockfrag != null) {
-            Vars.ui.hudfrag.blockfrag.rebuild(); //Update the UI with new block since Research
-            // Event is no longer fired
-        }
     }
 
     /**
@@ -53,7 +49,8 @@ public class Randomizer {
      * @param locationId The id of the location
      */
     public void checkLocation(Long locationId, String locationName){
-        if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET
+        if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET, should use location
+            // name instead to find the victory condition
             //Send victory event to AP
             randomizerClient.setGameState(ClientStatus.CLIENT_GOAL);
             return;

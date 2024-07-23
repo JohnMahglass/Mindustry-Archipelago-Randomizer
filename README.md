@@ -37,9 +37,13 @@
 
 7. The program should begin to build. The first time you run this command it may take a while until the process is done.
 
-8. Once build is over, the game should launch.
+8. Once build is over, the game will launch.
 
-Whenver you want to play the game you will need to repeat step 5 to 8.
+9. Go to Settings -> Archipelago and enter your game information to connect.
+
+10. Have fun.
+
+Whenver you want to play the game you will need to repeat step 5 to 9.
 
 
 
