@@ -362,7 +362,6 @@ public class Vars implements Loadable{
 
     /** Cleans up after a successful launch. */
     public static void finishLaunch(){
-        ui.chatfrag.unblockAPMessage();
         if(launchIDFile != null){
             launchIDFile.delete();
         }

@@ -38,11 +38,6 @@ import static mindustry.Vars.ui;
  */
 public class APChatFragment extends Table {
 
-    /**
-     * If true, will block any message from being received
-     */
-    private boolean blockAPMessage = true;
-
     private static final int messagesShown = 10;
     private Seq<String> messages = new Seq<>();
     private float fadetime;
@@ -293,7 +288,7 @@ public class APChatFragment extends Table {
         if(message == null) return;
         messages.insert(0, message);
 
-        fadetime += 3f;
+        fadetime += 2f;
         fadetime = Math.min(fadetime, messagesShown) + 1f;
 
         if(scrollPos > 0) scrollPos++;
@@ -332,15 +327,4 @@ public class APChatFragment extends Table {
         }
     }
 
-    public boolean isBlockAPMessage() {
-        return blockAPMessage;
-    }
-
-    /**
-     * Unblock AP message from being displayed in chat. This should only be called when the game
-     * is done loading.
-     */
-    public void unblockAPMessage() {
-        blockAPMessage = false;
-    }
 }

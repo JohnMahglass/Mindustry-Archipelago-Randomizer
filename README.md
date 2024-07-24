@@ -25,29 +25,24 @@
 ### Windows
 1. Make sure you have [JDK 16-17](https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot) installed.
 
-2. Make sure you have [git](https://git-scm.com/download/win) installed.
+2. Download the .zip file from this repo and unzip the project. You can also clone the project if you have git.
 
-3. Navigate to the directory you would like to install the program.
+3. Open the folder of the project and open the cmd. **Make sure you are in the project directory.**
 
-4. Open cmd and type "git clone https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer".
+4. Type "gradlew desktop:run"
 
-5. Open the folder of the project and open the cmd again. **Make sure you are in the project directory.**
+5. The program should begin to build. The first time you run this command it may take a while until the process is done.
 
-6. Type "gradlew desktop:run"
+6. Once build is over, the game will launch.
 
-7. The program should begin to build. The first time you run this command it may take a while until the process is done.
+7. Go to Settings -> Archipelago and enter your game information to connect.
 
-8. Once build is over, the game will launch.
+8. Have fun.
 
-9. Go to Settings -> Archipelago and enter your game information to connect.
-
-10. Have fun.
-
-Whenver you want to play the game you will need to repeat step 5 to 9.
+Whenver you want to play the game you will need to repeat step 3 to 7.
 
 ## Known bugs
 
-1. When you unlock a new category of research, you might need to back to the menu and enter the map again for your UI to register the new category.
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
