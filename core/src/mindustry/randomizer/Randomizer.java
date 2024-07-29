@@ -41,14 +41,30 @@ public class Randomizer {
      */
     public void unlock(Long id){
         UnlockableContent content = itemIdToUnlockableContent(id);
-        content.quietUnlock();
+        if (content != null) {
+            content.quietUnlock();
+            if (worldState.isProgressive(id)) {
+                for (ProgressiveItem item : worldState.progressiveItems) {
+                    if (item.id.equals(id) && !item.allReceived) {
+                        item.amountItemReceived++;
+                        if (item.amountItemReceived == item.itemAmount) {
+                            item.allReceived = true;
+                        }
+                    }
+                }
+            }
+        } else {
+            //DEBUG
+            sendLocalMessage("ERROR: Content that was null was called to unlock");
+        }
+
     }
 
     /**
      * Forward the check to Archipelago.
      * @param locationId The id of the location
      */
-    public void checkLocation(Long locationId, String locationName){
+    public void checkLocation(Long locationId){
         if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET, should use location
             // name instead to find the victory condition
             //Send victory event to AP
@@ -167,13 +183,11 @@ public class Randomizer {
         UnlockableContent content = null;
         if (isMindustryAPItem(itemId)) {
             if (worldState.isProgressive(itemId)) {
+                boolean found = false;
                 for (ProgressiveItem item : worldState.progressiveItems) {
-                    if (item.id.equals(itemId) && !item.allReceived) {
+                    if (item.id.equals(itemId) && !item.allReceived && !found) {
                         content = item.items.get(item.amountItemReceived);
-                        item.amountItemReceived++;
-                        if (item.amountItemReceived == item.itemAmount) {
-                            item.allReceived = true;
-                        }
+                        found = true;
                     }
                 }
             } else {

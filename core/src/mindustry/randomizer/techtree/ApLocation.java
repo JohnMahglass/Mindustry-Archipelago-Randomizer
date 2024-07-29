@@ -45,7 +45,7 @@ public class ApLocation extends Block {
             onUnlock();
             Events.fire(new EventType.UnlockEvent(this));
             if (locationId != null) {
-                randomizer.checkLocation(locationId, name);
+                randomizer.checkLocation(locationId);
             } else {
                 //Error needs to be logged
             }
