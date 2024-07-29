@@ -124,4 +124,30 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    public static ItemStack[] reqVictory() {
+        ItemStack[] totalResearchCost = new ItemStack[16];
+
+        int amountRequired = 2000;
+
+        totalResearchCost[0] = new ItemStack(Items.copper, amountRequired);
+        totalResearchCost[1] = new ItemStack(Items.lead, amountRequired);
+        totalResearchCost[2] = new ItemStack(Items.coal, amountRequired);
+        totalResearchCost[3] = new ItemStack(Items.scrap, amountRequired);
+        totalResearchCost[4] = new ItemStack(Items.sand, amountRequired);
+        totalResearchCost[5] = new ItemStack(Items.graphite, amountRequired);
+        totalResearchCost[6] = new ItemStack(Items.titanium, amountRequired);
+        totalResearchCost[7] = new ItemStack(Items.silicon, amountRequired);
+        totalResearchCost[8] = new ItemStack(Items.metaglass, amountRequired);
+        totalResearchCost[9] = new ItemStack(Items.sporePod, amountRequired);
+        totalResearchCost[10] = new ItemStack(Items.pyratite, amountRequired);
+        totalResearchCost[11] = new ItemStack(Items.blastCompound, amountRequired);
+        totalResearchCost[12] = new ItemStack(Items.thorium, amountRequired);
+        totalResearchCost[13] = new ItemStack(Items.plastanium, amountRequired);
+        totalResearchCost[14] = new ItemStack(Items.phaseFabric, amountRequired);
+        totalResearchCost[15] = new ItemStack(Items.surgeAlloy, amountRequired);
+
+
+        return totalResearchCost;
+    }
+
 }

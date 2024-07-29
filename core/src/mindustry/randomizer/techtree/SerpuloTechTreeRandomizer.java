@@ -466,9 +466,7 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
             });
 
             apNode(createApLocation("Victory", null, -1L,
-                    LocationResearchCost.req6Item(Items.copper, 2000, Items.lead, 2000,
-                            Items.graphite, 2000, Items.silicon, 2000, Items.phaseFabric, 2000,
-                            Items.surgeAlloy, 2000)));
+                    LocationResearchCost.reqVictory()));
 
             apNode(createApLocation("AP-S-05-01", groundFactory, 124L), () -> {
 
