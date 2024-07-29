@@ -97,11 +97,8 @@ public class WorldState {
         saveState(checkPendingFile, checkPending);
     }
 
-    /**
-     * Wipe every states.
-     */
-    public void wipeStates() {
-        wipeState(checkPendingFile, checkPending);
+    protected void resetWorldState() {
+        wipeStates();
         settings.remove("APhasConnected");
         settings.remove("APdeathLink");
         settings.remove("APtutorialSkip");
@@ -114,6 +111,15 @@ public class WorldState {
         settings.remove("APpassword");
         settings.remove("APfreeLaunchSerpulo");
         settings.remove("APfreeLaunchErekir");
+    }
+
+    /**
+     * Wipe every states.
+     */
+    private void wipeStates() {
+        wipeState(checkPendingFile, checkPending);
+        progressiveItems.clear();
+        locationsChecked.clear();
     }
 
 

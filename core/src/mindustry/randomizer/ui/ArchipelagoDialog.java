@@ -126,11 +126,10 @@ public class ArchipelagoDialog extends BaseDialog {
                             "game.",
                     () -> {
                 disconnectClient();
-                randomizer.worldState.wipeStates();
+                randomizer.reset();
                 reload();
             });
         }).size(150f, 60f).pad(4f);
-
     }
 
     /**

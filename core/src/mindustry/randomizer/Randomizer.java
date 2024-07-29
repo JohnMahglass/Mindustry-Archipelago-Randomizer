@@ -339,6 +339,7 @@ public class Randomizer {
      */
     private void applyOptions() {
         if (worldState.options.getOptionsFilled()) {
+            worldState.items.clear();
             switch (worldState.options.getCampaignChoice()) {
                 case 0: //Serpulo
                     worldState.initializeSerpuloItems();
@@ -362,7 +363,16 @@ public class Randomizer {
                 default:
                     throw new RuntimeException("Invalid CampaignType");
             }
+        } else {
+            //DEBUG
+            sendLocalMessage("ERROR: Options was not filled, cannot apply options");
         }
     }
 
+    /**
+     * Reset local data related to the randomizer.
+     */
+    public void reset() {
+        worldState.resetWorldState();
+    }
 }

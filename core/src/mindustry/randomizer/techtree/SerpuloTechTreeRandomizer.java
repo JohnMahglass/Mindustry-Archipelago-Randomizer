@@ -272,17 +272,17 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                                 Seq.with(new SectorComplete(craters)), () -> {
                                     apNode(createApLocation("AP-S-03-31", pulverizer, 52L),
                                     Seq.with(new SectorComplete(craters)),() -> {
-                                                apNode(createApLocation("AP-S-03-32", incinerator, 53L),
+                                        apNode(createApLocation("AP-S-03-32", incinerator, 53L),
                                         Seq.with(new SectorComplete(craters)),() -> {
-                                                            apNode(createApLocation("AP-S-03-33", melter, 54L),
+                                            apNode(createApLocation("AP-S-03-33", melter, 54L),
                                             Seq.with(new SectorComplete(craters)),() -> {
-                                                                        apNode(createApLocation("AP-S-03-34", surgeSmelter, 55L),
+                                                apNode(createApLocation("AP-S-03-34", surgeSmelter, 55L),
                                                 Seq.with(new SectorComplete(craters)),() -> {
                                         });
 
-                                                                        apNode(createApLocation("AP-S-03-35", separator, 56L),
+                                                apNode(createApLocation("AP-S-03-35", separator, 56L),
                                                 Seq.with(new SectorComplete(craters)),() -> {
-                                                                                    apNode(createApLocation("AP-S-03-36", disassembler, 57L),
+                                                    apNode(createApLocation("AP-S-03-36", disassembler, 57L),
                                                     Seq.with(new SectorComplete(craters)),() -> {
                                             });
                                         });
@@ -360,19 +360,16 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                                 Seq.with(new SectorComplete(craters)), () -> {
                                     apNode(createApLocation("AP-S-03-63", thermalGenerator, 84L),
                                     Seq.with(new SectorComplete(craters)),() -> {
-                                                apNode(createApLocation("AP-S-03-64", differentialGenerator, 85L),
+                                        apNode(createApLocation("AP-S-03-64", differentialGenerator, 85L),
                                         Seq.with(new SectorComplete(craters)),() -> {
-                                                            apNode(createApLocation("AP-S-03-65", thoriumReactor, 86L),
-                                            Seq.with(new Research(Liquids.cryofluid),
-                                                    new SectorComplete(craters)), () -> {
-                                                                        apNode(createApLocation("AP-S-03-66", impactReactor, 87L),
-                                                Seq.with(new SectorComplete(craters),
-                                                        new Research(Liquids.cryofluid)),() -> {
+                                            apNode(createApLocation("AP-S-03-65", thoriumReactor, 86L),
+                                            Seq.with(new SectorComplete(craters)), () -> {
+                                                apNode(createApLocation("AP-S-03-66", impactReactor, 87L),
+                                                Seq.with(new SectorComplete(craters)),() -> {
                                         });
 
-                                                                        apNode(createApLocation("AP-S-03-67", rtgGenerator, 88L),
-                                                Seq.with(new SectorComplete(craters),
-                                                        new Research(Liquids.cryofluid)),() -> {
+                                                apNode(createApLocation("AP-S-03-67", rtgGenerator, 88L),
+                                                Seq.with(new SectorComplete(craters)),() -> {
                                         });
                                     });
                                 });
