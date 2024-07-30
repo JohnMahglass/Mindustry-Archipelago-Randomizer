@@ -4,7 +4,9 @@ import dev.koifysh.archipelago.Print.APPrintJsonType;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
 import dev.koifysh.archipelago.parts.NetworkPlayer;
+import dev.koifysh.archipelago.parts.NetworkSlot;
 import mindustry.Vars;
+import static mindustry.Vars.randomizer;
 
 /**
  * Print Json message from Archipelago
@@ -15,14 +17,31 @@ import mindustry.Vars;
 public class PrintJsonListener {
     @ArchipelagoEventListener
     public void onPrintJson(PrintJSONEvent event) {
-        // Don't print chat messages originating from ourselves.
-        if (event.type.equals(APPrintJsonType.Chat) && event.player != Vars.randomizer.getClient().getSlot()) {
-            Vars.randomizer.sendLocalMessage(getPlayerName(event.apPrint.slot) + ": " + event.apPrint.message);
-        } else if (event.type.equals(APPrintJsonType.Join) && event.player != Vars.randomizer.getClient().getSlot()) {
-            Vars.randomizer.sendLocalMessage(getPlayerName(event.apPrint.slot) +
-                    " (Team #" + event.apPrint.team + ") has joined." + event.apPrint);
+        if (event.type.equals(APPrintJsonType.Chat)) {
+            randomizer.sendLocalMessage(getPlayerName(event.apPrint.slot) + ": " + event.apPrint.message);
+        } else if (event.type.equals(APPrintJsonType.ItemSend)) {
+             if (event.player == randomizer.getPlayerSlot()) { //The player send an item
+                 if (event.player == event.apPrint.receiving) {// Player is sending an item to themself
+                     randomizer.sendLocalMessage(getPlayerName(event.player) + " found their " +
+                             randomizer.getClient().getItemName(event.apPrint.item.itemID, getPlayerGame(event.player)) +
+                             "(" + randomizer.getClient().getLocationName(event.item.locationID, getPlayerGame(event.player)) +
+                             ")");
+                 } else { //Player is sending an item to someone else.
+                     randomizer.sendLocalMessage(getPlayerName(event.player) + " found  "
+                             + getPlayerName(event.apPrint.receiving) + " " + randomizer.getClient().getItemName(event.apPrint.item.itemID, getPlayerGame(event.apPrint.receiving)) +
+                             "(" + randomizer.getClient().getLocationName(event.item.locationID,
+                             getPlayerGame(event.apPrint.receiving)) + ")");
+                 }
+             } else { //Item is being sent by another player to another player
+                 randomizer.sendLocalMessage(getPlayerName(event.player) + " found " + getPlayerName(event.apPrint.receiving) +
+                 " " + randomizer.getClient().getItemName(event.apPrint.item.itemID,
+                         getPlayerGame(event.apPrint.receiving)) + "(" + randomizer.getClient().getLocationName(event.item.locationID, getPlayerGame(event.apPrint.receiving)) + ")");
+             }
+        } else if (event.type.equals(APPrintJsonType.Join) && event.player != randomizer.getClient().getSlot()) {
+            randomizer.sendLocalMessage(getPlayerName(event.apPrint.slot) +
+                    " (Team #" + event.apPrint.team + ") playing "+ getPlayerGame(event.apPrint.slot) + " has joined.");
         } else if (event.type.equals(APPrintJsonType.Tutorial)) {
-            Vars.randomizer.sendLocalMessage("Now that you are connected, you can use !help to " +
+            randomizer.sendLocalMessage("Now that you are connected, you can use !help to " +
                     "list commands to run via the server. If your client supports it, you may" +
                     " have additional local commands you can list with /help. (Local commands " +
                     "are comming soon!)");
@@ -45,5 +64,18 @@ public class PrintJsonListener {
             }
         }
         return  playerName;
+    }
+
+    private String getPlayerGame(int slot){
+        String playerGame = "";
+
+        NetworkSlot ns = Vars.randomizer.getClient().getSlotInfo().get(slot);
+        if (playerGame != null) {
+            playerGame = ns.game;
+        } else {
+            playerGame = "GAME NAME ERROR";
+        }
+
+        return playerGame;
     }
 }

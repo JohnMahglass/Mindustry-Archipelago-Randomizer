@@ -45,7 +45,7 @@ public class WorldState {
     /**
      * List of all locations used in the randomisation.
      */
-    public Map<Integer, String> locations;
+    public Map<Long, String> locations;
 
     /**
      * List of locations that have been checked and successfully sent.

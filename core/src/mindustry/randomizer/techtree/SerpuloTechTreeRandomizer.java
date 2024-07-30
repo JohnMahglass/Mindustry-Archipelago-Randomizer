@@ -1,22 +1,12 @@
 package mindustry.randomizer.techtree;
 
-import arc.files.Fi;
-import arc.graphics.Texture;
-import arc.graphics.g2d.TextureRegion;
 import arc.struct.Seq;
-import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
-import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
-import mindustry.randomizer.Shared;
-import mindustry.type.ItemStack;
 
 import mindustry.game.Objectives.*;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Blocks.additiveReconstructor;
@@ -462,7 +452,7 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNode(createApLocation("Victory", null, -1L,
+            apNode(createApLocation("Victory Serpulo", null, -1L,
                     LocationResearchCost.reqVictory()));
 
             apNode(createApLocation("AP-S-05-01", groundFactory, 124L), () -> {

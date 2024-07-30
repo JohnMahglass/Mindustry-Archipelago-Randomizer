@@ -4,8 +4,6 @@ import arc.*;
 import arc.assets.*;
 import arc.files.*;
 import arc.graphics.*;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;

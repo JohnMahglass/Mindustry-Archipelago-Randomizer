@@ -2,10 +2,7 @@ package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.ItemFlags;
-import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.parts.DataPackage;
-import dev.koifysh.archipelago.parts.NetworkItem;
-import dev.koifysh.archipelago.parts.NetworkPlayer;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ConnectionStatus;
 
@@ -57,27 +54,6 @@ public class APClient extends Client {
         }
     }
 
-    /*
-    @Override
-    public void onPrintJson(APPrint apPrint, String type, int player, NetworkItem item) {
-        switch (type) {
-            case "Chat":
-                randomizer.sendLocalMessage(getPlayerName(apPrint.slot) + ": " + apPrint.message);
-                break;
-            case "Tutorial":
-                randomizer.sendLocalMessage("Now that you are connected, you can use !help to " +
-                        "list commands to run via the server. If your client supports it, you may" +
-                        " have additional local commands you can list with /help. (Commands " +
-                        "support is coming soon.)"); //Message from Tutorial message is null???
-                break;
-            default:
-                if (apPrint.message != null) {
-                    randomizer.sendLocalMessage(apPrint.message);
-                }
-        }
-    }
-
-     */
 
     @Override
     public void onError(Exception ex) {
@@ -148,5 +124,12 @@ public class APClient extends Client {
         }
     }
 
+    public String getLocationName(Long id, String gameName){
+        return dataPackage.getGame(gameName).getLocation(id);
+    }
+
+    public String getItemName(Long id, String itemName){
+        return dataPackage.getGame(itemName).getItem(id);
+    }
 
 }

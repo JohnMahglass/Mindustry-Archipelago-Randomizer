@@ -31,6 +31,7 @@ abstract class TechTreeRandomizer {
                                                Long locationId){
         ApLocation location = new ApLocation(name, content, locationId);
         randomizer.worldState.apLocations.add(location);
+        randomizer.worldState.locations.put(locationId, name);
         return location;
     }
 
@@ -48,6 +49,7 @@ abstract class TechTreeRandomizer {
         ApLocation apContent = new ApLocation(name, content, locationId);
 
         apContent.researchCost = locationResearchCost;
+        randomizer.worldState.locations.put(locationId, name);
         return apContent;
     }
 
