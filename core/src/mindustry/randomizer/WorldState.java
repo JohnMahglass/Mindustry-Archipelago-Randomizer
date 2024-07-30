@@ -83,11 +83,7 @@ public class WorldState {
      * @return True if a check is pending.
      */
     public boolean hasCheckPending(){
-        if (checkPending.isEmpty() || checkPending == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return !checkPending.isEmpty();
     }
 
     /**
