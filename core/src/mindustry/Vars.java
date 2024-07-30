@@ -36,8 +36,6 @@ import mindustry.world.meta.*;
 
 import java.io.*;
 import java.nio.charset.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 

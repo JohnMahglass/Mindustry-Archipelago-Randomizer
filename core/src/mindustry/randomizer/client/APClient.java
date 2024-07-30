@@ -81,12 +81,10 @@ public class APClient extends Client {
 
     @Override
     public void onError(Exception ex) {
-
     }
 
     @Override
     public void onClose(String Reason, int attemptingReconnect) {
-        randomizer.sendLocalMessage("Connection closed due to : " + Reason);
     }
 
     /**
@@ -150,18 +148,5 @@ public class APClient extends Client {
         }
     }
 
-    /**
-     * Get player name from their slot id.
-     * @param slot The slot id of the player.
-     * @return Return the name of the player.
-     */
-    private String getPlayerName(int slot) {
-        String playerName = "";
-        for (NetworkPlayer player : client.getRoomInfo().networkPlayers) {
-            if (player.slot == slot) {
-                playerName = player.name;
-            }
-        }
-        return  playerName;
-    }
+
 }
