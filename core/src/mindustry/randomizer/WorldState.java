@@ -213,6 +213,7 @@ public class WorldState {
         for (Long check : stateArray) {
             if (check.equals(newCheck)) {
                checkExist = true;
+               int i = 2;
             }
         }
         if (!checkExist) {

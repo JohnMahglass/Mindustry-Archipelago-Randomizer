@@ -57,6 +57,7 @@ public class APClient extends Client {
         }
     }
 
+    /*
     @Override
     public void onPrintJson(APPrint apPrint, String type, int player, NetworkItem item) {
         switch (type) {
@@ -75,6 +76,8 @@ public class APClient extends Client {
                 }
         }
     }
+
+     */
 
     @Override
     public void onError(Exception ex) {
@@ -120,6 +123,7 @@ public class APClient extends Client {
         this.getEventManager().registerListener(new ConnectResult(this));
         this.getEventManager().registerListener(new LocationChecked());
         this.getEventManager().registerListener(new ReceiveItem());
+        this.getEventManager().registerListener(new PrintJsonListener());
     }
 
 
