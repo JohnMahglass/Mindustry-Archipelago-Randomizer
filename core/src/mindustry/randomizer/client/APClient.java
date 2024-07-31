@@ -3,6 +3,8 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.ItemFlags;
 import dev.koifysh.archipelago.parts.DataPackage;
+import dev.koifysh.archipelago.parts.NetworkPlayer;
+import dev.koifysh.archipelago.parts.NetworkSlot;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ConnectionStatus;
 
@@ -16,7 +18,7 @@ import static arc.Core.settings;
  * APClient for connecting to Archipelago server.
  *
  * @author John Mahglass
- * @version 1.0.0 2024-06-07
+ * @version 0.0.1 2024-06-07
  */
 public class APClient extends Client {
 
@@ -57,10 +59,12 @@ public class APClient extends Client {
 
     @Override
     public void onError(Exception ex) {
+        randomizer.sendLocalMessage("Client error: " + ex.getMessage());
     }
 
     @Override
     public void onClose(String Reason, int attemptingReconnect) {
+        randomizer.sendLocalMessage("Connection closed.");
     }
 
     /**
@@ -71,7 +75,7 @@ public class APClient extends Client {
             if (address != null && slotName != null) {
                 connect(address);
             }
-        } catch (URISyntaxException e) { //NEED TO LOG ERROR
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -82,6 +86,45 @@ public class APClient extends Client {
 
     public String getAddress() {
         return this.address;
+    }
+
+    public String getLocationName(Long id, String gameName){
+        return dataPackage.getGame(gameName).getLocation(id);
+    }
+
+    public String getItemName(Long id, String gameName){
+        return dataPackage.getGame(gameName).getItem(id);
+    }
+
+    /**
+     * Get player name from their slot id.
+     * @param slot The slot id of the player.
+     * @return Return the name of the player.
+     */
+    public String getPlayerName(int slot) {
+        String playerName = null;
+        for (NetworkPlayer player : getRoomInfo().networkPlayers) {
+            if (player.slot == slot) {
+                playerName = player.name;
+            }
+        }
+        if (playerName == null) {
+            playerName = "NAME ERROR";
+        }
+        return  playerName;
+    }
+
+    public String getPlayerGame(int slot){
+        String playerGame = "";
+
+        NetworkSlot ns = getSlotInfo().get(slot);
+        if (playerGame != null) {
+            playerGame = ns.game;
+        } else {
+            playerGame = "GAME NAME ERROR";
+        }
+
+        return playerGame;
     }
 
 
@@ -122,14 +165,6 @@ public class APClient extends Client {
                 setPassword("");
             }
         }
-    }
-
-    public String getLocationName(Long id, String gameName){
-        return dataPackage.getGame(gameName).getLocation(id);
-    }
-
-    public String getItemName(Long id, String itemName){
-        return dataPackage.getGame(itemName).getItem(id);
     }
 
 }

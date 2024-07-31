@@ -4,6 +4,7 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 import static arc.Core.settings;
 
 import dev.koifysh.archipelago.ClientStatus;
+import dev.koifysh.archipelago.events.PrintJSONEvent;
 import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
@@ -16,14 +17,14 @@ import mindustry.type.Sector;
  * Randomizer for Archipelago multiworld randomizer.
  *
  * @author John Mahglass
- * @version 1.0.0 2024-05-12
+ * @version 0.0.1 2024-05-12
  */
 public class Randomizer {
 
     /**
      * Client for the randomizer.
      */
-    private APClient randomizerClient;
+    public APClient client;
 
     /**
      * Represent the state the APWorld is in.
@@ -68,15 +69,15 @@ public class Randomizer {
         if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET, should use location
             // name instead to find the victory condition
             //Send victory event to AP
-            randomizerClient.setGameState(ClientStatus.CLIENT_GOAL);
+            client.setGameState(ClientStatus.CLIENT_GOAL);
             return;
         }
         boolean success = false;
-        if (randomizerClient.isConnected()) {
+        if (client.isConnected()) {
             //Try to send check to archipelago
-            success = randomizerClient.checkLocation(locationId);
+            success = client.checkLocation(locationId);
         }
-        if (!randomizerClient.isConnected() || !success) {
+        if (!client.isConnected() || !success) {
             //Check could not be send, added to check pending list.
             worldState.addCheck(worldState.checkPending, locationId);
             sendLocalMessage("ERROR: You are not connected, pending checks will be sent when " +
@@ -135,46 +136,6 @@ public class Randomizer {
     }
 
     /**
-     * Return the player's name. If no name is found, name the player "Name not set"
-     * @return The name of the player.
-     */
-    public String getPlayerName() {
-        String name = "";
-        if (randomizerClient.isConnected()){
-            name = randomizerClient.getSlotName();
-        } else {
-            if (!settings.getString("APslotName").isEmpty()) {
-                name = settings.getString("APslotName");
-            } else {
-                name = "Name not set";
-            }
-        }
-        return name;
-    }
-
-    /**
-     * Return the slot number of the player
-     * @return Slot number of the player
-     */
-    public int getPlayerSlot() {
-        int slot;
-        if (randomizerClient.isConnected()){
-            slot = randomizerClient.getSlot();
-        } else {
-            slot = -1; //This needs to be changed.
-        }
-        return slot;
-    }
-
-    /**
-     * Return the client. This method should not be used outside of the Archipelago settings Dialog.
-     * @return The randomizer client.
-     */
-    public APClient getClient() {
-        return this.randomizerClient;
-    }
-
-    /**
      * Return UnlockableContent matching the itemId.
      * @param itemId The itemId of the item.
      * @return The UnlockableContent matching the itemId, or null if no match.
@@ -195,6 +156,23 @@ public class Randomizer {
             }
         }
         return content;
+    }
+
+    public void sendLocalMessageItemSendEvent(PrintJSONEvent event){
+        Long itemId = event.item.itemID;
+        String senderName = client.getPlayerName(event.item.playerID);
+        String senderGameName = client.getPlayerGame(event.item.playerID);
+        String receiverGameName = client.getPlayerGame(event.apPrint.receiving);
+        String itemName = client.getItemName(itemId, receiverGameName);
+        String locationName = client.getLocationName(event.item.locationID, senderGameName);
+
+        if (event.item.playerID == event.apPrint.receiving) { //Item is being received by the sender
+            sendLocalMessage(senderName + " found their " + itemName + "(" + locationName + ")");
+        } else { //The item is being received by someone else than the sender
+            String receiverName = client.getPlayerName(event.apPrint.receiving);
+            sendLocalMessage(senderName + " sent " + receiverName + " their " + itemName + "(" +
+                    locationName + ")");
+        }
     }
 
     /**
@@ -221,8 +199,8 @@ public class Randomizer {
      * @param message The message to be sent.
      */
     public void sendArchipelagoMessage (String message) {
-        if (randomizerClient.isConnected() && !message.isEmpty()) {
-            randomizerClient.sendChatMessage(message);
+        if (!message.isEmpty()) {
+            client.sendChatMessage(message);
         }
     }
 
@@ -297,6 +275,13 @@ public class Randomizer {
         return itemReceived;
     }
 
+    /**
+     * Reset local data related to the randomizer.
+     */
+    public void reset() {
+        worldState.resetWorldState();
+    }
+
 
     public Randomizer(){
         this.hasConnectedPreviously = false;
@@ -304,7 +289,7 @@ public class Randomizer {
             this.hasConnectedPreviously = true;
         }
         this.worldState = new WorldState();
-        this.randomizerClient = new APClient();
+        this.client = new APClient();
         if (hasConnectedPreviously) {
             initialize();
         }
@@ -317,7 +302,7 @@ public class Randomizer {
      * @return Return if the operation was a success.
      */
     private boolean checkPendingLocation (Long id) {
-        return randomizerClient.checkLocation(id);
+        return client.checkLocation(id);
     }
 
     /**
@@ -369,10 +354,4 @@ public class Randomizer {
         }
     }
 
-    /**
-     * Reset local data related to the randomizer.
-     */
-    public void reset() {
-        worldState.resetWorldState();
-    }
 }

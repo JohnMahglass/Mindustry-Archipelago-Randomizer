@@ -1,6 +1,8 @@
 package mindustry.randomizer.ui;
 
 import arc.Core;
+import mindustry.content.TechTree;
+import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
 import mindustry.randomizer.client.APClient;
 import mindustry.randomizer.enums.ConnectionStatus;
@@ -9,8 +11,12 @@ import mindustry.ui.dialogs.BaseDialog;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static arc.Core.settings;
+import static mindustry.Vars.content;
+import static mindustry.Vars.control;
 import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
+import static mindustry.Vars.universe;
 
 /**
  * Dialog for Archipelago settings.
@@ -28,7 +34,7 @@ public class ArchipelagoDialog extends BaseDialog {
 
     public ArchipelagoDialog() {
         super("Archipelago");
-        this.client = randomizer.getClient();
+        this.client = randomizer.client;
         this.newAddress = null;
         this.newSlotName = null;
         this.newPassword = null;
@@ -121,13 +127,17 @@ public class ArchipelagoDialog extends BaseDialog {
 
         cont.row();
         cont.button("Clear data", Icon.trash, () -> {
-            ui.showConfirm("@confirm", "Wipe local data related to Archipelago. It is not " +
-                            "recommended you use this setting unless you have finished playing a " +
-                            "game.",
+            ui.showConfirm("@confirm", "Wipe campaign/research/saves and Archipelago related data" +
+                            " and force exit the program. It is not recommended you use this " +
+                            "setting" + " unless you have finished playing a " + "game.",
                     () -> {
                 disconnectClient();
-                randomizer.reset();
-                reload();
+                randomizer.reset(); //Reset data related to Archipelago
+                clearAllResearch(); //Reset all research
+                control.saves.deleteAll(); //Delete all saves
+                clearAllCampaign(); //Reset the campaign
+                Core.app.exit(); //Force exit to reload game data
+
             });
         }).size(150f, 60f).pad(4f);
     }
@@ -208,4 +218,37 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.clearChildren();
         setup();
     }
+
+    private void clearAllResearch() {
+        universe.clearLoadoutInfo();
+        for(TechTree.TechNode node : TechTree.all){
+            node.reset();
+        }
+        content.each(c -> {
+            if(c instanceof UnlockableContent u){
+                u.clearUnlock();
+            }
+        });
+        settings.remove("unlocks");
+    }
+
+    private void clearAllCampaign() {
+        for(var planet : content.planets()){
+            for(var sec : planet.sectors){
+                sec.clearInfo();
+                if(sec.save != null){
+                    sec.save.delete();
+                    sec.save = null;
+                }
+            }
+        }
+
+        for(var slot : control.saves.getSaveSlots().copy()){
+            if(slot.isSector()){
+                slot.delete();
+            }
+        }
+    }
+
+
 }

@@ -71,7 +71,7 @@ public class Version{
     /** get menu version without colors */
     public static String combined(){
         if(build == -1){
-            return "Archipelago";
+            return "Archipelago v0.0.1";
         }
         return (type.equals("official") ? modifier : type) + " build " + build + (revision == 0 ? "" : "." + revision);
     }
