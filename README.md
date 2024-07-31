@@ -1,4 +1,4 @@
-# Mindustry integration for Archipelago 
+# Mindustry integration for Archipelago (v0.0.1)
 (https://github.com/ArchipelagoMW/Archipelago)
 
  This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
@@ -9,10 +9,11 @@
 
 ## What has been changed?
 
+- Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves.
 - **Randomizer is working for Serpulo's campaign only at the moment.**
 - **Currently, only the "Skip Tutorial" option has been implemented**, you can change the other option in the YAML but they will most likely make the game unstable right now.
 - Most node from the research tree has been replaced with location checks.
-- A "Victory" node has been added, researching this node will inform Archipelago that the player has finished their World. (Campaign clear logic not implemented yet)
+- A "Victory" node has been added, researching this node will inform Archipelago that the player has finished their World. (A placeholder is being used as requirement to unlock this node at the moment)
 - A new menu has been added in Settings to configure Archipelago's settings.
 - You can use the chat to send messages to other client (If they support it).
 - Client and Archipelago commands have not yet been added but are coming soon. In the meantime, please use the text client to use commands.
