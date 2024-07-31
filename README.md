@@ -5,11 +5,11 @@
 
  To generate a World, you will need to add the Mindustry World to your Archipelago folder. You can find the Mindustry World here -> (https://github.com/JohnMahglass/Archipelago-Mindustry)
 
- Please be aware that Linux build has not tested yet.
+ Please be aware that Linux build has not been tested yet.
 
 ## What has been changed?
 
-- Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves.
+- Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)
 - **Randomizer is working for Serpulo's campaign only at the moment.**
 - **Currently, only the "Skip Tutorial" option has been implemented**, you can change the other option in the YAML but they will most likely make the game unstable right now.
 - Most node from the research tree has been replaced with location checks.

@@ -1,7 +1,7 @@
 package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.Client;
-import dev.koifysh.archipelago.ItemFlags;
+import dev.koifysh.archipelago.flags.ItemsHandling;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkPlayer;
 import dev.koifysh.archipelago.parts.NetworkSlot;
@@ -18,7 +18,6 @@ import static arc.Core.settings;
  * APClient for connecting to Archipelago server.
  *
  * @author John Mahglass
- * @version 0.0.1 2024-06-07
  */
 public class APClient extends Client {
 
@@ -132,7 +131,7 @@ public class APClient extends Client {
         super();
         this.loadInfo();
         this.setGame("Mindustry");
-        this.setItemsHandlingFlags(ItemFlags.SEND_ITEMS + ItemFlags.SEND_OWN_ITEMS);
+        this.setItemsHandlingFlags(ItemsHandling.SEND_ITEMS + ItemsHandling.SEND_OWN_ITEMS);
         this.setName(getSlotName());
         this.connectionStatus = ConnectionStatus.NotConnected;
         this.dataPackage = getDataPackage();

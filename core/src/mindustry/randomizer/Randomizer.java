@@ -158,6 +158,7 @@ public class Randomizer {
         return content;
     }
 
+    @Deprecated
     public void sendLocalMessageItemSendEvent(PrintJSONEvent event){
         Long itemId = event.item.itemID;
         String senderName = client.getPlayerName(event.item.playerID);
@@ -189,7 +190,7 @@ public class Randomizer {
      * @param message The message to be sent.
      */
     public void sendLocalMessage (String message) {
-        if (Vars.ui.chatfrag != null && Vars.ui.hudfrag != null) {
+        if (Vars.ui.chatfrag != null) {
             Vars.ui.chatfrag.addLocalMessage(message);
         }
     }
