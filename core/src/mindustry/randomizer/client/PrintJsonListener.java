@@ -20,22 +20,30 @@ public class PrintJsonListener {
         if (event.type.equals(APPrintJsonType.Chat)) {
             randomizer.sendLocalMessage(getPlayerName(event.apPrint.slot) + ": " + event.apPrint.message);
         } else if (event.type.equals(APPrintJsonType.ItemSend)) {
-             if (event.player == randomizer.getPlayerSlot()) { //The player send an item
-                 if (event.player == event.apPrint.receiving) {// Player is sending an item to themself
-                     randomizer.sendLocalMessage(getPlayerName(event.player) + " found their " +
+             if (event.item.playerID == randomizer.getPlayerSlot()) { //The player send an item
+                 if (event.item.playerID == event.apPrint.receiving) {// Player is sending an item to themself
+                     randomizer.sendLocalMessage(getPlayerName(event.item.playerID) + " found their " +
                              randomizer.getClient().getItemName(event.apPrint.item.itemID, getPlayerGame(event.player)) +
                              "(" + randomizer.getClient().getLocationName(event.item.locationID, getPlayerGame(event.player)) +
                              ")");
                  } else { //Player is sending an item to someone else.
-                     randomizer.sendLocalMessage(getPlayerName(event.player) + " found  "
+                     randomizer.sendLocalMessage(getPlayerName(event.item.playerID) + " sent  "
                              + getPlayerName(event.apPrint.receiving) + " " + randomizer.getClient().getItemName(event.apPrint.item.itemID, getPlayerGame(event.apPrint.receiving)) +
                              "(" + randomizer.getClient().getLocationName(event.item.locationID,
                              getPlayerGame(event.apPrint.receiving)) + ")");
                  }
-             } else { //Item is being sent by another player to another player
-                 randomizer.sendLocalMessage(getPlayerName(event.player) + " found " + getPlayerName(event.apPrint.receiving) +
-                 " " + randomizer.getClient().getItemName(event.apPrint.item.itemID,
-                         getPlayerGame(event.apPrint.receiving)) + "(" + randomizer.getClient().getLocationName(event.item.locationID, getPlayerGame(event.apPrint.receiving)) + ")");
+             } else {
+                 if (event.item.playerID == event.apPrint.receiving) {
+                     //Item is being sent by another player to themself
+                     randomizer.sendLocalMessage(getPlayerName(event.item.playerID) + " found their " + randomizer.getClient().getItemName(event.apPrint.item.itemID, getPlayerGame(event.player)) +
+                             "(" + randomizer.getClient().getLocationName(event.item.locationID, getPlayerGame(event.player)) +
+                             ")");
+                 } else {//Item is being sent by another player to another player
+                     randomizer.sendLocalMessage(getPlayerName(event.item.playerID) + " sent " + getPlayerName(event.apPrint.receiving) +
+                             " " + randomizer.getClient().getItemName(event.apPrint.item.itemID,
+                             getPlayerGame(event.apPrint.receiving)) + "(" + randomizer.getClient().getLocationName(event.item.locationID, getPlayerGame(event.apPrint.receiving)) + ")");
+                 }
+
              }
         } else if (event.type.equals(APPrintJsonType.Join) && event.player != randomizer.getClient().getSlot()) {
             randomizer.sendLocalMessage(getPlayerName(event.apPrint.slot) +
