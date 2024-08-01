@@ -307,6 +307,9 @@ public class APChatFragment extends Table {
             case "status":
                 executeStatusCommand(commandParts);
                 break;
+            case "options":
+                executeOptionsCommand(commandParts);
+                break;
             case "help":
                 listAvailableCommands();
                 break;
@@ -314,6 +317,61 @@ public class APChatFragment extends Table {
                 addLocalMessage("Unknown command. Use '/help' for command usage.");
                 break;
         }
+    }
+
+    private void executeOptionsCommand(String[] commandParts) {
+        if (commandParts.length > 1) {
+            tooManyArgumentMessage();
+            return;
+        }
+        if (randomizer.worldState.options.getOptionsFilled()) {
+            addLocalMessage("Options:\n" +
+                            "   Selected campaign: " + getCampaignName() + "\n" +
+                            "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
+                            "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
+                            "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
+                            "   Death link: " + getDeathLinkActivationStatus(randomizer.worldState.options.getDeathLink()));
+        } else {
+            addLocalMessage("You must connect to a game once to view .yaml options.");
+        }
+    }
+
+    /**
+     * Return if the death link option was activated and if it was overridden by local client rule.
+     * @param deathLink The state of the death link option.
+     * @return Return if the death link option has been activated and if it is being overridden.
+     */
+    private String getDeathLinkActivationStatus(boolean deathLink) {
+        //TEMPORARY SINCE OVERRIDE NOT IMPLEMENTED
+        return getActivationStatus(deathLink);
+    }
+
+    /**
+     * Return if the option was activated.
+     * @param status The status of the option
+     * @return Return the status of the option.
+     */
+    private String getActivationStatus(boolean status) {
+        return status ? "Activated" : "Deactivated";
+    }
+
+    /**
+     * Return the selected campaign name.
+     * @return The campaign name.
+     */
+    private String getCampaignName() {
+        String name;
+        int campaign = randomizer.worldState.options.getCampaignChoice();
+        if (campaign == 0) { //Serpulo
+            name = "Serpulo";
+        } else if (campaign == 1) { //Erekir
+            name = "Erekir";
+        } else if (campaign == 2) { //All
+            name = "Serpulo and Erekir";
+        } else {
+            name = "Campaign name error";
+        }
+        return name;
     }
 
     /**
@@ -399,6 +457,9 @@ public class APChatFragment extends Table {
                         List available commands. (what you are doing right now)
                   /status
                         Display connection status.
+                  /options
+                        Display selected options for game generation.
+                        You need to have connected once to be able to view selected options
                   /connect
                         Connect using the information provided in
                         Settings -> Archipelago
