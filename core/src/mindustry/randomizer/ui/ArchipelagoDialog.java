@@ -89,21 +89,18 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.row();
         cont.button("Apply changes", () -> {
             if (newAddress != null) {
-                disconnectClient();
+                client.disconnect();
                 client.setAddress(newAddress);
-                Core.settings.put("APaddress", newAddress);
                 settingChanged = true;
             }
             if (newSlotName != null) {
-                disconnectClient();
+                client.disconnect();
                 client.setSlotName(newSlotName);
-                Core.settings.put("APslotName", newSlotName);
                 settingChanged = true;
             }
             if (newPassword != null) {
-                disconnectClient();
+                client.disconnect();
                 client.setPassword(newPassword);
-                Core.settings.put("APpassword", newPassword);
                 settingChanged = true;
             }
             if (settingChanged) {
@@ -115,13 +112,13 @@ public class ArchipelagoDialog extends BaseDialog {
 
         cont.row();
         cont.button("Connect", () -> {
-            disconnectClient();
+            client.disconnect();
             client.connectRandomizer();
             timer.schedule(task, 1500);
             reload();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {
-            disconnectClient();
+            client.disconnect();
             reload();
         }).size(140f, 60f).pad(4f);
 
@@ -131,7 +128,7 @@ public class ArchipelagoDialog extends BaseDialog {
                             " and force exit the program. It is not recommended you use this " +
                             "setting" + " unless you have finished playing a " + "game.",
                     () -> {
-                disconnectClient();
+                client.disconnect();
                 randomizer.reset(); //Reset data related to Archipelago
                 clearAllResearch(); //Reset all research
                 control.saves.deleteAll(); //Delete all saves
@@ -140,16 +137,7 @@ public class ArchipelagoDialog extends BaseDialog {
 
             });
         }).size(150f, 60f).pad(4f);
-    }
-
-    /**
-     * Disconnect the client from the current session.
-     */
-    private void disconnectClient() {
-        if (client.isConnected()) {
-            client.disconnect();
-            client.connectionStatus = ConnectionStatus.NotConnected;
-        }
+        cont.button("Refresh status", Icon.refreshSmall, this::reload).size(140f, 60f).pad(4f);;
     }
 
     /**
@@ -209,6 +197,13 @@ public class ArchipelagoDialog extends BaseDialog {
         }
 
         return obfuscatedString;
+    }
+
+    /**
+     * Force the menu to reload. Should only be called before opening the menu.
+     */
+    public void forceReload() {
+        reload();
     }
 
     /**

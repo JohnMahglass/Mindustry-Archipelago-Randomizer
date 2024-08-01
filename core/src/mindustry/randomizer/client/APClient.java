@@ -31,14 +31,30 @@ public class APClient extends Client {
 
     private String address;
 
+    /**
+     * Temporary to fix the onClose twice bug.
+     */
+    public boolean onCloseTriggered;
+
 
     public String getSlotName() {
         return slotName;
     }
 
     public void setSlotName(String slotName) {
-        this.slotName = slotName;
-        setName(slotName);
+        if (slotName != null) {
+            this.slotName = slotName;
+            setName(slotName);
+            settings.put("APslotName", slotName);
+        }
+    }
+
+    @Override
+    public void setPassword(String password){
+        if (password != null) {
+            super.setPassword(password);
+            settings.put("APpassword", password);
+        }
     }
 
     /**
@@ -46,12 +62,12 @@ public class APClient extends Client {
      * @param message The message to be sent
      */
     public void sendChatMessage(String message) {
-        if (isConnected()) {
-            if (Vars.ui.chatfrag != null) {
+        if (Vars.ui.chatfrag != null) {
+            if (isConnected() && connectionStatus.equals(ConnectionStatus.Success)) {
                 sendChat(message);
+            } else {
+                randomizer.sendLocalMessage("ERROR: You are not connected, message cannot be sent.");
             }
-        } else {
-            randomizer.sendLocalMessage("ERROR: You are not connected, message cannot be sent.");
         }
     }
 
@@ -62,25 +78,43 @@ public class APClient extends Client {
     }
 
     @Override
-    public void onClose(String Reason, int attemptingReconnect) {
-        randomizer.sendLocalMessage("Connection closed.");
+    public void onClose(String Reason, int attemptingReconnect) { //onClose is triggering twice?
+        if (!onCloseTriggered) { //Temporary
+            randomizer.sendLocalMessage("Disconnected / Connection lost. Offline checks will be " +
+                    "saved and sent when connecting to the game again.");
+        }
+        onCloseTriggered = true;
     }
 
     /**
      * Attempt to connect to Archipelago using the information provided by the user.
      */
     public void connectRandomizer() {
-        try {
-            if (address != null && slotName != null) {
-                connect(address);
+        if (!isConnected()) {
+            try {
+                if (address != null && slotName != null) {
+                    connect(address);
+                }
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
             }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void disconnect(){
+        if (isConnected()) {
+            super.disconnect();
+            connectionStatus = ConnectionStatus.NotConnected;
         }
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        if (address != null) {
+            this.address = address;
+            settings.put("APaddress", address);
+        }
+
     }
 
     public String getAddress() {
@@ -140,6 +174,8 @@ public class APClient extends Client {
         this.getEventManager().registerListener(new LocationChecked());
         this.getEventManager().registerListener(new ReceiveItem());
         this.getEventManager().registerListener(new PrintJsonListener());
+
+        this.onCloseTriggered = false; //Temporary
     }
 
 

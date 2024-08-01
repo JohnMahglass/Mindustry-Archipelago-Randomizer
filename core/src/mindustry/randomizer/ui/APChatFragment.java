@@ -270,14 +270,152 @@ public class APChatFragment extends Table {
      * @param message The message to be verified.
      */
     public void addMessage(String message){
-        boolean isCommand = false;
+        boolean isCommand = isCommand(message);
         if (isCommand) {
-            //Detect if this is an AP command or client command.
-
-            //Handle command
+            executeCommand(message);
         } else {
             randomizer.sendArchipelagoMessage(message);
         }
+    }
+
+    /**
+     * Execute a command sent by the player
+     * @param message The message containing the command.
+     */
+    private void executeCommand(String message) {
+        String command = message;
+        command = command.substring(1); //Remove the '/'
+        String[] commandParts = command.split(" ");
+        command = commandParts[0];
+        command = command.toLowerCase();
+        boolean connectionOpen = randomizer.client.isConnected();
+        switch (command) {
+            case "connect":
+                if (!connectionOpen) {
+                    executeConnectCommand(commandParts);
+                } else {
+                    addLocalMessage("You are already connected.");
+                }
+                break;
+            case "disconnect":
+                if (connectionOpen) {
+                    executeDisconnectCommand(commandParts);
+                } else {
+                    addLocalMessage("You are not connected to any game.");
+                }
+                break;
+            case "status":
+                executeStatusCommand(commandParts);
+                break;
+            case "help":
+                listAvailableCommands();
+                break;
+            default:
+                addLocalMessage("Unknown command. Use '/help' for command usage.");
+                break;
+        }
+    }
+
+    /**
+     * Execute the status command.
+     * @param commandParts The command and its argument split into parts.
+     */
+    private void executeStatusCommand(String[] commandParts) {
+        if (commandParts.length > 1) { //Wrong number of argument for status command.
+            tooManyArgumentMessage();
+            return;
+        }
+        String status;
+        switch (randomizer.client.connectionStatus) {
+            case Success:
+                status = "Connected";
+                break;
+            case NotConnected:
+                status = "Not connected";
+                break;
+            case InvalidSlot:
+                status = "Invalid slot name";
+                break;
+            case InvalidPassword:
+                status = "Invalid password";
+                break;
+            case SlotAlreadyTaken:
+                status = "Slot already taken";
+                break;
+            case IncompatibleVersion:
+                status = "Incompatible version";
+                break;
+            default:
+                status = "Error";
+                break;
+        }
+        addLocalMessage("Connection status: " + status);
+    }
+
+    /**
+     * Disconnect the player from the server.
+     * @param commandParts The command and its arguments split into parts.
+     */
+    private void executeDisconnectCommand(String[] commandParts) {
+        if (commandParts.length > 1) { //Wrong number of argument for disconnect command.
+            tooManyArgumentMessage();
+            return;
+        }
+        randomizer.client.disconnect();
+    }
+
+    /**
+     * Connect the player to the AP server. Change connection settings if there are argument.
+     * @param commandParts The commands and its arguments split into parts.
+     */
+    private void executeConnectCommand(String[] commandParts) {
+        if (commandParts.length > 3) { //Wrong number of argument for connect command.
+            tooManyArgumentMessage();
+            return;
+        }
+        if (commandParts.length > 1) {
+            randomizer.client.setAddress(commandParts[1]);
+        }
+        if (commandParts.length > 2) {
+            randomizer.client.setSlotName(commandParts[2]);
+        }
+        randomizer.client.connectRandomizer();
+    }
+
+    /**
+     * Inform the player that they used too many argument for their command.
+     */
+    private void tooManyArgumentMessage() {
+        addLocalMessage("Too many argument. Use '/help' for command usage.");
+    }
+
+    /**
+     * List in the player's chat all available commands for the client.
+     */
+    private void listAvailableCommands() {
+        addLocalMessage("""
+                Available commands:
+                  /help
+                        List available commands. (what you are doing right now)
+                  /status
+                        Display connection status.
+                  /connect
+                        Connect using the information provided in
+                        Settings -> Archipelago
+                  /connect [Adress] [Slot Name]
+                        Connect using the information provided in argument.
+                        (Password not available to prevent displaying password)
+                  /disconnect
+                        Disconnect from AP""");
+    }
+
+    /**
+     * Return if the player's message is a client command.
+     * @param message The player's message.
+     * @return True if the message is a command.
+     */
+    private boolean isCommand(String message) {
+        return message.startsWith("/");
     }
 
     /**

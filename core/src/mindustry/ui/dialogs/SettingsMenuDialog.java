@@ -286,7 +286,10 @@ public class SettingsMenuDialog extends BaseDialog{
         }
 
         menu.button("@settings.data", Icon.save, style, isize, () -> dataDialog.show()).marginLeft(marg).row();
-        menu.button("Archipelago", Icon.eye, style, isize, ui.archipelago::show).marginLeft(marg).row();
+        menu.button("Archipelago", Icon.eye, style, isize, () -> {
+            ui.archipelago.forceReload();
+            ui.archipelago.show();
+        }).marginLeft(marg).row();
 
         int i = 3;
         for(var cat : categories){
