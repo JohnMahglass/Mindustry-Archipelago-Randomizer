@@ -13,6 +13,12 @@ import mindustry.type.ItemStack;
  */
 public abstract class LocationResearchCost {
 
+    /**
+     * Require copper has a research cost. This method is intended as a quick way to put a
+     * requirement on a node and probably should not be used seriously.
+     * @param copperAmount Amount of copper required.
+     * @return Return an ItemStack containing the required amount of copper.
+     */
     public static ItemStack[] reqCopper(int copperAmount){
         ItemStack[] totalResearchCost = new ItemStack[1];
         totalResearchCost[0] = new ItemStack(Items.copper, copperAmount);
@@ -124,6 +130,10 @@ public abstract class LocationResearchCost {
         return totalResearchCost;
     }
 
+    /**
+     * Requirement for unlocking the Victory node.
+     * @return The requirement for the Victory node
+     */
     public static ItemStack[] reqVictory() {
         ItemStack[] totalResearchCost = new ItemStack[16];
 
@@ -145,7 +155,6 @@ public abstract class LocationResearchCost {
         totalResearchCost[13] = new ItemStack(Items.plastanium, amountRequired);
         totalResearchCost[14] = new ItemStack(Items.phaseFabric, amountRequired);
         totalResearchCost[15] = new ItemStack(Items.surgeAlloy, amountRequired);
-
 
         return totalResearchCost;
     }

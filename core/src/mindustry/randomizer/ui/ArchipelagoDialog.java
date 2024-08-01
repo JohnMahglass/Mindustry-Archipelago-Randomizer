@@ -26,10 +26,30 @@ import static mindustry.Vars.universe;
  */
 public class ArchipelagoDialog extends BaseDialog {
     private APClient client;
+
+    /**
+     * New adress when the user is updating the adress.
+     */
     private String newAddress;
+
+    /**
+     * New slot name when the user is updating the slot name.
+     */
     private String newSlotName;
+
+    /**
+     * New password when the user is updating the password.
+     */
     private String newPassword;
+
+    /**
+     * Set to true when a setting has been changed.
+     */
     private boolean settingChanged;
+
+    /**
+     * Status to be displayed in the Dialog.
+     */
     private ConnectionStatus displayedStatus;
 
     public ArchipelagoDialog() {
@@ -149,6 +169,10 @@ public class ArchipelagoDialog extends BaseDialog {
         }
     }
 
+    /**
+     * Return in text format the status of the connection.
+     * @return The status of the connection.
+     */
     private String getConnectionStatus() {
         String status;
         switch (client.connectionStatus) {
@@ -214,6 +238,9 @@ public class ArchipelagoDialog extends BaseDialog {
         setup();
     }
 
+    /**
+     * Clear all research.
+     */
     private void clearAllResearch() {
         universe.clearLoadoutInfo();
         for(TechTree.TechNode node : TechTree.all){
@@ -227,6 +254,9 @@ public class ArchipelagoDialog extends BaseDialog {
         settings.remove("unlocks");
     }
 
+    /**
+     * Clear the campaign.
+     */
     private void clearAllCampaign() {
         for(var planet : content.planets()){
             for(var sec : planet.sectors){

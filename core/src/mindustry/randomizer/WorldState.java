@@ -93,6 +93,9 @@ public class WorldState {
         saveState(checkPendingFile, checkPending);
     }
 
+    /**
+     * Reset all local data related to the world state.
+     */
     protected void resetWorldState() {
         wipeStates();
         settings.remove("APhasConnected");
@@ -205,8 +208,8 @@ public class WorldState {
     /**
      * Add a check to an array. Note that the state should be saved after using this method by
      * calling saveState().
-     * @param stateArray
-     * @param newCheck
+     * @param stateArray The array to store the check
+     * @param newCheck The id of the check
      */
     protected void addCheck(ArrayList<Long> stateArray, Long newCheck){
         boolean checkExist = false;
@@ -223,6 +226,11 @@ public class WorldState {
         }
     }
 
+    /**
+     * Return if the item is a progressive item.
+     * @param itemId The item's id.
+     * @return Return true if the item is progressive.
+     */
     protected boolean isProgressive(Long itemId) {
         boolean progressive = false;
         for (ProgressiveItem item : progressiveItems) {
