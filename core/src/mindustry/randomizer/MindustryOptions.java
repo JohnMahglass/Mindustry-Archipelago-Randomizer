@@ -1,6 +1,14 @@
 package mindustry.randomizer;
 
+import mindustry.content.Blocks;
+import mindustry.content.Items;
+import mindustry.content.SectorPresets;
 import mindustry.randomizer.client.SlotData;
+import mindustry.type.ItemStack;
+import mindustry.world.blocks.production.Drill;
+import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.Pump;
+import mindustry.world.blocks.production.Separator;
 
 import static arc.Core.settings;
 import static mindustry.Vars.randomizer;
@@ -29,16 +37,6 @@ public class MindustryOptions {
     private int campaignChoice;
 
     /**
-     * Indicate how should sector behave.
-     */
-    private int sectorBehavior;
-
-    /**
-     * Indicate how should ressource behave.
-     */
-    private int ressourceBehavior;
-
-    /**
      * If death link is activated
      */
     private boolean deathLink;
@@ -48,6 +46,11 @@ public class MindustryOptions {
      */
     private boolean disableInvasions;
 
+    /**
+     * Increase the rate at which resource are harvested and increase production output.
+     */
+    private boolean fasterProduction;
+
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
     }
@@ -56,8 +59,16 @@ public class MindustryOptions {
         return this.disableInvasions;
     }
 
+    public boolean getFasterProduction() {
+        return this.fasterProduction;
+    }
+
     public boolean getDeathLink() {
         return this.deathLink;
+    }
+
+    public int getCampaignChoice() {
+        return this.campaignChoice;
     }
 
     public boolean getOptionsFilled() {
@@ -70,17 +81,6 @@ public class MindustryOptions {
         return filled;
     }
 
-    public int getRessourceBehavior() {
-        return this.ressourceBehavior;
-    }
-
-    public int getSectorBehavior() {
-        return this.sectorBehavior;
-    }
-
-    public int getCampaignChoice() {
-        return this.campaignChoice;
-    }
 
     /**
      * Fill the options with the options received from AP
@@ -91,8 +91,7 @@ public class MindustryOptions {
             this.deathLink = slotData.getDeathlink();
             this.tutorialSkip = slotData.getTutorialSkip();
             this.disableInvasions = slotData.getDisableInvasions();
-            this.sectorBehavior = slotData.getSectorBehavior();
-            this.ressourceBehavior = slotData.getRessourceBehavior();
+            this.fasterProduction = slotData.getFasterProduction();
             this.campaignChoice = slotData.getCampaignChoice();
 
             this.optionsFilled = true;
@@ -107,7 +106,15 @@ public class MindustryOptions {
                     settings.put("APfreeLaunchSerpulo", true);
                     settings.put("APfreeLaunchErekir", true);
                 }
-
+            }
+            if (fasterProduction) {
+                settings.put("APfasterProduction", true);
+            }
+            if (disableInvasions) {
+                settings.put("APdisableInvasion", true);
+            }
+            if (deathLink) {
+                settings.put("APdeathLink", true);
             }
         }
     }
@@ -126,10 +133,96 @@ public class MindustryOptions {
             this.tutorialSkip = false;
             this.campaignChoice = -1;
             this.disableInvasions = false;
-            this.ressourceBehavior = 0;
-            this.sectorBehavior = 0;
+            this.fasterProduction = false;
             this.deathLink = false;
         }
+    }
+
+    /**
+     * Unlock Serpulo's tutorial research and unlock Frozen Forest.
+     */
+    protected static void unlockSerpuloTutorialItems() {
+        Blocks.conveyor.quietUnlock();
+        Blocks.duo.quietUnlock();
+        Blocks.scatter.quietUnlock();
+        Blocks.mechanicalDrill.quietUnlock();
+        Blocks.copperWall.quietUnlock();
+        SectorPresets.groundZero.quietUnlock();
+        SectorPresets.frozenForest.quietUnlock();
+        SectorPresets.frozenForest.alwaysUnlocked = true;
+    }
+
+    /**
+     * Unlock Erekir's tutorial research and unlock Aegis.
+     */
+    protected static void unlockErekirTutorialItems() {
+        //Method not implemented
+    }
+
+    protected static void applyFasterProduction(int campaign){
+        if (campaign == 0) { //Serpulo
+            applySerpuloFasterProduction();
+        } else if (campaign == 1) { //Erekir
+            applyErekirFasterProduction();
+        } else if (campaign == 2) { //All
+            applySerpuloFasterProduction();
+            applyErekirFasterProduction();
+        }
+    }
+
+    private static void applyErekirFasterProduction() {
+    }
+
+    private static void applySerpuloFasterProduction() {
+        doubleOutputItem(((GenericCrafter) Blocks.graphitePress));
+        doubleOutputItem(((GenericCrafter) Blocks.multiPress));
+        doubleOutputItem(((GenericCrafter) Blocks.siliconSmelter));
+        doubleOutputItem(((GenericCrafter) Blocks.siliconCrucible));
+        doubleOutputItem(((GenericCrafter) Blocks.kiln));
+        doubleOutputItem(((GenericCrafter) Blocks.plastaniumCompressor));
+        doubleOutputItem(((GenericCrafter) Blocks.phaseWeaver));
+        doubleOutputItem(((GenericCrafter) Blocks.surgeSmelter));
+        doubleOutputLiquid(((GenericCrafter) Blocks.cryofluidMixer));
+        doubleOutputItem(((GenericCrafter) Blocks.pyratiteMixer));
+        doubleOutputItem(((GenericCrafter) Blocks.blastMixer));
+        doubleOutputLiquid(((GenericCrafter) Blocks.melter));
+        doubleSeparatorOutput(((Separator) Blocks.separator));
+        doubleSeparatorOutput(((Separator) Blocks.disassembler));
+        doubleOutputLiquid(((GenericCrafter) Blocks.sporePress));
+        doubleOutputItem(((GenericCrafter) Blocks.pulverizer));
+        doubleOutputItem(((GenericCrafter) Blocks.coalCentrifuge));
+        doublePumpAmount(((Pump) Blocks.mechanicalPump));
+        doublePumpAmount(((Pump) Blocks.rotaryPump));
+        doublePumpAmount(((Pump) Blocks.impulsePump));
+        halfDrillTime(((Drill) Blocks.mechanicalDrill));
+        halfDrillTime(((Drill) Blocks.pneumaticDrill));
+        halfDrillTime(((Drill) Blocks.laserDrill));
+        halfDrillTime(((Drill) Blocks.blastDrill));
+        doublePumpAmount(((Pump) Blocks.waterExtractor));
+        doublePumpAmount(((Pump) Blocks.oilExtractor));
+        doubleOutputItem(((GenericCrafter) Blocks.cultivator));
+    }
+
+    private static void halfDrillTime(Drill drill) {
+        drill.drillTime = drill.drillTime / 2;
+    }
+
+    private static void doubleOutputItem(GenericCrafter crafter){
+        crafter.outputItem.amount = crafter.outputItem.amount * 2;
+    }
+
+    private static void doubleOutputLiquid(GenericCrafter crafter){
+        crafter.outputLiquid.amount = crafter.outputLiquid.amount * 2;
+    }
+
+    private static void doubleSeparatorOutput(Separator separator){
+        for (int i = 0; i < separator.results.length; i++) {
+            separator.results[i].amount = separator.results[i]. amount * 2;
+        }
+    }
+
+    private static void doublePumpAmount(Pump pump){
+        pump.pumpAmount = pump.pumpAmount * 2;
     }
 
 
@@ -140,8 +233,7 @@ public class MindustryOptions {
         settings.put("APdeathLink", getDeathLink());
         settings.put("APtutorialSkip", getTutorialSkip());
         settings.put("APdisableInvasions", getDisableInvasion());
-        settings.put("APsectorBehavior", getSectorBehavior());
-        settings.put("APressourceBehavior", getRessourceBehavior());
+        settings.put("APfasterProduction", getFasterProduction());
         settings.put("APcampaignChoice", getCampaignChoice());
     }
 
@@ -152,8 +244,7 @@ public class MindustryOptions {
         this.deathLink = settings.getBool("APdeathLink");
         this.tutorialSkip = settings.getBool("APtutorialSkip");
         this.disableInvasions = settings.getBool("APdisableInvasions");
-        this.sectorBehavior = settings.getInt("APsectorBehavior");
-        this.ressourceBehavior = settings.getInt("APressourceBehavior");
+        this.fasterProduction = settings.getBool("APfasterProduction");
         this.campaignChoice = settings.getInt("APcampaignChoice");
         this.optionsFilled = true;
     }

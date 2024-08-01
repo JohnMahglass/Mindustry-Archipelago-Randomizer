@@ -102,8 +102,7 @@ public class WorldState {
         settings.remove("APdeathLink");
         settings.remove("APtutorialSkip");
         settings.remove("APdisableInvasions");
-        settings.remove("APsectorBehavior");
-        settings.remove("APressourceBehavior");
+        settings.remove("APfasterProduction");
         settings.remove("APcampaignChoice");
         settings.remove("APaddress");
         settings.remove("APslotName");

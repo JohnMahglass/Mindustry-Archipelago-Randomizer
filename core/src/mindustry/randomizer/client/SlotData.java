@@ -16,14 +16,11 @@ public class SlotData {
     @SerializedName("campaign_choice")
     private int campaignChoice = 0;
 
-    @SerializedName("sector_behavior")
-    private int sectorBehavior = 0;
-
-    @SerializedName("ressource_behavior")
-    private int ressourceBehavior = 0;
-
     @SerializedName("disable_invasions")
     private boolean disableInvasions = false;
+
+    @SerializedName("faster_production")
+    private boolean fasterProduction = false;
 
     @SerializedName("death_link")
     private boolean deathLink = false;
@@ -37,12 +34,8 @@ public class SlotData {
         return campaignChoice;
     }
 
-    public int getSectorBehavior() {
-        return sectorBehavior;
-    }
-
-    public int getRessourceBehavior() {
-        return ressourceBehavior;
+    public boolean getFasterProduction() {
+        return fasterProduction;
     }
 
     public boolean getDisableInvasions() {

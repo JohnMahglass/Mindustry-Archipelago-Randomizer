@@ -6,8 +6,6 @@ import static arc.Core.settings;
 import dev.koifysh.archipelago.ClientStatus;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
 import mindustry.Vars;
-import mindustry.content.Blocks;
-import mindustry.content.SectorPresets;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 import mindustry.type.Sector;
@@ -183,6 +181,7 @@ public class Randomizer {
         if (worldState.options != null) {
             applyOptions();
         }
+        int test = 1;
     }
 
     /**
@@ -294,6 +293,7 @@ public class Randomizer {
         if (hasConnectedPreviously) {
             initialize();
         }
+        int test =1 ;
     }
 
 
@@ -306,44 +306,38 @@ public class Randomizer {
         return client.checkLocation(id);
     }
 
-    /**
-     * Unlock Serpulo's tutorial research and unlock Frozen Forest.
-     */
-    private static void unlockSerpuloTutorialItems() {
-        Blocks.conveyor.quietUnlock();
-        Blocks.duo.quietUnlock();
-        Blocks.scatter.quietUnlock();
-        Blocks.mechanicalDrill.quietUnlock();
-        Blocks.copperWall.quietUnlock();
-        SectorPresets.groundZero.quietUnlock();
-        SectorPresets.frozenForest.quietUnlock();
-        SectorPresets.frozenForest.alwaysUnlocked = true;
-    }
+
 
     /**
      * Apply options.
      */
     private void applyOptions() {
-        if (worldState.options.getOptionsFilled()) {
+        MindustryOptions options = worldState.options;
+        if (options.getOptionsFilled()) {
             worldState.items.clear();
-            switch (worldState.options.getCampaignChoice()) {
+
+            if (options.getFasterProduction()) {
+                MindustryOptions.applyFasterProduction(options.getCampaignChoice());
+            }
+
+            switch (options.getCampaignChoice()) {
                 case 0: //Serpulo
                     worldState.initializeSerpuloItems();
-                    if (worldState.options.getTutorialSkip()) {
-                        unlockSerpuloTutorialItems();
+                    if (options.getTutorialSkip()) {
+                        MindustryOptions.unlockSerpuloTutorialItems();
                     }
                     break;
                 case 1: //Erekir
                     worldState.initializeErekirItems();
-                    if (worldState.options.getTutorialSkip()) {
-                        //Unlock Erekir tutorial items
+                    if (options.getTutorialSkip()) {
+                        MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
                 case 2: //All
                     worldState.initializeAllItems();
-                    if (worldState.options.getTutorialSkip()) {
-                        unlockSerpuloTutorialItems();
-                        //Unlock Erekir tutorial items
+                    if (options.getTutorialSkip()) {
+                        MindustryOptions.unlockSerpuloTutorialItems();
+                        MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
                 default:
