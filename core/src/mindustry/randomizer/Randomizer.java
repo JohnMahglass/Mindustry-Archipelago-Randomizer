@@ -181,7 +181,6 @@ public class Randomizer {
         if (worldState.options != null) {
             applyOptions();
         }
-        int test = 1;
     }
 
     /**
@@ -293,7 +292,6 @@ public class Randomizer {
         if (hasConnectedPreviously) {
             initialize();
         }
-        int test =1 ;
     }
 
 
@@ -318,6 +316,9 @@ public class Randomizer {
 
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaignChoice());
+            }
+            if (options.getDisableInvasions()) {
+                MindustryOptions.disableInvasions();
             }
 
             switch (options.getCampaignChoice()) {

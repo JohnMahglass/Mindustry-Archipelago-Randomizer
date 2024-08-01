@@ -1,10 +1,9 @@
 package mindustry.randomizer;
 
 import mindustry.content.Blocks;
-import mindustry.content.Items;
+import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
 import mindustry.randomizer.client.SlotData;
-import mindustry.type.ItemStack;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Pump;
@@ -42,7 +41,7 @@ public class MindustryOptions {
     private boolean deathLink;
 
     /**
-     * Disable invasion.
+     * Disable invasions.
      */
     private boolean disableInvasions;
 
@@ -55,7 +54,7 @@ public class MindustryOptions {
         return this.tutorialSkip;
     }
 
-    public boolean getDisableInvasion() {
+    public boolean getDisableInvasions() {
         return this.disableInvasions;
     }
 
@@ -111,7 +110,7 @@ public class MindustryOptions {
                 settings.put("APfasterProduction", true);
             }
             if (disableInvasions) {
-                settings.put("APdisableInvasion", true);
+                settings.put("APdisableInvasions", true);
             }
             if (deathLink) {
                 settings.put("APdeathLink", true);
@@ -136,6 +135,13 @@ public class MindustryOptions {
             this.fasterProduction = false;
             this.deathLink = false;
         }
+    }
+
+    /**
+     * Disable invasion on Serpulo planet.
+     */
+    protected static void disableInvasions() {
+        Planets.serpulo.allowSectorInvasion = false;
     }
 
     /**
@@ -232,7 +238,7 @@ public class MindustryOptions {
     private void saveOptions() {
         settings.put("APdeathLink", getDeathLink());
         settings.put("APtutorialSkip", getTutorialSkip());
-        settings.put("APdisableInvasions", getDisableInvasion());
+        settings.put("APdisableInvasions", getDisableInvasions());
         settings.put("APfasterProduction", getFasterProduction());
         settings.put("APcampaignChoice", getCampaignChoice());
     }
