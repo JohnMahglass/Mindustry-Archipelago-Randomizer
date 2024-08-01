@@ -1,4 +1,4 @@
-# Mindustry integration for Archipelago (v0.0.1)
+# Mindustry integration for Archipelago (v0.0.2)
 (https://github.com/ArchipelagoMW/Archipelago)
 
  This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
@@ -6,6 +6,12 @@
  To generate a World, you will need to add the Mindustry World to your Archipelago folder. You can find the Mindustry World here -> (https://github.com/JohnMahglass/Archipelago-Mindustry)
 
  Please be aware that Linux build has not been tested yet.
+ 
+### Version 0.0.2 changelog
+
+- Added basic commands. To view available commands, use '/help'.
+- Improved feedback given to player on their connection status when a change occurs.
+- Updated Java Client to version 0.1.19
 
 ## What has been changed?
 
@@ -16,7 +22,7 @@
 - A "Victory" node has been added, researching this node will inform Archipelago that the player has finished their World. (A placeholder is being used as requirement to unlock this node at the moment)
 - A new menu has been added in Settings to configure Archipelago's settings.
 - You can use the chat to send messages to other client (If they support it).
-- Client and Archipelago commands have not yet been added but are coming soon. In the meantime, please use the text client to use commands.
+- Use '/help' in the client to list all client commands.
 
 
 ## How to build and play the game.
