@@ -2,6 +2,7 @@ package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.flags.ItemsHandling;
+import dev.koifysh.archipelago.helper.DeathLink;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkPlayer;
 import dev.koifysh.archipelago.parts.NetworkSlot;
@@ -12,6 +13,7 @@ import java.net.URISyntaxException;
 
 import static mindustry.Vars.randomizer;
 import static arc.Core.settings;
+import static mindustry.randomizer.enums.SettingStrings.*;
 
 
 /**
@@ -45,7 +47,7 @@ public class APClient extends Client {
         if (slotName != null) {
             this.slotName = slotName;
             setName(slotName);
-            settings.put("APslotName", slotName);
+            settings.put(CLIENT_NAME.value, slotName);
         }
     }
 
@@ -53,7 +55,7 @@ public class APClient extends Client {
     public void setPassword(String password){
         if (password != null) {
             super.setPassword(password);
-            settings.put("APpassword", password);
+            settings.put(CLIENT_PASSWORD.value, password);
         }
     }
 
@@ -115,7 +117,7 @@ public class APClient extends Client {
     public void setAddress(String address) {
         if (address != null) {
             this.address = address;
-            settings.put("APaddress", address);
+            settings.put(CLIENT_ADRESS.value, address);
         }
 
     }
@@ -194,6 +196,8 @@ public class APClient extends Client {
         this.getEventManager().registerListener(new LocationChecked());
         this.getEventManager().registerListener(new ReceiveItem());
         this.getEventManager().registerListener(new PrintJsonListener());
+        this.getEventManager().registerListener(new onDeathLink());
+
 
         this.onCloseTriggered = false; //Temporary
     }
@@ -204,18 +208,18 @@ public class APClient extends Client {
      */
     private void loadInfo() {
         if (settings != null) {
-            if (settings.getString("APaddress") != null) {
-                setAddress(settings.getString("APaddress"));
+            if (settings.getString(CLIENT_ADRESS.value) != null) {
+                setAddress(settings.getString(CLIENT_ADRESS.value));
             } else {
                 setAddress("");
             }
-            if (settings.getString("APslotName") != null) {
-                setSlotName(settings.getString("APslotName"));
+            if (settings.getString(CLIENT_NAME.value) != null) {
+                setSlotName(settings.getString(CLIENT_NAME.value));
             } else {
                 setSlotName("");
             }
-            if (settings.getString("APpassword") != null) {
-                setPassword(settings.getString("APpassword"));
+            if (settings.getString(CLIENT_PASSWORD.value) != null) {
+                setPassword(settings.getString(CLIENT_PASSWORD.value));
             } else {
                 setPassword("");
             }

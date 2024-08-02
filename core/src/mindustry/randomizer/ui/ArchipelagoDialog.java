@@ -17,6 +17,7 @@ import static mindustry.Vars.control;
 import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
 import static mindustry.Vars.universe;
+import static mindustry.randomizer.enums.SettingStrings.*;
 
 /**
  * Dialog for Archipelago settings.
@@ -74,15 +75,15 @@ public class ArchipelagoDialog extends BaseDialog {
         };
 
         cont.row();
-        cont.labelWrap("Address: " + ((Core.settings.getString("APaddress") != null) ?
-                Core.settings.getString("APaddress") : "Address not set"));
+        cont.labelWrap("Address: " + ((Core.settings.getString(CLIENT_ADRESS.value) != null) ?
+                Core.settings.getString(CLIENT_ADRESS.value) : "Address not set"));
 
         cont.row();
-        cont.labelWrap("Player name: " + ((Core.settings.getString("APslotName") != null ?
-                Core.settings.getString("APslotName") : "Name not set")));
+        cont.labelWrap("Player name: " + ((Core.settings.getString(CLIENT_NAME.value) != null ?
+                Core.settings.getString(CLIENT_NAME.value) : "Name not set")));
 
         cont.row();
-        cont.labelWrap("Password: " + ((Core.settings.getString("APpassword") != null ?
+        cont.labelWrap("Password: " + ((Core.settings.getString(CLIENT_PASSWORD.value) != null ?
                 obfuscatePassword() : "Password not set")));
 
         cont.row();
@@ -210,9 +211,9 @@ public class ArchipelagoDialog extends BaseDialog {
      */
     private String obfuscatePassword() {
         String obfuscatedString = "";
-        if (Core.settings.getString("APpassword") != null &&
-                !(Core.settings.getString("APpassword").isEmpty())) {
-            int charAmount = Core.settings.getString("APpassword").length();
+        if (Core.settings.getString(CLIENT_PASSWORD.value) != null &&
+                !(Core.settings.getString(CLIENT_PASSWORD.value).isEmpty())) {
+            int charAmount = Core.settings.getString(CLIENT_PASSWORD.value).length();
             for (int i = 0; i < charAmount; i++) {
                 obfuscatedString += "*";
             }

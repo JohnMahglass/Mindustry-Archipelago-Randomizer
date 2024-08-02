@@ -5,10 +5,12 @@ import static arc.Core.settings;
 
 import dev.koifysh.archipelago.ClientStatus;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
+import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
 import mindustry.type.Sector;
+import static mindustry.randomizer.enums.SettingStrings.*;
 
 
 /**
@@ -174,6 +176,12 @@ public class Randomizer {
         }
     }
 
+    public void sendDeathLink(String reason){
+        if (client.isConnected() && worldState.options.getDeathLink()) {
+
+        }
+    }
+
     /**
      * Initialize the randomizer
      */
@@ -235,7 +243,7 @@ public class Randomizer {
      */
     public boolean erekirFreeLaunchTarget(Sector sector) {
         boolean allow = false;
-        if (settings.getBool("APfreeLaunchErekir") && sector.planet.name.equals("erekir")) {
+        if (settings.getBool(FREE_LAUNCH_EREKIR.value) && sector.planet.name.equals("erekir")) {
             if (sector.id == 88) { //86 -> Aegis
                 allow = true;
             }
@@ -250,7 +258,7 @@ public class Randomizer {
      */
     public boolean serpuloFreeLaunchTarget(Sector sector) {
         boolean allow = false;
-        if (settings.getBool("APfreeLaunchSerpulo")) {
+        if (settings.getBool(FREE_LAUNCH_SERPULO.value)) {
             if (sector.id == 86 && sector.planet.name.equals("serpulo")) { //86 -> frozen forest
                 allow = true;
             }
@@ -284,7 +292,7 @@ public class Randomizer {
 
     public Randomizer(){
         this.hasConnectedPreviously = false;
-        if (settings != null && settings.getBool("APhasConnected")) {
+        if (settings != null && settings.getBool(HAS_CONNECTED.value)) {
             this.hasConnectedPreviously = true;
         }
         this.worldState = new WorldState();

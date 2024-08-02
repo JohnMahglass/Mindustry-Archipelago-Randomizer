@@ -11,6 +11,7 @@ import mindustry.world.blocks.production.Separator;
 
 import static arc.Core.settings;
 import static mindustry.Vars.randomizer;
+import static mindustry.randomizer.enums.SettingStrings.*;
 
 /**
  * Class containing the options for the generated Mindustry game.
@@ -41,6 +42,11 @@ public class MindustryOptions {
     private boolean deathLink;
 
     /**
+     * Disable death link even if it was chosen as an option for generation.
+     */
+    private boolean forceDisableDeathLink;
+
+    /**
      * Disable invasions.
      */
     private boolean disableInvasions;
@@ -63,7 +69,7 @@ public class MindustryOptions {
     }
 
     public boolean getDeathLink() {
-        return this.deathLink;
+        return this.deathLink && !this.forceDisableDeathLink;
     }
 
     public int getCampaignChoice() {
@@ -95,25 +101,25 @@ public class MindustryOptions {
 
             this.optionsFilled = true;
             saveOptions();
-            settings.put("APhasConnected", true);
+            settings.put(HAS_CONNECTED.value, true);
             if (tutorialSkip) {
                 if (campaignChoice == 0) {
-                    settings.put("APfreeLaunchSerpulo", true);
+                    settings.put(FREE_LAUNCH_SERPULO.value, true);
                 } else if (campaignChoice == 1) {
-                    settings.put("APfreeLaunchErekir", true);
+                    settings.put(FREE_LAUNCH_EREKIR.value, true);
                 } else if (campaignChoice == 2) {
-                    settings.put("APfreeLaunchSerpulo", true);
-                    settings.put("APfreeLaunchErekir", true);
+                    settings.put(FREE_LAUNCH_SERPULO.value, true);
+                    settings.put(FREE_LAUNCH_EREKIR.value, true);
                 }
             }
             if (fasterProduction) {
-                settings.put("APfasterProduction", true);
+                settings.put(FASTER_PRODUCTION.value, true);
             }
             if (disableInvasions) {
-                settings.put("APdisableInvasions", true);
+                settings.put(DISABLE_INVASIONS.value, true);
             }
             if (deathLink) {
-                settings.put("APdeathLink", true);
+                settings.put(DEATH_LINK.value, true);
             }
         }
     }
@@ -125,7 +131,7 @@ public class MindustryOptions {
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
-        if (settings != null && settings.getBool("APhasConnected")) {
+        if (settings != null && settings.getBool(HAS_CONNECTED.value)) {
             loadOptions();
         } else {
             this.optionsFilled = false;
@@ -134,6 +140,7 @@ public class MindustryOptions {
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
+            this.forceDisableDeathLink = false;
         }
     }
 
@@ -236,22 +243,23 @@ public class MindustryOptions {
      * Save options locally
      */
     private void saveOptions() {
-        settings.put("APdeathLink", getDeathLink());
-        settings.put("APtutorialSkip", getTutorialSkip());
-        settings.put("APdisableInvasions", getDisableInvasions());
-        settings.put("APfasterProduction", getFasterProduction());
-        settings.put("APcampaignChoice", getCampaignChoice());
+        settings.put(DEATH_LINK.value, getDeathLink());
+        settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
+        settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
+        settings.put(FASTER_PRODUCTION.value, getFasterProduction());
+        settings.put(CAMPAIGN_CHOICE.value, getCampaignChoice());
     }
 
     /**
      * Load options locally
      */
     private void loadOptions() {
-        this.deathLink = settings.getBool("APdeathLink");
-        this.tutorialSkip = settings.getBool("APtutorialSkip");
-        this.disableInvasions = settings.getBool("APdisableInvasions");
-        this.fasterProduction = settings.getBool("APfasterProduction");
-        this.campaignChoice = settings.getInt("APcampaignChoice");
+        this.deathLink = settings.getBool(DEATH_LINK.value);
+        this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
+        this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
+        this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
+        this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
+        this.campaignChoice = settings.getInt(CAMPAIGN_CHOICE.value);
         this.optionsFilled = true;
     }
 

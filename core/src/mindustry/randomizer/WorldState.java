@@ -18,6 +18,7 @@ import java.util.Map;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.enums.ProgressiveItemType;
 import mindustry.randomizer.techtree.ApLocation;
+import static mindustry.randomizer.enums.SettingStrings.*;
 
 import static arc.Core.settings;
 
@@ -98,17 +99,18 @@ public class WorldState {
      */
     protected void resetWorldState() {
         wipeStates();
-        settings.remove("APhasConnected");
-        settings.remove("APdeathLink");
-        settings.remove("APtutorialSkip");
-        settings.remove("APdisableInvasions");
-        settings.remove("APfasterProduction");
-        settings.remove("APcampaignChoice");
-        settings.remove("APaddress");
-        settings.remove("APslotName");
-        settings.remove("APpassword");
-        settings.remove("APfreeLaunchSerpulo");
-        settings.remove("APfreeLaunchErekir");
+        settings.remove(HAS_CONNECTED.value);
+        settings.remove(DEATH_LINK.value);
+        settings.remove(FORCE_DISABLE_DEATH_LINK.value);
+        settings.remove(TUTORIAL_SKIP.value);
+        settings.remove(DISABLE_INVASIONS.value);
+        settings.remove(FASTER_PRODUCTION.value);
+        settings.remove(CAMPAIGN_CHOICE.value);
+        settings.remove(CLIENT_ADRESS.value);
+        settings.remove(CLIENT_NAME.value);
+        settings.remove(CLIENT_PASSWORD.value);
+        settings.remove(FREE_LAUNCH_SERPULO.value);
+        settings.remove(FREE_LAUNCH_EREKIR.value);
     }
 
     /**
