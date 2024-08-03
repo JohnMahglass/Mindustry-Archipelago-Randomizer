@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import arc.Core;
 import mindustry.content.Blocks;
 import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
@@ -68,8 +69,16 @@ public class MindustryOptions {
         return this.fasterProduction;
     }
 
+    /**
+     * Verifiy if death link is enable and also check if force disable has been enable.
+     * @return Return true if death link is activated.
+     */
     public boolean getDeathLink() {
         return this.deathLink && !this.forceDisableDeathLink;
+    }
+
+    public boolean getForceDisableDeathLink() {
+        return this.forceDisableDeathLink;
     }
 
     public int getCampaignChoice() {
@@ -131,16 +140,18 @@ public class MindustryOptions {
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
-        if (settings != null && settings.getBool(HAS_CONNECTED.value)) {
+        if (settings != null && settings.getBool(HAS_CONNECTED.value)) { //Player has connected to the game before
             loadOptions();
-        } else {
+        } else { //Player never connected to the game and has not received options information.
             this.optionsFilled = false;
             this.tutorialSkip = false;
             this.campaignChoice = -1;
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
-            this.forceDisableDeathLink = false;
+            if (settings != null) { //Local settings
+                this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
+            }
         }
     }
 
@@ -172,6 +183,10 @@ public class MindustryOptions {
         //Method not implemented
     }
 
+    /**
+     * Apply the faster production option to the selected campaign.
+     * @param campaign The selected campaign.
+     */
     protected static void applyFasterProduction(int campaign){
         if (campaign == 0) { //Serpulo
             applySerpuloFasterProduction();
@@ -183,9 +198,15 @@ public class MindustryOptions {
         }
     }
 
+    /**
+     * Apply the faster production option on Erekir's research.
+     */
     private static void applyErekirFasterProduction() {
     }
 
+    /**
+     * Apply the faster production option on Serpulo's research.
+     */
     private static void applySerpuloFasterProduction() {
         doubleOutputItem(((GenericCrafter) Blocks.graphitePress));
         doubleOutputItem(((GenericCrafter) Blocks.multiPress));
@@ -216,24 +237,44 @@ public class MindustryOptions {
         doubleOutputItem(((GenericCrafter) Blocks.cultivator));
     }
 
+    /**
+     * Reduce time required by the drill to extract ressources by half.
+     * @param drill
+     */
     private static void halfDrillTime(Drill drill) {
         drill.drillTime = drill.drillTime / 2;
     }
 
+    /**
+     * Double the output item of a GenericCrafter
+     * @param crafter The crafter to have the output doubled.
+     */
     private static void doubleOutputItem(GenericCrafter crafter){
         crafter.outputItem.amount = crafter.outputItem.amount * 2;
     }
 
+    /**
+     * Double the output liquid of a GenericCrafter
+     * @param crafter The crafter to have the output doubled.
+     */
     private static void doubleOutputLiquid(GenericCrafter crafter){
         crafter.outputLiquid.amount = crafter.outputLiquid.amount * 2;
     }
 
+    /**
+     * Double the output item of a Separator.
+     * @param separator The separator to have the output doubled.
+     */
     private static void doubleSeparatorOutput(Separator separator){
         for (int i = 0; i < separator.results.length; i++) {
             separator.results[i].amount = separator.results[i]. amount * 2;
         }
     }
 
+    /**
+     * Double the amount extracted by the Pump
+     * @param pump The pump to have the amount doubled.
+     */
     private static void doublePumpAmount(Pump pump){
         pump.pumpAmount = pump.pumpAmount * 2;
     }

@@ -330,7 +330,8 @@ public class APChatFragment extends Table {
                             "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
                             "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
                             "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
-                            "   Death link: " + getDeathLinkActivationStatus(randomizer.worldState.options.getDeathLink()));
+                            "   Death link: " + getDeathLinkActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
+                            "   Force D. DL (DEV): " + getActivationStatus(randomizer.worldState.options.getForceDisableDeathLink()));
         } else {
             addLocalMessage("You must connect to a game once to view .yaml options.");
         }
@@ -459,11 +460,12 @@ public class APChatFragment extends Table {
                         Display connection status.
                   /options
                         Display selected options for game generation.
-                        You need to have connected once to be able to view selected options
+                        You need to have connected once to be able
+                        to view selected options
                   /connect
                         Connect using the information provided in
                         Settings -> Archipelago
-                  /connect [Adress] [Slot Name]
+                  /connect [Address] [Slot Name]
                         Connect using the information provided in argument.
                         (Password not available to prevent displaying password)
                   /disconnect

@@ -1,6 +1,7 @@
 package mindustry.randomizer.ui;
 
 import arc.Core;
+import arc.scene.ui.TextField;
 import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
@@ -28,8 +29,10 @@ import static mindustry.randomizer.enums.SettingStrings.*;
 public class ArchipelagoDialog extends BaseDialog {
     private APClient client;
 
+    private TextField passwordTextField;
+
     /**
-     * New adress when the user is updating the adress.
+     * New address when the user is updating the address.
      */
     private String newAddress;
 
@@ -37,11 +40,6 @@ public class ArchipelagoDialog extends BaseDialog {
      * New slot name when the user is updating the slot name.
      */
     private String newSlotName;
-
-    /**
-     * New password when the user is updating the password.
-     */
-    private String newPassword;
 
     /**
      * Set to true when a setting has been changed.
@@ -58,10 +56,19 @@ public class ArchipelagoDialog extends BaseDialog {
         this.client = randomizer.client;
         this.newAddress = null;
         this.newSlotName = null;
-        this.newPassword = null;
         this.settingChanged = false;
+        setPasswordTextField();
         addCloseButton();
         setup();
+    }
+
+    /**
+     * Set the textfield for the password to display obfuscated character instead of the password.
+     */
+    private void setPasswordTextField() {
+        this.passwordTextField = new TextField();
+        passwordTextField.setPasswordMode(true);
+        passwordTextField.setPasswordCharacter('*');
     }
 
     private void setup() {
@@ -75,8 +82,8 @@ public class ArchipelagoDialog extends BaseDialog {
         };
 
         cont.row();
-        cont.labelWrap("Address: " + ((Core.settings.getString(CLIENT_ADRESS.value) != null) ?
-                Core.settings.getString(CLIENT_ADRESS.value) : "Address not set"));
+        cont.labelWrap("Address: " + ((Core.settings.getString(CLIENT_ADDRESS.value) != null) ?
+                Core.settings.getString(CLIENT_ADDRESS.value) : "Address not set"));
 
         cont.row();
         cont.labelWrap("Player name: " + ((Core.settings.getString(CLIENT_NAME.value) != null ?
@@ -103,9 +110,7 @@ public class ArchipelagoDialog extends BaseDialog {
 
         cont.row();
         cont.labelWrap("New Password: ").padBottom(55f);
-        cont.field("", text -> {
-            newPassword = text;
-        }).size(320f, 54f).maxTextLength(100);
+        cont.add(passwordTextField).size(320f, 54f).maxTextLength(100);
 
         cont.row();
         cont.button("Apply changes", () -> {
@@ -119,10 +124,11 @@ public class ArchipelagoDialog extends BaseDialog {
                 client.setSlotName(newSlotName);
                 settingChanged = true;
             }
-            if (newPassword != null) {
+            if (!passwordTextField.getText().isEmpty() && !(passwordTextField.getText().equals(settings.getString(CLIENT_PASSWORD.value)))) {
                 client.disconnect();
-                client.setPassword(newPassword);
+                client.setPassword(passwordTextField.getText());
                 settingChanged = true;
+                passwordTextField.clearText();
             }
             if (settingChanged) {
                 client.connectionStatus = ConnectionStatus.NotConnected;
@@ -130,6 +136,7 @@ public class ArchipelagoDialog extends BaseDialog {
                 settingChanged = false;
             }
         }).size(140f, 60f).pad(4f);
+        cont.button("Refresh status", Icon.refreshSmall, this::reload).size(140f, 60f).pad(4f);
 
         cont.row();
         cont.button("Connect", () -> {
@@ -158,7 +165,19 @@ public class ArchipelagoDialog extends BaseDialog {
 
             });
         }).size(150f, 60f).pad(4f);
-        cont.button("Refresh status", Icon.refreshSmall, this::reload).size(140f, 60f).pad(4f);;
+        cont.button("Clear login info", Icon.eraser, () -> {
+            client.disconnect();
+            passwordTextField.clearText();
+            client.setPassword("");
+
+            newAddress = "";
+            client.setAddress("");
+
+            newSlotName = "";
+            client.setSlotName("");
+
+            reload();
+        }).size(140f, 60f).pad(4f);;
     }
 
     /**

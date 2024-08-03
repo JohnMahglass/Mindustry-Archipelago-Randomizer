@@ -14,7 +14,7 @@ public class onDeathLink {
     @ArchipelagoEventListener
     public static void onBounce(DeathLinkEvent event) {
         if (Vars.randomizer.worldState.options.getDeathLink()) {
-            if (event.cause != null && !event.cause.isBlank()) {
+            if (event.cause != null && !event.cause.isEmpty()) {
                 Vars.randomizer.sendLocalMessage(event.cause);
             } else {
                 Vars.randomizer.sendLocalMessage("Death link triggered by " + event.source);

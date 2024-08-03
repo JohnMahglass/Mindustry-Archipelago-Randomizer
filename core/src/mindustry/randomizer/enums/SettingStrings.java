@@ -11,7 +11,7 @@ public enum SettingStrings {
     FORCE_DISABLE_DEATH_LINK("APforceDisableDeathLink"),
     TUTORIAL_SKIP("APtutorialSkip"),
     CAMPAIGN_CHOICE("APcampaignChoice"),
-    CLIENT_ADRESS("APaddress"),
+    CLIENT_ADDRESS("APaddress"),
     CLIENT_NAME("APslotName"),
     CLIENT_PASSWORD("APpassword");
 

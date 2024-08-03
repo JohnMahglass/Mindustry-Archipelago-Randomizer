@@ -106,7 +106,7 @@ public class WorldState {
         settings.remove(DISABLE_INVASIONS.value);
         settings.remove(FASTER_PRODUCTION.value);
         settings.remove(CAMPAIGN_CHOICE.value);
-        settings.remove(CLIENT_ADRESS.value);
+        settings.remove(CLIENT_ADDRESS.value);
         settings.remove(CLIENT_NAME.value);
         settings.remove(CLIENT_PASSWORD.value);
         settings.remove(FREE_LAUNCH_SERPULO.value);
@@ -114,7 +114,7 @@ public class WorldState {
     }
 
     /**
-     * Wipe every states.
+     * Wipe every state.
      */
     private void wipeStates() {
         wipeState(checkPendingFile, checkPending);

@@ -2,7 +2,6 @@ package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.flags.ItemsHandling;
-import dev.koifysh.archipelago.helper.DeathLink;
 import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkPlayer;
 import dev.koifysh.archipelago.parts.NetworkSlot;
@@ -98,7 +97,9 @@ public class APClient extends Client {
                     connect(address);
                 }
             } catch (URISyntaxException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                randomizer.sendLocalMessage("Connection failed. Please verify your login " +
+                        "information in Settings -> Archipelago");
             }
         }
     }
@@ -117,7 +118,7 @@ public class APClient extends Client {
     public void setAddress(String address) {
         if (address != null) {
             this.address = address;
-            settings.put(CLIENT_ADRESS.value, address);
+            settings.put(CLIENT_ADDRESS.value, address);
         }
 
     }
@@ -208,8 +209,8 @@ public class APClient extends Client {
      */
     private void loadInfo() {
         if (settings != null) {
-            if (settings.getString(CLIENT_ADRESS.value) != null) {
-                setAddress(settings.getString(CLIENT_ADRESS.value));
+            if (settings.getString(CLIENT_ADDRESS.value) != null) {
+                setAddress(settings.getString(CLIENT_ADDRESS.value));
             } else {
                 setAddress("");
             }
