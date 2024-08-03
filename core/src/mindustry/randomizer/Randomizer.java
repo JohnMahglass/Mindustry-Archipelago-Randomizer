@@ -176,9 +176,9 @@ public class Randomizer {
         }
     }
 
-    public void sendDeathLink(String reason){
+    public void sendDeathLink(String source, String cause){
         if (client.isConnected() && worldState.options.getDeathLink()) {
-
+            DeathLink.SendDeathLink(source, cause);
         }
     }
 

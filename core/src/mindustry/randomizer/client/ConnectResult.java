@@ -2,6 +2,7 @@ package mindustry.randomizer.client;
 
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ConnectionResultEvent;
+import dev.koifysh.archipelago.helper.DeathLink;
 import dev.koifysh.archipelago.network.ConnectionResult;
 import mindustry.randomizer.enums.ConnectionStatus;
 
@@ -37,6 +38,9 @@ public class ConnectResult {
                 randomizer.sendPendingLocations();
             }
             randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");
+            if (randomizer.worldState.options.getTrueDeathLink()) {
+                DeathLink.setDeathLinkEnabled(true);
+            }
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;

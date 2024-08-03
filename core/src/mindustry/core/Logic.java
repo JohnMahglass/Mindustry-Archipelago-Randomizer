@@ -194,6 +194,10 @@ public class Logic implements ApplicationListener{
             }
         });
 
+        Events.on(PlayerDestroyEvent.class, e -> {
+            randomizer.sendDeathLink(e.source, e.cause);
+        });
+
         Events.on(UnitDestroyEvent.class, e -> {
             if(e.unit.team() != state.rules.defaultTeam){
                 state.stats.enemyUnitsDestroyed ++;

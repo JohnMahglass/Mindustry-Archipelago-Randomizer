@@ -1,7 +1,13 @@
 package mindustry.randomizer.ui;
 
 import arc.Core;
+import arc.KeyBinds.Section;
+import arc.graphics.Color;
+import arc.scene.ui.ButtonGroup;
+import arc.scene.ui.Label;
+import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextField;
+import arc.scene.ui.layout.Stack;
 import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
@@ -42,6 +48,16 @@ public class ArchipelagoDialog extends BaseDialog {
     private String newSlotName;
 
     /**
+     * New state for disable death link when the user is updating local option.
+     */
+    private boolean newForceDisableDeathLink;
+
+    /**
+     * True if the player has modified the force death link option box.
+     */
+    private boolean forceDeathLinkChanged;
+
+    /**
      * Set to true when a setting has been changed.
      */
     private boolean settingChanged;
@@ -57,6 +73,8 @@ public class ArchipelagoDialog extends BaseDialog {
         this.newAddress = null;
         this.newSlotName = null;
         this.settingChanged = false;
+        this.newForceDisableDeathLink = false;
+        this.forceDeathLinkChanged = false;
         setPasswordTextField();
         addCloseButton();
         setup();
@@ -113,6 +131,13 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.add(passwordTextField).size(320f, 54f).maxTextLength(100);
 
         cont.row();
+        cont.check("Force disable death link", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
+            newForceDisableDeathLink = bool;
+            forceDeathLinkChanged = true;
+        }).padBottom(55f).size(320f, 54f);
+
+
+        cont.row();
         cont.button("Apply changes", () -> {
             if (newAddress != null) {
                 client.disconnect();
@@ -130,8 +155,12 @@ public class ArchipelagoDialog extends BaseDialog {
                 settingChanged = true;
                 passwordTextField.clearText();
             }
+            if (forceDeathLinkChanged) {
+                randomizer.worldState.options.setForceDisableDeathLink(newForceDisableDeathLink);
+                settingChanged = true;
+                forceDeathLinkChanged = false;
+            }
             if (settingChanged) {
-                client.connectionStatus = ConnectionStatus.NotConnected;
                 reload();
                 settingChanged = false;
             }
@@ -177,7 +206,7 @@ public class ArchipelagoDialog extends BaseDialog {
             client.setSlotName("");
 
             reload();
-        }).size(140f, 60f).pad(4f);;
+        }).size(140f, 60f).pad(4f);
     }
 
     /**
