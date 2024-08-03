@@ -19,7 +19,7 @@ public class onDeathLink {
             } else {
                 Vars.randomizer.sendLocalMessage("Death link triggered by " + event.source);
             }
-            //kill the player
+            Vars.player.unit().kill();
         }
     }
 }

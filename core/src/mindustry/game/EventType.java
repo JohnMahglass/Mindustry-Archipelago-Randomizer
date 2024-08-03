@@ -538,11 +538,9 @@ public class EventType{
     }
 
     public static class PlayerDestroyEvent{
-        public final String source;
         public final String cause;
 
-        public PlayerDestroyEvent(String source, String cause){
-            this.source = source;
+        public PlayerDestroyEvent(String cause){
             this.cause = cause;
         }
     }

@@ -195,7 +195,7 @@ public class Logic implements ApplicationListener{
         });
 
         Events.on(PlayerDestroyEvent.class, e -> {
-            randomizer.sendDeathLink(e.source, e.cause);
+            randomizer.sendDeathLink(randomizer.client.getSlotName(), e.cause);
         });
 
         Events.on(UnitDestroyEvent.class, e -> {
