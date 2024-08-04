@@ -362,7 +362,7 @@ public class APChatFragment extends Table {
      */
     private String getCampaignName() {
         String name;
-        int campaign = randomizer.worldState.options.getCampaignChoice();
+        int campaign = randomizer.worldState.options.getCampaign();
         if (campaign == 0) { //Serpulo
             name = "Serpulo";
         } else if (campaign == 1) { //Erekir

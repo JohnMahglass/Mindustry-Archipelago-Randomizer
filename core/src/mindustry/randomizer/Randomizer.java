@@ -66,12 +66,7 @@ public class Randomizer {
      * @param locationId The id of the location
      */
     public void checkLocation(Long locationId){
-        if (locationId - MINDUSTRY_BASE_ID == -1) { //VICTORY CONDITION MET, should use location
-            // name instead to find the victory condition
-            //Send victory event to AP
-            client.setGameState(ClientStatus.CLIENT_GOAL);
-            return;
-        }
+        verifyVictoryConditions(locationId);
         boolean success = false;
         if (client.isConnected()) {
             //Try to send check to archipelago
@@ -86,6 +81,25 @@ public class Randomizer {
         //Add location to checked list and save world state.
         worldState.addCheck(worldState.locationsChecked, locationId);
         worldState.saveStates();
+    }
+
+    /**
+     * Verify if the location is a victory node and check if the player has cleared all their goal.
+     */
+    private void verifyVictoryConditions(Long locationId) {
+        if (locationId - MINDUSTRY_BASE_ID == 998) { //Victory condition for Serpulo met.
+           settings.put(SERPULO_VICTORY.value, true);
+           sendLocalMessage("Serpulo goal has been completed!");
+        }
+        if (locationId - MINDUSTRY_BASE_ID == 999) { //Victory condition for Erekir met.
+            settings.put(EREKIR_VICTORY.value, true);
+            sendLocalMessage("Erekir goal has been completed!");
+        }
+
+        if (worldState.isVictoryConditionMet()) {
+            client.setGameState(ClientStatus.CLIENT_GOAL);
+            sendLocalMessage("All goals have been met!");
+        }
     }
 
     /**
@@ -218,7 +232,7 @@ public class Randomizer {
      */
     public boolean allowFreeLaunch(Sector sector) {
         boolean allow = false;
-        switch (worldState.options.getCampaignChoice()) {
+        switch (worldState.options.getCampaign()) {
             case 0: //Serpulo
                 allow = serpuloFreeLaunchTarget(sector);
                 break;
@@ -323,13 +337,13 @@ public class Randomizer {
             worldState.items.clear();
 
             if (options.getFasterProduction()) {
-                MindustryOptions.applyFasterProduction(options.getCampaignChoice());
+                MindustryOptions.applyFasterProduction(options.getCampaign());
             }
             if (options.getDisableInvasions()) {
                 MindustryOptions.disableInvasions();
             }
 
-            switch (options.getCampaignChoice()) {
+            switch (options.getCampaign()) {
                 case 0: //Serpulo
                     worldState.initializeSerpuloItems();
                     if (options.getTutorialSkip()) {

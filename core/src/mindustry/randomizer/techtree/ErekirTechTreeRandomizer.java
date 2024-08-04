@@ -135,6 +135,7 @@ import static mindustry.content.SectorPresets.ravine;
 import static mindustry.content.SectorPresets.siege;
 import static mindustry.content.SectorPresets.split;
 import static mindustry.content.SectorPresets.stronghold;
+import static mindustry.content.TechTree.apNode;
 import static mindustry.content.TechTree.context;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
@@ -490,6 +491,9 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
                 });
             });
+
+            apNode(createApLocation("Victory Erekir", null, 999L,
+                    LocationResearchCost.reqBeryllium(10)));
 
             node(tankFabricator, Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.Research(plasmaBore), new Objectives.Research(turbineCondenser)), () -> {
                 node(UnitTypes.stell);

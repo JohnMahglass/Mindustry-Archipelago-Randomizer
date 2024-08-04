@@ -95,6 +95,33 @@ public class WorldState {
     }
 
     /**
+     * Check if every condition for victory has been met.
+     * @return True if the player has completed all their goal.
+     */
+    public boolean isVictoryConditionMet(){
+        boolean victory = false;
+        int campaign = options.getCampaign();
+        switch (campaign) {
+            case 0: //Serpulo
+                if (settings.getBool(SERPULO_VICTORY.value)) {
+                    victory = true;
+                }
+                break;
+            case 1: //Erekir
+                if (settings.getBool(EREKIR_VICTORY.value)) {
+                    victory = true;
+                }
+                break;
+            case 2: //All
+                if (settings.getBool(SERPULO_VICTORY.value) && settings.getBool(EREKIR_VICTORY.value)) {
+                    victory = true;
+                }
+                break;
+        }
+        return victory;
+    }
+
+    /**
      * Reset all local data related to the world state.
      */
     protected void resetWorldState() {
@@ -111,6 +138,8 @@ public class WorldState {
         settings.remove(CLIENT_PASSWORD.value);
         settings.remove(FREE_LAUNCH_SERPULO.value);
         settings.remove(FREE_LAUNCH_EREKIR.value);
+        settings.remove(SERPULO_VICTORY.value);
+        settings.remove(EREKIR_VICTORY.value);
     }
 
     /**

@@ -13,7 +13,9 @@ public enum SettingStrings {
     CAMPAIGN_CHOICE("APcampaignChoice"),
     CLIENT_ADDRESS("APaddress"),
     CLIENT_NAME("APslotName"),
-    CLIENT_PASSWORD("APpassword");
+    CLIENT_PASSWORD("APpassword"),
+    SERPULO_VICTORY("APserpuloVictory"),
+    EREKIR_VICTORY("APerekirVictory");
 
 
     public final String value;

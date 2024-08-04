@@ -1,7 +1,5 @@
 package mindustry.randomizer;
 
-import arc.Core;
-import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.content.Blocks;
 import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
@@ -36,7 +34,7 @@ public class MindustryOptions {
     /**
      * The selected campaign.
      */
-    private int campaignChoice;
+    private int campaign;
 
     /**
      * If death link is activated
@@ -100,8 +98,8 @@ public class MindustryOptions {
         settings.put(FORCE_DISABLE_DEATH_LINK.value, state);
     }
 
-    public int getCampaignChoice() {
-        return this.campaignChoice;
+    public int getCampaign() {
+        return this.campaign;
     }
 
     public boolean getOptionsFilled() {
@@ -125,17 +123,17 @@ public class MindustryOptions {
             this.tutorialSkip = slotData.getTutorialSkip();
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
-            this.campaignChoice = slotData.getCampaignChoice();
+            this.campaign = slotData.getCampaignChoice();
 
             this.optionsFilled = true;
             saveOptions();
             settings.put(HAS_CONNECTED.value, true);
             if (tutorialSkip) {
-                if (campaignChoice == 0) {
+                if (campaign == 0) {
                     settings.put(FREE_LAUNCH_SERPULO.value, true);
-                } else if (campaignChoice == 1) {
+                } else if (campaign == 1) {
                     settings.put(FREE_LAUNCH_EREKIR.value, true);
-                } else if (campaignChoice == 2) {
+                } else if (campaign == 2) {
                     settings.put(FREE_LAUNCH_SERPULO.value, true);
                     settings.put(FREE_LAUNCH_EREKIR.value, true);
                 }
@@ -164,7 +162,7 @@ public class MindustryOptions {
         } else { //Player never connected to the game and has not received options information.
             this.optionsFilled = false;
             this.tutorialSkip = false;
-            this.campaignChoice = -1;
+            this.campaign = -1;
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
@@ -307,7 +305,7 @@ public class MindustryOptions {
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
-        settings.put(CAMPAIGN_CHOICE.value, getCampaignChoice());
+        settings.put(CAMPAIGN_CHOICE.value, getCampaign());
     }
 
     /**
@@ -319,7 +317,7 @@ public class MindustryOptions {
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
-        this.campaignChoice = settings.getInt(CAMPAIGN_CHOICE.value);
+        this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.optionsFilled = true;
     }
 

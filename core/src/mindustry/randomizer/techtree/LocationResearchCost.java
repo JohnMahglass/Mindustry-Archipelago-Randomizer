@@ -26,6 +26,18 @@ public abstract class LocationResearchCost {
     }
 
     /**
+     * Require beryllium has a research cost. This method is intended as a quick way to put a
+     * requirement on a node and probably should not be used seriously.
+     * @param berylliumAmount Amount of beryllium required.
+     * @return Return an ItemStack containing the required amount of beryllium.
+     */
+    public static ItemStack[] reqBeryllium(int berylliumAmount){
+        ItemStack[] totalResearchCost = new ItemStack[1];
+        totalResearchCost[0] = new ItemStack(Items.beryllium, berylliumAmount);
+        return totalResearchCost;
+    }
+
+    /**
      * Require 1 item as research cost
      * @param item The Item required
      * @param amount The amount of item required
@@ -134,7 +146,30 @@ public abstract class LocationResearchCost {
      * Requirement for unlocking the Victory node.
      * @return The requirement for the Victory node
      */
-    public static ItemStack[] reqVictory() {
+    public static ItemStack[] reqVictoryErekir() {
+        ItemStack[] totalResearchCost = new ItemStack[10];
+
+        int amountRequired = 2000;
+
+        totalResearchCost[0] = new ItemStack(Items.beryllium , amountRequired);
+        totalResearchCost[1] = new ItemStack(Items.sand , amountRequired);
+        totalResearchCost[2] = new ItemStack(Items.silicon , amountRequired);
+        totalResearchCost[3] = new ItemStack(Items.oxide , amountRequired);
+        totalResearchCost[4] = new ItemStack(Items.graphite , amountRequired);
+        totalResearchCost[5] = new ItemStack(Items.tungsten , amountRequired);
+        totalResearchCost[6] = new ItemStack(Items.thorium , amountRequired);
+        totalResearchCost[7] = new ItemStack(Items.carbide , amountRequired);
+        totalResearchCost[8] = new ItemStack(Items.surgeAlloy , amountRequired);
+        totalResearchCost[9] = new ItemStack(Items.phaseFabric , amountRequired);
+
+        return totalResearchCost;
+    }
+
+    /**
+     * Requirement for unlocking the Victory node.
+     * @return The requirement for the Victory node
+     */
+    public static ItemStack[] reqVictorySerpulo() {
         ItemStack[] totalResearchCost = new ItemStack[16];
 
         int amountRequired = 2000;
