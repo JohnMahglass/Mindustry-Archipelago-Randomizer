@@ -3,11 +3,15 @@ package mindustry.randomizer;
 import mindustry.content.Blocks;
 import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
+import mindustry.content.UnitTypes;
 import mindustry.randomizer.client.SlotData;
+import mindustry.world.blocks.power.ThermalGenerator;
+import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Pump;
 import mindustry.world.blocks.production.Separator;
+import mindustry.world.blocks.production.WallCrafter;
 
 import static arc.Core.settings;
 import static mindustry.Vars.randomizer;
@@ -197,7 +201,18 @@ public class MindustryOptions {
      * Unlock Erekir's tutorial research and unlock Aegis.
      */
     protected static void unlockErekirTutorialItems() {
-        //Method not implemented
+        Blocks.duct.quietUnlock();
+        Blocks.plasmaBore.quietUnlock();
+        Blocks.turbineCondenser.quietUnlock();
+        Blocks.beamNode.quietUnlock();
+        Blocks.cliffCrusher.quietUnlock();
+        Blocks.siliconArcFurnace.quietUnlock();
+        Blocks.breach.quietUnlock();
+        Blocks.berylliumWall.quietUnlock();
+        Blocks.tankFabricator.quietUnlock();
+        UnitTypes.stell.unlock();
+        SectorPresets.aegis.quietUnlock();
+        SectorPresets.aegis.alwaysUnlocked = true;
     }
 
     /**
@@ -219,7 +234,23 @@ public class MindustryOptions {
      * Apply the faster production option on Erekir's research.
      */
     private static void applyErekirFasterProduction() {
+        doubleOutputItem(((GenericCrafter) Blocks.siliconArcFurnace));
+        doubleOutputLiquids(((GenericCrafter) Blocks.electrolyzer));
+        doubleOutputLiquid(((GenericCrafter) Blocks.atmosphericConcentrator));
+        doubleOutputItem(((GenericCrafter) Blocks.oxidationChamber));
+        doubleOutputItem(((GenericCrafter) Blocks.carbideCrucible));
+        doubleOutputItem(((GenericCrafter) Blocks.surgeCrucible));
+        doubleOutputLiquid(((GenericCrafter) Blocks.cyanogenSynthesizer));
+        doubleOutputItem(((GenericCrafter) Blocks.phaseSynthesizer));
+        halfWallCrafterDrillTime(((WallCrafter) Blocks.cliffCrusher));
+        halfBeamDrillTime(((BeamDrill) Blocks.plasmaBore));
+        halfBeamDrillTime(((BeamDrill) Blocks.largePlasmaBore));
+        halfDrillTime(((Drill) Blocks.impactDrill));
+        halfDrillTime(((Drill) Blocks.eruptionDrill));
+        doublePumpAmount(((Pump)Blocks.reinforcedPump));
     }
+
+
 
     /**
      * Apply the faster production option on Serpulo's research.
@@ -254,9 +285,32 @@ public class MindustryOptions {
         doubleOutputItem(((GenericCrafter) Blocks.cultivator));
     }
 
+    private static void doubleOutputLiquids(GenericCrafter crafter) {
+        for (int i = 0; i < crafter.outputLiquids.length; i++) {
+            crafter.outputLiquids[i].amount = crafter.outputLiquids[i].amount * 2;
+        }
+    }
+
+    /**
+     * Reduce time required by the miner to extract ressources by half.
+     * @param miner the miner to have the extract time reduced by half
+     */
+    private static void halfWallCrafterDrillTime(WallCrafter miner) {
+        miner.drillTime = miner.drillTime / 2;
+    }
+
     /**
      * Reduce time required by the drill to extract ressources by half.
-     * @param drill
+     * @param drill the drill to have the extract time reduced by half
+     */
+    private static void halfBeamDrillTime(BeamDrill drill) {
+        drill.drillTime = drill.drillTime / 2;
+    }
+
+
+    /**
+     * Reduce time required by the drill to extract ressources by half.
+     * @param drill the drill to have the extract time reduced by half
      */
     private static void halfDrillTime(Drill drill) {
         drill.drillTime = drill.drillTime / 2;
@@ -268,6 +322,14 @@ public class MindustryOptions {
      */
     private static void doubleOutputItem(GenericCrafter crafter){
         crafter.outputItem.amount = crafter.outputItem.amount * 2;
+    }
+
+    /**
+     * Double the output liquid of a ThermalGenerator
+     * @param generator The generator to have the output doubled.
+     */
+    private static void doubleGeneratorOutputLiquid(ThermalGenerator generator){
+        generator.outputLiquid.amount = generator.outputLiquid.amount * 2;
     }
 
     /**

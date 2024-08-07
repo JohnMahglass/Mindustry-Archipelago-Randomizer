@@ -493,7 +493,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
             });
 
             apNode(createApLocation("Victory Erekir", null, 999L,
-                    LocationResearchCost.reqBeryllium(10)));
+                    LocationResearchCost.reqVictoryErekir()));
 
             node(tankFabricator, Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.Research(plasmaBore), new Objectives.Research(turbineCondenser)), () -> {
                 node(UnitTypes.stell);
