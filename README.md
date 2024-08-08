@@ -9,9 +9,12 @@
  
 ### Version 0.0.2 changelog
 
-- Added basic commands. To view available commands, use '/help'.
+- Removed unused feature to prevent confusion.
+- Added client commands. To view available commands, use '/help'.
 - Improved feedback given to player on their connection status when a change occurs.
-- Updated Java Client to version 0.1.19
+- Updated Java Client to version 0.1.19.
+- Added "Faster production", "Disable invasions" and "Death link" options when generating a game.
+- The "Erekir" and "All" campaign are now available to choose when generating a game.
 
 ## What has been changed?
 
