@@ -17,16 +17,12 @@ public class ReceiveItem {
 
     @ArchipelagoEventListener
     public static void onReceiveItem(ReceiveItemEvent event) {
-        if (event.getItemID() == 777000288) {
-            int test = 1;
-        }
         UnlockableContent content = randomizer.itemIdToUnlockableContent(event.getItemID());
         if (content != null && !Core.settings.getBool(content.name + "-unlocked")) { //Making
             // sure the content is not already unlocked.
             randomizer.unlock(event.getItemID());
             randomizer.worldState.saveStates();
         }
-
     }
 
 }

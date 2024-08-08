@@ -275,7 +275,8 @@ public class WorldState {
      * Initialize items for all campaigns.
      */
     protected void initializeAllItems() {
-        //Method not implemented
+        initializeSerpuloItems();
+        initializeErekirItems();
     }
 
     /**
