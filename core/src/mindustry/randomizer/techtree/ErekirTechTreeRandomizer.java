@@ -536,7 +536,6 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                                 });
                                             });
                                         });
-
                                             apNode(createApLocation("AP-E-06-24", mechAssembler, 308L),
                                                 Seq.with(new Objectives.OnSector(crossroads)), () -> {
                                                 apNode(createApLocation("AP-E-06-25", UnitTypes.tecta,
@@ -548,11 +547,9 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                                 });
                                             });
                                         });
-
                                             apNode(createApLocation("AP-E-06-27", basicAssemblerModule,
                                                         311L),
                                                 Seq.with(new Objectives.SectorComplete(karst)), () -> {
-
                                         });
                                     });
                                 });
@@ -563,27 +560,27 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
             });
 
             node(onset, () -> {
-                node(aegis, Seq.with(new Objectives.SectorComplete(onset), new Objectives.Research(ductRouter), new Objectives.Research(ductBridge)), () -> {
+                node(aegis, Seq.with(new Objectives.SectorComplete(onset)), () -> {
                     node(lake, Seq.with(new Objectives.SectorComplete(aegis)), () -> {
 
                     });
 
-                    node(intersect, Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake), new Objectives.Research(ventCondenser), new Objectives.Research(shipFabricator)), () -> {
-                        node(atlas, Seq.with(new Objectives.SectorComplete(intersect), new Objectives.Research(mechFabricator)), () -> {
-                            node(split, Seq.with(new Objectives.SectorComplete(atlas), new Objectives.Research(reinforcedPayloadConveyor), new Objectives.Research(reinforcedContainer)), () -> {
+                    node(intersect, Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
+                        node(atlas, Seq.with(new Objectives.SectorComplete(intersect)), () -> {
+                            node(split, Seq.with(new Objectives.SectorComplete(atlas)), () -> {
 
                             });
 
                             node(basin, Seq.with(new Objectives.SectorComplete(atlas)), () -> {
                                 node(marsh, Seq.with(new Objectives.SectorComplete(basin)), () -> {
-                                    node(ravine, Seq.with(new Objectives.SectorComplete(marsh), new Objectives.Research(Liquids.slag)), () -> {
-                                        node(caldera, Seq.with(new Objectives.SectorComplete(peaks), new Objectives.Research(heatRedirector)), () -> {
-                                            node(stronghold, Seq.with(new Objectives.SectorComplete(caldera), new Objectives.Research(coreCitadel)), () -> {
+                                    node(ravine, Seq.with(new Objectives.SectorComplete(marsh)), () -> {
+                                        node(caldera, Seq.with(new Objectives.SectorComplete(peaks)), () -> {
+                                            node(stronghold, Seq.with(new Objectives.SectorComplete(caldera)), () -> {
                                                 node(crevice, Seq.with(new Objectives.SectorComplete(stronghold)), () -> {
                                                     node(siege, Seq.with(new Objectives.SectorComplete(crevice)), () -> {
                                                         node(crossroads, Seq.with(new Objectives.SectorComplete(siege)), () -> {
-                                                            node(karst, Seq.with(new Objectives.SectorComplete(crossroads), new Objectives.Research(coreAcropolis)), () -> {
-                                                                node(origin, Seq.with(new Objectives.SectorComplete(karst), new Objectives.Research(coreAcropolis), new Objectives.Research(UnitTypes.vanquish), new Objectives.Research(UnitTypes.disrupt), new Objectives.Research(UnitTypes.collaris), new Objectives.Research(malign), new Objectives.Research(basicAssemblerModule), new Objectives.Research(neoplasiaReactor)), () -> {
+                                                            node(karst, Seq.with(new Objectives.SectorComplete(crossroads)), () -> {
+                                                                node(origin, Seq.with(new Objectives.SectorComplete(karst)), () -> {
 
                                                                 });
                                                             });
@@ -594,7 +591,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                         });
                                     });
 
-                                    node(peaks, Seq.with(new Objectives.SectorComplete(marsh), new Objectives.SectorComplete(split)), () -> {
+                                    node(peaks, Seq.with(new Objectives.SectorComplete(marsh)), () -> {
 
                                     });
                                 });
