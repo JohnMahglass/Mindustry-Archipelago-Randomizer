@@ -177,13 +177,6 @@ public class MindustryOptions {
     }
 
     /**
-     * Disable invasion on Serpulo planet.
-     */
-    protected static void disableInvasions() {
-        Planets.serpulo.allowSectorInvasion = false;
-    }
-
-    /**
      * Unlock Serpulo's tutorial research and unlock Frozen Forest.
      */
     protected static void unlockSerpuloTutorialItems() {

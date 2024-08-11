@@ -342,9 +342,6 @@ public class Randomizer {
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
-            if (options.getDisableInvasions()) {
-                MindustryOptions.disableInvasions();
-            }
 
             switch (options.getCampaign()) {
                 case 0: //Serpulo

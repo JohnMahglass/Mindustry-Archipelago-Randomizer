@@ -252,7 +252,7 @@ public class Universe{
                     }
 
                     //queue random invasions
-                    if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns){
+                    if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns && !randomizer.worldState.options.getDisableInvasions()){
                         int count = sector.near().count(s -> s.hasEnemyBase() && !s.hasBase());
 
                         //invasion chance depends on # of nearby bases

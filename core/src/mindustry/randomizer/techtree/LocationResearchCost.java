@@ -147,20 +147,19 @@ public abstract class LocationResearchCost {
      * @return The requirement for the Victory node
      */
     public static ItemStack[] reqVictoryErekir() {
-        ItemStack[] totalResearchCost = new ItemStack[10];
+        ItemStack[] totalResearchCost = new ItemStack[9];
 
         int amountRequired = 2000;
 
         totalResearchCost[0] = new ItemStack(Items.beryllium , amountRequired);
-        totalResearchCost[1] = new ItemStack(Items.sand , amountRequired);
-        totalResearchCost[2] = new ItemStack(Items.silicon , amountRequired);
-        totalResearchCost[3] = new ItemStack(Items.oxide , amountRequired);
-        totalResearchCost[4] = new ItemStack(Items.graphite , amountRequired);
-        totalResearchCost[5] = new ItemStack(Items.tungsten , amountRequired);
-        totalResearchCost[6] = new ItemStack(Items.thorium , amountRequired);
-        totalResearchCost[7] = new ItemStack(Items.carbide , amountRequired);
-        totalResearchCost[8] = new ItemStack(Items.surgeAlloy , amountRequired);
-        totalResearchCost[9] = new ItemStack(Items.phaseFabric , amountRequired);
+        totalResearchCost[1] = new ItemStack(Items.silicon , amountRequired);
+        totalResearchCost[2] = new ItemStack(Items.oxide , amountRequired);
+        totalResearchCost[3] = new ItemStack(Items.graphite , amountRequired);
+        totalResearchCost[4] = new ItemStack(Items.tungsten , amountRequired);
+        totalResearchCost[5] = new ItemStack(Items.thorium , amountRequired);
+        totalResearchCost[6] = new ItemStack(Items.carbide , amountRequired);
+        totalResearchCost[7] = new ItemStack(Items.surgeAlloy , amountRequired);
+        totalResearchCost[8] = new ItemStack(Items.phaseFabric , amountRequired);
 
         return totalResearchCost;
     }
