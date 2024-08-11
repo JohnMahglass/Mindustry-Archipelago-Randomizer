@@ -133,9 +133,10 @@ public class Randomizer {
     public boolean isMindustryAPItem(Long itemId){ //Needs to be updated
         boolean isMindustryItem = false;
         if (itemId != null) {
-            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) { //Serpulo Item
+            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
+                //Serpulo Item
                 isMindustryItem = true;
-            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 340) {
+            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 343) {
                 //Erekir Item
                 isMindustryItem = true;
             }

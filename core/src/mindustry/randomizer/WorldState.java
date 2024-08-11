@@ -376,24 +376,12 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 290, Blocks.mechFabricator);
         items.put(MINDUSTRY_BASE_ID + 291, UnitTypes.merui);
         items.put(MINDUSTRY_BASE_ID + 292, Blocks.tankRefabricator);
-        items.put(MINDUSTRY_BASE_ID + 293, UnitTypes.locus);
         items.put(MINDUSTRY_BASE_ID + 294, Blocks.mechRefabricator);
-        items.put(MINDUSTRY_BASE_ID + 295, UnitTypes.cleroi);
         items.put(MINDUSTRY_BASE_ID + 296, Blocks.shipRefabricator);
-        items.put(MINDUSTRY_BASE_ID + 297, UnitTypes.avert);
         items.put(MINDUSTRY_BASE_ID + 298, Blocks.primeRefabricator);
-        items.put(MINDUSTRY_BASE_ID + 299, UnitTypes.precept);
-        items.put(MINDUSTRY_BASE_ID + 300, UnitTypes.anthicus);
-        items.put(MINDUSTRY_BASE_ID + 301, UnitTypes.obviate);
         items.put(MINDUSTRY_BASE_ID + 302, Blocks.tankAssembler);
-        items.put(MINDUSTRY_BASE_ID + 303, UnitTypes.vanquish);
-        items.put(MINDUSTRY_BASE_ID + 304, UnitTypes.conquer);
         items.put(MINDUSTRY_BASE_ID + 305, Blocks.shipAssembler);
-        items.put(MINDUSTRY_BASE_ID + 306, UnitTypes.quell);
-        items.put(MINDUSTRY_BASE_ID + 307, UnitTypes.disrupt);
         items.put(MINDUSTRY_BASE_ID + 308, Blocks.mechAssembler);
-        items.put(MINDUSTRY_BASE_ID + 309, UnitTypes.tecta);
-        items.put(MINDUSTRY_BASE_ID + 310, UnitTypes.collaris);
         items.put(MINDUSTRY_BASE_ID + 311, Blocks.basicAssemblerModule);
 
         items.put(MINDUSTRY_BASE_ID + 312, SectorPresets.aegis);
@@ -425,6 +413,33 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 338, Items.thorium);
         items.put(MINDUSTRY_BASE_ID + 339, Items.phaseFabric);
         items.put(MINDUSTRY_BASE_ID + 340, Items.surgeAlloy);
+
+        items.put(MINDUSTRY_BASE_ID + 341, null); //Progressive Tanks
+        ProgressiveItem item1 = new ProgressiveItem(ProgressiveItemType.E_TANKS,
+                MINDUSTRY_BASE_ID + 341, 4);
+        item1.items.add(UnitTypes.locus);
+        item1.items.add(UnitTypes.precept);
+        item1.items.add(UnitTypes.vanquish);
+        item1.items.add(UnitTypes.conquer);
+        progressiveItems.add(item1);
+
+        items.put(MINDUSTRY_BASE_ID + 342, null); //Progressive Mechs
+        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
+                MINDUSTRY_BASE_ID + 342, 4);
+        item2.items.add(UnitTypes.cleroi);
+        item2.items.add(UnitTypes.anthicus);
+        item2.items.add(UnitTypes.tecta);
+        item2.items.add(UnitTypes.collaris);
+        progressiveItems.add(item2);
+
+        items.put(MINDUSTRY_BASE_ID + 343, null); //Progressive Ships
+        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.E_SHIPS,
+                MINDUSTRY_BASE_ID + 343, 4);
+        item3.items.add(UnitTypes.avert);
+        item3.items.add(UnitTypes.obviate);
+        item3.items.add(UnitTypes.quell);
+        item3.items.add(UnitTypes.disrupt);
+        progressiveItems.add(item3);
     }
 
 
