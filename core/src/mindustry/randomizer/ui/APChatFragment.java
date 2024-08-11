@@ -330,22 +330,13 @@ public class APChatFragment extends Table {
                             "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
                             "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
                             "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
-                            "   Death link: " + getDeathLinkActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
+                            "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
                             "   Force D. DL (DEV): " + getActivationStatus(randomizer.worldState.options.getForceDisableDeathLink()));
         } else {
             addLocalMessage("You must connect to a game once to view .yaml options.");
         }
     }
 
-    /**
-     * Return if the death link option was activated and if it was overridden by local client rule.
-     * @param deathLink The state of the death link option.
-     * @return Return if the death link option has been activated and if it is being overridden.
-     */
-    private String getDeathLinkActivationStatus(boolean deathLink) {
-        //TEMPORARY SINCE OVERRIDE NOT IMPLEMENTED
-        return getActivationStatus(deathLink);
-    }
 
     /**
      * Return if the option was activated.
