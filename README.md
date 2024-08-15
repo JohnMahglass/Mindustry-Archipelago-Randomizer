@@ -57,6 +57,8 @@ Whenver you want to play the game you will need to repeat step 3 to 7.
 
 - When playing the "All" campaign, it is possible to break out of logic by researching a node using the ressources of another planet. (Cannot produce silicon on Serpulo but can on Erekir)
 
+-Upon unlocking a node wich auto-unlock other nodes (Like the Tank Fabricator unlocking also the Stell node) The error icon will appear in the toast announcing the new research to the player.
+
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.

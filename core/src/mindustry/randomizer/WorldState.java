@@ -423,23 +423,23 @@ public class WorldState {
         item1.items.add(UnitTypes.conquer);
         progressiveItems.add(item1);
 
-        items.put(MINDUSTRY_BASE_ID + 342, null); //Progressive Mechs
-        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
-                MINDUSTRY_BASE_ID + 342, 4);
-        item2.items.add(UnitTypes.cleroi);
-        item2.items.add(UnitTypes.anthicus);
-        item2.items.add(UnitTypes.tecta);
-        item2.items.add(UnitTypes.collaris);
-        progressiveItems.add(item2);
-
-        items.put(MINDUSTRY_BASE_ID + 343, null); //Progressive Ships
+        items.put(MINDUSTRY_BASE_ID + 342, null); //Progressive Ships
         ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.E_SHIPS,
-                MINDUSTRY_BASE_ID + 343, 4);
+                MINDUSTRY_BASE_ID + 342, 4);
         item3.items.add(UnitTypes.avert);
         item3.items.add(UnitTypes.obviate);
         item3.items.add(UnitTypes.quell);
         item3.items.add(UnitTypes.disrupt);
         progressiveItems.add(item3);
+
+        items.put(MINDUSTRY_BASE_ID + 343, null); //Progressive Mechs
+        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
+                MINDUSTRY_BASE_ID + 343, 4);
+        item2.items.add(UnitTypes.cleroi);
+        item2.items.add(UnitTypes.anthicus);
+        item2.items.add(UnitTypes.tecta);
+        item2.items.add(UnitTypes.collaris);
+        progressiveItems.add(item2);
     }
 
 
