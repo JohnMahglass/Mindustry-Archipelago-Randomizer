@@ -214,7 +214,7 @@ public class Universe{
                         sector.info.damage = Math.max(sector.info.damage, damage);
 
                         //check if the sector has been attacked too many times...
-                        if(attacked && damage >= 0.999f){
+                        if(attacked && damage >= 0.999f || randomizer.worldState.options.getDisableInvasions() && !sector.isCaptured()){
                             //fire event for losing the sector
                             Events.fire(new SectorLoseEvent(sector));
 
@@ -252,7 +252,7 @@ public class Universe{
                     }
 
                     //queue random invasions
-                    if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns && !randomizer.worldState.options.getDisableInvasions()){
+                    if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns){
                         int count = sector.near().count(s -> s.hasEnemyBase() && !s.hasBase());
 
                         //invasion chance depends on # of nearby bases
