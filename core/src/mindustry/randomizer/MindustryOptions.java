@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.content.Blocks;
 import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
@@ -74,7 +75,7 @@ public class MindustryOptions {
 
     /**
      * Verify if death link is enable but does not verify if it has been disabled on client side.
-     * This should only be used to enable DeathLink tags in the client.
+     * This should only be used to enable DeathLink tags in the client upon connection.
      * @return If the death link option was chosen for game generation.
      */
     public boolean getTrueDeathLink(){
@@ -100,6 +101,14 @@ public class MindustryOptions {
     public void setForceDisableDeathLink(boolean state) {
         this.forceDisableDeathLink = state;
         settings.put(FORCE_DISABLE_DEATH_LINK.value, state);
+        if (forceDisableDeathLink != state) { // Setting has been changed.
+            if (forceDisableDeathLink) {
+                DeathLink.setDeathLinkEnabled(false);
+            } else {
+                DeathLink.setDeathLinkEnabled(true);
+            }
+        }
+
     }
 
     public int getCampaign() {

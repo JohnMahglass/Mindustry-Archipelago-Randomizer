@@ -28,37 +28,29 @@
 - Use '/help' in the client to list all client commands.
 
 
-## How to build and play the game.
-
-### **THIS IS NOT A RELEASE. THERE ARE NO EXECUTABLE FILES AT THE MOMENT, YOU WILL NEED TO BUILD THE GAME TO BE ABLE TO PLAY IT.**
+## Setup guide.
 
 ### Windows
-1. Make sure you have [JDK 16-17](https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot) installed.
+1. Download the latest release.
 
-2. Download the .zip file from this repo and unzip the project. You can also clone the project if you have git.
+2. Extract the downloaded file in a directory.
 
-3. Open the folder of the project and open the cmd. **Make sure you are in the project directory.**
+3. Run "Mindustry.exe"
 
-4. Type "gradlew desktop:run"
+3. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 
-5. The program should begin to build. The first time you run this command it may take a while until the process is done.
+4. Have fun.
 
-6. Once build is over, the game will launch.
-
-7. Go to Settings -> Archipelago and enter your game information to connect.
-
-8. Have fun.
-
-Whenver you want to play the game you will need to repeat step 3 to 7.
+### Linux
+	Linux build has not been tested yet.
 
 ## Known bugs
 
-- Sometimes when unlocking a research from a new category, the selectable block UI will not update until you exit the map and enter again or receive another item.
+- Sometimes when unlocking a research from a new category, the selectable block UI will not update until you exit the sector and enter again or receive another item.
 
-- When playing the "All" campaign, it is possible to break out of logic by researching a node using the ressources of another planet. (Cannot produce silicon on Serpulo but can on Erekir)
+- Upon unlocking a node wich auto-unlock other nodes (Like the Tank Fabricator unlocking also the Stell node) The error icon will appear in the toast announcing the new research to the player.
 
--Upon unlocking a node wich auto-unlock other nodes (Like the Tank Fabricator unlocking also the Stell node) The error icon will appear in the toast announcing the new research to the player.
-
+- Selecting a starter inventory in your .yaml will fail the generation of the APworld.
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
