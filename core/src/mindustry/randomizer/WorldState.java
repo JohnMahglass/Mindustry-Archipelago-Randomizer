@@ -29,7 +29,6 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
  * Contain and update information about what has been done within this World.
  *
  * @author John Mahglass
- * @version 1.0.0 2024-05-26
  */
 public class WorldState {
 

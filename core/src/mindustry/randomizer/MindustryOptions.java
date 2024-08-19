@@ -22,7 +22,6 @@ import static mindustry.randomizer.enums.SettingStrings.*;
  * Class containing the options for the generated Mindustry game.
  *
  * @author John Mahglass
- * @version 1.0.0 2024-05-24
  */
 public class MindustryOptions {
 

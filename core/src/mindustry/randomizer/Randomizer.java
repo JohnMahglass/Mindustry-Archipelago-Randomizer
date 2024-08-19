@@ -17,7 +17,7 @@ import static mindustry.randomizer.enums.SettingStrings.*;
  * Randomizer for Archipelago multiworld randomizer.
  *
  * @author John Mahglass
- * @version 0.0.1 2024-05-12
+ * @version 0.1.0 2024-05-12
  */
 public class Randomizer {
 

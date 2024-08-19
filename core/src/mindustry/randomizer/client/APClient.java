@@ -214,11 +214,13 @@ public class APClient extends Client {
             } else {
                 setAddress("");
             }
+
             if (settings.getString(CLIENT_NAME.value) != null) {
                 setSlotName(settings.getString(CLIENT_NAME.value));
             } else {
                 setSlotName("");
             }
+
             if (settings.getString(CLIENT_PASSWORD.value) != null) {
                 setPassword(settings.getString(CLIENT_PASSWORD.value));
             } else {
