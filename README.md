@@ -51,5 +51,7 @@
 
 - Selecting a starter inventory in your .yaml will fail the generation of the APworld as there are no filler items yet.
 
+- Serpulo Events trigger might not be accurate when viewing in a tracker.
+
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
