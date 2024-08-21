@@ -9,6 +9,7 @@ import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.ui.APMessage;
 import mindustry.type.Sector;
 import static mindustry.randomizer.enums.SettingStrings.*;
 
@@ -214,6 +215,12 @@ public class Randomizer {
      * @param message The message to be sent.
      */
     public void sendLocalMessage (String message) {
+        if (Vars.ui.chatfrag != null) {
+            Vars.ui.chatfrag.addLocalMessage(new APMessage(message));
+        }
+    }
+
+    public void sendLocalMessage (APMessage message) {
         if (Vars.ui.chatfrag != null) {
             Vars.ui.chatfrag.addLocalMessage(message);
         }

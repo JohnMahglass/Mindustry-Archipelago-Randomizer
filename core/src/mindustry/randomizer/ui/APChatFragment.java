@@ -39,7 +39,7 @@ import static mindustry.Vars.ui;
 public class APChatFragment extends Table {
 
     private static final int messagesShown = 10;
-    private Seq<String> messages = new Seq<>();
+    private Seq<APMessage> messages = new Seq<>();
     private float fadetime;
     private boolean shown = false;
     private TextField chatfield;
@@ -166,26 +166,54 @@ public class APChatFragment extends Table {
         float theight = offsety + spacing + getMarginBottom() + scene.marginBottom;
         for(int i = scrollPos; i < messages.size && i < messagesShown + scrollPos && (i < fadetime || shown); i++){
 
-            layout.setText(font, messages.get(i), Color.white, textWidth, Align.bottomLeft, true);
-            theight += layout.height + textspacing;
-            if(i - scrollPos == 0) theight -= textspacing + 1;
+            if (messages.get(i).isItemMessage) {
+                layout.setText(font, messages.get(i).plainText, Color.red, textWidth,
+                        Align.bottomLeft, true);
+                theight += layout.height + textspacing;
+                if(i - scrollPos == 0) theight -= textspacing + 1;
 
-            font.getCache().clear();
-            font.getCache().setColor(Color.white);
-            font.getCache().addText(messages.get(i), fontoffsetx + offsetx, offsety + theight, textWidth, Align.bottomLeft, true);
+                font.getCache().clear();
+                font.getCache().setColor(Color.red);
+                font.getCache().addText(messages.get(i).plainText, fontoffsetx + offsetx,
+                        offsety + theight, textWidth, Align.bottomLeft, true);
 
-            if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
-                font.getCache().setAlphas((fadetime - i) * opacity);
-                Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
-            }else{
-                font.getCache().setAlphas(opacity);
+                if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
+                    font.getCache().setAlphas((fadetime - i) * opacity);
+                    Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
+                }else{
+                    font.getCache().setAlphas(opacity);
+                }
+
+                rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
+                Draw.color(shadowColor);
+                Draw.alpha(opacity * shadowColor.a);
+
+                font.getCache().draw();
+            } else {
+                layout.setText(font, messages.get(i).plainText, Color.white, textWidth,
+                        Align.bottomLeft, true);
+                theight += layout.height + textspacing;
+                if(i - scrollPos == 0) theight -= textspacing + 1;
+
+                font.getCache().clear();
+                font.getCache().setColor(Color.white);
+                font.getCache().addText(messages.get(i).plainText, fontoffsetx + offsetx,
+                        offsety + theight, textWidth, Align.bottomLeft, true);
+
+                if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
+                    font.getCache().setAlphas((fadetime - i) * opacity);
+                    Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
+                }else{
+                    font.getCache().setAlphas(opacity);
+                }
+
+                rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
+                Draw.color(shadowColor);
+                Draw.alpha(opacity * shadowColor.a);
+
+                font.getCache().draw();
             }
 
-            rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
-            Draw.color(shadowColor);
-            Draw.alpha(opacity * shadowColor.a);
-
-            font.getCache().draw();
         }
 
         Draw.color();
@@ -294,14 +322,14 @@ public class APChatFragment extends Table {
                 if (!connectionOpen) {
                     executeConnectCommand(commandParts);
                 } else {
-                    addLocalMessage("You are already connected.");
+                    addLocalMessage(new APMessage("You are already connected."));
                 }
                 break;
             case "disconnect":
                 if (connectionOpen) {
                     executeDisconnectCommand(commandParts);
                 } else {
-                    addLocalMessage("You are not connected to any game.");
+                    addLocalMessage(new APMessage("You are not connected to any game."));
                 }
                 break;
             case "status":
@@ -314,7 +342,7 @@ public class APChatFragment extends Table {
                 listAvailableCommands();
                 break;
             default:
-                addLocalMessage("Unknown command. Use '/help' for command usage.");
+                addLocalMessage(new APMessage("Unknown command. Use '/help' for command usage."));
                 break;
         }
     }
@@ -325,15 +353,15 @@ public class APChatFragment extends Table {
             return;
         }
         if (randomizer.worldState.options.getOptionsFilled()) {
-            addLocalMessage("Options:\n" +
-                            "   Selected campaign: " + getCampaignName() + "\n" +
-                            "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
-                            "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
-                            "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
-                            "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
-                            "   Force D. DL (DEV): " + getActivationStatus(randomizer.worldState.options.getForceDisableDeathLink()));
+            addLocalMessage(new APMessage("Options:\n" +
+                    "   Selected campaign: " + getCampaignName() + "\n" +
+                    "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
+                    "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
+                    "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
+                    "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
+                    "   Force D. DL (DEV): " + getActivationStatus(randomizer.worldState.options.getForceDisableDeathLink())));
         } else {
-            addLocalMessage("You must connect to a game once to view .yaml options.");
+            addLocalMessage(new APMessage("You must connect to a game once to view .yaml options."));
         }
     }
 
@@ -399,7 +427,7 @@ public class APChatFragment extends Table {
                 status = "Error";
                 break;
         }
-        addLocalMessage("Connection status: " + status);
+        addLocalMessage(new APMessage("Connection status: " + status));
     }
 
     /**
@@ -436,14 +464,14 @@ public class APChatFragment extends Table {
      * Inform the player that they used too many argument for their command.
      */
     private void tooManyArgumentMessage() {
-        addLocalMessage("Too many argument. Use '/help' for command usage.");
+        addLocalMessage(new APMessage("Too many argument. Use '/help' for command usage."));
     }
 
     /**
      * List in the player's chat all available commands for the client.
      */
     private void listAvailableCommands() {
-        addLocalMessage("""
+        addLocalMessage(new APMessage("""
                 Available commands:
                   /help
                         List available commands. (what you are doing right now)
@@ -460,7 +488,7 @@ public class APChatFragment extends Table {
                         Connect using the information provided in argument.
                         (Password not available to prevent displaying password)
                   /disconnect
-                        Disconnect from AP""");
+                        Disconnect from AP"""));
     }
 
     /**
@@ -476,7 +504,7 @@ public class APChatFragment extends Table {
      * Add a message to the chat without sending it to Archipelago
      * @param message The messaged to be added.
      */
-    public void addLocalMessage(String message){
+    public void addLocalMessage(APMessage message){
         if(message == null) return;
         messages.insert(0, message);
 
@@ -484,6 +512,15 @@ public class APChatFragment extends Table {
         fadetime = Math.min(fadetime, messagesShown) + 1f;
 
         if(scrollPos > 0) scrollPos++;
+    }
+
+    public void addLocalColoredMessage(APMessage message){
+        if(message == null) return;
+        messages.insert(0, message);
+
+        fadetime += 2f;
+        fadetime = Math.min(fadetime, messagesShown) + 1f;
+
     }
 
     private enum ChatMode{

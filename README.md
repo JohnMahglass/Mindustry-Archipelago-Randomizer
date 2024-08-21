@@ -34,7 +34,7 @@
 
 	2. Extract the downloaded file in a directory.
 
-	3. Run "Mindustry.exe"
+	3. Run "Mindustry-Archipelago.exe"
 
 	3. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 

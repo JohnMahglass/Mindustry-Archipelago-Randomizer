@@ -3,6 +3,8 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.Print.APPrintJsonType;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
+import mindustry.randomizer.ui.APMessage;
+
 import static mindustry.Vars.randomizer;
 
 /**
@@ -14,6 +16,6 @@ import static mindustry.Vars.randomizer;
 public class PrintJsonListener {
     @ArchipelagoEventListener
     public void onPrintJson(PrintJSONEvent event) {
-        randomizer.sendLocalMessage(event.apPrint.getPlainText());
+        randomizer.sendLocalMessage(new APMessage(event));
     }
 }
