@@ -415,6 +415,9 @@ public class Logic implements ApplicationListener{
         //save the settings before quitting
         netServer.admins.forceSave();
         Core.settings.manualSave();
+        if (randomizer != null && randomizer.client.isConnected()){
+            randomizer.client.disconnect();
+        }
     }
 
     @Override

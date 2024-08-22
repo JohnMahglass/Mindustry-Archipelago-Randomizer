@@ -90,14 +90,7 @@ public class ArchipelagoDialog extends BaseDialog {
     }
 
     private void setup() {
-
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                verifyConnectionStatus();
-            }
-        };
+        Timer timerD = new Timer(true);
 
         cont.row();
         cont.labelWrap("Address: " + ((Core.settings.getString(CLIENT_ADDRESS.value) != null) ?
@@ -171,7 +164,16 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.button("Connect", () -> {
             client.disconnect();
             client.connectRandomizer();
-            timer.schedule(task, 1500);
+
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    verifyConnectionStatus();
+                    this.cancel();
+                }
+            };
+
+            timerD.schedule(task, 1500);
             reload();
         }).size(140f, 60f).pad(4f);
         cont.button("Disconnect", () -> {
