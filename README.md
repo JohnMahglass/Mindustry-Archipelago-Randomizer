@@ -53,5 +53,10 @@
 
 - Serpulo Events trigger might not be accurate when viewing in a tracker.
 
+- When a death link is triggered by another player, the mindustry player sends another death link as they die from the first death link signal.
+
+- When closing the application, the openjdk platform binary keeps running in the background. This process is using RAM and makes it not possible to delete or move the file 
+while it is running.
+
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
