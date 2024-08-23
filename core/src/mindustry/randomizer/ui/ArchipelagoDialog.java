@@ -162,7 +162,9 @@ public class ArchipelagoDialog extends BaseDialog {
 
         cont.row();
         cont.button("Connect", () -> {
-            client.disconnect();
+            if (client.isConnected()) {
+                client.disconnect();
+            }
             client.connectRandomizer();
 
             TimerTask task = new TimerTask() {
