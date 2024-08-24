@@ -149,17 +149,17 @@ public abstract class LocationResearchCost {
     public static ItemStack[] reqVictoryErekir() {
         ItemStack[] totalResearchCost = new ItemStack[9];
 
-        int amountRequired = 2000;
+        //int amountRequired = 2000; No longer used since requirements are scaled on Erekir.
 
-        totalResearchCost[0] = new ItemStack(Items.beryllium , amountRequired);
-        totalResearchCost[1] = new ItemStack(Items.silicon , amountRequired);
-        totalResearchCost[2] = new ItemStack(Items.oxide , amountRequired);
-        totalResearchCost[3] = new ItemStack(Items.graphite , amountRequired);
-        totalResearchCost[4] = new ItemStack(Items.tungsten , amountRequired);
-        totalResearchCost[5] = new ItemStack(Items.thorium , amountRequired);
-        totalResearchCost[6] = new ItemStack(Items.carbide , amountRequired);
-        totalResearchCost[7] = new ItemStack(Items.surgeAlloy , amountRequired);
-        totalResearchCost[8] = new ItemStack(Items.phaseFabric , amountRequired);
+        totalResearchCost[0] = new ItemStack(Items.beryllium , 2300);
+        totalResearchCost[1] = new ItemStack(Items.silicon , 2300);
+        totalResearchCost[2] = new ItemStack(Items.oxide , 4000);
+        totalResearchCost[3] = new ItemStack(Items.graphite , 2300);
+        totalResearchCost[4] = new ItemStack(Items.tungsten , 2300);
+        totalResearchCost[5] = new ItemStack(Items.thorium , 2300);
+        totalResearchCost[6] = new ItemStack(Items.carbide , 6700);
+        totalResearchCost[7] = new ItemStack(Items.surgeAlloy , 2900);
+        totalResearchCost[8] = new ItemStack(Items.phaseFabric , 10000);
 
         return totalResearchCost;
     }

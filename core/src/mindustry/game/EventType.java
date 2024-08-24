@@ -547,7 +547,6 @@ public class EventType{
 
     public static class UnitDestroyEvent{
         public final Unit unit;
-        int test = 1;
 
         public UnitDestroyEvent(Unit unit){
             this.unit = unit;

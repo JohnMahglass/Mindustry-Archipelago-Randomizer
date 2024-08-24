@@ -240,7 +240,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                         Seq.with(new Objectives.OnSector(atlas)), () -> {
                     //TODO should only be unlocked in unit sector
                             apNode(createApLocation("AP-E-01-17", payloadMassDriver, 216L),
-                            Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.OnSector(split)), () -> {
+                            Seq.with(new Objectives.OnSector(split)), () -> {
                         //TODO further limitations
                             apNode(createApLocation("AP-E-01-18", payloadLoader, 217L), () -> {
                             apNode(createApLocation("AP-E-01-19", payloadUnloader, 218L), () -> {
@@ -289,7 +289,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                 apNode(createApLocation("AP-E-03-05", pyrolysisGenerator, 233L),
                                     Seq.with(new Objectives.OnSector(crevice)), () -> {
                                     apNode(createApLocation("AP-E-03-06", fluxReactor, 234L),
-                                        Seq.with(new Objectives.OnSector(crossroads), new Objectives.Research(cyanogenSynthesizer)), () -> {
+                                        Seq.with(new Objectives.OnSector(crossroads)), () -> {
                                         apNode(createApLocation("AP-E-03-07", neoplasiaReactor, 235L),
                                             Seq.with(new Objectives.OnSector(karst)), () -> {
                                     });
@@ -341,14 +341,14 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                         apNode(createApLocation("AP-E-03-21", electrolyzer, 249L),
                             Seq.with(new Objectives.OnSector(atlas)), () -> {
                             apNode(createApLocation("AP-E-03-22", oxidationChamber, 250L),
-                                Seq.with(new Objectives.Research(tankRefabricator), new Objectives.OnSector(marsh)), () -> {
+                                Seq.with(new Objectives.OnSector(marsh)), () -> {
                                 apNode(createApLocation("AP-E-03-23", surgeCrucible, 251L),
                                     Seq.with(new Objectives.OnSector(ravine)), () -> {
                                 });
                                 apNode(createApLocation("AP-E-03-24", heatRedirector, 252L),
                                     Seq.with(new Objectives.OnSector(ravine)), () -> {
                                     apNode(createApLocation("AP-E-03-25", electricHeater, 253L),
-                                        Seq.with(new Objectives.OnSector(ravine), new Objectives.Research(afflict)), () -> {
+                                        Seq.with(new Objectives.OnSector(ravine)), () -> {
                                         apNode(createApLocation("AP-E-03-26", slagHeater, 254L),
                                             Seq.with(new Objectives.OnSector(caldera)), () -> {
                                         });
@@ -368,8 +368,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                             258L),
                                                         Seq.with(new Objectives.OnSector(karst)), () -> {
                                                         apNode(createApLocation("AP-E-03-31", phaseHeater,
-                                                    259L),
-                                                                Seq.with(new Objectives.Research(phaseSynthesizer)), () -> {
+                                                    259L), () -> {
                                                 });
                                             });
                                         });
@@ -458,7 +457,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
 
                 apNode(createApLocation("AP-E-04-21", radar, 282L),
-                        Seq.with(new Objectives.Research(beamNode), new Objectives.Research(turbineCondenser), new Objectives.Research(tankFabricator), new Objectives.OnSector(SectorPresets.aegis)), () -> {
+                        Seq.with(new Objectives.OnSector(SectorPresets.aegis)), () -> {
 
                 });
             });
@@ -478,8 +477,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 node(UnitTypes.stell);
 
                 apNode(createApLocation("AP-E-06-03", unitRepairTower, 287L),
-                        Seq.with(new Objectives.OnSector(ravine)
-                        , new Objectives.Research(mechRefabricator)), () -> {
+                        Seq.with(new Objectives.OnSector(ravine)), () -> {
 
                 });
 
@@ -515,7 +513,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                     });
 
                                         apNode(createApLocation("AP-E-06-18", tankAssembler, 302L),
-                                            Seq.with(new Objectives.OnSector(siege), new Objectives.Research(constructor), new Objectives.Research(atmosphericConcentrator)), () -> {
+                                            Seq.with(new Objectives.OnSector(siege)), () -> {
 
                                             apNode(createApLocation("AP-E-06-19", UnitTypes.vanquish,
                                             303L), () -> {
