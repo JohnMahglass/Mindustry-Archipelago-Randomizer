@@ -195,7 +195,7 @@ public class Randomizer {
     }
 
     public void sendDeathLink(String source, String cause){
-        if (client.isConnected() && worldState.options.getDeathLink()) {
+        if (client.isConnected() && worldState.options.getDeathLink() && !worldState.deathLinkDying) {
             DeathLink.SendDeathLink(source, cause);
         }
     }
