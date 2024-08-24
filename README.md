@@ -24,7 +24,7 @@
 - Fixed a bug where the connection to client was not properly closed when the application was closed.
 - Fixed a bug where a death link signal would be sent when dying from another player death link.
 - Fixed victory requirement on Erekir not taking into account the planet's ressources scaling.
-- Removed some leftover requirements for unlocking some nodes in Erekir's techtree.
+- Removed some leftover research requirements for unlocking some nodes in Erekir's techtree.
 
 
 ### Version 0.1.0 changelog
