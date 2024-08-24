@@ -698,7 +698,7 @@ abstract class UnitComp implements Healthc, Physicsc, Hitboxc, Statusc, Teamc, I
         type.deathSound.at(this);
 
         if(wasPlayer && randomizer.client.isConnected()){
-            Events.fire(new PlayerDestroyEvent("Explosion"));
+            Events.fire(new PlayerDestroyEvent("exploded!"));
         }
 
         Events.fire(new UnitDestroyEvent(self()));

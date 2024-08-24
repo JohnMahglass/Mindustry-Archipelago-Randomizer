@@ -77,6 +77,11 @@ public class WorldState {
      */
     public MindustryOptions options;
 
+    /**
+     * True if the player is currently dying from a death link bounce. This prevents the player from
+     * sending another death link signal when they die from one themself.
+     */
+    public boolean deathLinkDying;
 
     /**
      * True if there is a check waiting to be sent to the server.
@@ -160,6 +165,7 @@ public class WorldState {
         this.checkPending = new ArrayList<>();
         this.progressiveItems = new ArrayList<>();
         this.apLocations = new ArrayList<>();
+        this.deathLinkDying = false;
         loadStates();
     }
 
