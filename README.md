@@ -1,4 +1,4 @@
-# Mindustry integration for Archipelago (v0.1.0)
+# Mindustry integration for Archipelago (v0.1.1)
 (https://github.com/ArchipelagoMW/Archipelago)
 
  This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
@@ -6,17 +6,8 @@
  To generate a World(APworld), you will need to install the Mindustry World to your Archipelago folder. You can find the Mindustry World release here -> (https://github.com/JohnMahglass/Archipelago-Mindustry)
 
  Please be aware that Linux build has not been tested yet.
- 
-### Version 0.1.0 changelog
 
-- Removed unused feature to prevent confusion.
-- Added client commands. To view available commands, use '/help'.
-- Improved feedback given to player on their connection status when a change occurs.
-- Updated Java Client to version 0.1.19.
-- Added "Faster production", "Disable invasions" and "Death link" options when generating an APworld.
-- The "Erekir" and "All" campaign are now available to choose when generating a game.
-
-## What has been changed?
+ ## What has been changed?
 
 - Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)
 - Most node from the research tree has been replaced with location checks.
@@ -25,7 +16,23 @@
 - You can use the chat to send messages to other client (If they support it).
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
+ 
+### Version 0.1.1 changelog
 
+- Updated death link text to display the name of the player.
+- Fixed a bug where a processus related to the new Archipelago settings menu was not terminated when the program was closed.
+- Fixed a bug where the connection to client was not properly closed when the application was closed.
+- Fixed a bug where a death link signal would be sent when dying from another player death link.
+
+
+### Version 0.1.0 changelog
+
+- Removed unused feature to prevent confusion.
+- Added client commands. To view available commands, use '/help'.
+- Improved feedback given to player on their connection status when a change occurs.
+- Updated Java Client to version 0.1.19.
+- Added "Faster production", "Disable invasions" and "Death link" options when generating an APworld.
+- The "Erekir" and "All" campaign are now available to choose when generating a game.
 
 ## Setup guide.
 
@@ -50,6 +57,8 @@
 - Upon unlocking a node wich auto-unlock other nodes (Like the Tank Fabricator unlocking also the Stell node) The error icon will appear in the toast announcing the new research to the player. (Reason is still unknown.)
 
 - Selecting a starter inventory in your .yaml will fail the generation of the APworld as there are no filler items yet.
+
+- The "OpenJDK Platform Binary" may not terminate properly when a client connected to a game is closed due to a crash or by the player using alt+F4. If you are experiencing this issue you can manually terminate the processus through the task manager.
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
