@@ -20,6 +20,7 @@ import arc.util.Time;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.input.Binding;
+import mindustry.randomizer.enums.ItemsClassification;
 import mindustry.ui.Fonts;
 
 import static arc.Core.input;
@@ -165,55 +166,12 @@ public class APChatFragment extends Table {
 
         float theight = offsety + spacing + getMarginBottom() + scene.marginBottom;
         for(int i = scrollPos; i < messages.size && i < messagesShown + scrollPos && (i < fadetime || shown); i++){
-
             if (messages.get(i).isItemMessage) {
-                layout.setText(font, messages.get(i).plainText, Color.red, textWidth,
-                        Align.bottomLeft, true);
-                theight += layout.height + textspacing;
-                if(i - scrollPos == 0) theight -= textspacing + 1;
-
-                font.getCache().clear();
-                font.getCache().setColor(Color.red);
-                font.getCache().addText(messages.get(i).plainText, fontoffsetx + offsetx,
-                        offsety + theight, textWidth, Align.bottomLeft, true);
-
-                if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
-                    font.getCache().setAlphas((fadetime - i) * opacity);
-                    Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
-                }else{
-                    font.getCache().setAlphas(opacity);
-                }
-
-                rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
-                Draw.color(shadowColor);
-                Draw.alpha(opacity * shadowColor.a);
-
-                font.getCache().draw();
+                APMessage chatMessage = messages.get(i);
+                theight = drawItemMessage(opacity, textWidth, theight, i, chatMessage);
             } else {
-                layout.setText(font, messages.get(i).plainText, Color.white, textWidth,
-                        Align.bottomLeft, true);
-                theight += layout.height + textspacing;
-                if(i - scrollPos == 0) theight -= textspacing + 1;
-
-                font.getCache().clear();
-                font.getCache().setColor(Color.white);
-                font.getCache().addText(messages.get(i).plainText, fontoffsetx + offsetx,
-                        offsety + theight, textWidth, Align.bottomLeft, true);
-
-                if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
-                    font.getCache().setAlphas((fadetime - i) * opacity);
-                    Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
-                }else{
-                    font.getCache().setAlphas(opacity);
-                }
-
-                rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
-                Draw.color(shadowColor);
-                Draw.alpha(opacity * shadowColor.a);
-
-                font.getCache().draw();
+                theight = drawBlankMessage(opacity, textWidth, theight, i);
             }
-
         }
 
         Draw.color();
@@ -221,6 +179,104 @@ public class APChatFragment extends Table {
         if(fadetime > 0 && !shown){
             fadetime -= Time.delta / 180f;
         }
+    }
+
+    /**
+     * Draw a non-colored message.
+     * @param opacity
+     * @param textWidth
+     * @param theight
+     * @param i
+     * @return
+     */
+    private float drawBlankMessage(float opacity, float textWidth, float theight, int i) {
+        layout.setText(font, messages.get(i).plainText, Color.white, textWidth,
+                Align.bottomLeft, true);
+        theight += layout.height + textspacing;
+        if(i - scrollPos == 0) theight -= textspacing + 1;
+
+        font.getCache().clear();
+        font.getCache().setColor(Color.white);
+        font.getCache().addText(messages.get(i).plainText, fontoffsetx + offsetx,
+                offsety + theight, textWidth, Align.bottomLeft, true);
+
+        if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
+            font.getCache().setAlphas((fadetime - i) * opacity);
+            Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
+        }else{
+            font.getCache().setAlphas(opacity);
+        }
+
+        rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
+        Draw.color(shadowColor);
+        Draw.alpha(opacity * shadowColor.a);
+
+        font.getCache().draw();
+        return theight;
+    }
+
+    /**
+     * Draw a colored message for an item event.
+     * @param opacity
+     * @param textWidth
+     * @param theight
+     * @param i
+     * @param chatMessage
+     * @return
+     */
+    private float drawItemMessage(float opacity, float textWidth, float theight, int i,
+                             APMessage chatMessage) {
+        String startText = getStartText(chatMessage);
+        String coloredText = getColoredText(chatMessage);
+        String endText = getEndText(chatMessage);
+        String hexColor = "[#FFFFFF]";
+        if (chatMessage.classification.equals(ItemsClassification.PROGRESSION)) {
+            hexColor = "[#6f32A8]";
+        } else if (chatMessage.classification.equals(ItemsClassification.USEFUL)) {
+            hexColor = "[#3266A8]";
+        } else if (chatMessage.classification.equals(ItemsClassification.TRAP)) {
+            hexColor = "[#EB4F34]";
+        }
+        String finalText = startText + hexColor + coloredText + "[#FFFFFF]"+ endText;
+
+        font.data.markupEnabled = true;
+        layout.setText(font, finalText, 0, finalText.length(),
+                Color.white, textWidth,
+                Align.bottomLeft, true, null);
+        theight += layout.height + textspacing;
+        if(i - scrollPos == 0) theight -= textspacing + 1;
+
+        font.getCache().clear();
+        font.getCache().setColor(Color.white);
+        font.getCache().addText(finalText, fontoffsetx + offsetx,
+                offsety + theight,0 , finalText.length(), textWidth,
+                Align.bottomLeft, true);
+
+        if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
+            font.getCache().setAlphas((fadetime - i) * opacity);
+            Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
+        }else{
+            font.getCache().setAlphas(opacity);
+        }
+
+        rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
+        Draw.color(shadowColor);
+        Draw.alpha(opacity * shadowColor.a);
+
+        font.getCache().draw();
+        return theight;
+    }
+
+    private String getEndText(APMessage chatMessage) {
+        return (chatMessage.message.get(3) + chatMessage.message.get(4) + chatMessage.message.get(5));
+    }
+
+    private String getColoredText(APMessage chatMessage) {
+        return (chatMessage.message.get(2));
+    }
+
+    private String getStartText(APMessage chatMessage) {
+        return (chatMessage.message.get(0) + chatMessage.message.get(1));
     }
 
     private void sendMessage(){

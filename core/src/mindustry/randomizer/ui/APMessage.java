@@ -3,15 +3,18 @@ package mindustry.randomizer.ui;
 import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.Print.APPrintJsonType;
 import dev.koifysh.archipelago.Print.APPrintPart;
+import dev.koifysh.archipelago.events.Event;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
+import dev.koifysh.archipelago.flags.NetworkItem;
 import mindustry.Vars;
 import mindustry.randomizer.WorldState;
 import mindustry.randomizer.enums.ItemsClassification;
+import mindustry.type.Item;
 
 import java.util.ArrayList;
 
 /**
- * APMessage
+ * Archipelago message format for the chat box. Can be created from a PrintJSONEvent or a String.
  *
  * @author John Mahglass
  * @version 1.0.0 2024-08-21
@@ -31,6 +34,7 @@ public class APMessage {
      * @param event The event triggering the message.
      */
     public APMessage(PrintJSONEvent event) {
+
         this.message = new ArrayList<>();
         this.plainText = event.apPrint.getPlainText();
         if (event != null && event.apPrint.parts.length != 0) {
@@ -42,7 +46,7 @@ public class APMessage {
         switch (event.type) {
             case ItemSend:
                 isItemMessage = true;
-                classification = getItemClassification(event.item.itemID);
+                classification = getItemClassification(event);
                 break;
             default:
                 break;
@@ -64,15 +68,19 @@ public class APMessage {
     }
 
     /**
-     * Get item classification from id.
-     * @param id The id of the item.
+     * Get item classification from event.
+     * @param event The event containing the item.
      * @return Return the classification of the item.
      */
-    private ItemsClassification getItemClassification(long id) {
-        boolean isProgression = false;
-        if (Vars.randomizer.worldState.progressionItems.contains(id)) {
-            isProgression = true;
+    private ItemsClassification getItemClassification(PrintJSONEvent event) {
+        ItemsClassification classification = ItemsClassification.USEFUL;
+        if (event.item.flags == NetworkItem.ADVANCEMENT) {
+            classification = ItemsClassification.PROGRESSION;
+        } else if (event.item.flags == NetworkItem.USEFUL) {
+            classification = ItemsClassification.USEFUL;
+        } else if (event.item.flags == NetworkItem.TRAP) {
+            classification = ItemsClassification.TRAP;
         }
-        return isProgression ? ItemsClassification.PROGRESSION : ItemsClassification.USEFUL;
+        return classification;
     }
 }
