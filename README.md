@@ -1,4 +1,4 @@
-# Mindustry integration for Archipelago (v0.1.1)
+# Mindustry integration for Archipelago (v0.2.0)
 (https://github.com/ArchipelagoMW/Archipelago)
 
  This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
@@ -7,7 +7,7 @@
 
  Please be aware that Linux build has not been tested yet.
 
- ## What has been changed?
+  ### What has been changed from the vanilla game?
 
 - Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)
 - Most node from the research tree has been replaced with location checks.
@@ -16,25 +16,10 @@
 - You can use the chat to send messages to other client (If they support it).
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
- 
-### Version 0.1.1 changelog
 
-- Updated death link text to display the name of the player.
-- Fixed a bug where a process related to the new Archipelago settings menu was not terminated when the program was closed.
-- Fixed a bug where the connection to client was not properly closed when the application was closed.
-- Fixed a bug where a death link signal would be sent when dying from another player death link.
-- Fixed victory requirement on Erekir not taking into account the planet's ressources scaling.
-- Removed some leftover research requirements for unlocking some nodes in Erekir's techtree.
+ ## Version 0.2.0 changelog
 
-
-### Version 0.1.0 changelog
-
-- Removed unused feature to prevent confusion.
-- Added client commands. To view available commands, use '/help'.
-- Improved feedback given to player on their connection status when a change occurs.
-- Updated Java Client to version 0.1.19.
-- Added "Faster production", "Disable invasions" and "Death link" options when generating an APworld.
-- The "Erekir" and "All" campaign are now available to choose when generating a game.
+- Chat will now display the color of an item fitting to its classification when receiving an item event message. (Progression, Useful, Trap)
 
 ## Setup guide.
 
