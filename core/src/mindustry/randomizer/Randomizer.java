@@ -9,7 +9,7 @@ import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
-import mindustry.randomizer.ui.APMessage;
+import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.type.Sector;
 import static mindustry.randomizer.enums.SettingStrings.*;
 

@@ -20,6 +20,7 @@
  ## Version 0.2.0 changelog
 
 - Chat will now display the color of an item fitting to its classification when receiving an item event message. (Progression, Useful, Trap)
+- Added "/clear" client command to clear chat messages.
 
 ## Setup guide.
 

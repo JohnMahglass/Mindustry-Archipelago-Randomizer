@@ -1,4 +1,4 @@
-package mindustry.randomizer.ui;
+package mindustry.randomizer.ui.APChat;
 
 import dev.koifysh.archipelago.Print.APPrint;
 import dev.koifysh.archipelago.Print.APPrintJsonType;
