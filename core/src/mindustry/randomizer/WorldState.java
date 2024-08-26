@@ -33,6 +33,11 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 public class WorldState {
 
     /**
+     * Client seed.
+     */
+    private int seed;
+
+    /**
      * Name of the file containing locations that are pending.
      */
     public String checkPendingFile = "RandomizerCheckPending.txt";
@@ -105,6 +110,10 @@ public class WorldState {
         saveState(checkPendingFile, checkPending);
     }
 
+    public int getSeed(){
+        return this.seed;
+    }
+
     /**
      * Check if every condition for victory has been met.
      * @return True if the player has completed all their goal.
@@ -151,15 +160,16 @@ public class WorldState {
         settings.remove(FREE_LAUNCH_EREKIR.value);
         settings.remove(SERPULO_VICTORY.value);
         settings.remove(EREKIR_VICTORY.value);
+        settings.remove(AP_SEED.value);
     }
 
     /**
-     * Wipe every state.
+     * Create a seed using the Archipelago Room Info seed.
+     * @param roomInfoSeed The seed from the Room Info.
      */
-    private void wipeStates() {
-        wipeState(checkPendingFile, checkPending);
-        progressiveItems.clear();
-        locationsChecked.clear();
+    public void createSeed(String roomInfoSeed){
+        seed = Integer.parseInt(roomInfoSeed.substring(0, 7));
+        settings.put(AP_SEED.value, seed);
     }
 
 
@@ -175,8 +185,27 @@ public class WorldState {
         this.progressiveItems = new ArrayList<>();
         this.apLocations = new ArrayList<>();
         this.deathLinkDying = false;
+        initialize();
+    }
+
+    /**
+     * Wipe every state.
+     */
+    private void wipeStates() {
+        wipeState(checkPendingFile, checkPending);
+        progressiveItems.clear();
+        locationsChecked.clear();
+    }
+
+    private void initialize() {
+        if (settings.getInt(AP_SEED.value) != 0){ // 0 = no value saved.
+            seed = settings.getInt(AP_SEED.value);
+        } else {
+            seed = 0;
+        }
         loadStates();
     }
+
 
 
     /**

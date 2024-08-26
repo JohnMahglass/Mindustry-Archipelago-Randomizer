@@ -89,7 +89,8 @@ public class ClientCommandController {
                     "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
                     "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
                     "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
-                    "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink())));
+                    "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
+                    "   Seed: " + randomizer.worldState.getSeed()));
         } else {
             chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
                     "options."));

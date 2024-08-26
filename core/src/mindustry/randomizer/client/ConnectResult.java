@@ -31,6 +31,7 @@ public class ConnectResult {
             if (!randomizer.hasConnectedPreviously) { //First time the player is connecting
                 // to the game
                 randomizer.worldState.options.fillOptions(client.slotData);
+                randomizer.worldState.createSeed(client.getRoomInfo().seedName);
                 randomizer.initialize();
             }
             while (randomizer.worldState.hasCheckPending()) { // The player has item
@@ -60,5 +61,9 @@ public class ConnectResult {
             randomizer.sendLocalMessage("Not connected. To connect, go to Settings -> " +
                     "Archipelago");
         }
+    }
+
+    private int createClientSeed(String APseed) {
+        return 0;
     }
 }
