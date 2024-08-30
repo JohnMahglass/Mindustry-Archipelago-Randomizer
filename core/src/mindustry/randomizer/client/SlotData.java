@@ -25,6 +25,12 @@ public class SlotData {
     @SerializedName("death_link")
     private boolean deathLink = false;
 
+    @SerializedName("randomize_player_shots")
+    private boolean randomizePlayerShots = false;
+
+    @SerializedName("randomize_block_size")
+    private boolean randomizeBlockSize = false;
+
 
     public boolean getTutorialSkip() {
         return tutorialSkip;
@@ -44,6 +50,14 @@ public class SlotData {
 
     public boolean getDeathlink() {
         return deathLink;
+    }
+
+    public boolean getRandomizePlayerShots() {
+        return randomizePlayerShots;
+    }
+
+    public boolean getRandomizeBlockSize(){
+        return randomizeBlockSize;
     }
 
 }

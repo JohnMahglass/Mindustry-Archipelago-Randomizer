@@ -2,7 +2,6 @@ package mindustry.randomizer;
 
 import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.content.Blocks;
-import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.randomizer.client.SlotData;
@@ -60,6 +59,18 @@ public class MindustryOptions {
      */
     private boolean fasterProduction;
 
+    /**
+     * Randomize player shot for every ship they can control.
+     */
+    private boolean randomizePlayerShots;
+
+    /**
+     * Randomize blocks size.
+     */
+    private boolean randomizeBlockSize;
+
+
+
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
     }
@@ -89,6 +100,13 @@ public class MindustryOptions {
         return this.deathLink && !this.forceDisableDeathLink;
     }
 
+    public boolean getRandomizeBlockSize() {
+        return this.randomizeBlockSize;
+    }
+
+    public boolean getRandomizePlayerShots(){
+        return this.randomizePlayerShots;
+    }
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
     }
@@ -136,29 +154,11 @@ public class MindustryOptions {
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
             this.campaign = slotData.getCampaignChoice();
+            this.randomizePlayerShots = slotData.getRandomizePlayerShots();
+            this.randomizeBlockSize = slotData.getRandomizeBlockSize();
 
             this.optionsFilled = true;
             saveOptions();
-            settings.put(HAS_CONNECTED.value, true);
-            if (tutorialSkip) {
-                if (campaign == 0) {
-                    settings.put(FREE_LAUNCH_SERPULO.value, true);
-                } else if (campaign == 1) {
-                    settings.put(FREE_LAUNCH_EREKIR.value, true);
-                } else if (campaign == 2) {
-                    settings.put(FREE_LAUNCH_SERPULO.value, true);
-                    settings.put(FREE_LAUNCH_EREKIR.value, true);
-                }
-            }
-            if (fasterProduction) {
-                settings.put(FASTER_PRODUCTION.value, true);
-            }
-            if (disableInvasions) {
-                settings.put(DISABLE_INVASIONS.value, true);
-            }
-            if (deathLink) {
-                settings.put(DEATH_LINK.value, true);
-            }
         }
     }
 
@@ -178,6 +178,8 @@ public class MindustryOptions {
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
+            this.randomizeBlockSize = false;
+            this.randomizePlayerShots = false;
             if (settings != null) { //Local settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
             }
@@ -369,6 +371,20 @@ public class MindustryOptions {
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
+        settings.put(RANDOMIZE_PLAYER_SHOTS.value, getRandomizePlayerShots());
+        settings.put(RANDOMIZE_BLOCK_SIZE.value, getRandomizeBlockSize());
+        if (getTutorialSkip()) {
+            if (getCampaign() == 0) {
+                settings.put(FREE_LAUNCH_SERPULO.value, true);
+            } else if (getCampaign() == 1) {
+                settings.put(FREE_LAUNCH_EREKIR.value, true);
+            } else if (getCampaign() == 2) {
+                settings.put(FREE_LAUNCH_SERPULO.value, true);
+                settings.put(FREE_LAUNCH_EREKIR.value, true);
+            }
+        }
+
+        settings.put(HAS_CONNECTED.value, true);
     }
 
     /**
@@ -381,6 +397,8 @@ public class MindustryOptions {
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
+        this.randomizeBlockSize = settings.getBool(RANDOMIZE_BLOCK_SIZE.value);
+        this.randomizePlayerShots = settings.getBool(RANDOMIZE_PLAYER_SHOTS.value);
         this.optionsFilled = true;
     }
 

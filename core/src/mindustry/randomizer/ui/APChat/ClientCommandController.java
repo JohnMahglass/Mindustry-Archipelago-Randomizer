@@ -90,7 +90,9 @@ public class ClientCommandController {
                     "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
                     "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
                     "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
-                    "   Seed: " + randomizer.worldState.getSeed()));
+                    "   Seed: " + randomizer.worldState.getSeed() + "\n" +
+                    "   Randomize blocks size: " + getActivationStatus(randomizer.worldState.options.getRandomizeBlockSize()) + "\n" +
+                    "   Randomize player shots: " + getActivationStatus(randomizer.worldState.options.getRandomizePlayerShots())));
         } else {
             chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
                     "options."));
