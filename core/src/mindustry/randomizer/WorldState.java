@@ -251,7 +251,6 @@ public class WorldState {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
             loadedState = new ArrayList<>();
         }
         return loadedState;
