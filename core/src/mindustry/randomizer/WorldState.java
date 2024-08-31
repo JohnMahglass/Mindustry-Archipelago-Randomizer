@@ -161,10 +161,13 @@ public class WorldState {
         settings.remove(SERPULO_VICTORY.value);
         settings.remove(EREKIR_VICTORY.value);
         settings.remove(AP_SEED.value);
+        settings.remove(RANDOMIZE_PLAYER_SHOTS.value);
+        settings.remove(RANDOMIZE_BLOCK_SIZE.value);
     }
 
     /**
-     * Create a seed using the Archipelago Room Info seed.
+     * Create a seed using the Archipelago Room Info seed. The seed is converted to an int so
+     * that it can easily be stored inside Settings
      * @param roomInfoSeed The seed from the Room Info.
      */
     public void createSeed(String roomInfoSeed){
@@ -235,7 +238,7 @@ public class WorldState {
     }
 
     /**
-     * Load the saved state.
+     * Load the saved state. If file cannot be found, initialize an empty list.
      */
     private <T> ArrayList<T> loadState(String fileName) {
         ArrayList<T> loadedState = new ArrayList<>();
