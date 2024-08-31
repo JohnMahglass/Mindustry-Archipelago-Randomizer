@@ -50,7 +50,15 @@
 	4. Have fun.
 
 ### Linux
-	Linux build has not been tested yet.
+	1. Download the .jar file from the latest release.
+
+	2. Make sure you have Java JRE installed. You can install the Java 17 JRE on Ubuntu using ```sudo apt install openjdk-17-jre``` in the terminal.
+
+	3. Open the terminal
+
+	4. Make sure you are in the directory containing 'Mindustry-Archipelago.jar' (The file you downloaded from the release page.)
+
+	5. Type ```java -jar Mindustry-Archipelago.jar``` in the terminal.
 
 ## Known bugs
 
@@ -58,11 +66,9 @@
 
 - Upon unlocking a node wich auto-unlock other nodes (Like the Tank Fabricator unlocking also the Stell node) The error icon will appear in the toast announcing the new research to the player. (Reason is still unknown.)
 
-- Selecting a starter inventory in your .yaml will fail the generation of the APworld as there are no filler items yet.
-
 - Serpulo Events trigger might not be accurate when viewing in a tracker.
 
-- The "OpenJDK Platform Binary" may not terminate properly when a client connected to a game is closed due to a crash or by the player using alt+F4. If you are experiencing this issue you can manually terminate the processus through the task manager.
+- When playing with the 'Faster production' option, the enemy ai might glitch wich makes the ai passive.
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
