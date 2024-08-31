@@ -52,13 +52,13 @@
 ### Linux
 	1. Download the .jar file from the latest release.
 
-	2. Make sure you have Java JRE installed. You can install the Java 17 JRE on Ubuntu using ```sudo apt install openjdk-17-jre``` in the terminal.
+	2. Make sure you have Java JRE installed. You can install the Java 17 JRE on Ubuntu using 'sudo apt install openjdk-17-jre' in the terminal.
 
 	3. Open the terminal
 
 	4. Make sure you are in the directory containing 'Mindustry-Archipelago.jar' (The file you downloaded from the release page.)
 
-	5. Type ```java -jar Mindustry-Archipelago.jar``` in the terminal.
+	5. Type 'java -jar Mindustry-Archipelago.jar' in the terminal.
 
 ## Known bugs
 
