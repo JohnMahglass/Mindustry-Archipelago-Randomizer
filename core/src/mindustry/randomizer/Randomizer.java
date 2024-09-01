@@ -5,11 +5,14 @@ import static arc.Core.settings;
 
 import dev.koifysh.archipelago.ClientStatus;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
+import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
+import mindustry.randomizer.utils.EmptyFillerText;
 import mindustry.type.Sector;
 import static mindustry.randomizer.enums.SettingStrings.*;
 
@@ -21,6 +24,11 @@ import static mindustry.randomizer.enums.SettingStrings.*;
  * @version 0.1.0 2024-05-12
  */
 public class Randomizer {
+
+    /**
+     * Debug mode for the randomizer.
+     */
+    public boolean debug = false;
 
     /**
      * Client for the randomizer.
@@ -350,22 +358,27 @@ public class Randomizer {
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
-
+            if (options.getRandomizeCoreUnitsWeapon()) {
+                MindustryOptions.randomizeCoreUnitsWeapon();
+            }
             switch (options.getCampaign()) {
                 case 0: //Serpulo
                     worldState.initializeSerpuloItems();
+                    worldState.initializeSerpuloFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                     }
                     break;
                 case 1: //Erekir
                     worldState.initializeErekirItems();
+                    worldState.initializeErekirFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
                 case 2: //All
                     worldState.initializeAllItems();
+                    worldState.initializeAllFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                         MindustryOptions.unlockErekirTutorialItems();
@@ -380,4 +393,19 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Process an event that the player received that is not a research.
+     * @param event Event received from the client.
+     */
+    public void processEvent(ReceiveItemEvent event) {
+        if (event.getItemID() == MINDUSTRY_BASE_ID + 700) { //A fistful of nothing...
+            sendLocalMessage(EmptyFillerText.getRandomText());
+        }
+    }
+
+    public void updateForceExit() {
+        //open confirmation dialog to warn the user of the required game restart.
+        APApplyOptionsDialog dialog = new APApplyOptionsDialog("Apply randomizer options");
+        dialog.show();
+    }
 }

@@ -6,6 +6,7 @@ import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import mindustry.ctype.UnlockableContent;
 
 import static mindustry.Vars.randomizer;
+import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
 /**
  * ReceiveItem
@@ -22,7 +23,10 @@ public class ReceiveItem {
             // sure the content is not already unlocked.
             randomizer.unlock(event.getItemID());
             randomizer.worldState.saveStates();
+        } else if (event.getItemID() >= MINDUSTRY_BASE_ID + 700) { //Is event
+            randomizer.processEvent(event);
         }
+
     }
 
 }

@@ -33,6 +33,7 @@ public class ConnectResult {
                 randomizer.worldState.options.fillOptions(client.slotData);
                 randomizer.worldState.createSeed(client.getRoomInfo().seedName);
                 randomizer.initialize();
+                randomizer.updateForceExit(); //Required to apply all randomizer options.
             }
             while (randomizer.worldState.hasCheckPending()) { // The player has item
                 // waiting to be sent to Archipelago

@@ -25,8 +25,8 @@ public class SlotData {
     @SerializedName("death_link")
     private boolean deathLink = false;
 
-    @SerializedName("randomize_player_shots")
-    private boolean randomizePlayerShots = false;
+    @SerializedName("randomize_core_units_weapon")
+    private boolean randomizeCoreUnitsWeapon = false;
 
     @SerializedName("randomize_block_size")
     private boolean randomizeBlockSize = false;
@@ -52,8 +52,8 @@ public class SlotData {
         return deathLink;
     }
 
-    public boolean getRandomizePlayerShots() {
-        return randomizePlayerShots;
+    public boolean getRandomizeCoreUnitsWeapon() {
+        return randomizeCoreUnitsWeapon;
     }
 
     public boolean getRandomizeBlockSize(){

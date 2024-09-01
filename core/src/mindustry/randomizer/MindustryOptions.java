@@ -5,6 +5,8 @@ import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.randomizer.client.SlotData;
+import mindustry.randomizer.utils.RandomizerLists;
+import mindustry.type.Weapon;
 import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.blocks.production.Drill;
@@ -12,6 +14,9 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Pump;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.production.WallCrafter;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 import static arc.Core.settings;
 import static mindustry.Vars.randomizer;
@@ -60,9 +65,9 @@ public class MindustryOptions {
     private boolean fasterProduction;
 
     /**
-     * Randomize player shot for every ship they can control.
+     * Randomize core units weapon.
      */
-    private boolean randomizePlayerShots;
+    private boolean randomizeCoreUnitsWeapon;
 
     /**
      * Randomize blocks size.
@@ -104,8 +109,8 @@ public class MindustryOptions {
         return this.randomizeBlockSize;
     }
 
-    public boolean getRandomizePlayerShots(){
-        return this.randomizePlayerShots;
+    public boolean getRandomizeCoreUnitsWeapon(){
+        return this.randomizeCoreUnitsWeapon;
     }
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
@@ -154,7 +159,7 @@ public class MindustryOptions {
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
             this.campaign = slotData.getCampaignChoice();
-            this.randomizePlayerShots = slotData.getRandomizePlayerShots();
+            this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.randomizeBlockSize = slotData.getRandomizeBlockSize();
 
             this.optionsFilled = true;
@@ -179,11 +184,21 @@ public class MindustryOptions {
             this.fasterProduction = false;
             this.deathLink = false;
             this.randomizeBlockSize = false;
-            this.randomizePlayerShots = false;
+            this.randomizeCoreUnitsWeapon = false;
             if (settings != null) { //Local settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
             }
         }
+    }
+
+    /**
+     * Randomize core units weapon.
+     */
+    protected static void randomizeCoreUnitsWeapon() {
+        Random random = new Random(settings.getInt(AP_SEED.value));
+        ArrayList<Weapon> coreUnitWeapons = RandomizerLists.getPossibleCoreUnitsWeapons();
+        UnitTypes.alpha.weapons.clear();
+        UnitTypes.alpha.weapons.add(coreUnitWeapons.get(coreUnitWeapons.size() - 1));
     }
 
     /**
@@ -371,7 +386,7 @@ public class MindustryOptions {
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
-        settings.put(RANDOMIZE_PLAYER_SHOTS.value, getRandomizePlayerShots());
+        settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
         settings.put(RANDOMIZE_BLOCK_SIZE.value, getRandomizeBlockSize());
         if (getTutorialSkip()) {
             if (getCampaign() == 0) {
@@ -398,7 +413,7 @@ public class MindustryOptions {
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.randomizeBlockSize = settings.getBool(RANDOMIZE_BLOCK_SIZE.value);
-        this.randomizePlayerShots = settings.getBool(RANDOMIZE_PLAYER_SHOTS.value);
+        this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.optionsFilled = true;
     }
 

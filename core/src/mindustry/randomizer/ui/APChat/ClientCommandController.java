@@ -63,11 +63,27 @@ public class ClientCommandController {
             case "clear":
                 executeClearCommand(commandParts);
                 break;
+            case "dev":
+                executeDevCommand(commandParts);
+                break;
             default:
                 chat.addLocalMessage(new APMessage("Unknown command. Use '/help' for command " +
                         "usage."));
                 break;
         }
+    }
+
+    private void executeDevCommand(String[] commandParts) {
+        if (commandParts.length > 1) {
+            tooManyArgumentMessage();
+            return;
+        }
+        randomizer.sendLocalMessage("-----EXECUTE DEV COMMAND-----");
+        randomizer.debug = true;
+        randomizer.sendLocalMessage("---Debug mode activated---");
+        randomizer.client.setSlotName("Dev");
+        randomizer.client.setAddress("localhost:38281");
+        randomizer.client.connectRandomizer();
     }
 
     private void executeClearCommand(String[] commandParts) {
@@ -92,7 +108,7 @@ public class ClientCommandController {
                     "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
                     "   Seed: " + randomizer.worldState.getSeed() + "\n" +
                     "   Randomize blocks size: " + getActivationStatus(randomizer.worldState.options.getRandomizeBlockSize()) + "\n" +
-                    "   Randomize player shots: " + getActivationStatus(randomizer.worldState.options.getRandomizePlayerShots())));
+                    "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon())));
         } else {
             chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
                     "options."));

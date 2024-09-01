@@ -49,7 +49,7 @@ public class WorldState {
     /**
      * List of all filler items.
      */
-    public ArrayList<Long> fillerItems;
+    public Map<Long, String> fillerItems;
     /**
      * List of progression items.
      */
@@ -161,7 +161,7 @@ public class WorldState {
         settings.remove(SERPULO_VICTORY.value);
         settings.remove(EREKIR_VICTORY.value);
         settings.remove(AP_SEED.value);
-        settings.remove(RANDOMIZE_PLAYER_SHOTS.value);
+        settings.remove(RANDOMIZE_CORE_UNITS_WEAPON.value);
         settings.remove(RANDOMIZE_BLOCK_SIZE.value);
     }
 
@@ -180,7 +180,7 @@ public class WorldState {
         this.options = new MindustryOptions();
         this.items = new HashMap<>();
         this.progressionItems = new ArrayList<>();
-        this.fillerItems = new ArrayList<>();
+        this.fillerItems = new HashMap<>();
         this.unlockedItems = null;
         this.locations = new HashMap<>();
         this.locationsChecked = new ArrayList<>();
@@ -314,6 +314,27 @@ public class WorldState {
             }
         }
         return progressive;
+    }
+
+    /**
+     * Initialize a list of possible filler item for Serpulo.
+     */
+    protected void initializeSerpuloFillers(){
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+    }
+
+    /**
+     * Initialize a list of possible filler item for Erekir.
+     */
+    protected void initializeErekirFillers(){
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+    }
+
+    /**
+     * Initialize a list of possible filler item for all campaigns.
+     */
+    protected void initializeAllFillers(){
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
     }
 
     /**

@@ -19,7 +19,7 @@ public enum SettingStrings {
     AP_SEED("APseed"),
 
     RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
-    RANDOMIZE_PLAYER_SHOTS("APrandomizePlayerShots");
+    RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon");
 
 
     public final String value;
