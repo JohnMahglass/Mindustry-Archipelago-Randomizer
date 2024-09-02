@@ -50,10 +50,7 @@ public class WorldState {
      * List of all filler items.
      */
     public Map<Long, String> fillerItems;
-    /**
-     * List of progression items.
-     */
-    public ArrayList<Long> progressionItems;
+
     /**
      * List of all locations used in the randomisation.
      */
@@ -179,7 +176,6 @@ public class WorldState {
     public WorldState() {
         this.options = new MindustryOptions();
         this.items = new HashMap<>();
-        this.progressionItems = new ArrayList<>();
         this.fillerItems = new HashMap<>();
         this.unlockedItems = null;
         this.locations = new HashMap<>();
@@ -361,13 +357,11 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 209, Blocks.underflowDuct);
         items.put(MINDUSTRY_BASE_ID + 210, Blocks.ductUnloader);
         items.put(MINDUSTRY_BASE_ID + 211, Blocks.reinforcedContainer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 211);
         items.put(MINDUSTRY_BASE_ID + 212, Blocks.reinforcedVault);
         items.put(MINDUSTRY_BASE_ID + 213, Blocks.reinforcedMessage);
         items.put(MINDUSTRY_BASE_ID + 214, Blocks.canvas);
         items.put(MINDUSTRY_BASE_ID + 215, Blocks.reinforcedPayloadConveyor);
         items.put(MINDUSTRY_BASE_ID + 216, Blocks.payloadMassDriver);
-        progressionItems.add(MINDUSTRY_BASE_ID + 216);
         items.put(MINDUSTRY_BASE_ID + 217, Blocks.payloadLoader);
         items.put(MINDUSTRY_BASE_ID + 218, Blocks.payloadUnloader);
         items.put(MINDUSTRY_BASE_ID + 219, Blocks.largePayloadMassDriver);
@@ -378,27 +372,21 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 224, Blocks.reinforcedPayloadRouter);
         items.put(MINDUSTRY_BASE_ID + 225, Blocks.plasmaBore);
         items.put(MINDUSTRY_BASE_ID + 226, Blocks.impactDrill);
-        progressionItems.add(MINDUSTRY_BASE_ID + 226);
         items.put(MINDUSTRY_BASE_ID + 227, Blocks.largePlasmaBore);
-        progressionItems.add(MINDUSTRY_BASE_ID + 227);
         items.put(MINDUSTRY_BASE_ID + 228, Blocks.eruptionDrill);
         items.put(MINDUSTRY_BASE_ID + 229, Blocks.turbineCondenser);
         items.put(MINDUSTRY_BASE_ID + 230, Blocks.beamNode);
         items.put(MINDUSTRY_BASE_ID + 231, Blocks.ventCondenser);
         items.put(MINDUSTRY_BASE_ID + 232, Blocks.chemicalCombustionChamber);
-        progressionItems.add(MINDUSTRY_BASE_ID + 232);
         items.put(MINDUSTRY_BASE_ID + 233, Blocks.pyrolysisGenerator);
         items.put(MINDUSTRY_BASE_ID + 234, Blocks.fluxReactor);
         items.put(MINDUSTRY_BASE_ID + 235, Blocks.neoplasiaReactor);
         items.put(MINDUSTRY_BASE_ID + 236, Blocks.beamTower);
-        progressionItems.add(MINDUSTRY_BASE_ID + 236);
         items.put(MINDUSTRY_BASE_ID + 237, Blocks.regenProjector);
         items.put(MINDUSTRY_BASE_ID + 238, Blocks.buildTower);
         items.put(MINDUSTRY_BASE_ID + 239, Blocks.shockwaveTower);
         items.put(MINDUSTRY_BASE_ID + 240, Blocks.reinforcedConduit);
-        progressionItems.add(MINDUSTRY_BASE_ID + 240);
         items.put(MINDUSTRY_BASE_ID + 241, Blocks.reinforcedPump);
-        progressionItems.add(MINDUSTRY_BASE_ID + 241);
         items.put(MINDUSTRY_BASE_ID + 242, Blocks.reinforcedLiquidJunction);
         items.put(MINDUSTRY_BASE_ID + 243, Blocks.reinforcedBridgeConduit);
         items.put(MINDUSTRY_BASE_ID + 244, Blocks.reinforcedLiquidRouter);
@@ -407,22 +395,15 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 247, Blocks.cliffCrusher);
         items.put(MINDUSTRY_BASE_ID + 248, Blocks.siliconArcFurnace);
         items.put(MINDUSTRY_BASE_ID + 249, Blocks.electrolyzer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 249);
         items.put(MINDUSTRY_BASE_ID + 250, Blocks.oxidationChamber);
-        progressionItems.add(MINDUSTRY_BASE_ID + 250);
         items.put(MINDUSTRY_BASE_ID + 251, Blocks.surgeCrucible);
-        progressionItems.add(MINDUSTRY_BASE_ID + 251);
         items.put(MINDUSTRY_BASE_ID + 252, Blocks.heatRedirector);
         items.put(MINDUSTRY_BASE_ID + 253, Blocks.electricHeater);
         items.put(MINDUSTRY_BASE_ID + 254, Blocks.slagHeater);
         items.put(MINDUSTRY_BASE_ID + 255, Blocks.atmosphericConcentrator);
-        progressionItems.add(MINDUSTRY_BASE_ID + 255);
         items.put(MINDUSTRY_BASE_ID + 256, Blocks.cyanogenSynthesizer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 256);
         items.put(MINDUSTRY_BASE_ID + 257, Blocks.carbideCrucible);
-        progressionItems.add(MINDUSTRY_BASE_ID + 257);
         items.put(MINDUSTRY_BASE_ID + 258, Blocks.phaseSynthesizer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 258);
         items.put(MINDUSTRY_BASE_ID + 259, Blocks.phaseHeater);
         items.put(MINDUSTRY_BASE_ID + 260, Blocks.heatRouter);
         items.put(MINDUSTRY_BASE_ID + 261, Blocks.slagIncinerator);
@@ -453,17 +434,10 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 286, UnitTypes.stell);
         items.put(MINDUSTRY_BASE_ID + 287, Blocks.unitRepairTower);
         items.put(MINDUSTRY_BASE_ID + 288, Blocks.shipFabricator);
-        progressionItems.add(MINDUSTRY_BASE_ID + 288);
-        items.put(MINDUSTRY_BASE_ID + 289, UnitTypes.elude);
-        progressionItems.add(MINDUSTRY_BASE_ID + 289);
         items.put(MINDUSTRY_BASE_ID + 290, Blocks.mechFabricator);
-        progressionItems.add(MINDUSTRY_BASE_ID + 290);
-        items.put(MINDUSTRY_BASE_ID + 291, UnitTypes.merui);
-        progressionItems.add(MINDUSTRY_BASE_ID + 291);
         items.put(MINDUSTRY_BASE_ID + 292, Blocks.tankRefabricator);
         items.put(MINDUSTRY_BASE_ID + 294, Blocks.mechRefabricator);
         items.put(MINDUSTRY_BASE_ID + 296, Blocks.shipRefabricator);
-        progressionItems.add(MINDUSTRY_BASE_ID + 296);
         items.put(MINDUSTRY_BASE_ID + 298, Blocks.primeRefabricator);
         items.put(MINDUSTRY_BASE_ID + 302, Blocks.tankAssembler);
         items.put(MINDUSTRY_BASE_ID + 305, Blocks.shipAssembler);
@@ -511,7 +485,8 @@ public class WorldState {
 
         items.put(MINDUSTRY_BASE_ID + 342, null); //Progressive Ships
         ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.E_SHIPS,
-                MINDUSTRY_BASE_ID + 342, 4);
+                MINDUSTRY_BASE_ID + 342, 5);
+        item3.items.add(UnitTypes.elude);
         item3.items.add(UnitTypes.avert);
         item3.items.add(UnitTypes.obviate);
         item3.items.add(UnitTypes.quell);
@@ -520,7 +495,8 @@ public class WorldState {
 
         items.put(MINDUSTRY_BASE_ID + 343, null); //Progressive Mechs
         ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
-                MINDUSTRY_BASE_ID + 343, 4);
+                MINDUSTRY_BASE_ID + 343, 5);
+        item2.items.add(UnitTypes.merui);
         item2.items.add(UnitTypes.cleroi);
         item2.items.add(UnitTypes.anthicus);
         item2.items.add(UnitTypes.tecta);
@@ -557,9 +533,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 21, Blocks.coreNucleus);
         items.put(MINDUSTRY_BASE_ID + 22, Blocks.mechanicalDrill);
         items.put(MINDUSTRY_BASE_ID + 23, Blocks.mechanicalPump);
-        progressionItems.add(MINDUSTRY_BASE_ID + 23);
         items.put(MINDUSTRY_BASE_ID + 24, Blocks.conduit);
-        progressionItems.add(MINDUSTRY_BASE_ID + 24);
         items.put(MINDUSTRY_BASE_ID + 25, Blocks.liquidJunction);
         items.put(MINDUSTRY_BASE_ID + 26, Blocks.liquidRouter);
         items.put(MINDUSTRY_BASE_ID + 27, Blocks.liquidContainer);
@@ -571,41 +545,29 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 33, Blocks.rotaryPump);
         items.put(MINDUSTRY_BASE_ID + 34, Blocks.impulsePump);
         items.put(MINDUSTRY_BASE_ID + 35, Blocks.graphitePress);
-        progressionItems.add(MINDUSTRY_BASE_ID + 35);
         items.put(MINDUSTRY_BASE_ID + 36, Blocks.pneumaticDrill);
-        progressionItems.add(MINDUSTRY_BASE_ID + 36);
         items.put(MINDUSTRY_BASE_ID + 37, Blocks.cultivator);
-        progressionItems.add(MINDUSTRY_BASE_ID + 37);
         items.put(MINDUSTRY_BASE_ID + 38, Blocks.laserDrill);
-        progressionItems.add(MINDUSTRY_BASE_ID + 38);
         items.put(MINDUSTRY_BASE_ID + 39, Blocks.blastDrill);
         items.put(MINDUSTRY_BASE_ID + 40, Blocks.waterExtractor);
         items.put(MINDUSTRY_BASE_ID + 41, Blocks.oilExtractor);
         items.put(MINDUSTRY_BASE_ID + 42, Blocks.pyratiteMixer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 42);
         items.put(MINDUSTRY_BASE_ID + 43, Blocks.blastMixer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 43);
         items.put(MINDUSTRY_BASE_ID + 44, Blocks.siliconSmelter);
-        progressionItems.add(MINDUSTRY_BASE_ID + 44);
         items.put(MINDUSTRY_BASE_ID + 45, Blocks.sporePress);
         items.put(MINDUSTRY_BASE_ID + 46, Blocks.coalCentrifuge);
         items.put(MINDUSTRY_BASE_ID + 47, Blocks.multiPress);
         items.put(MINDUSTRY_BASE_ID + 48, Blocks.siliconCrucible);
         items.put(MINDUSTRY_BASE_ID + 49, Blocks.plastaniumCompressor);
-        progressionItems.add(MINDUSTRY_BASE_ID + 49);
         items.put(MINDUSTRY_BASE_ID + 50, Blocks.phaseWeaver);
-        progressionItems.add(MINDUSTRY_BASE_ID + 50);
         items.put(MINDUSTRY_BASE_ID + 51, Blocks.kiln);
-        progressionItems.add(MINDUSTRY_BASE_ID + 51);
         items.put(MINDUSTRY_BASE_ID + 52, Blocks.pulverizer);
         items.put(MINDUSTRY_BASE_ID + 53, Blocks.incinerator);
         items.put(MINDUSTRY_BASE_ID + 54, Blocks.melter);
         items.put(MINDUSTRY_BASE_ID + 55, Blocks.surgeSmelter);
-        progressionItems.add(MINDUSTRY_BASE_ID + 55);
         items.put(MINDUSTRY_BASE_ID + 56, Blocks.separator);
         items.put(MINDUSTRY_BASE_ID + 57, Blocks.disassembler);
         items.put(MINDUSTRY_BASE_ID + 58, Blocks.cryofluidMixer);
-        progressionItems.add(MINDUSTRY_BASE_ID + 56);
         items.put(MINDUSTRY_BASE_ID + 59, Blocks.microProcessor);
         items.put(MINDUSTRY_BASE_ID + 60, Blocks.switchBlock);
         items.put(MINDUSTRY_BASE_ID + 61, Blocks.message);
@@ -617,16 +579,13 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 67, Blocks.hyperProcessor);
         items.put(MINDUSTRY_BASE_ID + 68, Blocks.illuminator);
         items.put(MINDUSTRY_BASE_ID + 69, Blocks.combustionGenerator);
-        progressionItems.add(MINDUSTRY_BASE_ID + 70);
         items.put(MINDUSTRY_BASE_ID + 70, Blocks.powerNode);
-        progressionItems.add(MINDUSTRY_BASE_ID + 71);
         items.put(MINDUSTRY_BASE_ID + 71, Blocks.powerNodeLarge);
         items.put(MINDUSTRY_BASE_ID + 72, Blocks.diode);
         items.put(MINDUSTRY_BASE_ID + 73, Blocks.surgeTower);
         items.put(MINDUSTRY_BASE_ID + 74, Blocks.battery);
         items.put(MINDUSTRY_BASE_ID + 75, Blocks.batteryLarge);
         items.put(MINDUSTRY_BASE_ID + 76, Blocks.mender);
-        progressionItems.add(MINDUSTRY_BASE_ID + 76);
         items.put(MINDUSTRY_BASE_ID + 77, Blocks.mendProjector);
         items.put(MINDUSTRY_BASE_ID + 78, Blocks.forceProjector);
         items.put(MINDUSTRY_BASE_ID + 79, Blocks.overdriveProjector);
@@ -675,13 +634,11 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 122, Blocks.foreshadow);
         items.put(MINDUSTRY_BASE_ID + 123, Blocks.shockMine);
         items.put(MINDUSTRY_BASE_ID + 124, Blocks.groundFactory);
-        progressionItems.add(MINDUSTRY_BASE_ID + 124);
-        items.put(MINDUSTRY_BASE_ID + 125, UnitTypes.dagger);
-        progressionItems.add(MINDUSTRY_BASE_ID + 125);
-        items.put(MINDUSTRY_BASE_ID + 126, null); //Progressive Ground Unit Type A
 
-        ProgressiveItem item1 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_A,
-                MINDUSTRY_BASE_ID + 126, 4);
+        items.put(MINDUSTRY_BASE_ID + 126, null); //Progressive Offensive Ground Unit
+        ProgressiveItem item1 = new ProgressiveItem(ProgressiveItemType.S_OFFENSIVE_GROUND_UNIT,
+                MINDUSTRY_BASE_ID + 126, 5);
+        item1.items.add(UnitTypes.dagger);
         item1.items.add(UnitTypes.mace);
         item1.items.add(UnitTypes.fortress);
         item1.items.add(UnitTypes.scepter);
@@ -689,9 +646,8 @@ public class WorldState {
         progressiveItems.add(item1);
 
 
-        items.put(MINDUSTRY_BASE_ID + 127, null); //Progressive Ground Unit Type B
-
-        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_B,
+        items.put(MINDUSTRY_BASE_ID + 127, null); //Progressive Support Ground Unit
+        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.S_SUPPORT_GROUND_UNIT,
                 MINDUSTRY_BASE_ID + 127, 5);
         item2.items.add(UnitTypes.nova);
         item2.items.add(UnitTypes.pulsar);
@@ -700,9 +656,8 @@ public class WorldState {
         item2.items.add(UnitTypes.corvus);
         progressiveItems.add(item2);
 
-        items.put(MINDUSTRY_BASE_ID + 128, null); //Progressive Ground Unit Type C
-
-        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_C,
+        items.put(MINDUSTRY_BASE_ID + 128, null); //Progressive Insectoid Ground Unit
+        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.S_INSECTOID_GROUND_UNIT,
                 MINDUSTRY_BASE_ID + 128, 5);
         item3.items.add(UnitTypes.crawler);
         item3.items.add(UnitTypes.atrax);
@@ -712,23 +667,19 @@ public class WorldState {
         progressiveItems.add(item3);
 
         items.put(MINDUSTRY_BASE_ID + 129, Blocks.airFactory);
-        progressionItems.add(MINDUSTRY_BASE_ID + 129);
-        items.put(MINDUSTRY_BASE_ID + 130, UnitTypes.flare);
-        progressionItems.add(MINDUSTRY_BASE_ID + 130);
 
-        items.put(MINDUSTRY_BASE_ID + 131, null); //Progressive Air Unit Type A
-
-        ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.S_AIR_UNIT_A,
-                MINDUSTRY_BASE_ID + 131, 4);
+        items.put(MINDUSTRY_BASE_ID + 131, null); //Progressive Offensive Air Unit
+        ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.S_OFFENSIVE_AIR_UNIT,
+                MINDUSTRY_BASE_ID + 131, 5);
+        item4.items.add(UnitTypes.flare);
         item4.items.add(UnitTypes.horizon);
         item4.items.add(UnitTypes.zenith);
         item4.items.add(UnitTypes.antumbra);
         item4.items.add(UnitTypes.eclipse);
         progressiveItems.add(item4);
 
-        items.put(MINDUSTRY_BASE_ID + 132, null); //Progressive Air Unit Type B
-
-        ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.S_AIR_UNIT_B,
+        items.put(MINDUSTRY_BASE_ID + 132, null); //Progressive Support Air Unit
+        ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.S_SUPPORT_AIR_UNIT,
                 MINDUSTRY_BASE_ID + 132, 5);
         item5.items.add(UnitTypes.mono);
         item5.items.add(UnitTypes.poly);
@@ -738,23 +689,19 @@ public class WorldState {
         progressiveItems.add(item5);
 
         items.put(MINDUSTRY_BASE_ID + 133, Blocks.navalFactory);
-        progressionItems.add(MINDUSTRY_BASE_ID + 133);
-        items.put(MINDUSTRY_BASE_ID + 134, UnitTypes.risso);
-        progressionItems.add(MINDUSTRY_BASE_ID + 134);
 
-        items.put(MINDUSTRY_BASE_ID + 135, null); //Progressive Naval Unit Type A
-
-        ProgressiveItem item6 = new ProgressiveItem(ProgressiveItemType.S_NAVAL_UNIT_A,
-                MINDUSTRY_BASE_ID + 135, 4);
+        items.put(MINDUSTRY_BASE_ID + 135, null); //Progressive Offensive Naval Unit
+        ProgressiveItem item6 = new ProgressiveItem(ProgressiveItemType.S_OFFENSIVE_NAVAL_UNIT,
+                MINDUSTRY_BASE_ID + 135, 5);
+        item6.items.add(UnitTypes.risso);
         item6.items.add(UnitTypes.minke);
         item6.items.add(UnitTypes.bryde);
         item6.items.add(UnitTypes.sei);
         item6.items.add(UnitTypes.omura);
         progressiveItems.add(item6);
 
-        items.put(MINDUSTRY_BASE_ID + 136, null); //Progressive Naval Unit Type B
-
-        ProgressiveItem item7 = new ProgressiveItem(ProgressiveItemType.S_NAVAL_UNIT_B,
+        items.put(MINDUSTRY_BASE_ID + 136, null); //Progressive Support Naval Unit
+        ProgressiveItem item7 = new ProgressiveItem(ProgressiveItemType.S_SUPPORT_NAVAL_UNIT,
                 MINDUSTRY_BASE_ID + 136, 5);
         item7.items.add(UnitTypes.retusa);
         item7.items.add(UnitTypes.oxynoe);
@@ -764,7 +711,6 @@ public class WorldState {
         progressiveItems.add(item7);
 
         items.put(MINDUSTRY_BASE_ID + 137, null); //Progressive Reconstructor
-
         ProgressiveItem item8 = new ProgressiveItem(ProgressiveItemType.S_RECONSTRUCTOR,
                 MINDUSTRY_BASE_ID + 137, 4);
         item8.items.add(Blocks.additiveReconstructor);
