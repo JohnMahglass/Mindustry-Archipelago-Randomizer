@@ -5,8 +5,9 @@ import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
+import mindustry.entities.abilities.Ability;
 import mindustry.randomizer.client.SlotData;
-import mindustry.randomizer.utils.RandomizerLists;
+import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
 import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.BeamDrill;
@@ -195,11 +196,65 @@ public class MindustryOptions {
     /**
      * Randomize core units weapon.
      */
-    protected static void randomizeCoreUnitsWeapon() {
+    protected static void randomizeCoreUnitsWeapon(int campaign) {
         Random random = new Random(settings.getInt(AP_SEED.value));
-        ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizerLists.getPossibleCoreUnitsWeapons();
+        ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizableCoreUnits.getPossibleCoreUnitsWeapons();
+        ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
+
+        switch (campaign){
+            case 0: //Serpulo
+                randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
+                break;
+            case 1: //Erekir
+                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
+                break;
+            case 2: //All
+                randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
+                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
+                break;
+        }
+    }
+
+    /**
+     * Randomize the ability of every core unit of Erekir
+     * @param random The rng.
+     * @param coreUnitAbilities The list of possible abilities.
+     */
+    private static void randomizeErekirCoreUnitsAbility(Random random,
+                                                        ArrayList<Seq<Ability>> coreUnitAbilities) {
+        UnitTypes.evoke.weapons.clear();
+        UnitTypes.evoke.hittable = true;
+        UnitTypes.evoke.killable = true;
+        UnitTypes.evoke.targetable = true;
+        UnitTypes.evoke.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+
+        UnitTypes.incite.weapons.clear();
+        UnitTypes.evoke.hittable = true;
+        UnitTypes.evoke.killable = true;
+        UnitTypes.evoke.targetable = true;
+        UnitTypes.incite.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+
+        UnitTypes.emanate.weapons.clear();
+        UnitTypes.evoke.hittable = true;
+        UnitTypes.evoke.killable = true;
+        UnitTypes.evoke.targetable = true;
+        UnitTypes.emanate.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+    }
+
+    /**
+     * Randomize the weapon of every core unit of Serpulo
+     * @param random The rng.
+     * @param coreUnitWeapons The list of possible weapons.
+     */
+    private static void randomizeSerpuloCoreUnitsWeapon(Random random, ArrayList<Seq<Weapon>> coreUnitWeapons) {
         UnitTypes.alpha.weapons.clear();
-        UnitTypes.alpha.weapons.add(coreUnitWeapons.get(coreUnitWeapons.size() - 1));
+        UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
+
+        UnitTypes.beta.weapons.clear();
+        UnitTypes.beta.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
+
+        UnitTypes.gamma.weapons.clear();
+        UnitTypes.gamma.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
     }
 
     /**

@@ -359,7 +359,7 @@ public class Randomizer {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
             if (options.getRandomizeCoreUnitsWeapon()) {
-                MindustryOptions.randomizeCoreUnitsWeapon();
+                MindustryOptions.randomizeCoreUnitsWeapon(options.getCampaign());
             }
             switch (options.getCampaign()) {
                 case 0: //Serpulo

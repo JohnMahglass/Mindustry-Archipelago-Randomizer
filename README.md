@@ -23,7 +23,7 @@
 - Chat will now display the color of an item fitting to its classification when receiving an item event message. (Progression, Useful, Trap)
 - Added "/clear" client command to clear chat messages.
 - Serpulo's logic has been improved with a "Military level" tracking the player's research that can be used to capture sectors to make sure the player has a minimum amount of tools.
-- "Randomize core units weapon" options now available.
+- "Randomize core units weapon" options now available. Randomizing Erekir's unit will instead give a random ability to the core unit and make it vulnerable.
 - Added Empty filler item "A fistful of nothing..." to the world to prevent generation failure if an item is taken out of the item pool.
 
 ## Setup guide.

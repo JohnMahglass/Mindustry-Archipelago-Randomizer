@@ -1,23 +1,34 @@
 package mindustry.randomizer.utils;
 
+import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Angles;
+import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import mindustry.content.Fx;
-import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
+import mindustry.entities.abilities.Ability;
+import mindustry.entities.abilities.ForceFieldAbility;
+import mindustry.entities.abilities.MoveEffectAbility;
+import mindustry.entities.abilities.RepairFieldAbility;
+import mindustry.entities.abilities.ShieldArcAbility;
+import mindustry.entities.abilities.ShieldRegenFieldAbility;
+import mindustry.entities.abilities.StatusFieldAbility;
+import mindustry.entities.abilities.SuppressionFieldAbility;
+import mindustry.entities.abilities.UnitSpawnAbility;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BombBulletType;
 import mindustry.entities.bullet.BulletType;
 import mindustry.entities.bullet.ContinuousLaserBulletType;
 import mindustry.entities.bullet.EmpBulletType;
+import mindustry.entities.bullet.ExplosionBulletType;
 import mindustry.entities.bullet.FlakBulletType;
 import mindustry.entities.bullet.LaserBoltBulletType;
 import mindustry.entities.bullet.LaserBulletType;
@@ -28,13 +39,18 @@ import mindustry.entities.bullet.RailBulletType;
 import mindustry.entities.bullet.SapBulletType;
 import mindustry.entities.bullet.ShrapnelBulletType;
 import mindustry.entities.effect.ExplosionEffect;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
+import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Weapon;
-import mindustry.type.ammo.ItemAmmoType;
+import mindustry.type.unit.MissileUnitType;
 import mindustry.type.weapons.PointDefenseWeapon;
 import mindustry.type.weapons.RepairBeamWeapon;
 
@@ -43,6 +59,7 @@ import java.util.ArrayList;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
+import static mindustry.content.UnitTypes.elude;
 
 
 /**
@@ -51,7 +68,64 @@ import static arc.math.Angles.randLenVectors;
  * @author John Mahglass
  * @version 1.0.0 2024-08-30
  */
-public abstract class RandomizerLists { // Should probably find a better name for the class
+public abstract class RandomizableCoreUnits {
+
+    /**
+     * List of possible ability for a core unit.
+     * @return Return a list of abilities.
+     */
+    public static ArrayList<Seq<Ability>> getPossibleCoreUnitsAbility(){
+        ArrayList<Seq<Ability>> coreUnitAbility = new ArrayList<>();
+
+        Seq<Ability> scepterAbilities = new Seq<>();
+        scepterAbilities.add(new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f));
+        coreUnitAbility.add(scepterAbilities);
+
+        Seq<Ability> quasarAbilities = new Seq<>();
+        quasarAbilities.add(new ForceFieldAbility(60f, 0.3f, 400f, 60f * 6));
+        coreUnitAbility.add(quasarAbilities);
+
+        Seq<Ability> polyAbilities = new Seq<>();
+        polyAbilities.add(new RepairFieldAbility(5f, 60f * 8, 50f)); //need testing
+        coreUnitAbility.add(polyAbilities);
+
+        Seq<Ability> omuraAbilities = new Seq<>();
+        omuraAbilities.add(new UnitSpawnAbility(elude, 60f * 15f, 0f, 0f));
+        coreUnitAbility.add(omuraAbilities);
+
+        Seq<Ability> oxynoeAbilities = new Seq<>();
+        oxynoeAbilities.add(new StatusFieldAbility(StatusEffects.overclock, 60f * 6, 60f * 6f, 60f));
+        coreUnitAbility.add(oxynoeAbilities);
+
+        Seq<Ability> tectaShield = new Seq<>();
+        tectaShield.add(new ShieldArcAbility(){{
+            region = "tecta-shield";
+            radius = 36f;
+            angle = 82f;
+            regen = 0.6f;
+            cooldown = 60f * 8f;
+            max = 2000f;
+            y = -20f;
+            width = 6f;
+            whenShooting = false;
+        }});
+        coreUnitAbility.add(tectaShield);
+
+        Seq<Ability> eludeAbilities = new Seq<>();
+        eludeAbilities.add(new MoveEffectAbility(0f, -7f, Pal.sapBulletBack, Fx.missileTrailShort, 4f){{
+            teamColor = true;
+        }});
+        coreUnitAbility.add(eludeAbilities);
+
+        Seq<Ability> quellAbilities = new Seq<>();
+        quellAbilities.add(new SuppressionFieldAbility(){{
+            orbRadius = 5.3f;
+            y = 1f;
+        }});
+        coreUnitAbility.add(quellAbilities);
+
+        return coreUnitAbility;
+    }
 
     /**
      * Get every possible core units weapons even if they are not balanced.
@@ -1996,18 +2070,662 @@ public abstract class RandomizerLists { // Should probably find a better name fo
         }
         coreUnitweapons.add(vanquishWeapons2);
 
+        Seq<Weapon> conquerWeapons = new Seq<>();
+        conquerWeapons.add(new Weapon("conquer-weapon"){{
+            shootSound = Sounds.largeCannon;
+            layerOffset = 0.1f;
+            reload = 100f;
+            shootY = 32.5f;
+            shake = 5f;
+            recoil = 5f;
+            rotate = true;
+            rotateSpeed = 0.6f;
+            mirror = false;
+            x = 0f;
+            y = -2f;
+            shadow = 50f;
+            heatColor = Color.valueOf("f9350f");
+            shootWarmupSpeed = 0.06f;
+            cooldownTime = 110f;
+            heatColor = Color.valueOf("f9350f");
+            minWarmup = 0.9f;
 
+            parts.addAll(
+                    new RegionPart("-glow"){{
+                        color = Color.red;
+                        blending = Blending.additive;
+                        outline = mirror = false;
+                    }},
+                    new RegionPart("-sides"){{
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        under = true;
+                        moveX = 0.75f;
+                        moveY = 0.75f;
+                        moveRot = 82f;
+                        x = 37 / 4f;
+                        y = 8 / 4f;
+                    }},
+                    new RegionPart("-sinks"){{
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        under = true;
+                        heatColor = new Color(1f, 0.1f, 0.1f);
+                        moveX = 17f / 4f;
+                        moveY = -15f / 4f;
+                        x = 32 / 4f;
+                        y = -34 / 4f;
+                    }},
+                    new RegionPart("-sinks-heat"){{
+                        blending = Blending.additive;
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        outline = false;
+                        colorTo = new Color(1f, 0f, 0f, 0.5f);
+                        color = colorTo.cpy().a(0f);
+                        moveX = 17f / 4f;
+                        moveY = -15f / 4f;
+                        x = 32 / 4f;
+                        y = -34 / 4f;
+                    }}
+            );
 
+            for(int i = 1; i <= 3; i++){
+                int fi = i;
+                parts.add(new RegionPart("-blade"){{
+                    progress = PartProgress.warmup.delay((3 - fi) * 0.3f).blend(PartProgress.reload, 0.3f);
+                    heatProgress = PartProgress.heat.add(0.3f).min(PartProgress.warmup);
+                    heatColor = new Color(1f, 0.1f, 0.1f);
+                    mirror = true;
+                    under = true;
+                    moveRot = -40f * fi;
+                    moveX = 3f;
+                    layerOffset = -0.002f;
 
+                    x = 11 / 4f;
+                }});
+            }
 
+            bullet = new BasicBulletType(8f, 360f){{
+                sprite = "missile-large";
+                width = 12f;
+                height = 20f;
+                lifetime = 35f;
+                hitSize = 6f;
 
+                smokeEffect = Fx.shootSmokeTitan;
+                pierceCap = 3;
+                pierce = true;
+                pierceBuilding = true;
+                hitColor = backColor = trailColor = Color.valueOf("feb380");
+                frontColor = Color.white;
+                trailWidth = 4f;
+                trailLength = 9;
+                hitEffect = despawnEffect = Fx.massiveExplosion;
 
+                shootEffect = new ExplosionEffect(){{
+                    lifetime = 40f;
+                    waveStroke = 4f;
+                    waveColor = sparkColor = trailColor;
+                    waveRad = 15f;
+                    smokeSize = 5f;
+                    smokes = 8;
+                    smokeSizeBase = 0f;
+                    smokeColor = trailColor;
+                    sparks = 8;
+                    sparkRad = 40f;
+                    sparkLen = 4f;
+                    sparkStroke = 3f;
+                }};
 
+                int count = 6;
+                for(int j = 0; j < count; j++){
+                    int s = j;
+                    for(int i : Mathf.signs){
+                        float fin = 0.05f + (j + 1) / (float)count;
+                        float spd = speed;
+                        float life = lifetime / Mathf.lerp(fin, 1f, 0.5f);
+                        spawnBullets.add(new BasicBulletType(spd * fin, 60){{
+                            drag = 0.002f;
+                            width = 12f;
+                            height = 11f;
+                            lifetime = life + 5f;
+                            weaveRandom = false;
+                            hitSize = 5f;
+                            pierceCap = 2;
+                            pierce = true;
+                            pierceBuilding = true;
+                            hitColor = backColor = trailColor = Color.valueOf("feb380");
+                            frontColor = Color.white;
+                            trailWidth = 2.5f;
+                            trailLength = 7;
+                            weaveScale = (3f + s/2f) / 1.2f;
+                            weaveMag = i * (4f - fin * 2f);
 
+                            splashDamage = 65f;
+                            splashDamageRadius = 30f;
+                            despawnEffect = new ExplosionEffect(){{
+                                lifetime = 50f;
+                                waveStroke = 4f;
+                                waveColor = sparkColor = trailColor;
+                                waveRad = 30f;
+                                smokeSize = 7f;
+                                smokes = 6;
+                                smokeSizeBase = 0f;
+                                smokeColor = trailColor;
+                                sparks = 5;
+                                sparkRad = 30f;
+                                sparkLen = 3f;
+                                sparkStroke = 1.5f;
+                            }};
+                        }});
+                    }
+                }
+            }};
+        }});
+        coreUnitweapons.add(conquerWeapons);
 
+        Seq<Weapon> meruiWeapons = new Seq<>();
+        meruiWeapons.add(new Weapon("merui-weapon"){{
+            shootSound = Sounds.missile;
+            mirror = false;
+            showStatSprite = false;
+            x = 0f;
+            y = 1f;
+            shootY = 4f;
+            reload = 60f;
+            cooldownTime = 42f;
+            heatColor = Pal.turretHeat;
 
+            bullet = new ArtilleryBulletType(3f, 40){{
+                shootEffect = new MultiEffect(Fx.shootSmallColor, new Effect(9, e -> {
+                    color(Color.white, e.color, e.fin());
+                    stroke(0.7f + e.fout());
+                    Lines.square(e.x, e.y, e.fin() * 5f, e.rotation + 45f);
 
+                    Drawf.light(e.x, e.y, 23f, e.color, e.fout() * 0.7f);
+                }));
 
+                collidesTiles = true;
+                backColor = hitColor = Pal.techBlue;
+                frontColor = Color.white;
+
+                knockback = 0.8f;
+                lifetime = 50f;
+                width = height = 9f;
+                splashDamageRadius = 19f;
+                splashDamage = 30f;
+
+                trailLength = 27;
+                trailWidth = 2.5f;
+                trailEffect = Fx.none;
+                trailColor = backColor;
+
+                trailInterp = Interp.slope;
+
+                shrinkX = 0.6f;
+                shrinkY = 0.2f;
+
+                hitEffect = despawnEffect = new MultiEffect(Fx.hitSquaresColor, new WaveEffect(){{
+                    colorFrom = colorTo = Pal.techBlue;
+                    sizeTo = splashDamageRadius + 2f;
+                    lifetime = 9f;
+                    strokeFrom = 2f;
+                }});
+            }};
+        }});
+        coreUnitweapons.add(meruiWeapons);
+
+        Seq<Weapon> cleroiWeapons1 = new Seq<>();
+        cleroiWeapons1.add(new Weapon("cleroi-weapon"){{
+            shootSound = Sounds.blaster;
+            x = 14f / 4f;
+            y = 33f / 4f;
+            reload = 30f;
+            layerOffset = -0.002f;
+            alternate = false;
+            heatColor = Color.red;
+            cooldownTime = 25f;
+            smoothReloadSpeed = 0.15f;
+            recoil = 2f;
+
+            bullet = new BasicBulletType(3.5f, 30){{
+                backColor = trailColor = hitColor = Pal.techBlue;
+                frontColor = Color.white;
+                width = 7.5f;
+                height = 10f;
+                lifetime = 40f;
+                trailWidth = 2f;
+                trailLength = 4;
+                shake = 1f;
+
+                trailEffect = Fx.missileTrail;
+                trailParam = 1.8f;
+                trailInterval = 6f;
+
+                splashDamageRadius = 30f;
+                splashDamage = 43f;
+
+                hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletColor, new WaveEffect(){{
+                    colorFrom = colorTo = Pal.techBlue;
+                    sizeTo = splashDamageRadius + 3f;
+                    lifetime = 9f;
+                    strokeFrom = 3f;
+                }});
+
+                shootEffect = new MultiEffect(Fx.shootBigColor, new Effect(9, e -> {
+                    color(Color.white, e.color, e.fin());
+                    stroke(0.7f + e.fout());
+                    Lines.square(e.x, e.y, e.fin() * 5f, e.rotation + 45f);
+
+                    Drawf.light(e.x, e.y, 23f, e.color, e.fout() * 0.7f);
+                }));
+                smokeEffect = Fx.shootSmokeSquare;
+                ammoMultiplier = 2;
+            }};
+        }});
+        coreUnitweapons.add(cleroiWeapons1);
+
+        Seq<Weapon> cleroiWeapons2 = new Seq<>();
+        cleroiWeapons2.add(new PointDefenseWeapon("cleroi-point-defense"){{
+            x = 16f / 4f;
+            y = -20f / 4f;
+            reload = 9f;
+
+            targetInterval = 9f;
+            targetSwitchInterval = 12f;
+            recoil = 0.5f;
+
+            bullet = new BulletType(){{
+                shootSound = Sounds.lasershoot;
+                shootEffect = Fx.sparkShoot;
+                hitEffect = Fx.pointHit;
+                maxRange = 100f;
+                damage = 38f;
+            }};
+        }});
+        coreUnitweapons.add(cleroiWeapons2);
+
+        Seq<Weapon> tectaWeapons = new Seq<>();
+        tectaWeapons.add(new Weapon("tecta-weapon"){{
+            shootSound = Sounds.malignShoot;
+            mirror = true;
+            top = false;
+
+            x = 62/4f;
+            y = 1f;
+            shootY = 47 / 4f;
+            recoil = 3f;
+            reload = 40f;
+            shake = 3f;
+            cooldownTime = 40f;
+
+            shoot.shots = 3;
+            inaccuracy = 3f;
+            velocityRnd = 0.33f;
+            heatColor = Color.red;
+
+            bullet = new MissileBulletType(4.2f, 60){{
+                homingPower = 0.2f;
+                weaveMag = 4;
+                weaveScale = 4;
+                lifetime = 55f;
+                shootEffect = Fx.shootBig2;
+                smokeEffect = Fx.shootSmokeTitan;
+                splashDamage = 70f;
+                splashDamageRadius = 30f;
+                frontColor = Color.white;
+                hitSound = Sounds.none;
+                width = height = 10f;
+
+                lightColor = trailColor = backColor = Pal.techBlue;
+                lightRadius = 40f;
+                lightOpacity = 0.7f;
+
+                trailWidth = 2.8f;
+                trailLength = 20;
+                trailChance = -1f;
+                despawnSound = Sounds.dullExplosion;
+
+                despawnEffect = Fx.none;
+                hitEffect = new ExplosionEffect(){{
+                    lifetime = 20f;
+                    waveStroke = 2f;
+                    waveColor = sparkColor = trailColor;
+                    waveRad = 12f;
+                    smokeSize = 0f;
+                    smokeSizeBase = 0f;
+                    sparks = 10;
+                    sparkRad = 35f;
+                    sparkLen = 4f;
+                    sparkStroke = 1.5f;
+                }};
+            }};
+        }});
+        coreUnitweapons.add(tectaWeapons);
+
+        Seq<Weapon> collarisWeapons = new Seq<>();
+        collarisWeapons.add(new Weapon("collaris-weapon"){{
+            shootSound = Sounds.pulseBlast;
+            mirror = true;
+            rotationLimit = 30f;
+            rotateSpeed = 0.4f;
+            rotate = true;
+
+            x = 48 / 4f;
+            y = -28f / 4f;
+            shootY = 64f / 4f;
+            recoil = 4f;
+            reload = 130f;
+            cooldownTime = reload * 1.2f;
+            shake = 7f;
+            layerOffset = 0.02f;
+            shadow = 10f;
+
+            shootStatus = StatusEffects.slow;
+            shootStatusDuration = reload + 1f;
+
+            shoot.shots = 1;
+            heatColor = Color.red;
+
+            for(int i = 0; i < 5; i++){
+                int fi = i;
+                parts.add(new RegionPart("-blade"){{
+                    under = true;
+                    layerOffset = -0.001f;
+                    heatColor = Pal.techBlue;
+                    heatProgress = PartProgress.heat.add(0.2f).min(PartProgress.warmup);
+                    progress = PartProgress.warmup.blend(PartProgress.reload, 0.1f);
+                    x = 13.5f / 4f;
+                    y = 10f / 4f - fi * 2f;
+                    moveY = 1f - fi * 1f;
+                    moveX = fi * 0.3f;
+                    moveRot = -45f - fi * 17f;
+
+                    moves.add(new PartMove(PartProgress.reload.inv().mul(1.8f).inv().curve(fi / 5f, 0.2f), 0f, 0f, 36f));
+                }});
+            }
+
+            bullet = new ArtilleryBulletType(5.5f, 260){{
+                collidesTiles = collides = true;
+                lifetime = 70f;
+                shootEffect = Fx.shootBigColor;
+                smokeEffect = Fx.shootSmokeSquareBig;
+                frontColor = Color.white;
+                trailEffect = new MultiEffect(Fx.artilleryTrail, Fx.artilleryTrailSmoke);
+                hitSound = Sounds.none;
+                width = 18f;
+                height = 24f;
+
+                lightColor = trailColor = hitColor = backColor = Pal.techBlue;
+                lightRadius = 40f;
+                lightOpacity = 0.7f;
+
+                trailWidth = 4.5f;
+                trailLength = 19;
+                trailChance = -1f;
+
+                despawnEffect = Fx.none;
+                despawnSound = Sounds.dullExplosion;
+
+                hitEffect = despawnEffect = new ExplosionEffect(){{
+                    lifetime = 34f;
+                    waveStroke = 4f;
+                    waveColor = sparkColor = trailColor;
+                    waveRad = 25f;
+                    smokeSize = 0f;
+                    smokeSizeBase = 0f;
+                    sparks = 10;
+                    sparkRad = 25f;
+                    sparkLen = 8f;
+                    sparkStroke = 3f;
+                }};
+
+                splashDamage = 85f;
+                splashDamageRadius = 20f;
+
+                fragBullets = 15;
+                fragVelocityMin = 0.5f;
+                fragRandomSpread = 130f;
+                fragLifeMin = 0.3f;
+                despawnShake = 5f;
+
+                fragBullet = new BasicBulletType(5.5f, 50){{
+                    pierceCap = 2;
+                    pierceBuilding = true;
+
+                    homingPower = 0.09f;
+                    homingRange = 150f;
+
+                    lifetime = 50f;
+                    shootEffect = Fx.shootBigColor;
+                    smokeEffect = Fx.shootSmokeSquareBig;
+                    frontColor = Color.white;
+                    hitSound = Sounds.none;
+                    width = 12f;
+                    height = 20f;
+
+                    lightColor = trailColor = hitColor = backColor = Pal.techBlue;
+                    lightRadius = 40f;
+                    lightOpacity = 0.7f;
+
+                    trailWidth = 2.2f;
+                    trailLength = 7;
+                    trailChance = -1f;
+
+                    collidesAir = false;
+
+                    despawnEffect = Fx.none;
+                    splashDamage = 46f;
+                    splashDamageRadius = 30f;
+
+                    hitEffect = despawnEffect = new MultiEffect(new ExplosionEffect(){{
+                        lifetime = 30f;
+                        waveStroke = 2f;
+                        waveColor = sparkColor = trailColor;
+                        waveRad = 5f;
+                        smokeSize = 0f;
+                        smokeSizeBase = 0f;
+                        sparks = 5;
+                        sparkRad = 20f;
+                        sparkLen = 6f;
+                        sparkStroke = 2f;
+                    }}, Fx.blastExplosion);
+                }};
+            }};
+        }});
+        coreUnitweapons.add(collarisWeapons);
+
+        Seq<Weapon> eludeWeapons = new Seq<>();
+        eludeWeapons.add(new Weapon("elude-weapon"){{
+            shootSound = Sounds.blaster;
+            y = -2f;
+            x = 4f;
+            top = true;
+            mirror = true;
+            reload = 40f;
+            baseRotation = -35f;
+            shootCone = 360f;
+
+            shoot = new ShootSpread(2, 11f);
+
+            bullet = new BasicBulletType(5f, 16){{
+                homingPower = 0.19f;
+                homingDelay = 4f;
+                width = 7f;
+                height = 12f;
+                lifetime = 30f;
+                shootEffect = Fx.sparkShoot;
+                smokeEffect = Fx.shootBigSmoke;
+                hitColor = backColor = trailColor = Pal.suppress;
+                frontColor = Color.white;
+                trailWidth = 1.5f;
+                trailLength = 5;
+                hitEffect = despawnEffect = Fx.hitBulletColor;
+            }};
+        }});
+        coreUnitweapons.add(eludeWeapons);
+
+        Seq<Weapon> avertWeapons = new Seq<>();
+        avertWeapons.add(new Weapon("avert-weapon"){{
+            shootSound = Sounds.blaster;
+            reload = 35f;
+            x = 0f;
+            y = 6.5f;
+            shootY = 5f;
+            recoil = 1f;
+            top = false;
+            layerOffset = -0.01f;
+            rotate = false;
+            mirror = false;
+            shoot = new ShootHelix();
+
+            bullet = new BasicBulletType(5f, 34){{
+                width = 7f;
+                height = 12f;
+                lifetime = 18f;
+                shootEffect = Fx.sparkShoot;
+                smokeEffect = Fx.shootBigSmoke;
+                hitColor = backColor = trailColor = Pal.suppress;
+                frontColor = Color.white;
+                trailWidth = 1.5f;
+                trailLength = 5;
+                hitEffect = despawnEffect = Fx.hitBulletColor;
+            }};
+        }});
+        coreUnitweapons.add(avertWeapons);
+
+        Seq<Weapon> obviateWeapons = new Seq<>();
+        obviateWeapons.add(new Weapon(){{
+            shootSound = Sounds.shockBlast;
+            x = 0f;
+            y = -2f;
+            shootY = 0f;
+            reload = 140f;
+            mirror = false;
+            minWarmup = 0.95f;
+            shake = 3f;
+            cooldownTime = reload - 10f;
+
+            bullet = new BasicBulletType(){{
+                shoot = new ShootHelix(){{
+                    mag = 1f;
+                    scl = 5f;
+                }};
+
+                shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
+                    colorTo = Pal.sapBulletBack;
+                    sizeTo = 26f;
+                    lifetime = 14f;
+                    strokeFrom = 4f;
+                }});
+                smokeEffect = Fx.shootSmokeTitan;
+                hitColor = Pal.sapBullet;
+                despawnSound = Sounds.spark;
+
+                sprite = "large-orb";
+                trailEffect = Fx.missileTrail;
+                trailInterval = 3f;
+                trailParam = 4f;
+                speed = 3f;
+                damage = 75f;
+                lifetime = 60f;
+                width = height = 15f;
+                backColor = Pal.sapBulletBack;
+                frontColor = Pal.sapBullet;
+                shrinkX = shrinkY = 0f;
+                trailColor = Pal.sapBulletBack;
+                trailLength = 12;
+                trailWidth = 2.2f;
+                despawnEffect = hitEffect = new ExplosionEffect(){{
+                    waveColor = Pal.sapBullet;
+                    smokeColor = Color.gray;
+                    sparkColor = Pal.sap;
+                    waveStroke = 4f;
+                    waveRad = 40f;
+                }};
+
+                intervalBullet = new LightningBulletType(){{
+                    damage = 16;
+                    collidesAir = false;
+                    ammoMultiplier = 1f;
+                    lightningColor = Pal.sapBullet;
+                    lightningLength = 3;
+                    lightningLengthRand = 6;
+
+                    //for visual stats only.
+                    buildingDamageMultiplier = 0.25f;
+
+                    lightningType = new BulletType(0.0001f, 0f){{
+                        lifetime = Fx.lightning.lifetime;
+                        hitEffect = Fx.hitLancer;
+                        despawnEffect = Fx.none;
+                        status = StatusEffects.shocked;
+                        statusDuration = 10f;
+                        hittable = false;
+                        lightColor = Color.white;
+                        buildingDamageMultiplier = 0.25f;
+                    }};
+                }};
+
+                bulletInterval = 4f;
+
+                lightningColor = Pal.sapBullet;
+                lightningDamage = 17;
+                lightning = 8;
+                lightningLength = 2;
+                lightningLengthRand = 8;
+            }};
+
+        }});
+        coreUnitweapons.add(obviateWeapons);
+
+        Seq<Weapon> quellWeapons = new Seq<>();
+        quellWeapons.add(new Weapon("quell-weapon"){{
+            shootSound = Sounds.missileSmall;
+            x = 51 / 4f;
+            y = 5 / 4f;
+            rotate = true;
+            rotateSpeed = 2f;
+            reload = 55f;
+            layerOffset = -0.001f;
+            recoil = 1f;
+            rotationLimit = 60f;
+
+            bullet = new BulletType(){{
+                shootEffect = Fx.shootBig;
+                smokeEffect = Fx.shootBigSmoke2;
+                shake = 1f;
+                speed = 0f;
+                keepVelocity = false;
+                collidesAir = false;
+
+                spawnUnit = new MissileUnitType("quell-missile-ap"){{
+                    display = false;
+                    targetAir = false;
+                    speed = 4.3f;
+                    maxRange = 6f;
+                    lifetime = 60f * 1.4f;
+                    outlineColor = Pal.darkOutline;
+                    engineColor = trailColor = Pal.sapBulletBack;
+                    engineLayer = Layer.effect;
+                    health = 45;
+                    loopSoundVolume = 0.1f;
+
+                    weapons.add(new Weapon(){{
+                        shootCone = 360f;
+                        mirror = false;
+                        reload = 1f;
+                        shootOnDeath = true;
+                        bullet = new ExplosionBulletType(110f, 25f){{
+                            shootEffect = Fx.massiveExplosion;
+                            collidesAir = false;
+                        }};
+                    }});
+                }};
+            }};
+        }});
+        coreUnitweapons.add(quellWeapons);
 
         return coreUnitweapons;
     }
