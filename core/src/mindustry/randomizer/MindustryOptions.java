@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import arc.struct.Seq;
 import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
@@ -196,7 +197,7 @@ public class MindustryOptions {
      */
     protected static void randomizeCoreUnitsWeapon() {
         Random random = new Random(settings.getInt(AP_SEED.value));
-        ArrayList<Weapon> coreUnitWeapons = RandomizerLists.getPossibleCoreUnitsWeapons();
+        ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizerLists.getPossibleCoreUnitsWeapons();
         UnitTypes.alpha.weapons.clear();
         UnitTypes.alpha.weapons.add(coreUnitWeapons.get(coreUnitWeapons.size() - 1));
     }

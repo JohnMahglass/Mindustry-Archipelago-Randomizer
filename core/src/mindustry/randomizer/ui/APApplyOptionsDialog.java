@@ -36,7 +36,7 @@ public class APApplyOptionsDialog extends BaseDialog {
                 "").pad(10f);
             t.row();
 
-            t.button("Restart", Icon.refreshSmall, () -> {
+            t.button("Restart", Icon.exit, () -> {
                 Core.app.exit();
             }).size(170f, 50);
         }).size(610f, 170).pad(10f);

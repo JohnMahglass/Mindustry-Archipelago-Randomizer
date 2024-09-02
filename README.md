@@ -37,6 +37,10 @@
 
 	3. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 
+	4. Connect to a game and restart the game to apply options. (A window will pop-up asking you to close the client.)
+
+	5. Open the game, connect to the game again.
+
 	4. Have fun.
 
 ### Linux
