@@ -19,7 +19,8 @@ public enum SettingStrings {
     AP_SEED("APseed"),
 
     RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
-    RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon");
+    RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon"),
+    LOGISTIC_DISTRIBUTION("APlogisticDistribution");
 
 
     public final String value;

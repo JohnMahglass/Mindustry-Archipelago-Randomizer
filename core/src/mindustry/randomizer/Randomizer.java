@@ -53,7 +53,7 @@ public class Randomizer {
         UnlockableContent content = itemIdToUnlockableContent(id);
         if (content != null) {
             content.quietUnlock();
-            if (worldState.isProgressive(id)) {
+            if (worldState.isProgressive(id)) { //Progressive is being looked twice?
                 for (ProgressiveItem item : worldState.progressiveItems) {
                     if (item.id.equals(id) && !item.allReceived) {
                         item.amountItemReceived++;
@@ -171,11 +171,9 @@ public class Randomizer {
         UnlockableContent content = null;
         if (isMindustryAPItem(itemId)) {
             if (worldState.isProgressive(itemId)) {
-                boolean found = false;
                 for (ProgressiveItem item : worldState.progressiveItems) {
-                    if (item.id.equals(itemId) && !item.allReceived && !found) {
+                    if (item.id.equals(itemId) && !item.allReceived) {
                         content = item.items.get(item.amountItemReceived);
-                        found = true;
                     }
                 }
             } else {
@@ -360,6 +358,9 @@ public class Randomizer {
             }
             if (options.getRandomizeCoreUnitsWeapon()) {
                 MindustryOptions.randomizeCoreUnitsWeapon(options.getCampaign());
+            }
+            if (options.getLogisticDistribution() == 2) { //Starter logistics
+                MindustryOptions.applyStarterLogistics(options.getCampaign());
             }
             switch (options.getCampaign()) {
                 case 0: //Serpulo

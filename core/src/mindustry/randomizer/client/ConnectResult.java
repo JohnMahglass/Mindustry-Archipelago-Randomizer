@@ -63,8 +63,4 @@ public class ConnectResult {
                     "Archipelago");
         }
     }
-
-    private int createClientSeed(String APseed) {
-        return 0;
-    }
 }

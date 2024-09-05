@@ -160,6 +160,7 @@ public class WorldState {
         settings.remove(AP_SEED.value);
         settings.remove(RANDOMIZE_CORE_UNITS_WEAPON.value);
         settings.remove(RANDOMIZE_BLOCK_SIZE.value);
+        settings.remove(LOGISTIC_DISTRIBUTION.value);
     }
 
     /**
@@ -303,13 +304,13 @@ public class WorldState {
      * @return Return true if the item is progressive.
      */
     protected boolean isProgressive(Long itemId) {
-        boolean progressive = false;
+        boolean found = false;
         for (ProgressiveItem item : progressiveItems) {
             if (item.id.equals(itemId)) {
-                progressive = true;
+                found = true;
             }
         }
-        return progressive;
+        return found;
     }
 
     /**

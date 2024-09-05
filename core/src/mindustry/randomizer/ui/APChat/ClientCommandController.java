@@ -108,11 +108,33 @@ public class ClientCommandController {
                     "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
                     "   Seed: " + randomizer.worldState.getSeed() + "\n" +
                     "   Randomize blocks size: " + getActivationStatus(randomizer.worldState.options.getRandomizeBlockSize()) + "\n" +
-                    "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon())));
+                    "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) + "\n" +
+                    "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution())));
         } else {
             chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
                     "options."));
         }
+    }
+
+    /**
+     * Return the selected option in text format
+     * @param logisticOption The selected option
+     * @return The selected option in text format.
+     */
+    private String getLogisticDistributionValue(int logisticOption) {
+        String text = "Error"; //Probably should change that
+        switch (logisticOption){
+            case 0: // Randomized logistics
+                text = "Randomized logistics";
+                break;
+            case 1: // Early logistics
+                text = "Early logistics";
+                break;
+            case 2: // Starter logistics
+                text = "Starter logistics";
+                break;
+        }
+        return text;
     }
 
     /**

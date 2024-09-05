@@ -26,7 +26,6 @@ public class ReceiveItem {
         } else if (event.getItemID() >= MINDUSTRY_BASE_ID + 700) { //Is event
             randomizer.processEvent(event);
         }
-
     }
 
 }

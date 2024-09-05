@@ -76,7 +76,14 @@ public class MindustryOptions {
      */
     private boolean randomizeBlockSize;
 
+    /**
+     * How should the logistic be handled by the logic.
+     */
+    private int logisticDistribution;
 
+    public int getLogisticDistribution(){
+        return this.logisticDistribution;
+    }
 
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
@@ -163,6 +170,7 @@ public class MindustryOptions {
             this.campaign = slotData.getCampaignChoice();
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.randomizeBlockSize = slotData.getRandomizeBlockSize();
+            this.logisticDistribution = slotData.getLogisticDistribution();
 
             this.optionsFilled = true;
             saveOptions();
@@ -181,12 +189,13 @@ public class MindustryOptions {
         } else { //Player never connected to the game and has not received options information.
             this.optionsFilled = false;
             this.tutorialSkip = false;
-            this.campaign = -1;
+            this.campaign = 0;
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
             this.randomizeBlockSize = false;
             this.randomizeCoreUnitsWeapon = false;
+            this.logisticDistribution = 0;
             if (settings != null) { //Local settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
             }
@@ -290,6 +299,50 @@ public class MindustryOptions {
     }
 
     /**
+     * Unlock Erekir research related to the starter logistics option.
+     */
+    private static void unlockErekirLogisticItems(){
+        Blocks.ductRouter.quietUnlock();
+        Blocks.ductBridge.quietUnlock();
+        Blocks.reinforcedConduit.quietUnlock();
+        Blocks.reinforcedLiquidJunction.quietUnlock();
+        Blocks.reinforcedLiquidRouter.quietUnlock();
+        Blocks.reinforcedBridgeConduit.quietUnlock();
+    }
+
+    /**
+     * Unlock Serpulo research related to the starter logistics option.
+     */
+    private static void unlockSerpuloLogisticItems(){
+        Blocks.conduit.quietUnlock();
+        Blocks.liquidJunction.quietUnlock();
+        Blocks.liquidRouter.quietUnlock();
+        Blocks.bridgeConduit.quietUnlock();
+        Blocks.junction.quietUnlock();
+        Blocks.router.quietUnlock();
+        Blocks.itemBridge.quietUnlock();
+    }
+
+    /**
+     * Apply the starter logistics option.
+     * @param campaign The selected campaign.
+     */
+    protected static void applyStarterLogistics(int campaign){
+        switch (campaign) {
+            case 0: //Serpulo
+                unlockSerpuloLogisticItems();
+                break;
+            case 1: //Erekir
+                unlockErekirLogisticItems();
+                break;
+            case 2: //All
+                unlockSerpuloLogisticItems();
+                unlockErekirLogisticItems();
+                break;
+        }
+    }
+
+    /**
      * Apply the faster production option to the selected campaign.
      * @param campaign The selected campaign.
      */
@@ -323,8 +376,6 @@ public class MindustryOptions {
         halfDrillTime(((Drill) Blocks.eruptionDrill));
         doublePumpAmount(((Pump)Blocks.reinforcedPump));
     }
-
-
 
     /**
      * Apply the faster production option on Serpulo's research.
@@ -444,6 +495,7 @@ public class MindustryOptions {
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
         settings.put(RANDOMIZE_BLOCK_SIZE.value, getRandomizeBlockSize());
+        settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
         if (getTutorialSkip()) {
             if (getCampaign() == 0) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
@@ -454,7 +506,6 @@ public class MindustryOptions {
                 settings.put(FREE_LAUNCH_EREKIR.value, true);
             }
         }
-
         settings.put(HAS_CONNECTED.value, true);
     }
 
@@ -470,6 +521,7 @@ public class MindustryOptions {
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.randomizeBlockSize = settings.getBool(RANDOMIZE_BLOCK_SIZE.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
+        this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.optionsFilled = true;
     }
 
