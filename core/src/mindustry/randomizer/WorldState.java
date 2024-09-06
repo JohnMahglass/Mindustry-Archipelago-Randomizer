@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -79,7 +80,7 @@ public class WorldState {
     /**
      * Randomized items that have been received.
      */
-    public Long[] unlockedItems;
+    public ArrayList<Long> unlockedItems;
 
     /**
      * Contains the options of the generated game.
@@ -159,7 +160,6 @@ public class WorldState {
         settings.remove(EREKIR_VICTORY.value);
         settings.remove(AP_SEED.value);
         settings.remove(RANDOMIZE_CORE_UNITS_WEAPON.value);
-        settings.remove(RANDOMIZE_BLOCK_SIZE.value);
         settings.remove(LOGISTIC_DISTRIBUTION.value);
     }
 
@@ -173,12 +173,59 @@ public class WorldState {
         settings.put(AP_SEED.value, seed);
     }
 
+    /**
+     * Add item to unlocked items list. If the item is progressive, update the count.
+     * @param itemId The id of the unlocked item.
+     */
+    public void addUnlockedItem(Long itemId) {
+        if (isMindustryAPItem(itemId)) {
+            unlockedItems.add(itemId);
+        } else {
+            Vars.randomizer.sendLocalMessage("ERROR: A non-Mindustry item (invalid id) was called" +
+                            " for addUnlockItem method.");
+        }
+    }
+
+    /**
+     * Checks whether the plays have received the item at least once.
+     * @param id The id of the item to be checked.
+     * @return Return True if the player has this item at least once.
+     */
+    public boolean hasItem(Long id){
+        boolean itemReceived = false;
+        for (Long unlockedItem : unlockedItems) {
+            if (id.equals(unlockedItem)) {
+                itemReceived = true;
+            }
+        }
+        return itemReceived;
+    }
+
+    /**
+     * Return true if AP item attributes are initialized.
+     * within the randomizer.
+     * @return If the content is an AP item.
+     */
+    public boolean isMindustryAPItem(Long itemId){ //Needs to be updated
+        boolean isMindustryItem = false;
+        if (itemId != null) {
+            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
+                //Serpulo Item
+                isMindustryItem = true;
+            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 343) {
+                //Erekir Item
+                isMindustryItem = true;
+            }
+        }
+        return isMindustryItem;
+    }
+
 
     public WorldState() {
         this.options = new MindustryOptions();
         this.items = new HashMap<>();
         this.fillerItems = new HashMap<>();
-        this.unlockedItems = null;
+        this.unlockedItems = new ArrayList<>();
         this.locations = new HashMap<>();
         this.locationsChecked = new ArrayList<>();
         this.checkPending = new ArrayList<>();

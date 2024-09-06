@@ -211,7 +211,6 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
                         apNode(createApLocation("AP-E-01-07", unitCargoLoader, 206L), () -> {
                             apNode(createApLocation("AP-E-01-08", unitCargoUnloadPoint, 207L), () -> {
-
                             });
                         });
                     });
@@ -221,49 +220,45 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                 apNode(createApLocation("AP-E-01-10", underflowDuct, 209L));
                                 apNode(createApLocation("AP-E-01-11", reinforcedContainer, 210L), () -> {
                                     apNode(createApLocation("AP-E-01-12", ductUnloader, 211L), () -> {
-
-                            });
-
+                                    });
                                     apNode(createApLocation("AP-E-01-13", reinforcedVault, 212L), () -> {
-
+                                    });
+                                });
                             });
-                        });
-                    });
 
                     apNode(createApLocation("AP-E-01-14", reinforcedMessage, 213L),
                             Seq.with(new Objectives.OnSector(aegis)), () -> {
                                 apNode(createApLocation("AP-E-01-15", canvas, 214L));
-                    });
+                            });
                 });
 
                 apNode(createApLocation("AP-E-01-16", reinforcedPayloadConveyor, 215L),
                         Seq.with(new Objectives.OnSector(atlas)), () -> {
-                    //TODO should only be unlocked in unit sector
+                            //TODO should only be unlocked in unit sector
                             apNode(createApLocation("AP-E-01-17", payloadMassDriver, 216L),
                             Seq.with(new Objectives.OnSector(split)), () -> {
-                        //TODO further limitations
+                            //TODO further limitations
                             apNode(createApLocation("AP-E-01-18", payloadLoader, 217L), () -> {
                             apNode(createApLocation("AP-E-01-19", payloadUnloader, 218L), () -> {
-                                    apNode(createApLocation("AP-E-01-20", largePayloadMassDriver, 219L),
-                                    () -> {
-                                });
+                                    apNode(createApLocation("AP-E-01-20", largePayloadMassDriver, 219L), () -> {
+                                    });
                             });
-                        });
+                            });
                             apNode(createApLocation("AP-E-01-21", constructor, 220L),
                                 Seq.with(new Objectives.OnSector(split)), () -> {
                                 apNode(createApLocation("AP-E-01-22", smallDeconstructor, 221L),
                                     Seq.with(new Objectives.OnSector(peaks)), () -> {
                                     apNode(createApLocation("AP-E-01-23", largeConstructor, 222L),
                                         Seq.with(new Objectives.OnSector(siege)), () -> {
-                                });
+                                        });
                                     apNode(createApLocation("AP-E-01-24", deconstructor, 223L),
                                         Seq.with(new Objectives.OnSector(siege)), () -> {
+                                        });
+                                    });
                                 });
-                            });
-                        });
                     });
                         apNode(createApLocation("AP-E-01-25", reinforcedPayloadRouter, 224L), () -> {
-                    });
+                        });
                 });
             });
 
@@ -275,8 +270,8 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                             Seq.with(new Objectives.OnSector(caldera)), () -> {
                             apNode(createApLocation("AP-E-02-04", eruptionDrill, 228L),
                                 Seq.with(new Objectives.OnSector(stronghold)), () -> {
+                            });
                         });
-                    });
                 });
             });
 
@@ -292,10 +287,10 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                         Seq.with(new Objectives.OnSector(crossroads)), () -> {
                                         apNode(createApLocation("AP-E-03-07", neoplasiaReactor, 235L),
                                             Seq.with(new Objectives.OnSector(karst)), () -> {
+                                        });
                                     });
                                 });
                             });
-                        });
                     });
 
                     apNode(createApLocation("AP-E-03-08", beamTower, 236L),
@@ -305,35 +300,34 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
                     apNode(createApLocation("AP-E-03-09", regenProjector, 237L),
                             Seq.with(new Objectives.OnSector(peaks)), () -> {
-                        //TODO more tiers of build tower or "support" structures like overdrive projectors
+                            //TODO more tiers of build tower or "support" structures like overdrive projectors
                             apNode(createApLocation("AP-E-03-10", buildTower, 238L),
                                 Seq.with(new Objectives.OnSector(stronghold)), () -> {
                                 apNode(createApLocation("AP-E-03-11", shockwaveTower, 239L),
                                     Seq.with(new Objectives.OnSector(siege)), () -> {
+                                });
                             });
-                        });
                     });
                 });
 
                 apNode(createApLocation("AP-E-03-12", reinforcedConduit, 240L),
                         Seq.with(new Objectives.OnSector(aegis)), () -> {
-                    //TODO maybe should be even later
+                            //TODO maybe should be even later
                             apNode(createApLocation("AP-E-03-13", reinforcedPump, 241L),
-                            Seq.with(new Objectives.OnSector(basin)), () -> {
-                        //TODO T2 pump, consume cyanogen or similar
-                    });
+                                Seq.with(new Objectives.OnSector(basin)), () -> {
+                                //TODO T2 pump, consume cyanogen or similar
+                            });
                             apNode(createApLocation("AP-E-03-14", reinforcedLiquidJunction, 242L), () -> {
                                 apNode(createApLocation("AP-E-03-15", reinforcedBridgeConduit, 243L), () -> {
-                        });
+                                });
                                 apNode(createApLocation("AP-E-03-16", reinforcedLiquidRouter, 244L), () -> {
-                                    apNode(createApLocation("AP-E-03-17", reinforcedLiquidContainer, 245L),
-                                    () -> {
+                                    apNode(createApLocation("AP-E-03-17", reinforcedLiquidContainer, 245L), () -> {
                                         apNode(createApLocation("AP-E-03-18", reinforcedLiquidTank, 246L),
                                             Seq.with(new Objectives.SectorComplete(intersect)), () -> {
+                                        });
+                                    });
                                 });
                             });
-                        });
-                    });
                 });
 
                 node(cliffCrusher, () -> {
@@ -367,11 +361,10 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                                 apNode(createApLocation("AP-E-03-30", phaseSynthesizer,
                                             258L),
                                                         Seq.with(new Objectives.OnSector(karst)), () -> {
-                                                        apNode(createApLocation("AP-E-03-31", phaseHeater,
-                                                    259L), () -> {
-                                                });
+                                                        apNode(createApLocation("AP-E-03-31", phaseHeater, 259L), () -> {
+                                                        });
+                                                 });
                                             });
-                                        });
 
                                         apNode(createApLocation("AP-E-03-32", heatRouter, 260L),
                                                 () -> {
@@ -396,108 +389,90 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
             node(breach, Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.Research(tankFabricator)), () -> {
                 node(berylliumWall, () -> {
                     apNode(createApLocation("AP-E-04-03", berylliumWallLarge, 264L), () -> {
-
                     });
 
                     apNode(createApLocation("AP-E-04-04", tungstenWall, 265L), () -> {
                         apNode(createApLocation("AP-E-04-05", tungstenWallLarge, 266L), () -> {
                             apNode(createApLocation("AP-E-04-06", blastDoor, 267L), () -> {
-
                             });
                         });
 
                         apNode(createApLocation("AP-E-04-07", reinforcedSurgeWall, 268L), () -> {
-                            apNode(createApLocation("AP-E-04-08", reinforcedSurgeWallLarge, 269L),
-                                    () -> {
-                                        apNode(createApLocation("AP-E-04-09", shieldedWall, 270L), () -> {
-
+                            apNode(createApLocation("AP-E-04-08", reinforcedSurgeWallLarge, 269L), () -> {
+                                apNode(createApLocation("AP-E-04-09", shieldedWall, 270L), () -> {
                                 });
                             });
                         });
 
                         apNode(createApLocation("AP-E-04-10", carbideWall, 271L), () -> {
                             apNode(createApLocation("AP-E-04-11", carbideWallLarge, 272L), () -> {
-
                             });
                         });
                     });
                 });
 
                 apNode(createApLocation("AP-E-04-12", diffuse, 273L),
-                        Seq.with(new Objectives.OnSector(lake)),
-                        () -> {
+                        Seq.with(new Objectives.OnSector(lake)), () -> {
                             apNode(createApLocation("AP-E-04-13", sublimate, 274L),
-                            Seq.with(new Objectives.OnSector(marsh)), () -> {
-                                        apNode(createApLocation("AP-E-04-14", afflict, 275L),
-                                Seq.with(new Objectives.OnSector(ravine)), () -> {
-                                                    apNode(createApLocation("AP-E-04-15", titan, 276L),
-                                    Seq.with(new Objectives.OnSector(stronghold)), () -> {
-                                                                apNode(createApLocation("AP-E-04-16", lustre, 277L),
-                                        Seq.with(new Objectives.OnSector(crevice)), () -> {
-                                                                            apNode(createApLocation("AP-E-04-17", smite, 278L),
-                                            Seq.with(new Objectives.OnSector(karst)), () -> {
+                                Seq.with(new Objectives.OnSector(marsh)), () -> {
+                                    apNode(createApLocation("AP-E-04-14", afflict, 275L),
+                                        Seq.with(new Objectives.OnSector(ravine)), () -> {
+                                        apNode(createApLocation("AP-E-04-15", titan, 276L),
+                                            Seq.with(new Objectives.OnSector(stronghold)), () -> {
+                                            apNode(createApLocation("AP-E-04-16", lustre, 277L),
+                                                Seq.with(new Objectives.OnSector(crevice)), () -> {
+                                                apNode(createApLocation("AP-E-04-17", smite, 278L),
+                                                    Seq.with(new Objectives.OnSector(karst)), () -> {
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
 
+                            apNode(createApLocation("AP-E-04-18", disperse, 279L),
+                                Seq.with(new Objectives.OnSector(stronghold)), () -> {
+                                apNode(createApLocation("AP-E-04-19", scathe, 280L),
+                                    Seq.with(new Objectives.OnSector(siege)), () -> {
+                                    apNode(createApLocation("AP-E-04-20", malign, 281L),
+                                        Seq.with(new Objectives.SectorComplete(karst)), () -> {
                                     });
                                 });
                             });
-                        });
-                    });
-
-                            apNode(createApLocation("AP-E-04-18", disperse, 279L),
-                            Seq.with(new Objectives.OnSector(stronghold)), () -> {
-                                        apNode(createApLocation("AP-E-04-19", scathe, 280L),
-                                Seq.with(new Objectives.OnSector(siege)), () -> {
-                                                    apNode(createApLocation("AP-E-04-20", malign, 281L),
-                                    Seq.with(new Objectives.SectorComplete(karst)), () -> {
-
-                            });
-                        });
-                    });
                 });
 
 
                 apNode(createApLocation("AP-E-04-21", radar, 282L),
-                        Seq.with(new Objectives.OnSector(SectorPresets.aegis)), () -> {
-
+                    Seq.with(new Objectives.OnSector(SectorPresets.aegis)), () -> {
                 });
             });
 
             apNode(createApLocation("AP-E-05-01", coreCitadel, 283L),
-                    Seq.with(new Objectives.SectorComplete(peaks)), () -> {
-                        apNode(createApLocation("AP-E-05-02", coreAcropolis, 284L),
-                        Seq.with(new Objectives.SectorComplete(siege)), () -> {
-
+                Seq.with(new Objectives.SectorComplete(peaks)), () -> {
+                apNode(createApLocation("AP-E-05-02", coreAcropolis, 284L),
+                    Seq.with(new Objectives.SectorComplete(siege)), () -> {
                 });
             });
 
             apNode(createApLocation("Victory Erekir", null, 999L,
                     LocationResearchCost.reqVictoryErekir()));
-
-            node(tankFabricator, Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.Research(plasmaBore), new Objectives.Research(turbineCondenser)), () -> {
-                node(UnitTypes.stell);
-
+                node(tankFabricator, Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.Research(plasmaBore), new Objectives.Research(turbineCondenser)), () -> {
+                    node(UnitTypes.stell);
                 apNode(createApLocation("AP-E-06-03", unitRepairTower, 287L),
-                        Seq.with(new Objectives.OnSector(ravine)), () -> {
-
+                    Seq.with(new Objectives.OnSector(ravine)), () -> {
                 });
 
                 apNode(createApLocation("AP-E-06-04", shipFabricator, 288L),
-                        Seq.with(new Objectives.OnSector(lake)),
-                        () -> {
-                            apNode(createApLocation("AP-E-06-05", UnitTypes.elude, 289L));
-
-                            apNode(createApLocation("AP-E-06-06", mechFabricator, 290L),
+                    Seq.with(new Objectives.OnSector(lake)), () -> {
+                    apNode(createApLocation("AP-E-06-05", UnitTypes.elude, 289L));
+                        apNode(createApLocation("AP-E-06-06", mechFabricator, 290L),
                             Seq.with(new Objectives.OnSector(intersect)), () -> {
-                                apNode(createApLocation("AP-E-06-07", UnitTypes.merui, 291L));
-
+                            apNode(createApLocation("AP-E-06-07", UnitTypes.merui, 291L));
                                 apNode(createApLocation("AP-E-06-08", tankRefabricator, 292L),
                                     Seq.with(new Objectives.OnSector(atlas)), () -> {
                                     apNode(createApLocation("AP-E-06-09", UnitTypes.locus, 293L));
-
                                     apNode(createApLocation("AP-E-06-10", mechRefabricator, 294L),
                                         Seq.with(new Objectives.OnSector(basin)), () -> {
                                         apNode(createApLocation("AP-E-06-11", UnitTypes.cleroi, 295L));
-
                                         apNode(createApLocation("AP-E-06-12", shipRefabricator, 296L),
                                             Seq.with(new Objectives.OnSector(peaks)), () -> {
                                             apNode(createApLocation("AP-E-06-13", UnitTypes.avert, 297L));
@@ -514,7 +489,6 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
                                         apNode(createApLocation("AP-E-06-18", tankAssembler, 302L),
                                             Seq.with(new Objectives.OnSector(siege)), () -> {
-
                                             apNode(createApLocation("AP-E-06-19", UnitTypes.vanquish,
                                             303L), () -> {
                                             apNode(createApLocation("AP-E-06-20", UnitTypes.conquer,
@@ -526,29 +500,23 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                             apNode(createApLocation("AP-E-06-21", shipAssembler, 305L),
                                                 Seq.with(new Objectives.OnSector(crossroads)), () -> {
                                                 apNode(createApLocation("AP-E-06-22", UnitTypes.quell,
-                                            306L),
-                                                    () -> {
-                                                    apNode(createApLocation("AP-E-06-23",
-                                                            UnitTypes.disrupt, 307L),
+                                            306L), () -> {
+                                                    apNode(createApLocation("AP-E-06-23", UnitTypes.disrupt, 307L),
                                                         Seq.with(new Objectives.OnSector(karst)), () -> {
+                                                    });
                                                 });
                                             });
-                                        });
                                             apNode(createApLocation("AP-E-06-24", mechAssembler, 308L),
                                                 Seq.with(new Objectives.OnSector(crossroads)), () -> {
-                                                apNode(createApLocation("AP-E-06-25", UnitTypes.tecta,
-                                            309L),
-                                                    () -> {
-                                                    apNode(createApLocation("AP-E-06-26",
-                                                            UnitTypes.collaris, 310L),
+                                                apNode(createApLocation("AP-E-06-25", UnitTypes.tecta, 309L), () -> {
+                                                    apNode(createApLocation("AP-E-06-26", UnitTypes.collaris, 310L),
                                                         Seq.with(new Objectives.OnSector(karst)), () -> {
+                                                    });
                                                 });
                                             });
-                                        });
-                                            apNode(createApLocation("AP-E-06-27", basicAssemblerModule,
-                                                        311L),
+                                            apNode(createApLocation("AP-E-06-27", basicAssemblerModule, 311L),
                                                 Seq.with(new Objectives.SectorComplete(karst)), () -> {
-                                        });
+                                            });
                                     });
                                 });
                             });
@@ -560,13 +528,11 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
             node(onset, () -> {
                 node(aegis, Seq.with(new Objectives.SectorComplete(onset)), () -> {
                     node(lake, Seq.with(new Objectives.SectorComplete(aegis)), () -> {
-
                     });
 
                     node(intersect, Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
                         node(atlas, Seq.with(new Objectives.SectorComplete(intersect)), () -> {
                             node(split, Seq.with(new Objectives.SectorComplete(atlas)), () -> {
-
                             });
 
                             node(basin, Seq.with(new Objectives.SectorComplete(atlas)), () -> {
@@ -590,7 +556,6 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                     });
 
                                     node(peaks, Seq.with(new Objectives.SectorComplete(marsh)), () -> {
-
                                     });
                                 });
                             });

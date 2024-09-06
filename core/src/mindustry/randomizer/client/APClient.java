@@ -72,7 +72,6 @@ public class APClient extends Client {
         }
     }
 
-
     @Override
     public void onError(Exception ex) {
         randomizer.sendLocalMessage("Client error: " + ex.getMessage());

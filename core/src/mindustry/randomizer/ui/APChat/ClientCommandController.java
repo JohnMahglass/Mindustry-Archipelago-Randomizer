@@ -107,7 +107,6 @@ public class ClientCommandController {
                     "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
                     "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
                     "   Seed: " + randomizer.worldState.getSeed() + "\n" +
-                    "   Randomize blocks size: " + getActivationStatus(randomizer.worldState.options.getRandomizeBlockSize()) + "\n" +
                     "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) + "\n" +
                     "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution())));
         } else {

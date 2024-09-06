@@ -40,7 +40,6 @@ import static mindustry.Vars.ui;
 public class APChatFragment extends Table {
 
     ClientCommandController commandController;
-
     private static final int messagesShown = 10;
     private Seq<APMessage> messages = new Seq<>();
     private float fadetime;

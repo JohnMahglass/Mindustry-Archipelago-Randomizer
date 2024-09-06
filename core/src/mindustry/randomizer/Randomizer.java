@@ -14,6 +14,7 @@ import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.randomizer.utils.EmptyFillerText;
 import mindustry.type.Sector;
+
 import static mindustry.randomizer.enums.SettingStrings.*;
 
 
@@ -135,31 +136,13 @@ public class Randomizer {
     }
 
     /**
-     * Return true if AP item attributes are initialized.
-     * within the randomizer.
-     * @return If the content is an AP item.
-     */
-    public boolean isMindustryAPItem(Long itemId){ //Needs to be updated
-        boolean isMindustryItem = false;
-        if (itemId != null) {
-            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
-                //Serpulo Item
-                isMindustryItem = true;
-            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 343) {
-                //Erekir Item
-                isMindustryItem = true;
-            }
-        }
-        return isMindustryItem;
-    }
-
-    /**
      * Check if the item is a sector
      * @param id The id of the item
      * @return Return True if the item is a sector
      */
     public boolean isSector(Long id){
-        return (id >= MINDUSTRY_BASE_ID + 138 && id <= MINDUSTRY_BASE_ID + 154);
+        return (id >= MINDUSTRY_BASE_ID + 138 && id <= MINDUSTRY_BASE_ID + 154) ||
+                (id >= MINDUSTRY_BASE_ID + 312 && id <= MINDUSTRY_BASE_ID + 327);
     }
 
     /**
@@ -169,7 +152,7 @@ public class Randomizer {
      */
     public UnlockableContent itemIdToUnlockableContent(Long itemId) {
         UnlockableContent content = null;
-        if (isMindustryAPItem(itemId)) {
+        if (worldState.isMindustryAPItem(itemId)) {
             if (worldState.isProgressive(itemId)) {
                 for (ProgressiveItem item : worldState.progressiveItems) {
                     if (item.id.equals(itemId) && !item.allReceived) {
@@ -295,22 +278,6 @@ public class Randomizer {
             }
         }
         return allow;
-    }
-
-    /**
-     * Checks whether the plays have received this item.
-     * @param id The id of the item to be checked.
-     * @return Return True if the player has this item.
-     */
-    public boolean hasItem(Long id){
-        boolean itemReceived = false;
-
-        for (int i = 0; i < worldState.unlockedItems.length; i++) {
-            if (id == worldState.unlockedItems[i]) {
-                itemReceived = true;
-            }
-        }
-        return itemReceived;
     }
 
     /**

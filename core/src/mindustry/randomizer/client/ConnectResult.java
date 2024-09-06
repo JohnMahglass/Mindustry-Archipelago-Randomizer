@@ -26,7 +26,8 @@ public class ConnectResult {
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
             client.connectionStatus = ConnectionStatus.Success;
-            client.onCloseTriggered = false;
+            client.onCloseTriggered = false; //To prevent a bug were on close method is being
+            // called twice, this needs to be investigated.
             client.slotData = event.getSlotData(SlotData.class);
             if (!randomizer.hasConnectedPreviously) { //First time the player is connecting
                 // to the game

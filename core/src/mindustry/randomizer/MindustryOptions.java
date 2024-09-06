@@ -72,11 +72,6 @@ public class MindustryOptions {
     private boolean randomizeCoreUnitsWeapon;
 
     /**
-     * Randomize blocks size.
-     */
-    private boolean randomizeBlockSize;
-
-    /**
      * How should the logistic be handled by the logic.
      */
     private int logisticDistribution;
@@ -112,10 +107,6 @@ public class MindustryOptions {
      */
     public boolean getDeathLink() {
         return this.deathLink && !this.forceDisableDeathLink;
-    }
-
-    public boolean getRandomizeBlockSize() {
-        return this.randomizeBlockSize;
     }
 
     public boolean getRandomizeCoreUnitsWeapon(){
@@ -169,7 +160,6 @@ public class MindustryOptions {
             this.fasterProduction = slotData.getFasterProduction();
             this.campaign = slotData.getCampaignChoice();
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
-            this.randomizeBlockSize = slotData.getRandomizeBlockSize();
             this.logisticDistribution = slotData.getLogisticDistribution();
 
             this.optionsFilled = true;
@@ -193,10 +183,9 @@ public class MindustryOptions {
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
-            this.randomizeBlockSize = false;
             this.randomizeCoreUnitsWeapon = false;
             this.logisticDistribution = 0;
-            if (settings != null) { //Local settings
+            if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
             }
         }
@@ -494,7 +483,6 @@ public class MindustryOptions {
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
-        settings.put(RANDOMIZE_BLOCK_SIZE.value, getRandomizeBlockSize());
         settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
         if (getTutorialSkip()) {
             if (getCampaign() == 0) {
@@ -519,7 +507,6 @@ public class MindustryOptions {
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
-        this.randomizeBlockSize = settings.getBool(RANDOMIZE_BLOCK_SIZE.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.optionsFilled = true;

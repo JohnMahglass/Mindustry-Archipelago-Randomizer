@@ -32,11 +32,11 @@ public class APApplyOptionsDialog extends BaseDialog {
             t.add("" +
                 "To properly apply the randomizer options it is required" + "\n" +
                 "to reload the game when you successfully connect to a" + "\n" +
-                "game for the first time. Press 'Ok' to close the program." +
+                "game for the first time. Press 'Exit' to close the program." +
                 "").pad(10f);
             t.row();
 
-            t.button("Restart", Icon.exit, () -> {
+            t.button("Exit", Icon.exit, () -> {
                 Core.app.exit();
             }).size(170f, 50);
         }).size(610f, 170).pad(10f);

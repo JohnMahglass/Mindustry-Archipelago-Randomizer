@@ -34,10 +34,9 @@ public class APMessage {
      * @param event The event triggering the message.
      */
     public APMessage(PrintJSONEvent event) {
-
         this.message = new ArrayList<>();
         this.plainText = event.apPrint.getPlainText();
-        if (event != null && event.apPrint.parts.length != 0) {
+        if (event.apPrint.parts.length != 0) {
             for (APPrintPart part : event.apPrint.parts) {
                 this.message.add(part.text);
             }
