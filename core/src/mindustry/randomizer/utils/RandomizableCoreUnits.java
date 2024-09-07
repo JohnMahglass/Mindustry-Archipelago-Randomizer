@@ -14,6 +14,7 @@ import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.entities.abilities.Ability;
+import mindustry.entities.abilities.EnergyFieldAbility;
 import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.abilities.RepairFieldAbility;
@@ -86,7 +87,7 @@ public abstract class RandomizableCoreUnits {
         coreUnitAbility.add(quasarAbilities);
 
         Seq<Ability> polyAbilities = new Seq<>();
-        polyAbilities.add(new RepairFieldAbility(5f, 60f * 8, 50f)); //need testing
+        polyAbilities.add(new RepairFieldAbility(15f, 60f * 8, 50f)); //need testing
         coreUnitAbility.add(polyAbilities);
 
         Seq<Ability> omuraAbilities = new Seq<>();
@@ -123,6 +124,19 @@ public abstract class RandomizableCoreUnits {
             y = 1f;
         }});
         coreUnitAbility.add(quellAbilities);
+
+        //Tests
+        /*
+        Seq<Ability> aegiresAbilities1 = new Seq<>();
+        aegiresAbilities1.add(new EnergyFieldAbility(40f, 65f, 180f){{
+            statusDuration = 60f * 6f;
+            maxTargets = 25;
+            healPercent = 1.5f;
+            sameTypeHealMult = 0.5f;
+        }});
+        coreUnitAbility.add(aegiresAbilities1);
+
+         */
 
         return coreUnitAbility;
     }

@@ -27,9 +27,9 @@
 - When selecting a campaign, any unselected campaign will now behave as vanilla.
 - "Military level tracking" option is now available. Serpulo and Erekir logic has been improved with a "Military level" tracking the player's research that can be used
 to capture sectors to make sure the player has a minimum amount of tools to capture sectors. You can opt out of this option if you would like to live dangerously.
-- "Randomize core units weapon" option is now available. Randomizing Erekir's unit will instead give a random ability to the core unit and make it vulnerable.
+- "Randomize core units weapon" option is now available (Serulo only at the moment*).
 - "Logistic distribution" option is now available. You can select "Randomize logistics", "Early logistics" and "Starter logistics". Logistics being junction,router and bridge 
-for belt,duct and conduit.
+for belt,duct, conduit and Power Node.
 - Added Empty filler item "A fistful of nothing..." to the world to prevent generation failure if an item is taken out of the item pool.
 
 ## Setup guide.

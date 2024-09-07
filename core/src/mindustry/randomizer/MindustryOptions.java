@@ -197,18 +197,19 @@ public class MindustryOptions {
     protected static void randomizeCoreUnitsWeapon(int campaign) {
         Random random = new Random(settings.getInt(AP_SEED.value));
         ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizableCoreUnits.getPossibleCoreUnitsWeapons();
-        ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
+        //ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits
+        // .getPossibleCoreUnitsAbility();
 
         switch (campaign){
             case 0: //Serpulo
                 randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
                 break;
             case 1: //Erekir
-                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
+                //randomizeErekirCoreUnitsAbility(random, coreUnitAbilities); Disabled for now
                 break;
             case 2: //All
                 randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
-                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
+                //randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
                 break;
         }
     }
@@ -220,6 +221,7 @@ public class MindustryOptions {
      */
     private static void randomizeErekirCoreUnitsAbility(Random random,
                                                         ArrayList<Seq<Ability>> coreUnitAbilities) {
+
         UnitTypes.evoke.weapons.clear();
         UnitTypes.evoke.hittable = true;
         UnitTypes.evoke.killable = true;
@@ -310,6 +312,7 @@ public class MindustryOptions {
         Blocks.junction.quietUnlock();
         Blocks.router.quietUnlock();
         Blocks.itemBridge.quietUnlock();
+        Blocks.powerNode.quietUnlock();
     }
 
     /**
