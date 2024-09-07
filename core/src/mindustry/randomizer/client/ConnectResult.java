@@ -40,27 +40,28 @@ public class ConnectResult {
                 // waiting to be sent to Archipelago
                 randomizer.sendPendingLocations();
             }
-            randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");
+            randomizer.sendLocalMessage("[#66C942]Connected[#FFFFFF] to '" + client.getAddress() + "'");
             if (randomizer.worldState.options.getTrueDeathLink()) {
                 DeathLink.setDeathLinkEnabled(true);
             }
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
-                randomizer.sendLocalMessage("Connection failed: Invalid Slot Name.");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Invalid Slot Name.");
             } else if (event.getResult() == ConnectionResult.InvalidPassword) {
                 client.connectionStatus = ConnectionStatus.InvalidPassword;
-                randomizer.sendLocalMessage("Connection failed: Invalid Password.");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Invalid Password.");
             } else if (event.getResult() == ConnectionResult.SlotAlreadyTaken) {
                 client.connectionStatus = ConnectionStatus.SlotAlreadyTaken;
-                randomizer.sendLocalMessage("Connection failed: Slot already taken.");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Slot already taken.");
             } else if (event.getResult() == ConnectionResult.IncompatibleVersion) {
                 client.connectionStatus = ConnectionStatus.IncompatibleVersion;
-                randomizer.sendLocalMessage("Connection failed: Incompatible version");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Incompatible version");
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
             }
-            randomizer.sendLocalMessage("Not connected. To connect, go to Settings -> " +
+            randomizer.sendLocalMessage("[#DB3232]Not connected[#FFFFFF]. To connect, go to " +
+                    "Settings -> " +
                     "Archipelago");
         }
     }

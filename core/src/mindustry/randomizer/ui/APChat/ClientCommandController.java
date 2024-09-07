@@ -142,7 +142,7 @@ public class ClientCommandController {
      * @return Return the status of the option.
      */
     private String getActivationStatus(boolean status) {
-        return status ? "Activated" : "Deactivated";
+        return status ? "[#66C942]Activated[#FFFFFF]" : "[#DB3232]Deactivated[#FFFFFF]";
     }
 
     /**
@@ -153,11 +153,11 @@ public class ClientCommandController {
         String name;
         int campaign = randomizer.worldState.options.getCampaign();
         if (campaign == 0) { //Serpulo
-            name = "Serpulo";
+            name = "[#8738E0]Serpulo[#FFFFFF]";
         } else if (campaign == 1) { //Erekir
-            name = "Erekir";
+            name = "[#E06838]Erekir[#FFFFFF]";
         } else if (campaign == 2) { //All
-            name = "Serpulo and Erekir";
+            name = "[#8738E0]Serpulo[#FFFFFF] and [#E06838]Erekir[#FFFFFF]";
         } else {
             name = "Campaign name error";
         }
@@ -176,25 +176,25 @@ public class ClientCommandController {
         String status;
         switch (randomizer.client.connectionStatus) {
             case Success:
-                status = "Connected";
+                status = "[#66C942]Connected[#FFFFFF]";
                 break;
             case NotConnected:
-                status = "Not connected";
+                status = "[#DB3232]Not connected[#FFFFFF]";
                 break;
             case InvalidSlot:
-                status = "Invalid slot name";
+                status = "[#DB3232]Invalid slot name[#FFFFFF]";
                 break;
             case InvalidPassword:
-                status = "Invalid password";
+                status = "[#DB3232]Invalid password[#FFFFFF]";
                 break;
             case SlotAlreadyTaken:
-                status = "Slot already taken";
+                status = "[#DB3232]Slot already taken[#FFFFFF]";
                 break;
             case IncompatibleVersion:
-                status = "Incompatible version";
+                status = "[#DB3232]Incompatible version[#FFFFFF]";
                 break;
             default:
-                status = "Error";
+                status = "[#DB3232]Error[#FFFFFF]";
                 break;
         }
         chat.addLocalMessage(new APMessage("Connection status: " + status));
@@ -243,23 +243,23 @@ public class ClientCommandController {
     private void listAvailableCommands() {
         chat.addLocalMessage(new APMessage("""
                 Available commands:
-                  /help
+                  [#FFDF29]/help[#FFFFFF]
                         List available commands. (what you are doing right now)
-                  /status
+                  [#FFDF29]/status[#FFFFFF]
                         Display connection status.
-                  /options
+                  [#FFDF29]/options[#FFFFFF]
                         Display selected options for game generation.
                         You need to have connected once to be able
                         to view selected options
-                  /connect
+                  [#FFDF29]/connect[#FFFFFF]
                         Connect using the information provided in
                         Settings -> Archipelago
-                  /connect [Address] [Slot Name]
+                  [#FFDF29]/connect[#FFFFFF] [Address] [Slot Name]
                         Connect using the information provided in argument.
                         (Password not available to prevent displaying password)
-                  /disconnect
+                  [#FFDF29]/disconnect[#FFFFFF]
                         Disconnect from AP
-                  /clear
+                  [#FFDF29]/clear[#FFFFFF]
                         Clear chat messages."""));
     }
 }

@@ -74,13 +74,14 @@ public class APClient extends Client {
 
     @Override
     public void onError(Exception ex) {
-        randomizer.sendLocalMessage("Client error: " + ex.getMessage());
+        randomizer.sendLocalMessage("[#DB3232]Client error[#FFFFFF]: " + ex.getMessage());
     }
 
     @Override
     public void onClose(String Reason, int attemptingReconnect) { //onClose is triggering twice?
         if (!onCloseTriggered) { //Temporary
-            randomizer.sendLocalMessage("Disconnected / Connection lost. Offline checks will be " +
+            randomizer.sendLocalMessage("[#DB3232]Disconnected / Connection lost[#FFFFFF]. " +
+                    "Offline checks will be " +
                     "saved and sent when connecting to the game again.");
         }
         onCloseTriggered = true;
@@ -97,7 +98,8 @@ public class APClient extends Client {
                 }
             } catch (URISyntaxException e) {
                 //e.printStackTrace();
-                randomizer.sendLocalMessage("Connection failed. Please verify your login " +
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]. Please verify " +
+                        "your login " +
                         "information in Settings -> Archipelago");
             }
         }

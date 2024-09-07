@@ -228,18 +228,45 @@ public class APChatFragment extends Table {
      */
     private float drawItemMessage(float opacity, float textWidth, float theight, int i,
                              APMessage chatMessage) {
-        String startText = getStartText(chatMessage);
-        String coloredText = getColoredText(chatMessage);
-        String endText = getEndText(chatMessage);
-        String hexColor = "[#FFFFFF]";
-        if (chatMessage.classification.equals(ItemsClassification.PROGRESSION)) {
-            hexColor = "[#8949C4]";
-        } else if (chatMessage.classification.equals(ItemsClassification.USEFUL)) {
-            hexColor = "[#3A72BA]";
-        } else if (chatMessage.classification.equals(ItemsClassification.TRAP)) {
-            hexColor = "[#EB4F34]";
+        String finalText;
+        String whiteColor = "[#FFFFFF]";
+        String mindustryPlayerColor = "[#edce32]";
+        String otherPlayerColor = "[#54e8d4]";
+        String finderPlayer = getPlayerNameText(chatMessage);
+        boolean isMindustryPlayer = randomizer.client.getSlotName().equals(finderPlayer);
+        if (isMindustryPlayer) {
+            finderPlayer = mindustryPlayerColor + finderPlayer + whiteColor;
+        } else {
+            finderPlayer = otherPlayerColor + finderPlayer + whiteColor;
         }
-        String finalText = startText + hexColor + coloredText + "[#FFFFFF]"+ endText;
+        String itemColor = "[#FFFFFF]";
+        if (chatMessage.classification.equals(ItemsClassification.PROGRESSION)) {
+            itemColor = "[#8949C4]";
+        } else if (chatMessage.classification.equals(ItemsClassification.USEFUL)) {
+            itemColor = "[#3A72BA]";
+        } else if (chatMessage.classification.equals(ItemsClassification.TRAP)) {
+            itemColor = "[#EB4F34]";
+        }
+        String foundText = getFoundText(chatMessage);
+        String itemText;
+        String endText;
+        itemText = chatMessage.message.get(2);
+        itemText = itemColor + itemText + whiteColor;
+        if (chatMessage.message.size() == 6) { //Player found their own item
+            endText = getEndText(chatMessage);
+            finalText = finderPlayer + foundText + itemText + endText;
+        } else { //Item is being sent from one player to another
+            String receivingPlayer = chatMessage.message.get(4);
+            isMindustryPlayer = randomizer.client.getSlotName().equals(chatMessage.message.get(4));
+            if (isMindustryPlayer) {
+                receivingPlayer = mindustryPlayerColor + receivingPlayer + whiteColor;
+            } else {
+                receivingPlayer = otherPlayerColor + receivingPlayer + whiteColor;
+            }
+            endText = getEndText(chatMessage);
+            finalText =
+                    finderPlayer + chatMessage.message.get(1) + itemText + chatMessage.message.get(3) + receivingPlayer + endText;
+        }
 
         font.data.markupEnabled = true;
         layout.setText(font, finalText, 0, finalText.length(),
@@ -269,16 +296,26 @@ public class APChatFragment extends Table {
         return theight;
     }
 
+    private String getFoundText(APMessage chatMessage) {
+        return chatMessage.message.get(1);
+    }
+
+    /**
+     * Return the 3 last part of a message. This part contains the location the item was found.
+     * @param chatMessage The chat message, separated into parts.
+     * @return Return the end of the text.
+     */
     private String getEndText(APMessage chatMessage) {
-        return (chatMessage.message.get(3) + chatMessage.message.get(4) + chatMessage.message.get(5));
+        int size = chatMessage.message.size();
+        return (chatMessage.message.get(size - 3) + chatMessage.message.get(size - 2) + chatMessage.message.get(size - 1));
     }
 
     private String getColoredText(APMessage chatMessage) {
         return (chatMessage.message.get(2));
     }
 
-    private String getStartText(APMessage chatMessage) {
-        return (chatMessage.message.get(0) + chatMessage.message.get(1));
+    private String getPlayerNameText(APMessage chatMessage) {
+        return (chatMessage.message.get(0));
     }
 
     private void sendMessage(){
