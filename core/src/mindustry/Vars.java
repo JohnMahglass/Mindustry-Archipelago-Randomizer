@@ -4,6 +4,8 @@ import arc.*;
 import arc.assets.*;
 import arc.files.*;
 import arc.graphics.*;
+import arc.graphics.g2d.TextureRegion;
+import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
@@ -34,6 +36,8 @@ import mindustry.world.meta.*;
 
 import java.io.*;
 import java.nio.charset.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -138,13 +142,6 @@ public class Vars implements Loadable{
         Color.valueOf("4b5ef1"),
         Color.valueOf("2cabfe"),
     };
-    /** Icons available to the user for customization in certain dialogs. */
-    public static final String[] accessibleIcons = {
-    "effect", "power", "logic", "units", "liquid", "production", "defense", "turret", "distribution", "crafting",
-    "settings", "cancel", "zoom", "ok", "star", "home", "pencil", "up", "down", "left", "right",
-    "hammer", "warning", "tree", "admin", "map", "modePvp", "terrain",
-    "modeSurvival", "commandRally", "commandAttack",
-    };
     /** maximum TCP packet size */
     public static final int maxTcpSize = 900;
     /** default server port */
@@ -155,8 +152,6 @@ public class Vars implements Loadable{
     public static final int maxModSubtitleLength = 40;
     /** multicast group for discovery.*/
     public static final String multicastGroup = "227.2.7.7";
-    /** Maximum delta time. If the actual delta time (*60) between frames is higher than this number, the game will start to slow down. */
-    public static float maxDeltaClient = 6f, maxDeltaServer = 10f;
     /** whether the graphical game client has loaded */
     public static boolean clientLoaded = false;
     /** max GL texture size */

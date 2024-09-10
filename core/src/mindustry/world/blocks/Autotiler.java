@@ -206,7 +206,7 @@ public interface Autotiler{
             //block is facing the other
             Point2.equals(tile.x + Geometry.d4(rotation).x, tile.y + Geometry.d4(rotation).y, otherx, othery) ||
             //does not output to rotated direction
-            !otherblock.rotatedOutput(otherx, othery, tile) ||
+            !otherblock.rotatedOutput(otherx, othery) ||
             //other block is facing this one
             Point2.equals(otherx + Geometry.d4(otherrot).x, othery + Geometry.d4(otherrot).y, tile.x, tile.y);
     }

@@ -72,16 +72,16 @@ public class APClient extends Client {
         }
     }
 
-
     @Override
     public void onError(Exception ex) {
-        randomizer.sendLocalMessage("Client error: " + ex.getMessage());
+        randomizer.sendLocalMessage("[#DB3232]Client error[#FFFFFF]: " + ex.getMessage());
     }
 
     @Override
     public void onClose(String Reason, int attemptingReconnect) { //onClose is triggering twice?
         if (!onCloseTriggered) { //Temporary
-            randomizer.sendLocalMessage("Disconnected / Connection lost. Offline checks will be " +
+            randomizer.sendLocalMessage("[#DB3232]Disconnected / Connection lost[#FFFFFF]. " +
+                    "Offline checks will be " +
                     "saved and sent when connecting to the game again.");
         }
         onCloseTriggered = true;
@@ -95,12 +95,16 @@ public class APClient extends Client {
             try {
                 if (address != null && slotName != null) {
                     connect(address);
+                } else {
+                    randomizer.sendLocalMessage("Error: Address or Slot name empty.");
                 }
             } catch (URISyntaxException e) {
                 //e.printStackTrace();
-                randomizer.sendLocalMessage("Connection failed. Please verify your login " +
-                        "information in Settings -> Archipelago");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]. Please verify " +
+                        "your login information in Settings -> Archipelago");
             }
+        } else {
+            randomizer.sendLocalMessage("Error: You are already connected.");
         }
     }
 

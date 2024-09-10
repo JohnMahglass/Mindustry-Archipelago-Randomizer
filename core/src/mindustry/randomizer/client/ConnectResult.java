@@ -26,38 +26,42 @@ public class ConnectResult {
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
             client.connectionStatus = ConnectionStatus.Success;
-            client.onCloseTriggered = false;
+            client.onCloseTriggered = false; //To prevent a bug were on close method is being
+            // called twice, this needs to be investigated.
             client.slotData = event.getSlotData(SlotData.class);
             if (!randomizer.hasConnectedPreviously) { //First time the player is connecting
                 // to the game
                 randomizer.worldState.options.fillOptions(client.slotData);
+                randomizer.worldState.createSeed(client.getRoomInfo().seedName);
                 randomizer.initialize();
+                randomizer.updateForceExit(); //Required to apply all randomizer options.
             }
             while (randomizer.worldState.hasCheckPending()) { // The player has item
                 // waiting to be sent to Archipelago
                 randomizer.sendPendingLocations();
             }
-            randomizer.sendLocalMessage("Connected to '" + client.getAddress() + "'");
+            randomizer.sendLocalMessage("[#66C942]Connected[#FFFFFF] to '" + client.getAddress() + "'");
             if (randomizer.worldState.options.getTrueDeathLink()) {
                 DeathLink.setDeathLinkEnabled(true);
             }
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
-                randomizer.sendLocalMessage("Connection failed: Invalid Slot Name.");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Invalid Slot Name.");
             } else if (event.getResult() == ConnectionResult.InvalidPassword) {
                 client.connectionStatus = ConnectionStatus.InvalidPassword;
-                randomizer.sendLocalMessage("Connection failed: Invalid Password.");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Invalid Password.");
             } else if (event.getResult() == ConnectionResult.SlotAlreadyTaken) {
                 client.connectionStatus = ConnectionStatus.SlotAlreadyTaken;
-                randomizer.sendLocalMessage("Connection failed: Slot already taken.");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Slot already taken.");
             } else if (event.getResult() == ConnectionResult.IncompatibleVersion) {
                 client.connectionStatus = ConnectionStatus.IncompatibleVersion;
-                randomizer.sendLocalMessage("Connection failed: Incompatible version");
+                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Incompatible version");
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
             }
-            randomizer.sendLocalMessage("Not connected. To connect, go to Settings -> " +
+            randomizer.sendLocalMessage("[#DB3232]Not connected[#FFFFFF]. To connect, go to " +
+                    "Settings -> " +
                     "Archipelago");
         }
     }

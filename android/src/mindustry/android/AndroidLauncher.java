@@ -72,8 +72,6 @@ public class AndroidLauncher extends AndroidApplication{
 
             @Override
             public ClassLoader loadJar(Fi jar, ClassLoader parent) throws Exception{
-                //Required to load jar files in Android 14: https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading
-                jar.file().setReadOnly();
                 return new DexClassLoader(jar.file().getPath(), getFilesDir().getPath(), null, parent){
                     @Override
                     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException{
@@ -186,7 +184,6 @@ public class AndroidLauncher extends AndroidApplication{
         }, new AndroidApplicationConfiguration(){{
             useImmersiveMode = true;
             hideStatusBar = true;
-            useGL30 = true;
         }});
         checkFiles(getIntent());
 

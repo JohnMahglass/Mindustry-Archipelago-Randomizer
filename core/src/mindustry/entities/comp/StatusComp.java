@@ -73,7 +73,6 @@ abstract class StatusComp implements Posc, Flyingc{
     }
 
     void clearStatuses(){
-        statuses.each(e -> e.effect.onRemoved(self()));
         statuses.clear();
     }
 
@@ -81,7 +80,6 @@ abstract class StatusComp implements Posc, Flyingc{
     void unapply(StatusEffect effect){
         statuses.remove(e -> {
             if(e.effect == effect){
-                e.effect.onRemoved(self());
                 Pools.free(e);
                 return true;
             }
@@ -191,10 +189,6 @@ abstract class StatusComp implements Posc, Flyingc{
             entry.time = Math.max(entry.time - Time.delta, 0);
 
             if(entry.effect == null || (entry.time <= 0 && !entry.effect.permanent)){
-                if(entry.effect != null){
-                    entry.effect.onRemoved(self());
-                }
-
                 Pools.free(entry);
                 index --;
                 statuses.remove(index);

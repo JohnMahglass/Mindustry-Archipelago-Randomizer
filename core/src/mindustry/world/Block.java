@@ -519,10 +519,6 @@ public class Block extends UnlockableContent implements Senseable{
         return rotate;
     }
 
-    public boolean rotatedOutput(int fromX, int fromY, Tile destination){
-        return rotatedOutput(fromX, fromY);
-    }
-
     public boolean synthetic(){
         return update || destructible;
     }
@@ -1407,7 +1403,6 @@ public class Block extends UnlockableContent implements Senseable{
         return switch(sensor){
             case color -> mapColor.toDoubleBits();
             case health, maxHealth -> health;
-            case solid -> solid ? 1 : 0;
             case size -> size;
             case itemCapacity -> itemCapacity;
             case liquidCapacity -> liquidCapacity;

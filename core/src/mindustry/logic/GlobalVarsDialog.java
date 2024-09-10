@@ -5,12 +5,11 @@ import arc.graphics.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
+import mindustry.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
-
-import static mindustry.Vars.*;
 
 public class GlobalVarsDialog extends BaseDialog{
 
@@ -29,7 +28,8 @@ public class GlobalVarsDialog extends BaseDialog{
         cont.pane(t -> {
             t.margin(10f).marginRight(16f);
             t.defaults().fillX().fillY();
-            for(var entry : logicVars.getEntries()){
+            for(var entry : Vars.logicVars.getEntries()){
+
                 if(entry.name.startsWith("section")){
                     Color color = Pal.accent;
                     t.add("@lglobal." + entry.name).fillX().center().labelAlign(Align.center).colspan(4).color(color).padTop(4f).padBottom(2f).row();

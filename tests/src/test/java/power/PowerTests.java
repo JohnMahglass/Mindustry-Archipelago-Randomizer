@@ -4,7 +4,6 @@ import arc.math.*;
 import arc.util.*;
 import mindustry.*;
 import mindustry.core.*;
-import mindustry.gen.*;
 import mindustry.world.*;
 import mindustry.world.blocks.power.PowerGenerator.*;
 import mindustry.world.blocks.power.*;
@@ -60,8 +59,6 @@ public class PowerTests extends PowerTestFixture{
             powerGraph.add(producerTile.build);
             powerGraph.add(directConsumerTile.build);
 
-            for(Building build : powerGraph.all) build.updateConsumption();
-
             assertEquals(producedPower * Time.delta, powerGraph.getPowerProduced(), Mathf.FLOAT_ROUNDING_ERROR);
             assertEquals(requiredPower * Time.delta, powerGraph.getPowerNeeded(), Mathf.FLOAT_ROUNDING_ERROR);
 
@@ -109,10 +106,7 @@ public class PowerTests extends PowerTestFixture{
 
             powerGraph.add(batteryTile.build);
 
-            for(Building build : powerGraph.all) build.updateConsumption();
-
             powerGraph.update();
-
             assertEquals(expectedBatteryCapacity / maxCapacity, batteryTile.build.power.status, Mathf.FLOAT_ROUNDING_ERROR, parameterDescription + ": Expected battery status did not match");
             if(directConsumerTile != null){
                 assertEquals(expectedSatisfaction, directConsumerTile.build.power.status, Mathf.FLOAT_ROUNDING_ERROR, parameterDescription + ": Satisfaction of direct consumer did not match");

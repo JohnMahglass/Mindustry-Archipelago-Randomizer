@@ -1,4 +1,4 @@
-package mindustry.randomizer.ui;
+package mindustry.randomizer.ui.APChat;
 
 import arc.Core;
 import arc.Events;
@@ -20,6 +20,7 @@ import arc.util.Time;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.input.Binding;
+import mindustry.randomizer.enums.ItemsClassification;
 import mindustry.ui.Fonts;
 
 import static arc.Core.input;
@@ -38,8 +39,9 @@ import static mindustry.Vars.ui;
  */
 public class APChatFragment extends Table {
 
+    ClientCommandController commandController;
     private static final int messagesShown = 10;
-    private Seq<String> messages = new Seq<>();
+    private Seq<APMessage> messages = new Seq<>();
     private float fadetime;
     private boolean shown = false;
     private TextField chatfield;
@@ -57,6 +59,7 @@ public class APChatFragment extends Table {
     public APChatFragment(){
         super();
 
+        commandController = new ClientCommandController(this);
         setFillParent(true);
         font = Fonts.def;
 
@@ -165,27 +168,12 @@ public class APChatFragment extends Table {
 
         float theight = offsety + spacing + getMarginBottom() + scene.marginBottom;
         for(int i = scrollPos; i < messages.size && i < messagesShown + scrollPos && (i < fadetime || shown); i++){
-
-            layout.setText(font, messages.get(i), Color.white, textWidth, Align.bottomLeft, true);
-            theight += layout.height + textspacing;
-            if(i - scrollPos == 0) theight -= textspacing + 1;
-
-            font.getCache().clear();
-            font.getCache().setColor(Color.white);
-            font.getCache().addText(messages.get(i), fontoffsetx + offsetx, offsety + theight, textWidth, Align.bottomLeft, true);
-
-            if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
-                font.getCache().setAlphas((fadetime - i) * opacity);
-                Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
-            }else{
-                font.getCache().setAlphas(opacity);
+            if (messages.get(i).isItemMessage) {
+                APMessage chatMessage = messages.get(i);
+                theight = drawItemMessage(opacity, textWidth, theight, i, chatMessage);
+            } else {
+                theight = drawBlankMessage(opacity, textWidth, theight, i);
             }
-
-            rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
-            Draw.color(shadowColor);
-            Draw.alpha(opacity * shadowColor.a);
-
-            font.getCache().draw();
         }
 
         Draw.color();
@@ -193,6 +181,141 @@ public class APChatFragment extends Table {
         if(fadetime > 0 && !shown){
             fadetime -= Time.delta / 180f;
         }
+    }
+
+    /**
+     * Draw a non-colored message.
+     * @param opacity
+     * @param textWidth
+     * @param theight
+     * @param i
+     * @return
+     */
+    private float drawBlankMessage(float opacity, float textWidth, float theight, int i) {
+        layout.setText(font, messages.get(i).plainText, Color.white, textWidth,
+                Align.bottomLeft, true);
+        theight += layout.height + textspacing;
+        if(i - scrollPos == 0) theight -= textspacing + 1;
+
+        font.getCache().clear();
+        font.getCache().setColor(Color.white);
+        font.getCache().addText(messages.get(i).plainText, fontoffsetx + offsetx,
+                offsety + theight, textWidth, Align.bottomLeft, true);
+
+        if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
+            font.getCache().setAlphas((fadetime - i) * opacity);
+            Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
+        }else{
+            font.getCache().setAlphas(opacity);
+        }
+
+        rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
+        Draw.color(shadowColor);
+        Draw.alpha(opacity * shadowColor.a);
+
+        font.getCache().draw();
+        return theight;
+    }
+
+    /**
+     * Draw a colored message for an item event.
+     * @param opacity
+     * @param textWidth
+     * @param theight
+     * @param i
+     * @param chatMessage
+     * @return
+     */
+    private float drawItemMessage(float opacity, float textWidth, float theight, int i,
+                             APMessage chatMessage) {
+        String finalText;
+        String whiteColor = "[#FFFFFF]";
+        String mindustryPlayerColor = "[#edce32]";
+        String otherPlayerColor = "[#54e8d4]";
+        String finderPlayer = getPlayerNameText(chatMessage);
+        boolean isMindustryPlayer = randomizer.client.getSlotName().equals(finderPlayer);
+        if (isMindustryPlayer) {
+            finderPlayer = mindustryPlayerColor + finderPlayer + whiteColor;
+        } else {
+            finderPlayer = otherPlayerColor + finderPlayer + whiteColor;
+        }
+        String itemColor = "[#FFFFFF]";
+        if (chatMessage.classification.equals(ItemsClassification.PROGRESSION)) {
+            itemColor = "[#8949C4]";
+        } else if (chatMessage.classification.equals(ItemsClassification.USEFUL)) {
+            itemColor = "[#3A72BA]";
+        } else if (chatMessage.classification.equals(ItemsClassification.FILLER)) {
+            itemColor = "[#EB4F34]";
+        }
+        String foundText = getFoundText(chatMessage);
+        String itemText;
+        String endText;
+        itemText = chatMessage.message.get(2);
+        itemText = itemColor + itemText + whiteColor;
+        if (chatMessage.message.size() == 6) { //Player found their own item
+            endText = getEndText(chatMessage);
+            finalText = finderPlayer + foundText + itemText + endText;
+        } else { //Item is being sent from one player to another
+            String receivingPlayer = chatMessage.message.get(4);
+            isMindustryPlayer = randomizer.client.getSlotName().equals(chatMessage.message.get(4));
+            if (isMindustryPlayer) {
+                receivingPlayer = mindustryPlayerColor + receivingPlayer + whiteColor;
+            } else {
+                receivingPlayer = otherPlayerColor + receivingPlayer + whiteColor;
+            }
+            endText = getEndText(chatMessage);
+            finalText =
+                    finderPlayer + chatMessage.message.get(1) + itemText + chatMessage.message.get(3) + receivingPlayer + endText;
+        }
+
+        font.data.markupEnabled = true;
+        layout.setText(font, finalText, 0, finalText.length(),
+                Color.white, textWidth,
+                Align.bottomLeft, true, null);
+        theight += layout.height + textspacing;
+        if(i - scrollPos == 0) theight -= textspacing + 1;
+
+        font.getCache().clear();
+        font.getCache().setColor(Color.white);
+        font.getCache().addText(finalText, fontoffsetx + offsetx,
+                offsety + theight,0 , finalText.length(), textWidth,
+                Align.bottomLeft, true);
+
+        if(!shown && fadetime - i < 1f && fadetime - i >= 0f){
+            font.getCache().setAlphas((fadetime - i) * opacity);
+            Draw.color(0, 0, 0, shadowColor.a * (fadetime - i) * opacity);
+        }else{
+            font.getCache().setAlphas(opacity);
+        }
+
+        rect(offsetx, theight - layout.height - 2, textWidth + Scl.scl(4f), layout.height + textspacing);
+        Draw.color(shadowColor);
+        Draw.alpha(opacity * shadowColor.a);
+
+        font.getCache().draw();
+        return theight;
+    }
+
+    private String getFoundText(APMessage chatMessage) {
+        return chatMessage.message.get(1);
+    }
+
+    /**
+     * Return the 3 last part of a message. This part contains the location the item was found.
+     * @param chatMessage The chat message, separated into parts.
+     * @return Return the end of the text.
+     */
+    private String getEndText(APMessage chatMessage) {
+        int size = chatMessage.message.size();
+        return (chatMessage.message.get(size - 3) + chatMessage.message.get(size - 2) + chatMessage.message.get(size - 1));
+    }
+
+    private String getColoredText(APMessage chatMessage) {
+        return (chatMessage.message.get(2));
+    }
+
+    private String getPlayerNameText(APMessage chatMessage) {
+        return (chatMessage.message.get(0));
     }
 
     private void sendMessage(){
@@ -270,213 +393,19 @@ public class APChatFragment extends Table {
      * @param message The message to be verified.
      */
     public void addMessage(String message){
-        boolean isCommand = isCommand(message);
+        boolean isCommand = ClientCommandController.isCommand(message);
         if (isCommand) {
-            executeCommand(message);
+            commandController.executeCommand(message);
         } else {
             randomizer.sendArchipelagoMessage(message);
         }
     }
 
     /**
-     * Execute a command sent by the player
-     * @param message The message containing the command.
-     */
-    private void executeCommand(String message) {
-        String command = message;
-        command = command.substring(1); //Remove the '/'
-        String[] commandParts = command.split(" ");
-        command = commandParts[0];
-        command = command.toLowerCase();
-        boolean connectionOpen = randomizer.client.isConnected();
-        switch (command) {
-            case "connect":
-                if (!connectionOpen) {
-                    executeConnectCommand(commandParts);
-                } else {
-                    addLocalMessage("You are already connected.");
-                }
-                break;
-            case "disconnect":
-                if (connectionOpen) {
-                    executeDisconnectCommand(commandParts);
-                } else {
-                    addLocalMessage("You are not connected to any game.");
-                }
-                break;
-            case "status":
-                executeStatusCommand(commandParts);
-                break;
-            case "options":
-                executeOptionsCommand(commandParts);
-                break;
-            case "help":
-                listAvailableCommands();
-                break;
-            default:
-                addLocalMessage("Unknown command. Use '/help' for command usage.");
-                break;
-        }
-    }
-
-    private void executeOptionsCommand(String[] commandParts) {
-        if (commandParts.length > 1) {
-            tooManyArgumentMessage();
-            return;
-        }
-        if (randomizer.worldState.options.getOptionsFilled()) {
-            addLocalMessage("Options:\n" +
-                            "   Selected campaign: " + getCampaignName() + "\n" +
-                            "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
-                            "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
-                            "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
-                            "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
-                            "   Force D. DL (DEV): " + getActivationStatus(randomizer.worldState.options.getForceDisableDeathLink()));
-        } else {
-            addLocalMessage("You must connect to a game once to view .yaml options.");
-        }
-    }
-
-
-    /**
-     * Return if the option was activated.
-     * @param status The status of the option
-     * @return Return the status of the option.
-     */
-    private String getActivationStatus(boolean status) {
-        return status ? "Activated" : "Deactivated";
-    }
-
-    /**
-     * Return the selected campaign name.
-     * @return The campaign name.
-     */
-    private String getCampaignName() {
-        String name;
-        int campaign = randomizer.worldState.options.getCampaign();
-        if (campaign == 0) { //Serpulo
-            name = "Serpulo";
-        } else if (campaign == 1) { //Erekir
-            name = "Erekir";
-        } else if (campaign == 2) { //All
-            name = "Serpulo and Erekir";
-        } else {
-            name = "Campaign name error";
-        }
-        return name;
-    }
-
-    /**
-     * Execute the status command.
-     * @param commandParts The command and its argument split into parts.
-     */
-    private void executeStatusCommand(String[] commandParts) {
-        if (commandParts.length > 1) { //Wrong number of argument for status command.
-            tooManyArgumentMessage();
-            return;
-        }
-        String status;
-        switch (randomizer.client.connectionStatus) {
-            case Success:
-                status = "Connected";
-                break;
-            case NotConnected:
-                status = "Not connected";
-                break;
-            case InvalidSlot:
-                status = "Invalid slot name";
-                break;
-            case InvalidPassword:
-                status = "Invalid password";
-                break;
-            case SlotAlreadyTaken:
-                status = "Slot already taken";
-                break;
-            case IncompatibleVersion:
-                status = "Incompatible version";
-                break;
-            default:
-                status = "Error";
-                break;
-        }
-        addLocalMessage("Connection status: " + status);
-    }
-
-    /**
-     * Disconnect the player from the server.
-     * @param commandParts The command and its arguments split into parts.
-     */
-    private void executeDisconnectCommand(String[] commandParts) {
-        if (commandParts.length > 1) { //Wrong number of argument for disconnect command.
-            tooManyArgumentMessage();
-            return;
-        }
-        randomizer.client.disconnect();
-    }
-
-    /**
-     * Connect the player to the AP server. Change connection settings if there are argument.
-     * @param commandParts The commands and its arguments split into parts.
-     */
-    private void executeConnectCommand(String[] commandParts) {
-        if (commandParts.length > 3) { //Wrong number of argument for connect command.
-            tooManyArgumentMessage();
-            return;
-        }
-        if (commandParts.length > 1) {
-            randomizer.client.setAddress(commandParts[1]);
-        }
-        if (commandParts.length > 2) {
-            randomizer.client.setSlotName(commandParts[2]);
-        }
-        randomizer.client.connectRandomizer();
-    }
-
-    /**
-     * Inform the player that they used too many argument for their command.
-     */
-    private void tooManyArgumentMessage() {
-        addLocalMessage("Too many argument. Use '/help' for command usage.");
-    }
-
-    /**
-     * List in the player's chat all available commands for the client.
-     */
-    private void listAvailableCommands() {
-        addLocalMessage("""
-                Available commands:
-                  /help
-                        List available commands. (what you are doing right now)
-                  /status
-                        Display connection status.
-                  /options
-                        Display selected options for game generation.
-                        You need to have connected once to be able
-                        to view selected options
-                  /connect
-                        Connect using the information provided in
-                        Settings -> Archipelago
-                  /connect [Address] [Slot Name]
-                        Connect using the information provided in argument.
-                        (Password not available to prevent displaying password)
-                  /disconnect
-                        Disconnect from AP""");
-    }
-
-    /**
-     * Return if the player's message is a client command.
-     * @param message The player's message.
-     * @return True if the message is a command.
-     */
-    private boolean isCommand(String message) {
-        return message.startsWith("/");
-    }
-
-    /**
      * Add a message to the chat without sending it to Archipelago
      * @param message The messaged to be added.
      */
-    public void addLocalMessage(String message){
+    public void addLocalMessage(APMessage message){
         if(message == null) return;
         messages.insert(0, message);
 

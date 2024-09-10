@@ -37,9 +37,7 @@ public class Bullets{
         damageLightningGround = damageLightning.copy();
         damageLightningGround.collidesAir = false;
 
-        fireball = new FireBulletType(1f, 4){{
-            hittable = false;
-        }};
+        fireball = new FireBulletType(1f, 4);
 
         spaceLiquid = new SpaceLiquidBulletType(){{
             knockback = 0.7f;

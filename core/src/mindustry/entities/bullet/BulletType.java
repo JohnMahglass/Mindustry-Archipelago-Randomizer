@@ -309,8 +309,6 @@ public class BulletType extends Content implements Cloneable{
     /** Color of light emitted by this bullet. */
     public Color lightColor = Pal.powerLight;
 
-    protected float cachedDps = -1;
-
     public BulletType(float speed, float damage){
         this.speed = speed;
         this.damage = damage;
@@ -340,20 +338,15 @@ public class BulletType extends Content implements Cloneable{
 
     /** @return estimated damage per shot. this can be very inaccurate. */
     public float estimateDPS(){
-        if(cachedDps >= 0f) return cachedDps;
-
         if(spawnUnit != null){
             return spawnUnit.estimateDps();
         }
 
-        float sum = damage * (pierce ? pierceCap == -1 ? 2 : Mathf.clamp(pierceCap, 1, 2) : 1f) * splashDamage*0.75f;
+        float sum = damage + splashDamage*0.75f;
         if(fragBullet != null && fragBullet != this){
             sum += fragBullet.estimateDPS() * fragBullets / 2f;
         }
-        for(var other : spawnBullets){
-            sum += other.estimateDPS();
-        }
-        return cachedDps = sum;
+        return sum;
     }
 
     /** @return maximum distance the bullet this bullet type has can travel. */

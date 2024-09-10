@@ -5,11 +5,16 @@ import static arc.Core.settings;
 
 import dev.koifysh.archipelago.ClientStatus;
 import dev.koifysh.archipelago.events.PrintJSONEvent;
+import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.ui.APApplyOptionsDialog;
+import mindustry.randomizer.ui.APChat.APMessage;
+import mindustry.randomizer.utils.EmptyFillerText;
 import mindustry.type.Sector;
+
 import static mindustry.randomizer.enums.SettingStrings.*;
 
 
@@ -20,6 +25,11 @@ import static mindustry.randomizer.enums.SettingStrings.*;
  * @version 0.1.0 2024-05-12
  */
 public class Randomizer {
+
+    /**
+     * Debug mode for the randomizer.
+     */
+    public boolean debug = false;
 
     /**
      * Client for the randomizer.
@@ -44,7 +54,7 @@ public class Randomizer {
         UnlockableContent content = itemIdToUnlockableContent(id);
         if (content != null) {
             content.quietUnlock();
-            if (worldState.isProgressive(id)) {
+            if (worldState.isProgressive(id)) { //Progressive is being looked twice?
                 for (ProgressiveItem item : worldState.progressiveItems) {
                     if (item.id.equals(id) && !item.allReceived) {
                         item.amountItemReceived++;
@@ -126,31 +136,13 @@ public class Randomizer {
     }
 
     /**
-     * Return true if AP item attributes are initialized.
-     * within the randomizer.
-     * @return If the content is an AP item.
-     */
-    public boolean isMindustryAPItem(Long itemId){ //Needs to be updated
-        boolean isMindustryItem = false;
-        if (itemId != null) {
-            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
-                //Serpulo Item
-                isMindustryItem = true;
-            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 343) {
-                //Erekir Item
-                isMindustryItem = true;
-            }
-        }
-        return isMindustryItem;
-    }
-
-    /**
      * Check if the item is a sector
      * @param id The id of the item
      * @return Return True if the item is a sector
      */
     public boolean isSector(Long id){
-        return (id >= MINDUSTRY_BASE_ID + 138 && id <= MINDUSTRY_BASE_ID + 154);
+        return (id >= MINDUSTRY_BASE_ID + 138 && id <= MINDUSTRY_BASE_ID + 154) ||
+                (id >= MINDUSTRY_BASE_ID + 312 && id <= MINDUSTRY_BASE_ID + 327);
     }
 
     /**
@@ -160,13 +152,11 @@ public class Randomizer {
      */
     public UnlockableContent itemIdToUnlockableContent(Long itemId) {
         UnlockableContent content = null;
-        if (isMindustryAPItem(itemId)) {
+        if (worldState.isMindustryAPItem(itemId)) {
             if (worldState.isProgressive(itemId)) {
-                boolean found = false;
                 for (ProgressiveItem item : worldState.progressiveItems) {
-                    if (item.id.equals(itemId) && !item.allReceived && !found) {
+                    if (item.id.equals(itemId) && !item.allReceived) {
                         content = item.items.get(item.amountItemReceived);
-                        found = true;
                     }
                 }
             } else {
@@ -214,6 +204,12 @@ public class Randomizer {
      * @param message The message to be sent.
      */
     public void sendLocalMessage (String message) {
+        if (Vars.ui.chatfrag != null) {
+            Vars.ui.chatfrag.addLocalMessage(new APMessage(message));
+        }
+    }
+
+    public void sendLocalMessage (APMessage message) {
         if (Vars.ui.chatfrag != null) {
             Vars.ui.chatfrag.addLocalMessage(message);
         }
@@ -285,22 +281,6 @@ public class Randomizer {
     }
 
     /**
-     * Checks whether the plays have received this item.
-     * @param id The id of the item to be checked.
-     * @return Return True if the player has this item.
-     */
-    public boolean hasItem(Long id){
-        boolean itemReceived = false;
-
-        for (int i = 0; i < worldState.unlockedItems.length; i++) {
-            if (id == worldState.unlockedItems[i]) {
-                itemReceived = true;
-            }
-        }
-        return itemReceived;
-    }
-
-    /**
      * Reset local data related to the randomizer.
      */
     public void reset() {
@@ -343,22 +323,30 @@ public class Randomizer {
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
-
+            if (options.getRandomizeCoreUnitsWeapon()) {
+                MindustryOptions.randomizeCoreUnitsWeapon(options.getCampaign());
+            }
+            if (options.getLogisticDistribution() == 2) { //Starter logistics
+                MindustryOptions.applyStarterLogistics(options.getCampaign());
+            }
             switch (options.getCampaign()) {
                 case 0: //Serpulo
                     worldState.initializeSerpuloItems();
+                    worldState.initializeSerpuloFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                     }
                     break;
                 case 1: //Erekir
                     worldState.initializeErekirItems();
+                    worldState.initializeErekirFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
                 case 2: //All
                     worldState.initializeAllItems();
+                    worldState.initializeAllFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                         MindustryOptions.unlockErekirTutorialItems();
@@ -373,4 +361,19 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Process an event that the player received that is not a research.
+     * @param event Event received from the client.
+     */
+    public void processEvent(ReceiveItemEvent event) {
+        if (event.getItemID() == MINDUSTRY_BASE_ID + 700) { //A fistful of nothing...
+            sendLocalMessage(EmptyFillerText.getRandomText());
+        }
+    }
+
+    public void updateForceExit() {
+        //open confirmation dialog to warn the user of the required game restart.
+        APApplyOptionsDialog dialog = new APApplyOptionsDialog("Apply randomizer options");
+        dialog.show();
+    }
 }

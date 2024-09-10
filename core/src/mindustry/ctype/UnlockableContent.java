@@ -149,11 +149,6 @@ public abstract class UnlockableContent extends MappableContent{
         return Fonts.getUnicodeStr(name);
     }
 
-    public int emojiChar(){
-        return Fonts.getUnicode(name);
-    }
-
-
     public boolean hasEmoji(){
         return Fonts.hasUnicodeStr(name);
     }

@@ -1,11 +1,14 @@
 package mindustry.randomizer;
 
+import arc.struct.Seq;
 import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.content.Blocks;
-import mindustry.content.Planets;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
+import mindustry.entities.abilities.Ability;
 import mindustry.randomizer.client.SlotData;
+import mindustry.randomizer.utils.RandomizableCoreUnits;
+import mindustry.type.Weapon;
 import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.blocks.production.Drill;
@@ -13,6 +16,9 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Pump;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.production.WallCrafter;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 import static arc.Core.settings;
 import static mindustry.Vars.randomizer;
@@ -60,6 +66,20 @@ public class MindustryOptions {
      */
     private boolean fasterProduction;
 
+    /**
+     * Randomize core units weapon.
+     */
+    private boolean randomizeCoreUnitsWeapon;
+
+    /**
+     * How should the logistic be handled by the logic.
+     */
+    private int logisticDistribution;
+
+    public int getLogisticDistribution(){
+        return this.logisticDistribution;
+    }
+
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
     }
@@ -89,6 +109,9 @@ public class MindustryOptions {
         return this.deathLink && !this.forceDisableDeathLink;
     }
 
+    public boolean getRandomizeCoreUnitsWeapon(){
+        return this.randomizeCoreUnitsWeapon;
+    }
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
     }
@@ -136,29 +159,11 @@ public class MindustryOptions {
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
             this.campaign = slotData.getCampaignChoice();
+            this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
+            this.logisticDistribution = slotData.getLogisticDistribution();
 
             this.optionsFilled = true;
             saveOptions();
-            settings.put(HAS_CONNECTED.value, true);
-            if (tutorialSkip) {
-                if (campaign == 0) {
-                    settings.put(FREE_LAUNCH_SERPULO.value, true);
-                } else if (campaign == 1) {
-                    settings.put(FREE_LAUNCH_EREKIR.value, true);
-                } else if (campaign == 2) {
-                    settings.put(FREE_LAUNCH_SERPULO.value, true);
-                    settings.put(FREE_LAUNCH_EREKIR.value, true);
-                }
-            }
-            if (fasterProduction) {
-                settings.put(FASTER_PRODUCTION.value, true);
-            }
-            if (disableInvasions) {
-                settings.put(DISABLE_INVASIONS.value, true);
-            }
-            if (deathLink) {
-                settings.put(DEATH_LINK.value, true);
-            }
         }
     }
 
@@ -174,14 +179,82 @@ public class MindustryOptions {
         } else { //Player never connected to the game and has not received options information.
             this.optionsFilled = false;
             this.tutorialSkip = false;
-            this.campaign = -1;
+            this.campaign = 0;
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
-            if (settings != null) { //Local settings
+            this.randomizeCoreUnitsWeapon = false;
+            this.logisticDistribution = 0;
+            if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
             }
         }
+    }
+
+    /**
+     * Randomize core units weapon.
+     */
+    protected static void randomizeCoreUnitsWeapon(int campaign) {
+        Random random = new Random(settings.getInt(AP_SEED.value));
+        ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizableCoreUnits.getPossibleCoreUnitsWeapons();
+        //ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits
+        // .getPossibleCoreUnitsAbility();
+
+        switch (campaign){
+            case 0: //Serpulo
+                randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
+                break;
+            case 1: //Erekir
+                //randomizeErekirCoreUnitsAbility(random, coreUnitAbilities); Disabled for now
+                break;
+            case 2: //All
+                randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
+                //randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
+                break;
+        }
+    }
+
+    /**
+     * Randomize the ability of every core unit of Erekir
+     * @param random The rng.
+     * @param coreUnitAbilities The list of possible abilities.
+     */
+    private static void randomizeErekirCoreUnitsAbility(Random random,
+                                                        ArrayList<Seq<Ability>> coreUnitAbilities) {
+
+        UnitTypes.evoke.weapons.clear();
+        UnitTypes.evoke.hittable = true;
+        UnitTypes.evoke.killable = true;
+        UnitTypes.evoke.targetable = true;
+        UnitTypes.evoke.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+
+        UnitTypes.incite.weapons.clear();
+        UnitTypes.evoke.hittable = true;
+        UnitTypes.evoke.killable = true;
+        UnitTypes.evoke.targetable = true;
+        UnitTypes.incite.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+
+        UnitTypes.emanate.weapons.clear();
+        UnitTypes.evoke.hittable = true;
+        UnitTypes.evoke.killable = true;
+        UnitTypes.evoke.targetable = true;
+        UnitTypes.emanate.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+    }
+
+    /**
+     * Randomize the weapon of every core unit of Serpulo
+     * @param random The rng.
+     * @param coreUnitWeapons The list of possible weapons.
+     */
+    private static void randomizeSerpuloCoreUnitsWeapon(Random random, ArrayList<Seq<Weapon>> coreUnitWeapons) {
+        UnitTypes.alpha.weapons.clear();
+        UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
+
+        UnitTypes.beta.weapons.clear();
+        UnitTypes.beta.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
+
+        UnitTypes.gamma.weapons.clear();
+        UnitTypes.gamma.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
     }
 
     /**
@@ -214,6 +287,51 @@ public class MindustryOptions {
         UnitTypes.stell.unlock();
         SectorPresets.aegis.quietUnlock();
         SectorPresets.aegis.alwaysUnlocked = true;
+    }
+
+    /**
+     * Unlock Erekir research related to the starter logistics option.
+     */
+    private static void unlockErekirLogisticItems(){
+        Blocks.ductRouter.quietUnlock();
+        Blocks.ductBridge.quietUnlock();
+        Blocks.reinforcedConduit.quietUnlock();
+        Blocks.reinforcedLiquidJunction.quietUnlock();
+        Blocks.reinforcedLiquidRouter.quietUnlock();
+        Blocks.reinforcedBridgeConduit.quietUnlock();
+    }
+
+    /**
+     * Unlock Serpulo research related to the starter logistics option.
+     */
+    private static void unlockSerpuloLogisticItems(){
+        Blocks.conduit.quietUnlock();
+        Blocks.liquidJunction.quietUnlock();
+        Blocks.liquidRouter.quietUnlock();
+        Blocks.bridgeConduit.quietUnlock();
+        Blocks.junction.quietUnlock();
+        Blocks.router.quietUnlock();
+        Blocks.itemBridge.quietUnlock();
+        Blocks.powerNode.quietUnlock();
+    }
+
+    /**
+     * Apply the starter logistics option.
+     * @param campaign The selected campaign.
+     */
+    protected static void applyStarterLogistics(int campaign){
+        switch (campaign) {
+            case 0: //Serpulo
+                unlockSerpuloLogisticItems();
+                break;
+            case 1: //Erekir
+                unlockErekirLogisticItems();
+                break;
+            case 2: //All
+                unlockSerpuloLogisticItems();
+                unlockErekirLogisticItems();
+                break;
+        }
     }
 
     /**
@@ -250,8 +368,6 @@ public class MindustryOptions {
         halfDrillTime(((Drill) Blocks.eruptionDrill));
         doublePumpAmount(((Pump)Blocks.reinforcedPump));
     }
-
-
 
     /**
      * Apply the faster production option on Serpulo's research.
@@ -369,6 +485,19 @@ public class MindustryOptions {
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
+        settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
+        settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
+        if (getTutorialSkip()) {
+            if (getCampaign() == 0) {
+                settings.put(FREE_LAUNCH_SERPULO.value, true);
+            } else if (getCampaign() == 1) {
+                settings.put(FREE_LAUNCH_EREKIR.value, true);
+            } else if (getCampaign() == 2) {
+                settings.put(FREE_LAUNCH_SERPULO.value, true);
+                settings.put(FREE_LAUNCH_EREKIR.value, true);
+            }
+        }
+        settings.put(HAS_CONNECTED.value, true);
     }
 
     /**
@@ -381,6 +510,8 @@ public class MindustryOptions {
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
+        this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
+        this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.optionsFilled = true;
     }
 

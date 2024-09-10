@@ -6,7 +6,6 @@ import mindustry.core.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.gen.*;
-import mindustry.logic.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.consumers.*;
@@ -71,14 +70,6 @@ public class LiquidTurret extends Turret{
             unit.ammo(unit.type().ammoCapacity * liquids.currentAmount() / liquidCapacity);
 
             super.updateTile();
-        }
-
-        @Override
-        public Object senseObject(LAccess sensor){
-            return switch(sensor){
-                case currentAmmoType -> liquids.current();
-                default -> super.senseObject(sensor);
-            };
         }
 
         @Override

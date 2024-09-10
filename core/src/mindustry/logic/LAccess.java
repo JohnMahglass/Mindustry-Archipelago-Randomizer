@@ -17,7 +17,6 @@ public enum LAccess{
     powerNetOut,
     ammo,
     ammoCapacity,
-    currentAmmoType,
     health,
     maxHealth,
     heat,
@@ -29,8 +28,6 @@ public enum LAccess{
     rotation,
     x,
     y,
-    velocityX,
-    velocityY,
     shootX,
     shootY,
     cameraX,
@@ -38,7 +35,6 @@ public enum LAccess{
     cameraWidth,
     cameraHeight,
     size,
-    solid,
     dead,
     range, 
     shooting,
@@ -71,7 +67,7 @@ public enum LAccess{
         all = values(),
         senseable = Seq.select(all, t -> t.params.length <= 1).toArray(LAccess.class),
         controls = Seq.select(all, t -> t.params.length > 0).toArray(LAccess.class),
-        settable = {x, y, velocityX, velocityY, rotation, speed, armor, health, shield, team, flag, totalPower, payloadType};
+        settable = {x, y, rotation, speed, armor, health, shield, team, flag, totalPower, payloadType};
 
     LAccess(String... params){
         this.params = params;
@@ -82,4 +78,5 @@ public enum LAccess{
         this.params = params;
         isObj = obj;
     }
+
 }

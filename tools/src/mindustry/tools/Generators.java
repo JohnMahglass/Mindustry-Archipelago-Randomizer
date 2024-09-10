@@ -19,6 +19,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.legacy.*;
+import mindustry.world.meta.*;
 
 import java.util.concurrent.*;
 
@@ -26,7 +27,7 @@ import static mindustry.Vars.*;
 import static mindustry.tools.ImagePacker.*;
 
 public class Generators{
-    static final int maxUiIcon = 128;
+    static final int logicIconSize = 64, maxUiIcon = 128;
 
     private static float fluid(boolean gas, double x, double y, float frame){
         int keyframes = gas ? 4 : 3;
@@ -383,6 +384,10 @@ public class Generators{
                     }
 
                     save(image, "../editor/" + block.name + "-icon-editor");
+
+                    if(block.buildVisibility != BuildVisibility.hidden){
+                        saveScaled(image, block.name + "-icon-logic", Math.min(32 * 3, image.width));
+                    }
                     saveScaled(image, "../ui/block-" + block.name + "-ui", Math.min(image.width, maxUiIcon));
 
                     boolean hasEmpty = false;
@@ -459,6 +464,7 @@ public class Generators{
                     base = container.outline(Pal.gray, 3);
                 }
 
+                saveScaled(base, item.name + "-icon-logic", Math.min(logicIconSize, Math.min(base.width, base.height)));
                 save(base, "../ui/" + item.getContentType().name() + "-" + item.name + "-ui");
             }
         });
@@ -716,6 +722,7 @@ public class Generators{
                 Pixmap fit = new Pixmap(maxd, maxd);
                 drawScaledFit(fit, image);
 
+                saveScaled(fit, type.name + "-icon-logic", Math.min(logicIconSize, Math.min(fit.width, fit.height)));
                 save(fit, "../ui/unit-" + type.name + "-ui");
             }catch(IllegalArgumentException e){
                 Log.err("WARNING: Skipping unit @: @", type.name, e.getMessage());

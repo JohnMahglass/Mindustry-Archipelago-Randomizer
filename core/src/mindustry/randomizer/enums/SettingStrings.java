@@ -15,7 +15,12 @@ public enum SettingStrings {
     CLIENT_NAME("APslotName"),
     CLIENT_PASSWORD("APpassword"),
     SERPULO_VICTORY("APserpuloVictory"),
-    EREKIR_VICTORY("APerekirVictory");
+    EREKIR_VICTORY("APerekirVictory"),
+    AP_SEED("APseed"),
+
+    RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
+    RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon"),
+    LOGISTIC_DISTRIBUTION("APlogisticDistribution");
 
 
     public final String value;

@@ -1,13 +1,13 @@
-# Mindustry integration for Archipelago (v0.1.1)
+# Mindustry integration for Archipelago (v0.2.0)
 (https://github.com/ArchipelagoMW/Archipelago)
 
- This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
+This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 
- To generate a World(APworld), you will need to install the Mindustry World to your Archipelago folder. You can find the Mindustry World release here -> (https://github.com/JohnMahglass/Archipelago-Mindustry)
+To generate a World(APworld), you will need to install the Mindustry World to your Archipelago folder. You can find the Mindustry World release here -> (https://github.com/JohnMahglass/Archipelago-Mindustry)
 
- Please be aware that Linux build has not been tested yet.
+Please be aware that Linux build has not been tested yet.
 
- ## What has been changed?
+### What has been changed from the vanilla game?
 
 - Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)
 - Most node from the research tree has been replaced with location checks.
@@ -16,25 +16,21 @@
 - You can use the chat to send messages to other client (If they support it).
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
- 
-### Version 0.1.1 changelog
 
-- Updated death link text to display the name of the player.
-- Fixed a bug where a process related to the new Archipelago settings menu was not terminated when the program was closed.
-- Fixed a bug where the connection to client was not properly closed when the application was closed.
-- Fixed a bug where a death link signal would be sent when dying from another player death link.
-- Fixed victory requirement on Erekir not taking into account the planet's ressources scaling.
-- Removed some leftover research requirements for unlocking some nodes in Erekir's techtree.
+## Version 0.2.0 changelog
 
-
-### Version 0.1.0 changelog
-
-- Removed unused feature to prevent confusion.
-- Added client commands. To view available commands, use '/help'.
-- Improved feedback given to player on their connection status when a change occurs.
-- Updated Java Client to version 0.1.19.
-- Added "Faster production", "Disable invasions" and "Death link" options when generating an APworld.
-- The "Erekir" and "All" campaign are now available to choose when generating a game.
+- It is now required for the game to close and be open again after the first connection to a game. This will make sure all the randomizer options are correctly applied.
+- Chat will now display the color of an item fitting to its classification when receiving an item event message. (Progression, Useful, Trap)
+- Added "/clear" client command to clear chat messages.
+- Moved some items into progressive categories for some research that did not make sense.
+- Renamed progressive items categories for Serpulo campaign.
+- When selecting a campaign, any unselected campaign will now behave as vanilla.
+- "Military level tracking" option is now available. Serpulo and Erekir logic has been improved with a "Military level" tracking the player's research that can be used
+  to capture sectors to make sure the player has a minimum amount of tools to capture sectors. You can opt out of this option if you would like to live dangerously.
+- "Randomize core units weapon" option is now available (Serulo only at the moment*).
+- "Logistic distribution" option is now available. You can select "Randomize logistics", "Early logistics" and "Starter logistics". Logistics being junction,router and bridge
+  for belt,duct, conduit and Power Node.
+- Added Empty filler item "A fistful of nothing..." to the world to prevent generation failure if an item is taken out of the item pool.
 
 ## Setup guide.
 
@@ -47,18 +43,16 @@
 
 	3. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 
+	4. Connect to a game and restart the game to apply options. (A window will pop-up asking you to close the client.)
+
+	5. Open the game, connect to the game again.
+
 	4. Have fun.
 
 ### Linux
-	1. Download the .jar file from the latest release.
+	Command for arch based linux -> sudo pacman -S jdk17-openjdk (should fix this when merging into master)
 
-	2. Make sure you have Java JRE installed. You can install the Java 17 JRE on Ubuntu using 'sudo apt install openjdk-17-jre' in the terminal.
-
-	3. Open the terminal
-
-	4. Make sure you are in the directory containing 'Mindustry-Archipelago.jar' (The file you downloaded from the release page.)
-
-	5. Type 'java -jar Mindustry-Archipelago.jar' in the terminal.
+	Linux build has not been tested yet.
 
 ## Known bugs
 
@@ -66,9 +60,7 @@
 
 - Upon unlocking a node wich auto-unlock other nodes (Like the Tank Fabricator unlocking also the Stell node) The error icon will appear in the toast announcing the new research to the player. (Reason is still unknown.)
 
-- Serpulo Events trigger might not be accurate when viewing in a tracker.
-
-- When playing with the 'Faster production' option, the enemy ai might glitch wich makes the ai passive.
+- Serpulo Events trigger "Produce Slag on Serpulo" might not be accurate when viewing with a tracker.
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.

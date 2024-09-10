@@ -161,7 +161,7 @@ public class Weather extends UnlockableContent{
         Core.camera.bounds(Tmp.r2);
         int total = (int)(Tmp.r1.area() / density * intensity);
         Lines.stroke(stroke);
-        float alpha = Draw.getColorAlpha();
+        float alpha = Draw.getColor().a;
         Draw.color(color);
 
         for(int i = 0; i < total; i++){

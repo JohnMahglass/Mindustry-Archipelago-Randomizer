@@ -6,6 +6,7 @@ import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import mindustry.ctype.UnlockableContent;
 
 import static mindustry.Vars.randomizer;
+import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
 /**
  * ReceiveItem
@@ -23,6 +24,7 @@ public class ReceiveItem {
             randomizer.unlock(event.getItemID());
             randomizer.worldState.saveStates();
         }
+        randomizer.worldState.addUnlockedItem(event.getItemID());
     }
 
 }

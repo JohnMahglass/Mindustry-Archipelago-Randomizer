@@ -19,7 +19,6 @@ import mindustry.logic.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.BaseTurret.*;
-import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.storage.CoreBlock.*;
 import mindustry.world.meta.*;
@@ -112,8 +111,7 @@ public class RtsAI{
         for(var unit : data.units){
             if(used.add(unit.id) && unit.isCommandable() && !unit.command().hasCommand() && !unit.command().isAttacking()){
                 squad.clear();
-                float rad = squadRadius + unit.hitSize*1.5f;
-                data.tree().intersect(unit.x - rad/2f, unit.y - rad/2f, rad, rad, squad);
+                data.tree().intersect(unit.x - squadRadius/2f, unit.y - squadRadius/2f, squadRadius, squadRadius, squad);
 
                 squad.truncate(data.team.rules().rtsMaxSquad);
 
@@ -247,7 +245,7 @@ public class RtsAI{
             }
         }
 
-        var build = anyDefend ? null : findTarget(ax, ay, units.size, dps, health, units.first().flag == 0, units.first().isFlying());
+        var build = anyDefend ? null : findTarget(ax, ay, units.size, dps, health, units.first().flag == 0);
 
         if(build != null || anyDefend){
             for(var unit : units){
@@ -270,7 +268,7 @@ public class RtsAI{
         return anyDefend;
     }
 
-    @Nullable Building findTarget(float x, float y, int total, float dps, float health, boolean checkWeight, boolean air){
+    @Nullable Building findTarget(float x, float y, int total, float dps, float health, boolean checkWeight){
         if(total < data.team.rules().rtsMinSquad) return null;
 
         //flag priority?
@@ -292,7 +290,7 @@ public class RtsAI{
         targets.truncate(maxTargetsChecked);
 
         for(var target : targets){
-            weights.put(target, estimateStats(x, y, target.x, target.y, dps, health, air));
+            weights.put(target, estimateStats(x, y, target.x, target.y, dps, health));
         }
 
         var result = targets.min(
@@ -314,12 +312,12 @@ public class RtsAI{
     }
 
     //TODO extremely slow especially with many squads.
-    float estimateStats(float fromX, float fromY, float x, float y, float selfDps, float selfHealth, boolean air){
+    float estimateStats(float fromX, float fromY, float x, float y, float selfDps, float selfHealth){
         float[] health = {0f}, dps = {0f};
         float extraRadius = 50f;
 
         for(var turret : Vars.indexer.getEnemy(data.team, BlockFlag.turret)){
-            if(turret instanceof BaseTurretBuild t && turret.block instanceof Turret tb && ((tb.targetAir && air) || (tb.targetGround && !air)) && Intersector.distanceSegmentPoint(fromX, fromY,  x, y, t.x, t.y) <= t.range() + extraRadius){
+            if(turret instanceof BaseTurretBuild t && Intersector.distanceSegmentPoint(fromX, fromY,  x, y, t.x, t.y) <= t.range() + extraRadius){
                 health[0] += t.health;
                 dps[0] += t.estimateDps();
             }

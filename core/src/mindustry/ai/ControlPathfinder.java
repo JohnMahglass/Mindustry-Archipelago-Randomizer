@@ -413,7 +413,6 @@ public class ControlPathfinder implements Runnable{
 
         Cluster[] dim2 = dim1[pathCost];
 
-        //TODO: how can index out of bounds happen? || clusterIndex >= dim2.length
         if(dim2 == null) return null;
 
         return dim2[clusterIndex];
@@ -455,9 +454,7 @@ public class ControlPathfinder implements Runnable{
         }else{
             //reset data
             for(var p : cluster.portals){
-                if(p != null){
-                    p.clear();
-                }
+                p.clear();
             }
         }
 
@@ -817,10 +814,6 @@ public class ControlPathfinder implements Runnable{
 
             int cluster = NodeIndex.cluster(current), dir = NodeIndex.dir(current), portal = NodeIndex.portal(current);
             int cx = cluster % cwidth, cy = cluster / cwidth;
-
-            //invalid cluster index (TODO: how?)
-            if(cx >= cwidth || cy >= cheight || cx < 0 || cy < 0) continue;
-
             Cluster clust = getCreateCluster(team, pathCost, cluster);
             LongSeq innerCons = clust.portalConnections[dir] == null || portal >= clust.portalConnections[dir].length ? null : clust.portalConnections[dir][portal];
 
@@ -834,7 +827,7 @@ public class ControlPathfinder implements Runnable{
             if(nextCx >= 0 && nextCy >= 0 && nextCx < cwidth && nextCy < cheight){
                 Cluster nextCluster = getCreateCluster(team, pathCost, nextCx, nextCy);
                 int relativeDir = (dir + 2) % 4;
-                LongSeq outerCons = nextCluster.portalConnections[relativeDir] == null || nextCluster.portalConnections[relativeDir].length <= portal ? null : nextCluster.portalConnections[relativeDir][portal];
+                LongSeq outerCons = nextCluster.portalConnections[relativeDir] == null ? null : nextCluster.portalConnections[relativeDir][portal];
                 if(outerCons != null){
                     checkEdges(request, team, pathCost, current, endNodeIndex, nextCx, nextCy, outerCons);
                 }
@@ -967,9 +960,9 @@ public class ControlPathfinder implements Runnable{
                 for(int dir = 0; dir < 4; dir++){
                     int ox = cx + nextOffsets[dir * 2], oy = cy + nextOffsets[dir * 2 + 1];
 
-                    if(ox < 0 || oy < 0 || ox >= cwidth || oy >= cheight) continue;
+                    if(ox < 0 || oy < 0 || ox >= cwidth || ox >= cheight) continue;
 
-                    var otherField = fields.get(ox + oy * cwidth);
+                    var otherField = cache.fields.get(ox + oy * cwidth);
 
                     if(otherField == null) continue;
 
@@ -1016,12 +1009,6 @@ public class ControlPathfinder implements Runnable{
         }
 
         var nodePath = clusterAstar(request, costId, node, dest);
-
-        //no result found, bail out.
-        if(nodePath == null){
-            request.notFound = true;
-            return;
-        }
 
         FieldCache cache = fields.get(Pack.longInt(goalPos, costId));
         //if true, extra values are added on the sides of existing field cells that face new cells.
@@ -1088,10 +1075,6 @@ public class ControlPathfinder implements Runnable{
         return getPathPosition(unit, destination, destination, out, noResultFound);
     }
 
-    public boolean getPathPosition(Unit unit, Vec2 destination, Vec2 out, @Nullable boolean[] noResultFound){
-        return getPathPosition(unit, destination, destination, out, noResultFound);
-    }
-
     public boolean getPathPosition(Unit unit, Vec2 destination, Vec2 mainDestination, Vec2 out, @Nullable boolean[] noResultFound){
         int costId = unit.type.pathCostId;
         PathCost cost = idToCost(costId);
@@ -1105,7 +1088,6 @@ public class ControlPathfinder implements Runnable{
         destY = World.toTile(mainDestination.y),
         actualDestX = World.toTile(destination.x),
         actualDestY = World.toTile(destination.y),
-        actualDestPos = actualDestX + actualDestY * wwidth,
         destPos = destX + destY * wwidth;
 
         PathRequest request = unitRequests.get(unit);
@@ -1151,8 +1133,6 @@ public class ControlPathfinder implements Runnable{
 
             if(fieldCache != null && tileOn != null){
                 FieldCache old = request.oldCache;
-                FieldCache targetCache = old != null ? old : fieldCache;
-                boolean requeue = old == null;
                 //nullify the old field to be GCed, as it cannot be relevant anymore (this path is complete)
                 if(fieldCache.frontier.isEmpty() && old != null){
                     request.oldCache = null;
@@ -1163,15 +1143,13 @@ public class ControlPathfinder implements Runnable{
                 int i = 0;
                 boolean recalc = false;
 
-                if(packedPos == actualDestPos){
-                    request.lastTargetTile = tileOn;
                 //TODO last pos can change if the flowfield changes.
-                }else if(initialTileOn.pos() != request.lastTile || request.lastTargetTile == null){
+                if(initialTileOn.pos() != request.lastTile || request.lastTargetTile == null){
                     boolean anyNearSolid = false;
 
                     //find the next tile until one near a solid block is discovered
                     while(i ++ < maxIterations){
-                        int value = getCost(targetCache, tileOn.x, tileOn.y, requeue);
+                        int value = getCost(fieldCache, old, tileOn.x, tileOn.y);
 
                         Tile current = null;
                         int minCost = 0;
@@ -1184,19 +1162,15 @@ public class ControlPathfinder implements Runnable{
                             if(other == null) continue;
 
                             int packed = world.packArray(dx, dy);
-                            int otherCost = getCost(targetCache, dx, dy, requeue), relCost = otherCost - value;
+                            int otherCost = getCost(fieldCache, old, dx, dy), relCost = otherCost - value;
 
                             if(relCost > 2 || otherCost <= 0){
                                 anyNearSolid = true;
                             }
 
-                            if((value == 0 || otherCost < value) && otherCost != impassable && ((otherCost != 0 && (current == null || otherCost < minCost)) || packed == actualDestPos || packed == destPos) && passable(unit.team.id, cost, packed)){
+                            if((value == 0 || otherCost < value) && otherCost != impassable && (otherCost != 0 || packed == destPos) && (current == null || otherCost < minCost) && passable(unit.team.id, cost, packed)){
                                 current = other;
                                 minCost = otherCost;
-                                //no need to keep searching.
-                                if(packed == destPos || packed == actualDestPos){
-                                    break;
-                                }
                             }
                         }
 
@@ -1218,9 +1192,7 @@ public class ControlPathfinder implements Runnable{
                                 tileOn = current;
                                 any = true;
 
-                                int a = current.array();
-
-                                if(a == destPos || a == actualDestPos){
+                                if(current.array() == destPos){
                                     break;
                                 }
                             }
@@ -1231,13 +1203,13 @@ public class ControlPathfinder implements Runnable{
                     }
 
                     request.lastTargetTile = any ? tileOn : null;
-                    if(showDebug && tileOn != null && Core.graphics.getFrameId() % 30 == 0){
+                    if(showDebug && tileOn != null){
                         Fx.placeBlock.at(tileOn.worldx(), tileOn.worldy(), 1);
                     }
                 }
 
                 if(request.lastTargetTile != null){
-                    if(showDebug && Core.graphics.getFrameId() % 30 == 0){
+                    if(showDebug){
                         Fx.breakBlock.at(request.lastTargetTile.worldx(), request.lastTargetTile.worldy(), 1);
                     }
                     out.set(request.lastTargetTile);
@@ -1273,21 +1245,23 @@ public class ControlPathfinder implements Runnable{
         initializePathRequest(request, request.team, request.costId, request.unit.tileX(), request.unit.tileY(), request.destination % wwidth, request.destination / wwidth);
     }
 
+    private int getCost(FieldCache cache, FieldCache old, int x, int y){
+        //fall back to the old flowfield when possible - it's best not to use partial results from the base cache
+        if(old != null){
+            return getCost(old, x, y, false);
+        }
+        return getCost(cache, x, y, true);
+    }
+
     private int getCost(FieldCache cache, int x, int y, boolean requeue){
-        try{
-            int[] field = cache.fields.get(x / clusterSize + (y / clusterSize) * cwidth);
-            if(field == null){
-                if(!requeue) return 0;
-                //request a new flow cluster if one wasn't found; this may be a spammed a bit, but the function will return early once it's created the first time
-                queue.post(() -> addFlowCluster(cache, x / clusterSize, y / clusterSize, true));
-                return 0;
-            }
-            return field[(x % clusterSize) + (y % clusterSize) * clusterSize];
-        }catch(ArrayIndexOutOfBoundsException e){
-            //TODO: this crashes because the fields are being added while they're accessed. really bad. needs a long-term solution and some way to cache the map lookup results.
-            //using an array instead of a map would be nice, but that can mean something like 2500 entries in a sparse array, which is pretty terrible...
+        int[] field = cache.fields.get(x / clusterSize + (y / clusterSize) * cwidth);
+        if(field == null){
+            if(!requeue) return 0;
+            //request a new flow cluster if one wasn't found; this may be a spammed a bit, but the function will return early once it's created the first time
+            queue.post(() -> addFlowCluster(cache, x / clusterSize, y / clusterSize, true));
             return 0;
         }
+        return field[(x % clusterSize) + (y % clusterSize) * clusterSize];
     }
 
     private static boolean raycast(int team, PathCost type, int x1, int y1, int x2, int y2){
@@ -1325,30 +1299,6 @@ public class ControlPathfinder implements Runnable{
 
         while(x >= 0 && y >= 0 && x < ww && y < wh){
             if(solid(team, type, x + y * wwidth, true)) return Point2.pack(x, y);
-            if(x == x2 && y == y2) return 0;
-
-            //no diagonals
-            if(2 * err + dy > dx - 2 * err){
-                err -= dy;
-                x += sx;
-            }else{
-                err += dx;
-                y += sy;
-            }
-        }
-
-        return 0;
-    }
-
-    /** @return 0 if nothing was hit, otherwise the packed coordinates. This is an internal function and will likely be moved - do not use!*/
-    public static int raycastFastAvoid(int team, PathCost type, int x1, int y1, int x2, int y2){
-        int ww = world.width(), wh = world.height();
-        int x = x1, dx = Math.abs(x2 - x), sx = x < x2 ? 1 : -1;
-        int y = y1, dy = Math.abs(y2 - y), sy = y < y2 ? 1 : -1;
-        int err = dx - dy;
-
-        while(x >= 0 && y >= 0 && x < ww && y < wh){
-            if(avoid(team, type, x + y * wwidth)) return Point2.pack(x, y);
             if(x == x2 && y == y2) return 0;
 
             //no diagonals

@@ -1,5 +1,6 @@
 package mindustry.randomizer;
 
+import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -33,6 +34,11 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 public class WorldState {
 
     /**
+     * Client seed.
+     */
+    private int seed;
+
+    /**
      * Name of the file containing locations that are pending.
      */
     public String checkPendingFile = "RandomizerCheckPending.txt";
@@ -41,6 +47,10 @@ public class WorldState {
      * List of all progressive items.
      */
     public ArrayList<ProgressiveItem> progressiveItems;
+    /**
+     * List of all filler items.
+     */
+    public Map<Long, String> fillerItems;
 
     /**
      * List of all locations used in the randomisation.
@@ -70,7 +80,7 @@ public class WorldState {
     /**
      * Randomized items that have been received.
      */
-    public Long[] unlockedItems;
+    public ArrayList<Long> unlockedItems;
 
     /**
      * Contains the options of the generated game.
@@ -96,6 +106,10 @@ public class WorldState {
      */
     public void saveStates(){
         saveState(checkPendingFile, checkPending);
+    }
+
+    public int getSeed(){
+        return this.seed;
     }
 
     /**
@@ -144,6 +158,84 @@ public class WorldState {
         settings.remove(FREE_LAUNCH_EREKIR.value);
         settings.remove(SERPULO_VICTORY.value);
         settings.remove(EREKIR_VICTORY.value);
+        settings.remove(AP_SEED.value);
+        settings.remove(RANDOMIZE_CORE_UNITS_WEAPON.value);
+        settings.remove(LOGISTIC_DISTRIBUTION.value);
+    }
+
+    /**
+     * Create a seed using the Archipelago Room Info seed. The seed is converted to an int so
+     * that it can easily be stored inside Settings
+     * @param roomInfoSeed The seed from the Room Info.
+     */
+    public void createSeed(String roomInfoSeed){
+        seed = Integer.parseInt(roomInfoSeed.substring(0, 7));
+        settings.put(AP_SEED.value, seed);
+    }
+
+    /**
+     * Add item to unlocked items list. If the item is progressive, update the count.
+     * @param itemId The id of the unlocked item.
+     */
+    public void addUnlockedItem(Long itemId) {
+        if (isMindustryAPItem(itemId)) {
+            unlockedItems.add(itemId);
+        } else {
+            Vars.randomizer.sendLocalMessage("ERROR: A non-Mindustry item (invalid id) was called" +
+                            " for addUnlockItem method.");
+        }
+    }
+
+    /**
+     * Checks whether the plays have received the item at least once.
+     * @param id The id of the item to be checked.
+     * @return Return True if the player has this item at least once.
+     */
+    public boolean hasItem(Long id){
+        boolean itemReceived = false;
+        for (Long unlockedItem : unlockedItems) {
+            if (id.equals(unlockedItem)) {
+                itemReceived = true;
+            }
+        }
+        return itemReceived;
+    }
+
+    /**
+     * Return true if AP item attributes are initialized.
+     * within the randomizer.
+     * @return If the content is an AP item.
+     */
+    public boolean isMindustryAPItem(Long itemId){ //Needs to be updated
+        boolean isMindustryItem = false;
+        if (itemId != null) {
+            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
+                //Serpulo Item
+                isMindustryItem = true;
+            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 343) {
+                //Erekir Item
+                isMindustryItem = true;
+            } else if (MINDUSTRY_BASE_ID + 700 == itemId) { //filler item temporary to prevent
+                // error message
+                isMindustryItem = true;
+            }
+        }
+        return isMindustryItem;
+    }
+
+
+    public WorldState() {
+        this.options = new MindustryOptions();
+        this.items = new HashMap<>();
+        this.fillerItems = new HashMap<>();
+        this.unlockedItems = new ArrayList<>();
+        this.locations = new HashMap<>();
+        this.locationsChecked = new ArrayList<>();
+        this.checkPending = new ArrayList<>();
+        this.progressiveItems = new ArrayList<>();
+        this.apLocations = new ArrayList<>();
+        this.deathLinkDying = false;
+        initialize();
     }
 
     /**
@@ -155,19 +247,15 @@ public class WorldState {
         locationsChecked.clear();
     }
 
-
-    public WorldState() {
-        this.options = new MindustryOptions();
-        this.items = new HashMap<>();
-        this.unlockedItems = null;
-        this.locations = new HashMap<>();
-        this.locationsChecked = new ArrayList<>();
-        this.checkPending = new ArrayList<>();
-        this.progressiveItems = new ArrayList<>();
-        this.apLocations = new ArrayList<>();
-        this.deathLinkDying = false;
+    private void initialize() {
+        if (settings.getInt(AP_SEED.value) != 0){ // 0 = no value saved.
+            seed = settings.getInt(AP_SEED.value);
+        } else {
+            seed = 0;
+        }
         loadStates();
     }
+
 
 
     /**
@@ -197,7 +285,7 @@ public class WorldState {
     }
 
     /**
-     * Load the saved state.
+     * Load the saved state. If file cannot be found, initialize an empty list.
      */
     private <T> ArrayList<T> loadState(String fileName) {
         ArrayList<T> loadedState = new ArrayList<>();
@@ -213,7 +301,6 @@ public class WorldState {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
             loadedState = new ArrayList<>();
         }
         return loadedState;
@@ -267,13 +354,34 @@ public class WorldState {
      * @return Return true if the item is progressive.
      */
     protected boolean isProgressive(Long itemId) {
-        boolean progressive = false;
+        boolean found = false;
         for (ProgressiveItem item : progressiveItems) {
             if (item.id.equals(itemId)) {
-                progressive = true;
+                found = true;
             }
         }
-        return progressive;
+        return found;
+    }
+
+    /**
+     * Initialize a list of possible filler item for Serpulo.
+     */
+    protected void initializeSerpuloFillers(){
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+    }
+
+    /**
+     * Initialize a list of possible filler item for Erekir.
+     */
+    protected void initializeErekirFillers(){
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+    }
+
+    /**
+     * Initialize a list of possible filler item for all campaigns.
+     */
+    protected void initializeAllFillers(){
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
     }
 
     /**
@@ -377,9 +485,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 286, UnitTypes.stell);
         items.put(MINDUSTRY_BASE_ID + 287, Blocks.unitRepairTower);
         items.put(MINDUSTRY_BASE_ID + 288, Blocks.shipFabricator);
-        items.put(MINDUSTRY_BASE_ID + 289, UnitTypes.elude);
         items.put(MINDUSTRY_BASE_ID + 290, Blocks.mechFabricator);
-        items.put(MINDUSTRY_BASE_ID + 291, UnitTypes.merui);
         items.put(MINDUSTRY_BASE_ID + 292, Blocks.tankRefabricator);
         items.put(MINDUSTRY_BASE_ID + 294, Blocks.mechRefabricator);
         items.put(MINDUSTRY_BASE_ID + 296, Blocks.shipRefabricator);
@@ -430,7 +536,8 @@ public class WorldState {
 
         items.put(MINDUSTRY_BASE_ID + 342, null); //Progressive Ships
         ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.E_SHIPS,
-                MINDUSTRY_BASE_ID + 342, 4);
+                MINDUSTRY_BASE_ID + 342, 5);
+        item3.items.add(UnitTypes.elude);
         item3.items.add(UnitTypes.avert);
         item3.items.add(UnitTypes.obviate);
         item3.items.add(UnitTypes.quell);
@@ -439,7 +546,8 @@ public class WorldState {
 
         items.put(MINDUSTRY_BASE_ID + 343, null); //Progressive Mechs
         ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
-                MINDUSTRY_BASE_ID + 343, 4);
+                MINDUSTRY_BASE_ID + 343, 5);
+        item2.items.add(UnitTypes.merui);
         item2.items.add(UnitTypes.cleroi);
         item2.items.add(UnitTypes.anthicus);
         item2.items.add(UnitTypes.tecta);
@@ -577,11 +685,11 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 122, Blocks.foreshadow);
         items.put(MINDUSTRY_BASE_ID + 123, Blocks.shockMine);
         items.put(MINDUSTRY_BASE_ID + 124, Blocks.groundFactory);
-        items.put(MINDUSTRY_BASE_ID + 125, UnitTypes.dagger);
-        items.put(MINDUSTRY_BASE_ID + 126, null); //Progressive Ground Unit Type A
 
-        ProgressiveItem item1 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_A,
-                MINDUSTRY_BASE_ID + 126, 4);
+        items.put(MINDUSTRY_BASE_ID + 126, null); //Progressive Offensive Ground Unit
+        ProgressiveItem item1 = new ProgressiveItem(ProgressiveItemType.S_OFFENSIVE_GROUND_UNIT,
+                MINDUSTRY_BASE_ID + 126, 5);
+        item1.items.add(UnitTypes.dagger);
         item1.items.add(UnitTypes.mace);
         item1.items.add(UnitTypes.fortress);
         item1.items.add(UnitTypes.scepter);
@@ -589,9 +697,8 @@ public class WorldState {
         progressiveItems.add(item1);
 
 
-        items.put(MINDUSTRY_BASE_ID + 127, null); //Progressive Ground Unit Type B
-
-        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_B,
+        items.put(MINDUSTRY_BASE_ID + 127, null); //Progressive Support Ground Unit
+        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.S_SUPPORT_GROUND_UNIT,
                 MINDUSTRY_BASE_ID + 127, 5);
         item2.items.add(UnitTypes.nova);
         item2.items.add(UnitTypes.pulsar);
@@ -600,9 +707,8 @@ public class WorldState {
         item2.items.add(UnitTypes.corvus);
         progressiveItems.add(item2);
 
-        items.put(MINDUSTRY_BASE_ID + 128, null); //Progressive Ground Unit Type C
-
-        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.S_GROUND_UNIT_C,
+        items.put(MINDUSTRY_BASE_ID + 128, null); //Progressive Insectoid Ground Unit
+        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.S_INSECTOID_GROUND_UNIT,
                 MINDUSTRY_BASE_ID + 128, 5);
         item3.items.add(UnitTypes.crawler);
         item3.items.add(UnitTypes.atrax);
@@ -612,21 +718,19 @@ public class WorldState {
         progressiveItems.add(item3);
 
         items.put(MINDUSTRY_BASE_ID + 129, Blocks.airFactory);
-        items.put(MINDUSTRY_BASE_ID + 130, UnitTypes.flare);
 
-        items.put(MINDUSTRY_BASE_ID + 131, null); //Progressive Air Unit Type A
-
-        ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.S_AIR_UNIT_A,
-                MINDUSTRY_BASE_ID + 131, 4);
+        items.put(MINDUSTRY_BASE_ID + 131, null); //Progressive Offensive Air Unit
+        ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.S_OFFENSIVE_AIR_UNIT,
+                MINDUSTRY_BASE_ID + 131, 5);
+        item4.items.add(UnitTypes.flare);
         item4.items.add(UnitTypes.horizon);
         item4.items.add(UnitTypes.zenith);
         item4.items.add(UnitTypes.antumbra);
         item4.items.add(UnitTypes.eclipse);
         progressiveItems.add(item4);
 
-        items.put(MINDUSTRY_BASE_ID + 132, null); //Progressive Air Unit Type B
-
-        ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.S_AIR_UNIT_B,
+        items.put(MINDUSTRY_BASE_ID + 132, null); //Progressive Support Air Unit
+        ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.S_SUPPORT_AIR_UNIT,
                 MINDUSTRY_BASE_ID + 132, 5);
         item5.items.add(UnitTypes.mono);
         item5.items.add(UnitTypes.poly);
@@ -636,21 +740,19 @@ public class WorldState {
         progressiveItems.add(item5);
 
         items.put(MINDUSTRY_BASE_ID + 133, Blocks.navalFactory);
-        items.put(MINDUSTRY_BASE_ID + 134, UnitTypes.risso);
 
-        items.put(MINDUSTRY_BASE_ID + 135, null); //Progressive Naval Unit Type A
-
-        ProgressiveItem item6 = new ProgressiveItem(ProgressiveItemType.S_NAVAL_UNIT_A,
-                MINDUSTRY_BASE_ID + 135, 4);
+        items.put(MINDUSTRY_BASE_ID + 135, null); //Progressive Offensive Naval Unit
+        ProgressiveItem item6 = new ProgressiveItem(ProgressiveItemType.S_OFFENSIVE_NAVAL_UNIT,
+                MINDUSTRY_BASE_ID + 135, 5);
+        item6.items.add(UnitTypes.risso);
         item6.items.add(UnitTypes.minke);
         item6.items.add(UnitTypes.bryde);
         item6.items.add(UnitTypes.sei);
         item6.items.add(UnitTypes.omura);
         progressiveItems.add(item6);
 
-        items.put(MINDUSTRY_BASE_ID + 136, null); //Progressive Naval Unit Type B
-
-        ProgressiveItem item7 = new ProgressiveItem(ProgressiveItemType.S_NAVAL_UNIT_B,
+        items.put(MINDUSTRY_BASE_ID + 136, null); //Progressive Support Naval Unit
+        ProgressiveItem item7 = new ProgressiveItem(ProgressiveItemType.S_SUPPORT_NAVAL_UNIT,
                 MINDUSTRY_BASE_ID + 136, 5);
         item7.items.add(UnitTypes.retusa);
         item7.items.add(UnitTypes.oxynoe);
@@ -660,7 +762,6 @@ public class WorldState {
         progressiveItems.add(item7);
 
         items.put(MINDUSTRY_BASE_ID + 137, null); //Progressive Reconstructor
-
         ProgressiveItem item8 = new ProgressiveItem(ProgressiveItemType.S_RECONSTRUCTOR,
                 MINDUSTRY_BASE_ID + 137, 4);
         item8.items.add(Blocks.additiveReconstructor);

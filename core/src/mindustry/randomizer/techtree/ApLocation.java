@@ -24,11 +24,6 @@ public class ApLocation extends Block {
     public Long locationId;
 
     /**
-     * id of item within the node.
-     */
-    public Long itemId;
-
-    /**
      * Original name of the node.
      */
     public UnlockableContent originalContent;
@@ -65,7 +60,6 @@ public class ApLocation extends Block {
     public ApLocation(String name, UnlockableContent content, Long locationId, Long itemId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
-        this.itemId = itemId;
         this.originalContent = content;
         if (content != null) {
             this.researchCost = content.researchRequirements();

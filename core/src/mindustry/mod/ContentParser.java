@@ -146,11 +146,6 @@ public class ContentParser{
             readFields(result, data);
             return result;
         });
-        put(MassDriverBolt.class, (type, data) -> {
-            MassDriverBolt result = (MassDriverBolt)make(MassDriverBolt.class);
-            readFields(result, data);
-            return result;
-        });
         put(AmmoType.class, (type, data) -> {
             //string -> item
             //if liquid ammo support is added, this should scan for liquids as well
@@ -467,7 +462,6 @@ public class ContentParser{
                             case "itemFlammable" -> block.consume((Consume)parser.readValue(ConsumeItemFlammable.class, child));
                             case "itemRadioactive" -> block.consume((Consume)parser.readValue(ConsumeItemRadioactive.class, child));
                             case "itemExplosive" -> block.consume((Consume)parser.readValue(ConsumeItemExplosive.class, child));
-                            case "itemList" -> block.consume((Consume)parser.readValue(ConsumeItemList.class, child));
                             case "itemExplode" -> block.consume((Consume)parser.readValue(ConsumeItemExplode.class, child));
                             case "items" -> block.consume(child.isArray() ?
                                     new ConsumeItems(parser.readValue(ItemStack[].class, child)) :
@@ -955,8 +949,6 @@ public class ContentParser{
             case "min" -> base.min(parser.readValue(PartProgress.class, data.get("other")));
             case "sin" -> base.sin(data.has("offset") ? data.getFloat("offset") : 0f, data.getFloat("scl"), data.getFloat("mag"));
             case "absin" -> base.absin(data.getFloat("scl"), data.getFloat("mag"));
-            case "mod" -> base.mod(data.getFloat("amount"));
-            case "loop" -> base.loop(data.getFloat("time"));
             case "curve" -> data.has("interp") ? base.curve(parser.readValue(Interp.class, data.get("interp"))) : base.curve(data.getFloat("offset"), data.getFloat("duration"));
             default -> throw new RuntimeException("Unknown operation '" + op + "', check PartProgress class for a list of methods.");
         };
@@ -1062,25 +1054,17 @@ public class ContentParser{
             }
             Field field = metadata.field;
             try{
-                boolean isMap = ObjectMap.class.isAssignableFrom(field.getType()) || ObjectIntMap.class.isAssignableFrom(field.getType()) || ObjectFloatMap.class.isAssignableFrom(field.getType());
-                boolean mergeMap = isMap && child.has("add") && child.get("add").isBoolean() && child.getBoolean("add", false);
+                boolean mergeMap = ObjectMap.class.isAssignableFrom(field.getType()) && child.has("add") && child.get("add").isBoolean() && child.getBoolean("add", false);
 
                 if(mergeMap){
                     child.remove("add");
                 }
 
                 Object readField = parser.readValue(field.getType(), metadata.elementType, child, metadata.keyType);
-                Object fieldObj = field.get(object);
 
                 //if a map has add: true, add its contents to the map instead
-                if(mergeMap && (fieldObj instanceof ObjectMap<?,?> || fieldObj instanceof ObjectIntMap<?> || fieldObj instanceof ObjectFloatMap<?>)){
-                    if(field.get(object) instanceof ObjectMap<?,?> baseMap){
-                        baseMap.putAll((ObjectMap)readField);
-                    }else if(field.get(object) instanceof ObjectIntMap<?> baseMap){
-                        baseMap.putAll((ObjectIntMap)readField);
-                    }else if(field.get(object) instanceof ObjectFloatMap<?> baseMap){
-                        baseMap.putAll((ObjectFloatMap)readField);
-                    }
+                if(mergeMap && field.get(object) instanceof ObjectMap<?,?> baseMap){
+                    baseMap.putAll((ObjectMap)readField);
                 }else{
                     field.set(object, readField);
                 }

@@ -25,7 +25,7 @@ import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.logic.*;
-import mindustry.randomizer.ui.APChatFragment;
+import mindustry.randomizer.ui.APChat.APChatFragment;
 import mindustry.randomizer.ui.APResearchDialog;
 import mindustry.randomizer.ui.ArchipelagoDialog;
 import mindustry.ui.*;

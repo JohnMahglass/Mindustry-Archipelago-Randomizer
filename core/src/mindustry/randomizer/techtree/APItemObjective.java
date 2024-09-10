@@ -30,7 +30,7 @@ public class APItemObjective implements Objectives.Objective {
      */
     @Override
     public boolean complete() {
-        return randomizer.hasItem(itemId);
+        return randomizer.worldState.hasItem(itemId);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class APItemObjective implements Objectives.Objective {
             return "Capture " + sector.localizedName;
         }
         else {
-            if (randomizer.isMindustryAPItem(itemId)) {
+            if (randomizer.worldState.isMindustryAPItem(itemId)) {
                 return "Unlock " + randomizer.itemIdToUnlockableContent(itemId).localizedName;
             }
             else {

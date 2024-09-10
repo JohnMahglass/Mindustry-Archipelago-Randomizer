@@ -398,7 +398,6 @@ public class SchematicsDialog extends BaseDialog{
             closeOnBack();
             setFillParent(true);
 
-            //TODO: use IconSelectDialog
             cont.pane(t -> {
                 resized(true, () -> {
                     t.clearChildren();
@@ -408,7 +407,7 @@ public class SchematicsDialog extends BaseDialog{
                     int cols = (int)Math.min(20, Core.graphics.getWidth() / Scl.scl(52f));
 
                     int i = 0;
-                    for(String icon : accessibleIcons){
+                    for(String icon : PlanetDialog.defaultIcons){
                         String out = (char)Iconc.codes.get(icon) + "";
                         if(tags.contains(out)) continue;
 

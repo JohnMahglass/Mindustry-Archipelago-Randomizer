@@ -1,39 +1,18 @@
 package mindustry.ui.dialogs;
 
 import arc.*;
-import arc.scene.ui.layout.*;
-import mindustry.*;
-import mindustry.editor.*;
-import mindustry.game.*;
 import mindustry.gen.*;
 
 import static mindustry.Vars.*;
 
 public class PausedDialog extends BaseDialog{
-    private MapProcessorsDialog processors = new MapProcessorsDialog();
     private SaveDialog save = new SaveDialog();
     private LoadDialog load = new LoadDialog();
-    private CustomRulesDialog rulesDialog = new CustomRulesDialog();
+    private boolean wasClient = false;
 
     public PausedDialog(){
         super("@menu");
         shouldPause = true;
-
-        clearChildren();
-        add(titleTable).growX().row();
-
-        stack(cont, new Table(t -> {
-            t.bottom().left();
-            t.button(Icon.book, () -> {
-                Rules toEdit = Vars.state.rules.copy();
-                rulesDialog.show(toEdit, () -> state.rules.copy());
-                rulesDialog.hidden(() -> {
-                    //apply rule changes only once it is hidden
-                    Vars.state.rules = toEdit;
-                    Call.setRules(toEdit);
-                });
-            }).size(70f).tooltip("@customize").visible(() -> state.rules.allowEditRules && (net.server() || !net.active()));
-        })).grow().row();
 
         shown(this::rebuild);
 
@@ -70,22 +49,13 @@ public class PausedDialog extends BaseDialog{
 
             cont.row();
 
-            //the button runs out of space when the editor button is added, so use the mobile text
-            cont.button(state.isEditor() ? "@hostserver.mobile" : "@hostserver", Icon.host, () -> {
+            cont.button("@hostserver", Icon.host, () -> {
                 if(net.server() && steam){
                     platform.inviteFriends();
                 }else{
                     ui.host.show();
                 }
-            }).disabled(b -> !((steam && net.server()) || !net.active())).colspan(state.isEditor() ? 1 : 2).width(state.isEditor() ? dw : dw * 2 + 10f)
-                .update(e -> e.setText(net.server() && steam ? "@invitefriends" : state.isEditor() ? "@hostserver.mobile" : "@hostserver"));
-
-            if(state.isEditor()){
-                cont.button("@editor.worldprocessors", Icon.logic, () -> {
-                    hide();
-                    processors.show();
-                });
-            }
+            }).disabled(b -> !((steam && net.server()) || !net.active())).colspan(2).width(dw * 2 + 10f).update(e -> e.setText(net.server() && steam ? "@invitefriends" : "@hostserver"));
 
             cont.row();
 
@@ -149,7 +119,7 @@ public class PausedDialog extends BaseDialog{
     }
 
     public void runExitSave(){
-        boolean wasClient = net.client();
+        wasClient = net.client();
         if(net.client()) netClient.disconnectQuietly();
 
         if(state.isEditor() && !wasClient){

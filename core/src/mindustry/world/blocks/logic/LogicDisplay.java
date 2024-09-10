@@ -10,7 +10,6 @@ import arc.util.*;
 import arc.util.io.*;
 import mindustry.*;
 import mindustry.annotations.Annotations.*;
-import mindustry.ctype.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
@@ -121,10 +120,8 @@ public class LogicDisplay extends Block{
                             case commandColor -> Draw.color(this.color = Color.toFloatBits(x, y, p1, p2));
                             case commandStroke -> Lines.stroke(this.stroke = x);
                             case commandImage -> {
-                                if(p4 >= 0 && p4 < ContentType.all.length && Vars.content.getByID(ContentType.all[p4], p1) instanceof UnlockableContent u){
-                                    var icon = u.fullIcon;
-                                    Draw.rect(icon, x, y, p2, p2 / icon.ratio(), p3);
-                                }
+                                var icon = Fonts.logicIcon(p1);
+                                Draw.rect(Fonts.logicIcon(p1), x, y, p2, p2 / icon.ratio(), p3);
                             }
                             case commandPrint -> {
                                 var glyph = Fonts.logic.getData().getGlyph((char)p1);

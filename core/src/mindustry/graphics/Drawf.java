@@ -480,7 +480,7 @@ public class Drawf{
     
     /** Draws a sprite that should be light-wise correct, when rotated. Provided sprite must be symmetrical in shape. */
     public static void spinSprite(TextureRegion region, float x, float y, float r){
-        float a = Draw.getColorAlpha();
+        float a = Draw.getColor().a;
         r = Mathf.mod(r, 90f);
         Draw.rect(region, x, y, r);
         Draw.alpha(r / 90f*a);
