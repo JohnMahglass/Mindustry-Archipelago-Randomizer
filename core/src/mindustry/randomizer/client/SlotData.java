@@ -64,7 +64,7 @@ public class SlotData {
     }
 
     public int getLogisticDistribution(){
-        return  logisticDistribution;
+        return logisticDistribution;
     }
 
 }

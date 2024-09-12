@@ -192,7 +192,7 @@ public class APClient extends Client {
         super();
         this.loadInfo();
         this.setGame("Mindustry");
-        this.setItemsHandlingFlags(ItemsHandling.SEND_ITEMS + ItemsHandling.SEND_OWN_ITEMS);
+        this.setItemsHandlingFlags(ItemsHandling.SEND_ITEMS + ItemsHandling.SEND_OWN_ITEMS + ItemsHandling.SEND_STARTING_INVENTORY);
         this.setName(getSlotName());
         this.connectionStatus = ConnectionStatus.NotConnected;
         this.dataPackage = getDataPackage();
