@@ -16,6 +16,9 @@ import mindustry.content.*;
 import mindustry.content.TechTree.*;
 import mindustry.core.GameState.*;
 import mindustry.entities.*;
+import mindustry.entities.abilities.Ability;
+import mindustry.entities.abilities.EnergyFieldAbility;
+import mindustry.entities.abilities.ShieldRegenFieldAbility;
 import mindustry.game.EventType.*;
 import mindustry.game.Objectives.*;
 import mindustry.game.*;
@@ -86,7 +89,15 @@ public class Control implements ApplicationListener, Loadable{
         Events.on(PlayEvent.class, event -> {
             player.team(netServer.assignTeam(player));
             player.add();
-
+            //Add player ability here? need testing
+            player.unit().abilities = new Ability[]{
+                new EnergyFieldAbility(40f, 65f, 180f){{
+                    statusDuration = 60f * 6f;
+                    maxTargets = 25;
+                    healPercent = 1.5f;
+                    sameTypeHealMult = 0.5f;
+                }}
+            };
             state.set(State.playing);
         });
 

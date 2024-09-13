@@ -82,6 +82,7 @@ public abstract class RandomizableCoreUnits {
         scepterAbilities.add(new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f));
         coreUnitAbility.add(scepterAbilities);
 
+        /*
         Seq<Ability> quasarAbilities = new Seq<>();
         quasarAbilities.add(new ForceFieldAbility(60f, 0.3f, 400f, 60f * 6));
         coreUnitAbility.add(quasarAbilities);
@@ -124,6 +125,7 @@ public abstract class RandomizableCoreUnits {
             y = 1f;
         }});
         coreUnitAbility.add(quellAbilities);
+         */
 
         //Tests
         /*

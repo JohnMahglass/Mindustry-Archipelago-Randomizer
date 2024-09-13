@@ -5,8 +5,6 @@ This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) 
 
 To generate a World(APworld), you will need to install the Mindustry World to your Archipelago folder. You can find the Mindustry World release here -> (https://github.com/JohnMahglass/Archipelago-Mindustry/releases)
 
-Please be aware that Linux build has not been tested yet.
-
 ### What has been changed from the vanilla game?
 
 - Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)

@@ -197,19 +197,18 @@ public class MindustryOptions {
     protected static void randomizeCoreUnitsWeapon(int campaign) {
         Random random = new Random(settings.getInt(AP_SEED.value));
         ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizableCoreUnits.getPossibleCoreUnitsWeapons();
-        //ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits
-        // .getPossibleCoreUnitsAbility();
+        ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
 
         switch (campaign){
             case 0: //Serpulo
                 randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
                 break;
             case 1: //Erekir
-                //randomizeErekirCoreUnitsAbility(random, coreUnitAbilities); Disabled for now
+                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
                 break;
             case 2: //All
                 randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
-                //randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
+                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
                 break;
         }
     }
@@ -226,18 +225,20 @@ public class MindustryOptions {
         UnitTypes.evoke.hittable = true;
         UnitTypes.evoke.killable = true;
         UnitTypes.evoke.targetable = true;
-        UnitTypes.evoke.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+        //UnitTypes.evoke.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities
+        // .size() - 1)));
+        UnitTypes.evoke.abilities.add(coreUnitAbilities.get(coreUnitAbilities.size() - 1));
 
         UnitTypes.incite.weapons.clear();
-        UnitTypes.evoke.hittable = true;
-        UnitTypes.evoke.killable = true;
-        UnitTypes.evoke.targetable = true;
+        UnitTypes.incite.hittable = true;
+        UnitTypes.incite.killable = true;
+        UnitTypes.incite.targetable = true;
         UnitTypes.incite.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
 
         UnitTypes.emanate.weapons.clear();
-        UnitTypes.evoke.hittable = true;
-        UnitTypes.evoke.killable = true;
-        UnitTypes.evoke.targetable = true;
+        UnitTypes.emanate.hittable = true;
+        UnitTypes.emanate.killable = true;
+        UnitTypes.emanate.targetable = true;
         UnitTypes.emanate.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
     }
 
