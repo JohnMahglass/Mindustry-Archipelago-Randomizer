@@ -128,7 +128,7 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc{
 
             // Prevent the player from placing a Fabricator if they do not have a unit they can
             // produce. This make sure the player has both the factory and the unit.
-            if (isFabricator(current.block)) {
+            if (!team.isAI() && isFabricator(current.block)) {
                 if (!canMakeUnits(current.block)) {
                     randomizer.sendLocalMessage("Build canceled. You have not received a matching unit " +
                             "for this building.");

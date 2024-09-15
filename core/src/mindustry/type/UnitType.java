@@ -491,10 +491,16 @@ public class UnitType extends UnlockableContent implements Senseable{
     }
 
     public boolean targetable(Unit unit, Team targeter){
+        if (unit.isPlayer() && randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) {
+            return true;
+        }
         return targetable || (vulnerableWithPayloads && unit instanceof Payloadc p && p.hasPayload());
     }
 
     public boolean hittable(Unit unit){
+        if (unit.isPlayer() && randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) {
+            return true;
+        }
         return hittable || (vulnerableWithPayloads && unit instanceof Payloadc p && p.hasPayload());
     }
 

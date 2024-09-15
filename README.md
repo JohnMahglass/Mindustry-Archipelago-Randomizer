@@ -33,6 +33,9 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - Starting items from pool is now supported by the client.
 - Added Empty filler item "A fistful of nothing..." to the world to prevent generation failure if an item is taken out of the item pool.
 
+- Fixed Erekir's ai
+- Fixed a bug were the ai would not be able to place fabricators.
+
 ## Setup guide.
 
 ### Windows
