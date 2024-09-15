@@ -79,74 +79,67 @@ public abstract class RandomizableCoreUnits {
         ArrayList<Ability[]> coreUnitAbility = new ArrayList<>();
 
 
-
         Ability[] scepterAbilities = new Ability[]{
                 new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f)
         };
         coreUnitAbility.add(scepterAbilities);
 
-        Ability[] scepterAbilities1 = new Ability[]{
-                new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f)
-        };
-        coreUnitAbility.add(scepterAbilities1);
 
-        /*
-        Seq<Ability> quasarAbilities = new Seq<>();
-        quasarAbilities.add(new ForceFieldAbility(60f, 0.3f, 400f, 60f * 6));
+        Ability[] quasarAbilities = new Ability[]{ //shield too weak
+                new ForceFieldAbility(60f, 0.3f, 400f, 60f * 6)
+        };
         coreUnitAbility.add(quasarAbilities);
 
-        Seq<Ability> polyAbilities = new Seq<>();
-        polyAbilities.add(new RepairFieldAbility(15f, 60f * 8, 50f)); //need testing
+
+        Ability[] polyAbilities = new Ability[]{ //Very weak healing
+                new RepairFieldAbility(15f, 60f * 8, 50f)
+        };
         coreUnitAbility.add(polyAbilities);
 
-        Seq<Ability> omuraAbilities = new Seq<>();
-        omuraAbilities.add(new UnitSpawnAbility(elude, 60f * 15f, 0f, 0f));
+
+        Ability[] omuraAbilities = new Ability[]{ //Spawn too fast
+                new UnitSpawnAbility(elude, 60f * 15f, 0f, 0f)
+        };
         coreUnitAbility.add(omuraAbilities);
 
-        Seq<Ability> oxynoeAbilities = new Seq<>();
-        oxynoeAbilities.add(new StatusFieldAbility(StatusEffects.overclock, 60f * 6, 60f * 6f, 60f));
+
+        Ability[] oxynoeAbilities = new Ability[]{
+                new StatusFieldAbility(StatusEffects.overclock, 60f * 6, 60f * 6f, 60f)
+        };
         coreUnitAbility.add(oxynoeAbilities);
 
-        Seq<Ability> tectaShield = new Seq<>();
-        tectaShield.add(new ShieldArcAbility(){{
-            region = "tecta-shield";
-            radius = 36f;
-            angle = 82f;
-            regen = 0.6f;
-            cooldown = 60f * 8f;
-            max = 2000f;
-            y = -20f;
-            width = 6f;
-            whenShooting = false;
-        }});
+
+        Ability[] tectaShield = new Ability[]{ //Shield is weak
+                new ShieldArcAbility(){{
+                    region = "tecta-shield";
+                    radius = 36f;
+                    angle = 82f;
+                    regen = 0.6f;
+                    cooldown = 60f * 8f;
+                    max = 2000f;
+                    y = -20f;
+                    width = 6f;
+                    whenShooting = false;
+                }}
+        };
         coreUnitAbility.add(tectaShield);
 
-        Seq<Ability> eludeAbilities = new Seq<>();
-        eludeAbilities.add(new MoveEffectAbility(0f, -7f, Pal.sapBulletBack, Fx.missileTrailShort, 4f){{
-            teamColor = true;
-        }});
+
+        Ability[] eludeAbilities = new Ability[]{
+                new MoveEffectAbility(0f, -7f, Pal.sapBulletBack, Fx.missileTrailShort, 4f)
+        };
         coreUnitAbility.add(eludeAbilities);
 
-        Seq<Ability> quellAbilities = new Seq<>();
-        quellAbilities.add(new SuppressionFieldAbility(){{
-            orbRadius = 5.3f;
-            y = 1f;
-        }});
-        coreUnitAbility.add(quellAbilities);
-         */
 
-        //Tests
-        /*
-        Seq<Ability> aegiresAbilities1 = new Seq<>();
-        aegiresAbilities1.add(new EnergyFieldAbility(40f, 65f, 180f){{
-            statusDuration = 60f * 6f;
-            maxTargets = 25;
-            healPercent = 1.5f;
-            sameTypeHealMult = 0.5f;
-        }});
+        Ability[] aegiresAbilities1 = new Ability[]{
+                new EnergyFieldAbility(40f, 65f, 180f){{
+                    statusDuration = 60f * 6f;
+                    maxTargets = 25;
+                    healPercent = 1.5f;
+                    sameTypeHealMult = 0.5f;
+                }}};
         coreUnitAbility.add(aegiresAbilities1);
 
-         */
 
         return coreUnitAbility;
     }
