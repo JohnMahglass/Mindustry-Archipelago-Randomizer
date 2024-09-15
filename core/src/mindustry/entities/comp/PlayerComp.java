@@ -238,7 +238,9 @@ abstract class PlayerComp implements UnitController, Entityc, Syncc, Timerc, Dra
                 control.input.block = null;
             }
         }
-
+        if (unit.isPlayer() && randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) {
+            randomizer.worldState.options.randomizeCoreUnitsWeapon(unit);
+        }
         Events.fire(new UnitChangeEvent(self(), unit));
     }
 

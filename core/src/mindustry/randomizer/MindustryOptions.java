@@ -6,7 +6,11 @@ import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.entities.abilities.Ability;
+import mindustry.entities.abilities.EnergyFieldAbility;
+import mindustry.gen.Player;
+import mindustry.gen.Unit;
 import mindustry.randomizer.client.SlotData;
+import mindustry.randomizer.enums.SettingStrings;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
 import mindustry.world.blocks.power.ThermalGenerator;
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static arc.Core.settings;
+import static mindustry.Vars.player;
 import static mindustry.Vars.randomizer;
 import static mindustry.randomizer.enums.SettingStrings.*;
 
@@ -75,6 +80,12 @@ public class MindustryOptions {
      * How should the logistic be handled by the logic.
      */
     private int logisticDistribution;
+
+    private ArrayList<Ability[]> coreUnitAbilities;
+
+    private ArrayList<Ability[]> getCoreUnitAbilities() {
+        return (ArrayList<Ability[]>)this.coreUnitAbilities.clone();
+    }
 
     public int getLogisticDistribution(){
         return this.logisticDistribution;
@@ -185,6 +196,7 @@ public class MindustryOptions {
             this.deathLink = false;
             this.randomizeCoreUnitsWeapon = false;
             this.logisticDistribution = 0;
+            this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
             }
@@ -194,60 +206,38 @@ public class MindustryOptions {
     /**
      * Randomize core units weapon.
      */
-    protected static void randomizeCoreUnitsWeapon(int campaign) {
-        Random random = new Random(settings.getInt(AP_SEED.value));
-        ArrayList<Seq<Weapon>> coreUnitWeapons = RandomizableCoreUnits.getPossibleCoreUnitsWeapons();
-        ArrayList<Seq<Ability>> coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
-
-        switch (campaign){
-            case 0: //Serpulo
-                randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
-                break;
-            case 1: //Erekir
-                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
-                break;
-            case 2: //All
-                randomizeSerpuloCoreUnitsWeapon(random, coreUnitWeapons);
-                randomizeErekirCoreUnitsAbility(random, coreUnitAbilities);
-                break;
+    public void randomizeCoreUnitsWeapon(Unit unit) {
+        if (getCampaign() == 1 || getCampaign() == 2) {
+            ArrayList<Ability[]> possibleCoreUnitAbilities = getCoreUnitAbilities();
+            randomizeErekirCoreUnitsAbility(possibleCoreUnitAbilities, unit);
         }
     }
 
     /**
      * Randomize the ability of every core unit of Erekir
-     * @param random The rng.
      * @param coreUnitAbilities The list of possible abilities.
      */
-    private static void randomizeErekirCoreUnitsAbility(Random random,
-                                                        ArrayList<Seq<Ability>> coreUnitAbilities) {
-
-        UnitTypes.evoke.weapons.clear();
-        UnitTypes.evoke.hittable = true;
-        UnitTypes.evoke.killable = true;
-        UnitTypes.evoke.targetable = true;
-        //UnitTypes.evoke.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities
-        // .size() - 1)));
-        UnitTypes.evoke.abilities.add(coreUnitAbilities.get(coreUnitAbilities.size() - 1));
-
-        UnitTypes.incite.weapons.clear();
-        UnitTypes.incite.hittable = true;
-        UnitTypes.incite.killable = true;
-        UnitTypes.incite.targetable = true;
-        UnitTypes.incite.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
-
-        UnitTypes.emanate.weapons.clear();
-        UnitTypes.emanate.hittable = true;
-        UnitTypes.emanate.killable = true;
-        UnitTypes.emanate.targetable = true;
-        UnitTypes.emanate.abilities.add(coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1)));
+    private static void randomizeErekirCoreUnitsAbility(ArrayList<Ability[]> coreUnitAbilities,
+                                                        Unit unit) {
+        Random random = new Random();
+        if (unit.type.equals(UnitTypes.evoke)) {
+            random.setSeed(settings.getInt(AP_SEED.value) + 1);
+            unit.abilities = coreUnitAbilities.get(random.nextInt(coreUnitAbilities.size() - 1));
+        } else if (unit.type.equals(UnitTypes.incite)) {
+            random.setSeed(settings.getInt(AP_SEED.value) + 2);
+            unit.abilities = coreUnitAbilities.get(random.nextInt(coreUnitAbilities.size() - 1));
+        } else if (unit.type.equals(UnitTypes.emanate)) {
+            random.setSeed(settings.getInt(AP_SEED.value) + 3);
+            unit.abilities = coreUnitAbilities.get(random.nextInt(coreUnitAbilities.size() - 1));
+        }
     }
 
     /**
      * Randomize the weapon of every core unit of Serpulo
-     * @param random The rng.
      * @param coreUnitWeapons The list of possible weapons.
      */
-    private static void randomizeSerpuloCoreUnitsWeapon(Random random, ArrayList<Seq<Weapon>> coreUnitWeapons) {
+    private static void randomizeSerpuloCoreUnitsWeapon(ArrayList<Seq<Weapon>> coreUnitWeapons) {
+        Random random = new Random(settings.getInt(AP_SEED.value));
         UnitTypes.alpha.weapons.clear();
         UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
 
@@ -514,6 +504,9 @@ public class MindustryOptions {
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.optionsFilled = true;
+        if (this.randomizeCoreUnitsWeapon) {
+            randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
+            this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
+        }
     }
-
 }

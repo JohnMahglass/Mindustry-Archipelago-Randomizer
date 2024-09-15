@@ -323,10 +323,7 @@ public class Randomizer {
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
-            if (options.getRandomizeCoreUnitsWeapon()) {
-                MindustryOptions.randomizeCoreUnitsWeapon(options.getCampaign());
-            }
-            if (options.getLogisticDistribution() == 2) { //Starter logistics
+            if (options.getLogisticDistribution() == 3) { //Starter logistics
                 MindustryOptions.applyStarterLogistics(options.getCampaign());
             }
             switch (options.getCampaign()) {

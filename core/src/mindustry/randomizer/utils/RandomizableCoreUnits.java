@@ -75,12 +75,20 @@ public abstract class RandomizableCoreUnits {
      * List of possible ability for a core unit.
      * @return Return a list of abilities.
      */
-    public static ArrayList<Seq<Ability>> getPossibleCoreUnitsAbility(){
-        ArrayList<Seq<Ability>> coreUnitAbility = new ArrayList<>();
+    public static ArrayList<Ability[]> getPossibleCoreUnitsAbility(){
+        ArrayList<Ability[]> coreUnitAbility = new ArrayList<>();
 
-        Seq<Ability> scepterAbilities = new Seq<>();
-        scepterAbilities.add(new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f));
+
+
+        Ability[] scepterAbilities = new Ability[]{
+                new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f)
+        };
         coreUnitAbility.add(scepterAbilities);
+
+        Ability[] scepterAbilities1 = new Ability[]{
+                new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f)
+        };
+        coreUnitAbility.add(scepterAbilities1);
 
         /*
         Seq<Ability> quasarAbilities = new Seq<>();
