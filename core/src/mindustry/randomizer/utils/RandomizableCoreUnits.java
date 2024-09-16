@@ -21,7 +21,6 @@ import mindustry.entities.abilities.RepairFieldAbility;
 import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.abilities.ShieldRegenFieldAbility;
 import mindustry.entities.abilities.StatusFieldAbility;
-import mindustry.entities.abilities.SuppressionFieldAbility;
 import mindustry.entities.abilities.UnitSpawnAbility;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
@@ -85,20 +84,20 @@ public abstract class RandomizableCoreUnits {
         coreUnitAbility.add(scepterAbilities);
 
 
-        Ability[] quasarAbilities = new Ability[]{ //shield too weak
-                new ForceFieldAbility(60f, 0.3f, 400f, 60f * 6)
+        Ability[] quasarAbilities = new Ability[]{ //shield health upgraded
+                new ForceFieldAbility(60f, 0.5f, 1000f, 60f * 6)
         };
         coreUnitAbility.add(quasarAbilities);
 
 
-        Ability[] polyAbilities = new Ability[]{ //Very weak healing
-                new RepairFieldAbility(15f, 60f * 8, 50f)
+        Ability[] polyAbilities = new Ability[]{ //healing boosted
+                new RepairFieldAbility(45f, 50f * 8, 50f)
         };
         coreUnitAbility.add(polyAbilities);
 
 
-        Ability[] omuraAbilities = new Ability[]{ //Spawn too fast
-                new UnitSpawnAbility(elude, 60f * 15f, 0f, 0f)
+        Ability[] omuraAbilities = new Ability[]{ //Made spawn time longer
+                new UnitSpawnAbility(elude, 75f * 15f, 0f, 0f)
         };
         coreUnitAbility.add(omuraAbilities);
 
@@ -109,16 +108,16 @@ public abstract class RandomizableCoreUnits {
         coreUnitAbility.add(oxynoeAbilities);
 
 
-        Ability[] tectaShield = new Ability[]{ //Shield is weak
+        Ability[] tectaShield = new Ability[]{ //Boosted shield hp and size
                 new ShieldArcAbility(){{
                     region = "tecta-shield";
-                    radius = 36f;
+                    radius = 45f;
                     angle = 82f;
-                    regen = 0.6f;
+                    regen = 0.8f;
                     cooldown = 60f * 8f;
-                    max = 2000f;
+                    max = 3000f;
                     y = -20f;
-                    width = 6f;
+                    width = 8f;
                     whenShooting = false;
                 }}
         };
@@ -131,14 +130,14 @@ public abstract class RandomizableCoreUnits {
         coreUnitAbility.add(eludeAbilities);
 
 
-        Ability[] aegiresAbilities1 = new Ability[]{
-                new EnergyFieldAbility(40f, 65f, 180f){{
+        Ability[] aegiresAbilities = new Ability[]{ //Reduced area to prevent cheesing
+                new EnergyFieldAbility(40f, 65f, 90f){{
                     statusDuration = 60f * 6f;
                     maxTargets = 25;
                     healPercent = 1.5f;
                     sameTypeHealMult = 0.5f;
                 }}};
-        coreUnitAbility.add(aegiresAbilities1);
+        coreUnitAbility.add(aegiresAbilities);
 
 
         return coreUnitAbility;

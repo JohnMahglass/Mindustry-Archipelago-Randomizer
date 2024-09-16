@@ -221,14 +221,14 @@ public class MindustryOptions {
                                                         Unit unit) {
         Random random = new Random();
         if (unit.type.equals(UnitTypes.evoke)) {
-            //random.setSeed(settings.getInt(AP_SEED.value) + 1);
-            //unit.abilities = coreUnitAbilities.get(random.nextInt(coreUnitAbilities.size() - 1));
+            random.setSeed(settings.getInt(AP_SEED.value) + 1);
+            unit.abilities = coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1));
         } else if (unit.type.equals(UnitTypes.incite)) {
             random.setSeed(settings.getInt(AP_SEED.value) + 2);
-            unit.abilities = coreUnitAbilities.get(coreUnitAbilities.size() - 1);
+            unit.abilities = coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1));
         } else if (unit.type.equals(UnitTypes.emanate)) {
-            //random.setSeed(settings.getInt(AP_SEED.value) + 3);
-            //.abilities = coreUnitAbilities.get(random.nextInt(coreUnitAbilities.size() - 1));
+            random.setSeed(settings.getInt(AP_SEED.value) + 3);
+            unit.abilities = coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1));
         }
     }
 
