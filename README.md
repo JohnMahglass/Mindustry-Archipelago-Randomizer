@@ -16,7 +16,7 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
 
 ## Version 0.2.0 changelog
-
+### Changes
 - It is now required for the game to close and be open again after the first connection to a game. This will make sure that all of the randomizer options are correctly applied.
 - Chat will now highlight specific words to make it easier to see important information.
 - Chat will now display the color of an item fitting to its classification when receiving an item event message. (Progression, Useful, Filler)
@@ -26,13 +26,12 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - When selecting a campaign, any unselected campaign will now behave as vanilla.
 - "Military level tracking" option is now available. Serpulo and Erekir logic has been improved with a "Military level" tracking the player's research that can be used
   to capture sectors to make sure the player has a minimum amount of tools. You can opt out of this option if you would like to live dangerously.
-- "Randomize core units weapon" option is now available (Serulo only at the moment).
-- "Logistic distribution" option is now available. You can select "Randomize logistics", "Early logistics" and "Starter logistics". Logistics being junction,router and bridge
-  for belt,duct and conduit. Also include the Power Node for Serpulo campaign.
+- "Randomize core units weapon" option is now available. Serpulo's core unit will have a randomized weapon while Erekir's core unit will be given an ability **and be made vulnerable**
+- "Logistic distribution" option is now available. You can select "Randomize logistics", "Early logistics", "Local early logistics" and "Starter logistics". Logistics being junction,router and bridge for belt,duct and conduit. Also include the Power Node for Serpulo campaign.
 - Starting items is now supported by the client.
 - Starting items from pool is now supported by the client.
 - Added Empty filler item "A fistful of nothing..." to the world to prevent generation failure if an item is taken out of the item pool.
-
+### Fix
 - Fixed Erekir's ai
 - Fixed a bug were the ai would not be able to place fabricators.
 

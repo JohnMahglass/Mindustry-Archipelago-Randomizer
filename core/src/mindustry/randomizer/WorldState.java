@@ -161,6 +161,10 @@ public class WorldState {
         settings.remove(AP_SEED.value);
         settings.remove(RANDOMIZE_CORE_UNITS_WEAPON.value);
         settings.remove(LOGISTIC_DISTRIBUTION.value);
+        settings.remove(EREKIR_RANDOMIZED_WEAPON_EVOKE.value);
+        settings.remove(EREKIR_RANDOMIZED_WEAPON_INCITE.value);
+        settings.remove(EREKIR_RANDOMIZED_WEAPON_EMANATE.value);
+        settings.remove(EREKIR_RANDOMIZED_WEAPON_INIT.value);
     }
 
     /**

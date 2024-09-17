@@ -217,19 +217,39 @@ public class MindustryOptions {
      * Randomize the ability of every core unit of Erekir
      * @param coreUnitAbilities The list of possible abilities.
      */
-    private static void randomizeErekirCoreUnitsAbility(ArrayList<Ability[]> coreUnitAbilities,
+    private void randomizeErekirCoreUnitsAbility(ArrayList<Ability[]> coreUnitAbilities,
                                                         Unit unit) {
-        Random random = new Random();
-        if (unit.type.equals(UnitTypes.evoke)) {
-            random.setSeed(settings.getInt(AP_SEED.value) + 1);
-            unit.abilities = coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1));
-        } else if (unit.type.equals(UnitTypes.incite)) {
-            random.setSeed(settings.getInt(AP_SEED.value) + 2);
-            unit.abilities = coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1));
-        } else if (unit.type.equals(UnitTypes.emanate)) {
-            random.setSeed(settings.getInt(AP_SEED.value) + 3);
-            unit.abilities = coreUnitAbilities.remove(random.nextInt(coreUnitAbilities.size() - 1));
+        if (!settings.getBool(EREKIR_RANDOMIZED_WEAPON_INIT.value)) { //Core unit ability were not assigned
+            generateErekirWeapons();
         }
+        if (unit.type.equals(UnitTypes.evoke)) {
+            unit.abilities = coreUnitAbilities.get(settings.getInt(EREKIR_RANDOMIZED_WEAPON_EVOKE.value));
+        } else if (unit.type.equals(UnitTypes.incite)) {
+            unit.abilities = coreUnitAbilities.get(settings.getInt(EREKIR_RANDOMIZED_WEAPON_INCITE.value));
+        } else if (unit.type.equals(UnitTypes.emanate)) {
+            unit.abilities = coreUnitAbilities.get(settings.getInt(EREKIR_RANDOMIZED_WEAPON_EMANATE.value));
+        }
+    }
+
+    /**
+     * Generate and save Erekir weapons randomization.
+     */
+    private void generateErekirWeapons() {
+        Random random = new Random(settings.getInt(AP_SEED.value));
+        int evokeIndex = random.nextInt(coreUnitAbilities.size() - 1);
+        int inciteIndex = random.nextInt(coreUnitAbilities.size() - 1);
+        while (evokeIndex == inciteIndex) { //Making sure that index are not the same
+            inciteIndex = random.nextInt(coreUnitAbilities.size() - 1);
+        }
+        int emanateIndex = random.nextInt(coreUnitAbilities.size() - 1);
+        while (emanateIndex == evokeIndex || emanateIndex == inciteIndex) {
+            emanateIndex = random.nextInt(coreUnitAbilities.size() - 1);
+        }
+        settings.put(EREKIR_RANDOMIZED_WEAPON_EVOKE.value, evokeIndex);
+        settings.put(EREKIR_RANDOMIZED_WEAPON_INCITE.value, inciteIndex);
+        settings.put(EREKIR_RANDOMIZED_WEAPON_EMANATE.value, emanateIndex);
+
+        settings.put(EREKIR_RANDOMIZED_WEAPON_INIT.value, true);
     }
 
     /**
@@ -505,8 +525,14 @@ public class MindustryOptions {
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.optionsFilled = true;
         if (this.randomizeCoreUnitsWeapon) {
-            randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
-            this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
+            if (getCampaign() == 0) { //Serpulo
+                randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
+            } else if (getCampaign() == 1) { //Erekir
+                coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
+            } else if (getCampaign() == 2) { //All
+                randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
+                coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
+            }
         }
     }
 }

@@ -20,7 +20,11 @@ public enum SettingStrings {
 
     RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
     RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon"),
-    LOGISTIC_DISTRIBUTION("APlogisticDistribution");
+    LOGISTIC_DISTRIBUTION("APlogisticDistribution"),
+    EREKIR_RANDOMIZED_WEAPON_EVOKE("APrandomizedEvokeWeapon"),
+    EREKIR_RANDOMIZED_WEAPON_INCITE("APrandomizedInciteWeapon"),
+    EREKIR_RANDOMIZED_WEAPON_EMANATE("APrandomizedEmanateWeapon"),
+    EREKIR_RANDOMIZED_WEAPON_INIT("APrandomizedWeaponInit");
 
 
     public final String value;
