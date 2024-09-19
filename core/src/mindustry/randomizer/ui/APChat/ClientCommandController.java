@@ -129,7 +129,10 @@ public class ClientCommandController {
             case 1: // Early logistics
                 text = "Early logistics";
                 break;
-            case 2: // Starter logistics
+            case 2: // Local early logistics
+                text = "Local early logistics";
+                break;
+            case 3: //Starter logistics
                 text = "Starter logistics";
                 break;
         }

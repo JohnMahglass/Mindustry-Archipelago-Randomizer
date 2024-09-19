@@ -391,7 +391,7 @@ public class APResearchDialog extends BaseDialog {
         if(!locked && (node.parent == null || node.parent.visible)) node.visible = true;
         node.selectable = selectable(node.node);
         for(TechTreeNode l : node.children){
-            l.visible = !locked && l.parent.visible;
+            l.visible = l.parent.visible;
             checkNodes(l);
         }
 
@@ -658,7 +658,7 @@ public class APResearchDialog extends BaseDialog {
                 b.add().grow();
                 b.table(desc -> {
                     desc.left().defaults().left();
-                    desc.add(selectable ? node.content.localizedName : "[accent]???");
+                    desc.add(selectable ? node.content.localizedName : "[accent]" + node.content.localizedName);
                     desc.row();
                     if(locked(node) || debugShowRequirements){
 

@@ -1,4 +1,4 @@
-# Mindustry integration for Archipelago (v0.2.0)
+# Mindustry integration for Archipelago (v0.2.1)
 (https://github.com/ArchipelagoMW/Archipelago)
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
@@ -14,6 +14,13 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - You can use the chat to send messages to other client (If they support it).
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
+
+## Version 0.2.1 chagelog
+### Changes
+- The research tree will now display every node of the tree. Node information that was obfuscated in the vanilla game when a node was locked has been made visible. This will make it easier to plan a route when you need to check a specific location.
+
+### Fix
+- The "/options" client command would not display the correct text for the "Local early logistics" and "Starter logistics" option.
 
 ## Version 0.2.0 changelog
 ### Changes
