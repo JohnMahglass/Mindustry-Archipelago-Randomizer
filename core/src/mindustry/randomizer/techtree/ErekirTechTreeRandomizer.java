@@ -1,6 +1,5 @@
 package mindustry.randomizer.techtree;
 
-
 import arc.struct.IntSet;
 import arc.struct.ObjectFloatMap;
 import arc.struct.Seq;

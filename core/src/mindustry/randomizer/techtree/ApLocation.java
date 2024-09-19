@@ -57,6 +57,7 @@ public class ApLocation extends Block {
         }
     }
 
+    @Deprecated
     public ApLocation(String name, UnlockableContent content, Long locationId, Long itemId) {
         super(name);
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;

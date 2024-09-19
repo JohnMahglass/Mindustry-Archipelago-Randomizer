@@ -121,7 +121,7 @@ public class ClientCommandController {
      * @return The selected option in text format.
      */
     private String getLogisticDistributionValue(int logisticOption) {
-        String text = "Error"; //Probably should change that
+        String text = "Error";
         switch (logisticOption){
             case 0: // Randomized logistics
                 text = "Randomized logistics";

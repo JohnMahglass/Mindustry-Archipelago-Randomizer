@@ -4,7 +4,7 @@ import mindustry.content.TechTree;
 import mindustry.game.Objectives;
 
 /**
- * ApObjectives
+ * Objectives related to the Archipelago randomizer
  *
  * @author John Mahglass
  * @version 1.0.0 2024-09-18
