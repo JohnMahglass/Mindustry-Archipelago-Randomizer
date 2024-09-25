@@ -22,8 +22,6 @@ public class APApplyOptionsDialog extends BaseDialog {
     private void setup() {
         cont.margin(12f);
 
-        Color color = Color.valueOf("7289da");
-
         cont.table(t -> {
             t.background(Tex.button).margin(0);
             t.row();

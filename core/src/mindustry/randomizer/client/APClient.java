@@ -7,6 +7,7 @@ import dev.koifysh.archipelago.parts.NetworkPlayer;
 import dev.koifysh.archipelago.parts.NetworkSlot;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ConnectionStatus;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
 
 import java.net.URISyntaxException;
 
@@ -67,22 +68,21 @@ public class APClient extends Client {
             if (isConnected() && connectionStatus.equals(ConnectionStatus.Success)) {
                 sendChat(message);
             } else {
-                randomizer.sendLocalMessage("ERROR: You are not connected, message cannot be sent.");
+                RandomizerMessageHandler.printErrorWithReason("You are not connected, message cannot be sent.");
             }
         }
     }
 
     @Override
     public void onError(Exception ex) {
-        randomizer.sendLocalMessage("[#DB3232]Client error[#FFFFFF]: " + ex.getMessage());
+        RandomizerMessageHandler.printClientError(ex.getMessage());
     }
 
     @Override
     public void onClose(String Reason, int attemptingReconnect) { //onClose is triggering twice?
         if (!onCloseTriggered) { //Temporary
-            randomizer.sendLocalMessage("[#DB3232]Disconnected / Connection lost[#FFFFFF]. " +
-                    "Offline checks will be " +
-                    "saved and sent when connecting to the game again.");
+            RandomizerMessageHandler.printErrorWithReason("Disconnected / Connection lost. " +
+                    "Offline checks will be saved and sent when connecting to the game again.");
         }
         onCloseTriggered = true;
     }
@@ -96,15 +96,17 @@ public class APClient extends Client {
                 if (address != null && slotName != null) {
                     connect(address);
                 } else {
-                    randomizer.sendLocalMessage("Error: Address or Slot name empty.");
+                    RandomizerMessageHandler.printErrorWithReason("Address or Slot name empty.");
                 }
             } catch (URISyntaxException e) {
-                //e.printStackTrace();
-                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]. Please verify " +
-                        "your login information in Settings -> Archipelago");
+                if (randomizer.debug) {
+                    e.printStackTrace();
+                }
+                RandomizerMessageHandler.printClientError("Connection failed. Please verify your " +
+                        "login information in Settings -> Archipelago.");
             }
         } else {
-            randomizer.sendLocalMessage("Error: You are already connected.");
+            RandomizerMessageHandler.printErrorWithReason("You are already connected.");
         }
     }
 

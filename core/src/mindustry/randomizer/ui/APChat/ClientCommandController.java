@@ -1,6 +1,9 @@
 package mindustry.randomizer.ui.APChat;
 
+import mindustry.randomizer.utils.ChatColor;
+
 import static mindustry.Vars.randomizer;
+import static mindustry.randomizer.enums.ApChatColors.*;
 
 /**
  * Manage chat client commands.
@@ -145,7 +148,7 @@ public class ClientCommandController {
      * @return Return the status of the option.
      */
     private String getActivationStatus(boolean status) {
-        return status ? "[#66C942]Activated[#FFFFFF]" : "[#DB3232]Deactivated[#FFFFFF]";
+        return status ? ChatColor.applyColor(GREEN, "Activated") : ChatColor.applyColor(RED, "Deactivated");
     }
 
     /**
@@ -156,11 +159,11 @@ public class ClientCommandController {
         String name;
         int campaign = randomizer.worldState.options.getCampaign();
         if (campaign == 0) { //Serpulo
-            name = "[#8738E0]Serpulo[#FFFFFF]";
+            name = ChatColor.applyColor(SERPULO, "Serpulo");
         } else if (campaign == 1) { //Erekir
-            name = "[#E06838]Erekir[#FFFFFF]";
+            name = ChatColor.applyColor(EREKIR, "Erekir");
         } else if (campaign == 2) { //All
-            name = "[#8738E0]Serpulo[#FFFFFF] and [#E06838]Erekir[#FFFFFF]";
+            name = ChatColor.applyColor(SERPULO, "Serpulo") + " and " + ChatColor.applyColor(EREKIR, "Erekir");
         } else {
             name = "Campaign name error";
         }
@@ -179,25 +182,25 @@ public class ClientCommandController {
         String status;
         switch (randomizer.client.connectionStatus) {
             case Success:
-                status = "[#66C942]Connected[#FFFFFF]";
+                status = ChatColor.applyColor(GREEN, "Connected");
                 break;
             case NotConnected:
-                status = "[#DB3232]Not connected[#FFFFFF]";
+                status = ChatColor.applyColor(RED, "Not connected");
                 break;
             case InvalidSlot:
-                status = "[#DB3232]Invalid slot name[#FFFFFF]";
+                status = ChatColor.applyColor(RED, "Invalid slot name");
                 break;
             case InvalidPassword:
-                status = "[#DB3232]Invalid password[#FFFFFF]";
+                status = ChatColor.applyColor(RED, "Invalid password");
                 break;
             case SlotAlreadyTaken:
-                status = "[#DB3232]Slot already taken[#FFFFFF]";
+                status = ChatColor.applyColor(RED, "Slot already taken");
                 break;
             case IncompatibleVersion:
-                status = "[#DB3232]Incompatible version[#FFFFFF]";
+                status = ChatColor.applyColor(RED, "Incompatible version");
                 break;
             default:
-                status = "[#DB3232]Error[#FFFFFF]";
+                status = ChatColor.applyColor(RED, "Unknown error");
                 break;
         }
         chat.addLocalMessage(new APMessage("Connection status: " + status));

@@ -1,6 +1,5 @@
 package mindustry.randomizer;
 
-import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -19,6 +18,8 @@ import java.util.Map;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.enums.ProgressiveItemType;
 import mindustry.randomizer.techtree.ApLocation;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
+
 import static mindustry.randomizer.enums.SettingStrings.*;
 
 import static arc.Core.settings;
@@ -185,8 +186,8 @@ public class WorldState {
         if (isMindustryAPItem(itemId)) {
             unlockedItems.add(itemId);
         } else {
-            Vars.randomizer.sendLocalMessage("ERROR: A non-Mindustry item (invalid id) was called" +
-                            " for addUnlockItem method.");
+            RandomizerMessageHandler.printErrorWithReason("Invalid item was called for unlock " +
+                    "(Invalid ID)");
         }
     }
 

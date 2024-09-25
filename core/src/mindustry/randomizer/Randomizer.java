@@ -4,7 +4,6 @@ import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 import static arc.Core.settings;
 
 import dev.koifysh.archipelago.ClientStatus;
-import dev.koifysh.archipelago.events.PrintJSONEvent;
 import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
@@ -13,9 +12,11 @@ import mindustry.randomizer.client.APClient;
 import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.randomizer.utils.EmptyFillerText;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
 import mindustry.type.Sector;
 
 import static mindustry.randomizer.enums.SettingStrings.*;
+import static mindustry.randomizer.enums.ApChatColors.*;
 
 
 /**
@@ -66,7 +67,7 @@ public class Randomizer {
             }
         } else {
             //DEBUG
-            sendLocalMessage("ERROR: Content that was null was called to unlock");
+            RandomizerMessageHandler.printErrorWithReason("Content that was null was called for unlock.");
         }
 
     }
@@ -85,8 +86,8 @@ public class Randomizer {
         if (!client.isConnected() || !success) {
             //Check could not be send, added to check pending list.
             worldState.addCheck(worldState.checkPending, locationId);
-            sendLocalMessage("ERROR: You are not connected, pending checks will be sent when " +
-                    "reconnected");
+            RandomizerMessageHandler.printErrorWithReason("You are not connected, pending checks " +
+                    "will be sent when reconnecting to the game.");
         }
         //Add location to checked list and save world state.
         worldState.addCheck(worldState.locationsChecked, locationId);
@@ -99,16 +100,16 @@ public class Randomizer {
     private void verifyVictoryConditions(Long locationId) {
         if (locationId - MINDUSTRY_BASE_ID == 998) { //Victory condition for Serpulo met.
            settings.put(SERPULO_VICTORY.value, true);
-           sendLocalMessage("Serpulo goal has been completed!");
+           RandomizerMessageHandler.printGoalCompleted(SERPULO, "Serpulo");
         }
         if (locationId - MINDUSTRY_BASE_ID == 999) { //Victory condition for Erekir met.
             settings.put(EREKIR_VICTORY.value, true);
-            sendLocalMessage("Erekir goal has been completed!");
+            RandomizerMessageHandler.printGoalCompleted(EREKIR, "Erekir");
         }
 
         if (worldState.isVictoryConditionMet()) {
             client.setGameState(ClientStatus.CLIENT_GOAL);
-            sendLocalMessage("All goals have been met!");
+            RandomizerMessageHandler.printAllGoalCompleted();
         }
     }
 
@@ -130,8 +131,8 @@ public class Randomizer {
             worldState.saveStates();
             sendLocalMessage("All pending check has been sent!");
         } else { //Not every check has been sent.
-            sendLocalMessage("ERROR: Pending check remaining. You can try to send the checks again by " +
-                    "reconnecting to Archipelago.");
+            RandomizerMessageHandler.printErrorWithReason("Pending check remaining. You can try " +
+                    "to send the checks again by reconnecting to Archipelago.");
         }
     }
 
@@ -164,24 +165,6 @@ public class Randomizer {
             }
         }
         return content;
-    }
-
-    @Deprecated
-    public void sendLocalMessageItemSendEvent(PrintJSONEvent event){
-        Long itemId = event.item.itemID;
-        String senderName = client.getPlayerName(event.item.playerID);
-        String senderGameName = client.getPlayerGame(event.item.playerID);
-        String receiverGameName = client.getPlayerGame(event.apPrint.receiving);
-        String itemName = client.getItemName(itemId, receiverGameName);
-        String locationName = client.getLocationName(event.item.locationID, senderGameName);
-
-        if (event.item.playerID == event.apPrint.receiving) { //Item is being received by the sender
-            sendLocalMessage(senderName + " found their " + itemName + "(" + locationName + ")");
-        } else { //The item is being received by someone else than the sender
-            String receiverName = client.getPlayerName(event.apPrint.receiving);
-            sendLocalMessage(senderName + " sent " + receiverName + " their " + itemName + "(" +
-                    locationName + ")");
-        }
     }
 
     public void sendDeathLink(String source, String cause){
@@ -353,8 +336,8 @@ public class Randomizer {
                     throw new RuntimeException("Invalid CampaignType");
             }
         } else {
-            //DEBUG
-            sendLocalMessage("ERROR: Options was not filled, cannot apply options");
+            RandomizerMessageHandler.printErrorWithReason("Options was not filled, cannot apply " +
+                    "options");
         }
     }
 

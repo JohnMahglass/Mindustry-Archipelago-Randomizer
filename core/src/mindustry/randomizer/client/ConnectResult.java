@@ -5,6 +5,7 @@ import dev.koifysh.archipelago.events.ConnectionResultEvent;
 import dev.koifysh.archipelago.helper.DeathLink;
 import dev.koifysh.archipelago.network.ConnectionResult;
 import mindustry.randomizer.enums.ConnectionStatus;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
 
 import static mindustry.Vars.randomizer;
 
@@ -40,29 +41,27 @@ public class ConnectResult {
                 // waiting to be sent to Archipelago
                 randomizer.sendPendingLocations();
             }
-            randomizer.sendLocalMessage("[#66C942]Connected[#FFFFFF] to '" + client.getAddress() + "'");
+            RandomizerMessageHandler.printSuccessfulConnection("'" + client.getAddress() + "'");
             if (randomizer.worldState.options.getTrueDeathLink()) {
                 DeathLink.setDeathLinkEnabled(true);
             }
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
-                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Invalid Slot Name.");
+                RandomizerMessageHandler.printFailedConnection("Invalid Slot name.");
             } else if (event.getResult() == ConnectionResult.InvalidPassword) {
                 client.connectionStatus = ConnectionStatus.InvalidPassword;
-                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Invalid Password.");
+                RandomizerMessageHandler.printFailedConnection("Invalid Password.");
             } else if (event.getResult() == ConnectionResult.SlotAlreadyTaken) {
                 client.connectionStatus = ConnectionStatus.SlotAlreadyTaken;
-                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Slot already taken.");
+                RandomizerMessageHandler.printFailedConnection("Slot already taken.");
             } else if (event.getResult() == ConnectionResult.IncompatibleVersion) {
                 client.connectionStatus = ConnectionStatus.IncompatibleVersion;
-                randomizer.sendLocalMessage("[#DB3232]Connection failed[#FFFFFF]: Incompatible version");
+                RandomizerMessageHandler.printFailedConnection("Incompatible version");
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
+                RandomizerMessageHandler.printFailedConnection("Unknown reason.");
             }
-            randomizer.sendLocalMessage("[#DB3232]Not connected[#FFFFFF]. To connect, go to " +
-                    "Settings -> " +
-                    "Archipelago");
         }
     }
 }

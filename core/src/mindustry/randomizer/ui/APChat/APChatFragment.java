@@ -20,7 +20,9 @@ import arc.util.Time;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.input.Binding;
+import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ItemsClassification;
+import mindustry.randomizer.utils.ChatColor;
 import mindustry.ui.Fonts;
 
 import static arc.Core.input;
@@ -30,6 +32,7 @@ import static mindustry.Vars.mobile;
 import static mindustry.Vars.player;
 import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
+import static mindustry.randomizer.enums.ApChatColors.*;
 
 /**
  * APChatFragment replacing ChatFragment. This chat can be used without multiplayer.
@@ -229,29 +232,27 @@ public class APChatFragment extends Table {
     private float drawItemMessage(float opacity, float textWidth, float theight, int i,
                              APMessage chatMessage) {
         String finalText;
-        String whiteColor = "[#FFFFFF]";
-        String mindustryPlayerColor = "[#edce32]";
-        String otherPlayerColor = "[#54e8d4]";
+
         String finderPlayer = getPlayerNameText(chatMessage);
         boolean isMindustryPlayer = randomizer.client.getSlotName().equals(finderPlayer);
         if (isMindustryPlayer) {
-            finderPlayer = mindustryPlayerColor + finderPlayer + whiteColor;
+            finderPlayer = ChatColor.applyColor(GOLD, finderPlayer);
         } else {
-            finderPlayer = otherPlayerColor + finderPlayer + whiteColor;
+            finderPlayer = ChatColor.applyColor(TEAL, finderPlayer);
         }
-        String itemColor = "[#FFFFFF]";
+        ApChatColors itemColor = WHITE; //Should only be white if it's a filler item.
         if (chatMessage.classification.equals(ItemsClassification.PROGRESSION)) {
-            itemColor = "[#8949C4]";
+            itemColor = PURPLE;
         } else if (chatMessage.classification.equals(ItemsClassification.USEFUL)) {
-            itemColor = "[#3A72BA]";
-        } else if (chatMessage.classification.equals(ItemsClassification.FILLER)) {
-            itemColor = "[#EB4F34]";
+            itemColor = BLUE;
+        } else if (chatMessage.classification.equals(ItemsClassification.TRAP)) {
+            itemColor = ORANGE;
         }
         String foundText = getFoundText(chatMessage);
         String itemText;
         String endText;
         itemText = chatMessage.message.get(2);
-        itemText = itemColor + itemText + whiteColor;
+        itemText = ChatColor.applyColor(itemColor, itemText);
         if (chatMessage.message.size() == 6) { //Player found their own item
             endText = getEndText(chatMessage);
             finalText = finderPlayer + foundText + itemText + endText;
@@ -259,9 +260,9 @@ public class APChatFragment extends Table {
             String receivingPlayer = chatMessage.message.get(4);
             isMindustryPlayer = randomizer.client.getSlotName().equals(chatMessage.message.get(4));
             if (isMindustryPlayer) {
-                receivingPlayer = mindustryPlayerColor + receivingPlayer + whiteColor;
+                receivingPlayer = ChatColor.applyColor(GOLD, receivingPlayer);
             } else {
-                receivingPlayer = otherPlayerColor + receivingPlayer + whiteColor;
+                receivingPlayer = ChatColor.applyColor(TEAL, receivingPlayer);
             }
             endText = getEndText(chatMessage);
             finalText =

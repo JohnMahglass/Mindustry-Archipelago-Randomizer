@@ -46,13 +46,9 @@ to capture sectors to make sure the player has a minimum amount of tools. You ca
 
 ### Windows
 	1. Download the latest release.
-
 	2. Extract the downloaded file in a directory.
-
 	3. Run "Mindustry-Archipelago.exe"
-
 	3. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
-
 	4. Have fun.
 
 ### Linux

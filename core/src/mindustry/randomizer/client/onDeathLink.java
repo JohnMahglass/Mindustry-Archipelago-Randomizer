@@ -3,6 +3,7 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.DeathLinkEvent;
 import mindustry.Vars;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
 
 /**
  * Called when receiving a death link event from the server.
@@ -17,7 +18,7 @@ public class onDeathLink {
             if (event.cause != null && !event.cause.isEmpty()) {
                 Vars.randomizer.sendLocalMessage(event.cause);
             } else {
-                Vars.randomizer.sendLocalMessage("Death link triggered by " + event.source);
+                RandomizerMessageHandler.printDeathLinkBounce(event.source);
             }
             if (!Vars.player.unit().dead) {
                 Vars.randomizer.worldState.deathLinkDying = true;
