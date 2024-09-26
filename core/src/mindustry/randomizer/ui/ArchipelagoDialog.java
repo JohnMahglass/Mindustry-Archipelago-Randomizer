@@ -9,9 +9,7 @@ import arc.util.Align;
 import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
-import mindustry.gen.Tex;
 import mindustry.randomizer.client.APClient;
-import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ConnectionStatus;
 import mindustry.randomizer.utils.ChatColor;
 import mindustry.ui.dialogs.BaseDialog;
@@ -148,7 +146,17 @@ public class ArchipelagoDialog extends BaseDialog {
         archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Chat options")).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
         archipelagoTable.row();
         archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
-
+        archipelagoTable.check("Disable chat", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),
+                bool -> {
+            newForceDisableDeathLink = bool;
+            forceDeathLinkChanged = true;
+        }).padBottom(1f).get().left();
+        archipelagoTable.row();
+        archipelagoTable.check("Allow only item messages related to self",
+                settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
+            newForceDisableDeathLink = bool;
+            forceDeathLinkChanged = true;
+        }).padBottom(1f).get().left();
 
         cont.add(pane);
         cont.row();
