@@ -1,20 +1,19 @@
 package mindustry.randomizer.ui;
 
 import arc.Core;
-import arc.KeyBinds.Section;
 import arc.graphics.Color;
-import arc.scene.ui.ButtonGroup;
-import arc.scene.ui.Label;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextField;
-import arc.scene.ui.layout.Stack;
+import arc.scene.ui.layout.Table;
 import arc.util.Align;
 import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ConnectionStatus;
+import mindustry.randomizer.utils.ChatColor;
 import mindustry.ui.dialogs.BaseDialog;
 
 import java.util.Timer;
@@ -27,6 +26,7 @@ import static mindustry.Vars.randomizer;
 import static mindustry.Vars.ui;
 import static mindustry.Vars.universe;
 import static mindustry.randomizer.enums.SettingStrings.*;
+import static mindustry.randomizer.enums.ApChatColors.*;
 
 /**
  * Dialog for Archipelago settings.
@@ -94,133 +94,151 @@ public class ArchipelagoDialog extends BaseDialog {
     private void setup() {
         Timer timerD = new Timer(true);
 
-        cont.table(Tex.button, t -> {
-            t.defaults().size(280f, 60f).left();
-            t.row();
-            t.add("Address: " + ((Core.settings.getString(CLIENT_ADDRESS.value) != null) ?
-                    Core.settings.getString(CLIENT_ADDRESS.value) : "Address not set"));
+        Table archipelagoTable = new Table();
+        ScrollPane pane = new ScrollPane(archipelagoTable);
+        pane.setScrollingDisabled(true, false);
 
-            t.row();
-            t.add("Player name: " + ((Core.settings.getString(CLIENT_NAME.value) != null ?
-                    Core.settings.getString(CLIENT_NAME.value) : "Name not set")));
+        archipelagoTable.defaults().padLeft(15f).size(280f, 60f).left();
 
-            t.row();
-            t.add("Password: " + ((Core.settings.getString(CLIENT_PASSWORD.value) != null ?
-                    obfuscatePassword() : "Password not set")));
+        archipelagoTable.defaults().size(280f, 60f).left();
+        archipelagoTable.row();
+        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Connection options")).width(archipelagoTable.getWidth())).get().left();
+        archipelagoTable.row();
+        archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
+        archipelagoTable.add("Address: " + ((Core.settings.getString(CLIENT_ADDRESS.value) != null) ?
+                Core.settings.getString(CLIENT_ADDRESS.value) : "Address not set"));
 
-            t.row();
-            t.add("Connection status: " + getConnectionStatus());
+        archipelagoTable.row();
+        archipelagoTable.add("Player name: " + ((Core.settings.getString(CLIENT_NAME.value) != null ?
+                Core.settings.getString(CLIENT_NAME.value) : "Name not set")));
 
-            t.row();
-            t.add("New Address: ");
-            t.field("", text -> {
-                newAddress = text;
-            }).maxTextLength(100);
+        archipelagoTable.row();
+        archipelagoTable.add("Password: " + ((Core.settings.getString(CLIENT_PASSWORD.value) != null ?
+                obfuscatePassword() : "Password not set")));
 
-            t.row();
-            t.add("New SlotName: ");
-            t.field("", text -> {
-                newSlotName = text;
-            }).maxTextLength(100);
+        archipelagoTable.row();
+        archipelagoTable.add("Connection status: " + getConnectionStatus());
 
-            t.row();
-            t.add("New Password: ");
-            t.add(passwordTextField).maxTextLength(100);
+        archipelagoTable.row();
+        archipelagoTable.add("New Address: ");
+        archipelagoTable.field("", text -> {
+            newAddress = text;
+        }).maxTextLength(100);
 
-            t.row();
-            t.check("Force disable death link", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
-                newForceDisableDeathLink = bool;
-                forceDeathLinkChanged = true;
-            }).grow().padBottom(55f).size(320f, 60f).get().align(Align.left);
+        archipelagoTable.row();
+        archipelagoTable.add("New SlotName: ");
+        archipelagoTable.field("", text -> {
+            newSlotName = text;
+        }).maxTextLength(100);
 
-            t.row();
-            t.button("Apply changes", () -> {
-                if (newAddress != null) {
-                    client.disconnect();
-                    client.setAddress(newAddress);
-                    settingChanged = true;
-                }
-                if (newSlotName != null) {
-                    client.disconnect();
-                    client.setSlotName(newSlotName);
-                    settingChanged = true;
-                }
-                if (!passwordTextField.getText().isEmpty() && !(passwordTextField.getText().equals(settings.getString(CLIENT_PASSWORD.value)))) {
-                    client.disconnect();
-                    client.setPassword(passwordTextField.getText());
-                    settingChanged = true;
-                    passwordTextField.clearText();
-                }
-                if (forceDeathLinkChanged) {
-                    randomizer.worldState.options.setForceDisableDeathLink(newForceDisableDeathLink);
-                    settingChanged = true;
-                    forceDeathLinkChanged = false;
-                }
-                if (settingChanged) {
-                    reload();
-                    settingChanged = false;
-                }
-            }).size(140f, 60f).pad(4f);
-            t.button("Refresh status", Icon.refreshSmall, this::reload).size(140f, 60f).pad(4f);
+        archipelagoTable.row();
+        archipelagoTable.add("New Password: ");
+        archipelagoTable.add(passwordTextField).maxTextLength(100);
 
-            t.row();
-            t.button("Connect", () -> {
-                if (client.isConnected()) {
-                    client.disconnect();
-                }
-                client.connectRandomizer();
+        archipelagoTable.row();
+        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Death link options")).width(archipelagoTable.getWidth())).get().left();
+        archipelagoTable.row();
+        archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(1).colspan(4).padTop(0).padBottom(1).row();
+        archipelagoTable.check("Force disable death link", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
+            newForceDisableDeathLink = bool;
+            forceDeathLinkChanged = true;
+        }).grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
 
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        verifyConnectionStatus();
-                        this.cancel();
-                    }
-                };
+        archipelagoTable.row();
+        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Chat options")).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
+        archipelagoTable.row();
+        archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
 
-                timerD.schedule(task, 1500);
-                reload();
-            }).size(140f, 60f).pad(4f);
-            t.button("Disconnect", () -> {
+
+        cont.add(pane);
+        cont.row();
+
+        Table buttonTable = new Table();
+
+        buttonTable.row();
+        buttonTable.button("Apply changes", () -> {
+            if (newAddress != null) {
                 client.disconnect();
-                reload();
-            }).size(140f, 60f).pad(4f);
-
-            t.row();
-            t.button("Clear data", Icon.trash, () -> {
-                ui.showConfirm("@confirm", "Wipe campaign/research/saves and Archipelago related data" +
-                                " and force exit the program. It is not recommended you use this " +
-                                "setting" + " unless you have finished playing a " + "game.",
-                        () -> {
-                            client.disconnect();
-                            randomizer.reset(); //Reset data related to Archipelago
-                            clearAllResearch(); //Reset all research
-                            control.saves.deleteAll(); //Delete all saves
-                            clearAllCampaign(); //Reset the campaign
-                            Core.app.exit(); //Force exit to reload game data
-
-                        });
-            }).size(150f, 60f).pad(4f);
-            t.button("Clear login info", Icon.eraser, () -> {
+                client.setAddress(newAddress);
+                settingChanged = true;
+            }
+            if (newSlotName != null) {
                 client.disconnect();
+                client.setSlotName(newSlotName);
+                settingChanged = true;
+            }
+            if (!passwordTextField.getText().isEmpty() && !(passwordTextField.getText().equals(settings.getString(CLIENT_PASSWORD.value)))) {
+                client.disconnect();
+                client.setPassword(passwordTextField.getText());
+                settingChanged = true;
                 passwordTextField.clearText();
-                client.setPassword("");
-
-                newAddress = "";
-                client.setAddress("");
-
-                newSlotName = "";
-                client.setSlotName("");
-
+            }
+            if (forceDeathLinkChanged) {
+                randomizer.worldState.options.setForceDisableDeathLink(newForceDisableDeathLink);
+                settingChanged = true;
+                forceDeathLinkChanged = false;
+            }
+            if (settingChanged) {
                 reload();
-            }).size(140f, 60f).pad(4f);
+                settingChanged = false;
+            }
+        }).size(150f, 60f).pad(4f);
+        buttonTable.button("Refresh status", Icon.refreshSmall, this::reload).size(150f, 60f).pad(4f);
 
-        });
+        buttonTable.row();
+        buttonTable.button("Connect", () -> {
+            if (client.isConnected()) {
+                client.disconnect();
+            }
+            client.connectRandomizer();
+
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    verifyConnectionStatus();
+                    this.cancel();
+                }
+            };
+
+            timerD.schedule(task, 1500);
+            reload();
+        }).size(150f, 60f).pad(4f);
+        buttonTable.button("Disconnect", () -> {
+            client.disconnect();
+            reload();
+        }).size(150f, 60f).pad(4f);
+
+        buttonTable.row();
+        buttonTable.button("Clear data", Icon.trash, () -> {
+            ui.showConfirm("@confirm", "Wipe campaign/research/saves and Archipelago related data" +
+                            " and force exit the program. It is not recommended you use this " +
+                            "setting" + " unless you have finished playing a " + "game.",
+                    () -> {
+                        client.disconnect();
+                        randomizer.reset(); //Reset data related to Archipelago
+                        clearAllResearch(); //Reset all research
+                        control.saves.deleteAll(); //Delete all saves
+                        clearAllCampaign(); //Reset the campaign
+                        Core.app.exit(); //Force exit to reload game data
+
+                    });
+        }).size(150f, 60f).pad(4f);
+        buttonTable.button("Clear login info", Icon.eraser, () -> {
+            client.disconnect();
+            passwordTextField.clearText();
+            client.setPassword("");
+
+            newAddress = "";
+            client.setAddress("");
+
+            newSlotName = "";
+            client.setSlotName("");
+
+            reload();
+        }).size(150f, 60f).pad(4f);
 
 
-
-
-
+        cont.add(buttonTable);
     }
 
     /**
