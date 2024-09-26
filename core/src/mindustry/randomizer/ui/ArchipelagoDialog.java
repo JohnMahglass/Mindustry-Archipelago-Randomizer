@@ -2,6 +2,7 @@ package mindustry.randomizer.ui;
 
 import arc.Core;
 import arc.graphics.Color;
+import arc.scene.ui.CheckBox;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextField;
 import arc.scene.ui.layout.Table;
@@ -52,10 +53,18 @@ public class ArchipelagoDialog extends BaseDialog {
      */
     private boolean newForceDisableDeathLink;
 
+    private boolean newDisableChat;
+
+    private boolean newAllowOnlySelfItemMessage;
+
     /**
      * True if the player has modified the force death link option box.
      */
     private boolean forceDeathLinkChanged;
+
+    private boolean disableChatChanged;
+
+    private boolean onlySelfItemChanged;
 
     /**
      * Set to true when a setting has been changed.
@@ -75,6 +84,10 @@ public class ArchipelagoDialog extends BaseDialog {
         this.settingChanged = false;
         this.newForceDisableDeathLink = false;
         this.forceDeathLinkChanged = false;
+        this.newDisableChat = false;
+        this.newAllowOnlySelfItemMessage = false;
+        this.disableChatChanged = false;
+        this.onlySelfItemChanged = false;
         setPasswordTextField();
         addCloseButton();
         setup();
@@ -140,23 +153,27 @@ public class ArchipelagoDialog extends BaseDialog {
         archipelagoTable.check("Force disable death link", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
             newForceDisableDeathLink = bool;
             forceDeathLinkChanged = true;
-        }).grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
+        }).tooltip("Disable death link even if it was choosen for the game generation.").grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
 
         archipelagoTable.row();
         archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Chat options")).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
         archipelagoTable.row();
         archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
-        archipelagoTable.check("Disable chat", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),
+
+
+        archipelagoTable.check("Disable chat", settings.getBool(AP_CHAT_DISABLED.value),
                 bool -> {
-            newForceDisableDeathLink = bool;
-            forceDeathLinkChanged = true;
-        }).padBottom(1f).get().left();
+            newDisableChat = bool;
+            disableChatChanged = true;
+        }).tooltip("Will not display any chat message from Archipelago").padBottom(1f).get().left();
         archipelagoTable.row();
-        archipelagoTable.check("Allow only item messages related to self",
-                settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
-            newForceDisableDeathLink = bool;
-            forceDeathLinkChanged = true;
-        }).padBottom(1f).get().left();
+        archipelagoTable.check("Self item only.",
+                settings.getBool(AP_CHAT_SELF_ITEM_ONLY.value),  bool -> {
+            newAllowOnlySelfItemMessage = bool;
+            onlySelfItemChanged = true;
+        }).tooltip("Only display item messages related to self in chat.").padBottom(1f).get().left();
+        archipelagoTable.row();
+
 
         cont.add(pane);
         cont.row();
@@ -185,6 +202,16 @@ public class ArchipelagoDialog extends BaseDialog {
                 randomizer.worldState.options.setForceDisableDeathLink(newForceDisableDeathLink);
                 settingChanged = true;
                 forceDeathLinkChanged = false;
+            }
+            if (onlySelfItemChanged){
+                settings.put(AP_CHAT_SELF_ITEM_ONLY.value, newAllowOnlySelfItemMessage);
+                settingChanged = true;
+                onlySelfItemChanged = false;
+            }
+            if (disableChatChanged) {
+                settings.put(AP_CHAT_DISABLED.value, newDisableChat);
+                settingChanged = true;
+                disableChatChanged = false;
             }
             if (settingChanged) {
                 reload();

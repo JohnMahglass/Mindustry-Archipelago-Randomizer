@@ -166,6 +166,8 @@ public class WorldState {
         settings.remove(EREKIR_RANDOMIZED_WEAPON_INCITE.value);
         settings.remove(EREKIR_RANDOMIZED_WEAPON_EMANATE.value);
         settings.remove(EREKIR_RANDOMIZED_WEAPON_INIT.value);
+        settings.remove(AP_CHAT_SELF_ITEM_ONLY.value);
+        settings.remove(AP_CHAT_DISABLED.value);
     }
 
     /**

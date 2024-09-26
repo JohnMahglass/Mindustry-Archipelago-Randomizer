@@ -17,7 +17,8 @@ public enum SettingStrings {
     SERPULO_VICTORY("APserpuloVictory"),
     EREKIR_VICTORY("APerekirVictory"),
     AP_SEED("APseed"),
-
+    AP_CHAT_DISABLED("APchatDisable"),
+    AP_CHAT_SELF_ITEM_ONLY("APchatSelfItemOnly"),
     RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
     RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon"),
     LOGISTIC_DISTRIBUTION("APlogisticDistribution"),
