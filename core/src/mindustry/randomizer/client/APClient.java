@@ -6,7 +6,9 @@ import dev.koifysh.archipelago.parts.DataPackage;
 import dev.koifysh.archipelago.parts.NetworkPlayer;
 import dev.koifysh.archipelago.parts.NetworkSlot;
 import mindustry.Vars;
+import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ConnectionStatus;
+import mindustry.randomizer.utils.ChatColor;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 
 import java.net.URISyntaxException;
@@ -81,8 +83,8 @@ public class APClient extends Client {
     @Override
     public void onClose(String Reason, int attemptingReconnect) { //onClose is triggering twice?
         if (!onCloseTriggered) { //Temporary
-            RandomizerMessageHandler.printErrorWithReason("Disconnected / Connection lost. " +
-                    "Offline checks will be saved and sent when connecting to the game again.");
+            randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, "Disconnected / Connection lost")  +
+                    ". Offline checks will be saved and sent when connecting to the game again.");
         }
         onCloseTriggered = true;
     }

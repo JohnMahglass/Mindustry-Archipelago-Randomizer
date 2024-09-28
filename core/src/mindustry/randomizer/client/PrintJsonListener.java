@@ -18,10 +18,17 @@ import static arc.Core.settings;
 public class PrintJsonListener {
     @ArchipelagoEventListener
     public void onPrintJson(PrintJSONEvent event) {
-        if (event.type.equals(APPrintJsonType.ItemSend)){
+        APPrintJsonType type = event.type;
+        if (type.equals(APPrintJsonType.ItemSend)){
             filterItemMessage(event);
         } else {
-            randomizer.sendLocalMessage(new APMessage(event));
+            if (settings.getBool(AP_CHAT_DISABLED.value)) {
+                if (type.equals(APPrintJsonType.Hint) || type.equals(APPrintJsonType.Tutorial)) {
+                    randomizer.sendLocalMessage(new APMessage(event));
+                }
+            } else {
+                randomizer.sendLocalMessage(new APMessage(event));
+            }
         }
 
     }
