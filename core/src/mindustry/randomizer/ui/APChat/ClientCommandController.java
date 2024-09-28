@@ -1,5 +1,7 @@
 package mindustry.randomizer.ui.APChat;
 
+import arc.Core;
+import mindustry.randomizer.enums.SettingStrings;
 import mindustry.randomizer.utils.ChatColor;
 
 import static mindustry.Vars.randomizer;
@@ -109,6 +111,7 @@ public class ClientCommandController {
                     "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
                     "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
                     "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
+                    "   Death link mode: " + getDeathLinkModeText() + "\n" +
                     "   Seed: " + randomizer.worldState.getSeed() + "\n" +
                     "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) + "\n" +
                     "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution())));
@@ -116,6 +119,27 @@ public class ClientCommandController {
             chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
                     "options."));
         }
+    }
+
+    private String getDeathLinkModeText() {
+        int mode = randomizer.worldState.options.getDeathLinkMode();
+        String modeText;
+        switch (mode) {
+            case 0:
+                modeText = "Core unit";
+                break;
+            case 1:
+                modeText = "Core";
+                break;
+            case 2:
+                int ammo = Core.settings.getInt(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
+                modeText = "Core russian roulette. 1/" + ammo + " ammo left.";
+                break;
+            default:
+                modeText = "Invalid mode";
+                break;
+        }
+        return modeText;
     }
 
     /**

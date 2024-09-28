@@ -168,6 +168,8 @@ public class WorldState {
         settings.remove(EREKIR_RANDOMIZED_WEAPON_INIT.value);
         settings.remove(AP_CHAT_SELF_ITEM_ONLY.value);
         settings.remove(AP_CHAT_DISABLED.value);
+        settings.remove(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
+        settings.remove(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value);
     }
 
     /**

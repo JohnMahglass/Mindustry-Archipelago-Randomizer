@@ -2,7 +2,6 @@ package mindustry.randomizer.ui;
 
 import arc.Core;
 import arc.graphics.Color;
-import arc.scene.ui.CheckBox;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextField;
 import arc.scene.ui.layout.Table;
@@ -53,6 +52,8 @@ public class ArchipelagoDialog extends BaseDialog {
      */
     private boolean newForceDisableDeathLink;
 
+    private boolean newDeathLinkProtectSector;
+
     private boolean newDisableChat;
 
     private boolean newAllowOnlySelfItemMessage;
@@ -61,6 +62,8 @@ public class ArchipelagoDialog extends BaseDialog {
      * True if the player has modified the force death link option box.
      */
     private boolean forceDeathLinkChanged;
+
+    private boolean deathLinkProtectedSectorChanged;
 
     private boolean disableChatChanged;
 
@@ -84,6 +87,8 @@ public class ArchipelagoDialog extends BaseDialog {
         this.settingChanged = false;
         this.newForceDisableDeathLink = false;
         this.forceDeathLinkChanged = false;
+        this.newDeathLinkProtectSector = false;
+        this.deathLinkProtectedSectorChanged = false;
         this.newDisableChat = false;
         this.newAllowOnlySelfItemMessage = false;
         this.disableChatChanged = false;
@@ -154,6 +159,12 @@ public class ArchipelagoDialog extends BaseDialog {
             newForceDisableDeathLink = bool;
             forceDeathLinkChanged = true;
         }).tooltip("Disable death link even if it was choosen for the game generation.").grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
+        archipelagoTable.row();
+        archipelagoTable.check("Protect captured sector", settings.getBool(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value),
+                bool -> {
+                     newDeathLinkProtectSector = bool;
+                     deathLinkProtectedSectorChanged = true;
+                }).tooltip("Death link signal will be ignored when playing in a captured sector").padBottom(1f).get().left();
 
         archipelagoTable.row();
         archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Chat options")).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
@@ -202,6 +213,11 @@ public class ArchipelagoDialog extends BaseDialog {
                 randomizer.worldState.options.setForceDisableDeathLink(newForceDisableDeathLink);
                 settingChanged = true;
                 forceDeathLinkChanged = false;
+            }
+            if (deathLinkProtectedSectorChanged) {
+                settings.put(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value, newDeathLinkProtectSector);
+                settingChanged = true;
+                deathLinkProtectedSectorChanged = false;
             }
             if (onlySelfItemChanged){
                 settings.put(AP_CHAT_SELF_ITEM_ONLY.value, newAllowOnlySelfItemMessage);

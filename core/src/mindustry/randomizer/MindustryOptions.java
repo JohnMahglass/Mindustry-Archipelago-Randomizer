@@ -6,11 +6,8 @@ import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.entities.abilities.Ability;
-import mindustry.entities.abilities.EnergyFieldAbility;
-import mindustry.gen.Player;
 import mindustry.gen.Unit;
 import mindustry.randomizer.client.SlotData;
-import mindustry.randomizer.enums.SettingStrings;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
 import mindustry.world.blocks.power.ThermalGenerator;
@@ -55,6 +52,11 @@ public class MindustryOptions {
      * If death link is activated
      */
     private boolean deathLink;
+
+    /**
+     * The death link mode selected by the player. If death link is not activated, does nothing.
+     */
+    private int deathLinkMode;
 
     /**
      * Disable death link even if it was chosen as an option for generation.
@@ -118,6 +120,10 @@ public class MindustryOptions {
      */
     public boolean getDeathLink() {
         return this.deathLink && !this.forceDisableDeathLink;
+    }
+
+    public int getDeathLinkMode() {
+        return this.deathLinkMode;
     }
 
     public boolean getRandomizeCoreUnitsWeapon(){
@@ -200,6 +206,9 @@ public class MindustryOptions {
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
+        //test
+        this.deathLinkMode = 2;
+        //test
         if (settings != null && settings.getBool(HAS_CONNECTED.value)) { //Player has connected to the game before
             loadOptions();
         } else { //Player never connected to the game and has not received options information.
@@ -214,6 +223,7 @@ public class MindustryOptions {
             this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
+                settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, 6);
             }
         }
     }
