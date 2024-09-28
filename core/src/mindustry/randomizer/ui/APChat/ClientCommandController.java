@@ -126,7 +126,7 @@ public class ClientCommandController {
         String modeText;
         switch (mode) {
             case 0:
-                modeText = "Core unit";
+                modeText = "Unit";
                 break;
             case 1:
                 modeText = "Core";

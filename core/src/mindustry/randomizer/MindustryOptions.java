@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static arc.Core.settings;
-import static mindustry.Vars.player;
 import static mindustry.Vars.randomizer;
 import static mindustry.randomizer.enums.SettingStrings.*;
 
@@ -187,6 +186,7 @@ public class MindustryOptions {
     public void fillOptions (SlotData slotData) {
         if (slotData != null) {
             this.deathLink = slotData.getDeathlink();
+            this.deathLinkMode = slotData.getDeathLinkMode();
             this.tutorialSkip = slotData.getTutorialSkip();
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
@@ -206,9 +206,6 @@ public class MindustryOptions {
      */
     public MindustryOptions() {
         //Do not use randomizer.hasConnectedPreviously since Vars.randomizer is null
-        //test
-        this.deathLinkMode = 2;
-        //test
         if (settings != null && settings.getBool(HAS_CONNECTED.value)) { //Player has connected to the game before
             loadOptions();
         } else { //Player never connected to the game and has not received options information.
@@ -218,6 +215,7 @@ public class MindustryOptions {
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
+            this.deathLinkMode = 0;
             this.randomizeCoreUnitsWeapon = false;
             this.logisticDistribution = 0;
             this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
@@ -517,6 +515,7 @@ public class MindustryOptions {
      */
     private void saveOptions() {
         settings.put(DEATH_LINK.value, getDeathLink());
+        settings.put(DEATH_LINK_MODE.value, getDeathLinkMode());
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
@@ -541,6 +540,7 @@ public class MindustryOptions {
      */
     private void loadOptions() {
         this.deathLink = settings.getBool(DEATH_LINK.value);
+        this.deathLinkMode = settings.getInt(DEATH_LINK_MODE.value);
         this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);

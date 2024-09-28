@@ -25,6 +25,9 @@ public class SlotData {
     @SerializedName("death_link")
     private boolean deathLink = false;
 
+    @SerializedName("death_link_mode")
+    private int deathLinkMode = 0;
+
     @SerializedName("randomize_core_units_weapon")
     private boolean randomizeCoreUnitsWeapon = false;
 
@@ -53,6 +56,10 @@ public class SlotData {
 
     public boolean getDeathlink() {
         return deathLink;
+    }
+
+    public int getDeathLinkMode() {
+        return deathLinkMode;
     }
 
     public boolean getRandomizeCoreUnitsWeapon() {

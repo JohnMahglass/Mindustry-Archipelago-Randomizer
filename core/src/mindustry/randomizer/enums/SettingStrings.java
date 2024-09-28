@@ -8,6 +8,7 @@ public enum SettingStrings {
     FASTER_PRODUCTION("APfasterProduction"),
     DISABLE_INVASIONS("APdisableInvasions"),
     DEATH_LINK("APdeathLink"),
+    DEATH_LINK_MODE("APdeathLinkMode"),
     FORCE_DISABLE_DEATH_LINK("APforceDisableDeathLink"),
     TUTORIAL_SKIP("APtutorialSkip"),
     CAMPAIGN_CHOICE("APcampaignChoice"),
