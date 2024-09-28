@@ -158,6 +158,21 @@ public class MindustryOptions {
         return filled;
     }
 
+    /**
+     * Return the local option 'disable chat'
+     * @return the value of disable chat
+     */
+    public boolean getDisableChat() {
+        return settings.getBool(AP_CHAT_DISABLED.value);
+    }
+
+    /**
+     * Return the local value of "Allow self item only"
+     * @return the value of allow self item only
+     */
+    public boolean getAllowOnlySelfItem() {
+        return settings.getBool(AP_CHAT_SELF_ITEM_ONLY.value);
+    }
 
     /**
      * Fill the options with the options received from AP
