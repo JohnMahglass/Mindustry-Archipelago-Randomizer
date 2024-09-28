@@ -51,11 +51,9 @@ public class Randomizer {
     /**
      * Unlock a UnlockableContent.
      */
-    public void unlock(Long id){
-        UnlockableContent content = itemIdToUnlockableContent(id);
+    public void unlock(Long id, UnlockableContent content){
         if (content != null) {
-            content.quietUnlock();
-            if (worldState.isProgressive(id)) { //Progressive is being looked twice?
+            if (worldState.isProgressive(id)) {
                 for (ProgressiveItem item : worldState.progressiveItems) {
                     if (item.id.equals(id) && !item.allReceived) {
                         item.amountItemReceived++;
@@ -65,11 +63,11 @@ public class Randomizer {
                     }
                 }
             }
+            content.quietUnlock();
         } else {
             //DEBUG
             RandomizerMessageHandler.printErrorWithReason("Content that was null was called for unlock.");
         }
-
     }
 
     /**

@@ -213,17 +213,10 @@ public class WorldState {
      * within the randomizer.
      * @return If the content is an AP item.
      */
-    public boolean isMindustryAPItem(Long itemId){ //Needs to be updated
+    public boolean isMindustryAPItem(Long itemId){
         boolean isMindustryItem = false;
         if (itemId != null) {
-            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 171) {
-                //Serpulo Item
-                isMindustryItem = true;
-            } else if (itemId >= MINDUSTRY_BASE_ID + 200 && itemId <= MINDUSTRY_BASE_ID + 343) {
-                //Erekir Item
-                isMindustryItem = true;
-            } else if (MINDUSTRY_BASE_ID + 700 == itemId) { //filler item temporary to prevent
-                // error message
+            if (itemId >= MINDUSTRY_BASE_ID && itemId <= MINDUSTRY_BASE_ID + 999) {
                 isMindustryItem = true;
             }
         }

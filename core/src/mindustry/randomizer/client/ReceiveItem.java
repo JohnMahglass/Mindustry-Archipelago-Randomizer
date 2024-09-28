@@ -21,7 +21,7 @@ public class ReceiveItem {
         UnlockableContent content = randomizer.itemIdToUnlockableContent(event.getItemID());
         if (content != null && !Core.settings.getBool(content.name + "-unlocked")) { //Making
             // sure the content is not already unlocked.
-            randomizer.unlock(event.getItemID());
+            randomizer.unlock(event.getItemID(), content);
             randomizer.worldState.saveStates();
         }
         randomizer.worldState.addUnlockedItem(event.getItemID());
