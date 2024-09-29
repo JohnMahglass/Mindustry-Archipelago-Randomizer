@@ -214,7 +214,7 @@ public class Universe{
                         sector.info.damage = Math.max(sector.info.damage, damage);
 
                         //check if the sector has been attacked too many times...
-                        if(attacked && damage >= 0.999f || randomizer.worldState.options.getDisableInvasions() && !sector.isCaptured()){
+                        if(attacked && damage >= 0.999f){
                             //fire event for losing the sector
                             Events.fire(new SectorLoseEvent(sector));
 
@@ -252,30 +252,32 @@ public class Universe{
                     }
 
                     //queue random invasions
-                    if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns){
-                        int count = sector.near().count(s -> s.hasEnemyBase() && !s.hasBase());
+                    if (!randomizer.worldState.options.getDisableInvasions()) {
+                        if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns){
+                            int count = sector.near().count(s -> s.hasEnemyBase() && !s.hasBase());
 
-                        //invasion chance depends on # of nearby bases
-                        if(count > 0 && Mathf.chance(baseInvasionChance * (0.8f + (count - 1) * 0.3f))){
-                            int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ? state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
+                            //invasion chance depends on # of nearby bases
+                            if(count > 0 && Mathf.chance(baseInvasionChance * (0.8f + (count - 1) * 0.3f))){
+                                int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ? state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
 
-                            //assign invasion-related things
-                            if(sector.isBeingPlayed()){
-                                state.rules.winWave = waveMax;
-                                state.rules.waves = true;
-                                state.rules.attackMode = false;
-                                //update rules in multiplayer
-                                if(net.server()){
-                                    Call.setRules(state.rules);
+                                //assign invasion-related things
+                                if(sector.isBeingPlayed()){
+                                    state.rules.winWave = waveMax;
+                                    state.rules.waves = true;
+                                    state.rules.attackMode = false;
+                                    //update rules in multiplayer
+                                    if(net.server()){
+                                        Call.setRules(state.rules);
+                                    }
+                                }else{
+                                    sector.info.winWave = waveMax;
+                                    sector.info.waves = true;
+                                    sector.info.attack = false;
+                                    sector.saveInfo();
                                 }
-                            }else{
-                                sector.info.winWave = waveMax;
-                                sector.info.waves = true;
-                                sector.info.attack = false;
-                                sector.saveInfo();
-                            }
 
-                            Events.fire(new SectorInvasionEvent(sector));
+                                Events.fire(new SectorInvasionEvent(sector));
+                            }
                         }
                     }
                 }
