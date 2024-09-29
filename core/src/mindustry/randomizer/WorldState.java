@@ -171,6 +171,7 @@ public class WorldState {
         settings.remove(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
         settings.remove(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value);
         settings.remove(DEATH_LINK_MODE.value);
+        settings.remove(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
     }
 
     /**

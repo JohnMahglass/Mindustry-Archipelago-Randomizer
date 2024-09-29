@@ -37,6 +37,9 @@ public class SlotData {
     @SerializedName("logistic_distribution")
     private int logisticDistribution = 0;
 
+    @SerializedName("make_early_roadblocks_local")
+    private boolean makeEarlyRoadblocksLocal = false;
+
 
     public boolean getTutorialSkip() {
         return tutorialSkip;
@@ -72,6 +75,10 @@ public class SlotData {
 
     public int getLogisticDistribution(){
         return logisticDistribution;
+    }
+
+    public boolean getMakeEarlyRoadblocksLocal() {
+        return this.makeEarlyRoadblocksLocal;
     }
 
 }

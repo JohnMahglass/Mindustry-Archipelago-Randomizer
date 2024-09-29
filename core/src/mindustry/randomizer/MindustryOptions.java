@@ -82,6 +82,11 @@ public class MindustryOptions {
      */
     private int logisticDistribution;
 
+    /**
+     * Make some research early local items.
+     */
+    private boolean makeEarlyRoadblocksLocal;
+
     private ArrayList<Ability[]> coreUnitAbilities;
 
     private ArrayList<Ability[]> getCoreUnitAbilities() {
@@ -149,6 +154,10 @@ public class MindustryOptions {
 
     }
 
+    public boolean getMakeEarlyRoadblocksLocal() {
+        return this.makeEarlyRoadblocksLocal;
+    }
+
     public int getCampaign() {
         return this.campaign;
     }
@@ -193,6 +202,7 @@ public class MindustryOptions {
             this.campaign = slotData.getCampaignChoice();
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.logisticDistribution = slotData.getLogisticDistribution();
+            this.makeEarlyRoadblocksLocal = slotData.getMakeEarlyRoadblocksLocal();
 
             this.optionsFilled = true;
             saveOptions();
@@ -218,6 +228,7 @@ public class MindustryOptions {
             this.deathLinkMode = 0;
             this.randomizeCoreUnitsWeapon = false;
             this.logisticDistribution = 0;
+            this.makeEarlyRoadblocksLocal = false;
             this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
@@ -522,6 +533,7 @@ public class MindustryOptions {
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
         settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
+        settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
         if (getTutorialSkip()) {
             if (getCampaign() == 0) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
@@ -548,6 +560,8 @@ public class MindustryOptions {
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
+        this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
+
         this.optionsFilled = true;
         if (this.randomizeCoreUnitsWeapon) {
             if (getCampaign() == 0) { //Serpulo

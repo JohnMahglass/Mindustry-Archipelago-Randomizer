@@ -114,7 +114,8 @@ public class ClientCommandController {
                     "   Death link mode: " + getDeathLinkModeText() + "\n" +
                     "   Seed: " + randomizer.worldState.getSeed() + "\n" +
                     "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) + "\n" +
-                    "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution())));
+                    "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution()) + "\n" +
+                    "   Make early roadblocks local: " + getActivationStatus(randomizer.worldState.options.getMakeEarlyRoadblocksLocal())));
         } else {
             chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
                     "options."));

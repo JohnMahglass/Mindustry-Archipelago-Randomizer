@@ -20,6 +20,7 @@ public enum SettingStrings {
     AP_SEED("APseed"),
     AP_CHAT_DISABLED("APchatDisable"),
     AP_CHAT_SELF_ITEM_ONLY("APchatSelfItemOnly"),
+    AP_MAKE_EARLY_ROADBLOCKS_LOCAL("APmakeEarlyRoadblocksLocal"),
     AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO("APdeathLinkRussianRouletteAmmo"),
     AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR("APdeathLinkProtectCapturedSector"),
     RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
