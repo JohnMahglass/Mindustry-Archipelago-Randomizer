@@ -198,7 +198,7 @@ public abstract class RandomizableCoreUnits {
         fortressWeapons.add(new Weapon("artillery"){{
             top = false;
             y = 1f;
-            x = 9f;
+            x = 7f;
             reload = 60f;
             recoil = 4f;
             shake = 2f;
@@ -223,7 +223,7 @@ public abstract class RandomizableCoreUnits {
         scepterWeapons1.add(new Weapon("scepter-weapon"){{
             top = false;
             y = 1f;
-            x = 16f;
+            x = 8f;
             shootY = 8f;
             reload = 45f;
             recoil = 5f;
@@ -252,8 +252,8 @@ public abstract class RandomizableCoreUnits {
         Seq<Weapon> scepterWeapons2 = new Seq<>();
         scepterWeapons2.add(new Weapon("mount-weapon"){{
             reload = 13f;
-            x = 8.5f;
-            y = 6f;
+            x = 4.5f;
+            y = 3f;
             rotate = true;
             ejectEffect = Fx.casing1;
             bullet = new BasicBulletType(3f, 10){{
@@ -264,8 +264,8 @@ public abstract class RandomizableCoreUnits {
         }});
         scepterWeapons2.add(new Weapon("mount-weapon"){{
             reload = 16f;
-            x = 8.5f;
-            y = -7f;
+            x = 4.5f;
+            y = -4f;
             rotate = true;
             ejectEffect = Fx.casing1;
             bullet = new BasicBulletType(3f, 10){{
@@ -280,7 +280,7 @@ public abstract class RandomizableCoreUnits {
         reignWeapons.add(new Weapon("reign-weapon"){{
             top = false;
             y = 1f;
-            x = 21.5f;
+            x = 10f;
             shootY = 11f;
             reload = 9f;
             recoil = 5f;
@@ -453,20 +453,6 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(velaWeapons1);
 
-        Seq<Weapon> velaWeapons2 = new Seq<>();
-        velaWeapons2.add(new RepairBeamWeapon("repair-beam-weapon-center-large"){{
-            x = 44 / 4f;
-            y = -30f / 4f;
-            shootY = 6f;
-            beamWidth = 0.8f;
-            repairSpeed = 1.4f;
-
-            bullet = new BulletType(){{
-                maxRange = 120f;
-            }};
-        }});
-        coreUnitweapons.add(velaWeapons2); //Need testing
-
         Seq<Weapon> corvusWeapons = new Seq<>();
         corvusWeapons.add(new Weapon("corvus-weapon"){{
             shootSound = Sounds.laserblast;
@@ -573,7 +559,7 @@ public abstract class RandomizableCoreUnits {
             rotate = true;
             shootSound = Sounds.sap;
 
-            x = 8.5f;
+            x = 6.5f;
             y = -1.5f;
 
             bullet = new SapBulletType(){{
@@ -594,8 +580,8 @@ public abstract class RandomizableCoreUnits {
         spiroctWeapons2.add(new Weapon("mount-purple-weapon"){{
             reload = 18f;
             rotate = true;
-            x = 4f;
-            y = 3f;
+            x = 4.5f;
+            y = 1f;
             shootSound = Sounds.sap;
 
             bullet = new SapBulletType(){{
@@ -614,8 +600,8 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> arkyidWeapons1 = new Seq<>();
         arkyidWeapons1.add(new Weapon("large-purple-mount"){{
-            y = -7f;
-            x = 9f;
+            y = -2f;
+            x = 8f;
             shootY = 7f;
             reload = 45;
             shake = 3f;
@@ -651,8 +637,8 @@ public abstract class RandomizableCoreUnits {
         Seq<Weapon> arkyidWeapons2 = new Seq<>();
         arkyidWeapons2.add(new Weapon("spiroct-weapon"){{
             reload = 9f;
-            x = 4f;
-            y = 8f;
+            x = 2.5f;
+            y = 2.5f;
             rotate = true;
             bullet = new SapBulletType(){{
                 sapStrength = 0.85f;
@@ -669,8 +655,8 @@ public abstract class RandomizableCoreUnits {
         }});
         arkyidWeapons2.add(new Weapon("spiroct-weapon"){{
             reload = 14f;
-            x = 9f;
-            y = 6f;
+            x = 5f;
+            y = 0f;
             rotate = true;
             bullet = new SapBulletType(){{
                 sapStrength = 0.85f;
@@ -687,8 +673,8 @@ public abstract class RandomizableCoreUnits {
         }});
         arkyidWeapons2.add(new Weapon("spiroct-weapon"){{
             reload = 22f;
-            x = 14f;
-            y = 0f;
+            x = 3f;
+            y = -2f;
             rotate = true;
             bullet = new SapBulletType(){{
                 sapStrength = 0.85f;
@@ -707,8 +693,8 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> toxopidWeapons1 = new Seq<>();
         toxopidWeapons1.add(new Weapon("large-purple-mount"){{
-            y = -5f;
-            x = 11f;
+            y = -2f;
+            x = 8f;
             shootY = 7f;
             reload = 30;
             shake = 4f;
@@ -739,7 +725,7 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> toxopidWeapons2 = new Seq<>();
         toxopidWeapons2.add(new Weapon("toxopid-cannon"){{
-            y = -14f;
+            y = -1f;
             x = 0f;
             shootY = 22f;
             mirror = false;
@@ -849,7 +835,7 @@ public abstract class RandomizableCoreUnits {
         Seq<Weapon> zenithWeapons = new Seq<>();
         zenithWeapons.add(new Weapon("zenith-missiles"){{
             reload = 40f;
-            x = 7f;
+            x = 6.5f;
             rotate = true;
             shake = 1f;
             shoot.shots = 2;
@@ -880,8 +866,8 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> antumbraWeapons1 = new Seq<>();
         antumbraWeapons1.add(new Weapon("large-bullet-mount"){{
-                                y = 2f;
-                                x = 10f;
+                                y = 0f;
+                                x = 7f;
                                 shootY = 10f;
                                 reload = 12;
                                 shake = 1f;
@@ -901,8 +887,8 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> antumbraWeapons2 = new Seq<>();
         antumbraWeapons2.add(new Weapon("missiles-mount"){{
-            y = 8f;
-            x = 17f;
+            y = 3f;
+            x = 5.5f;
             reload = 20f;
             ejectEffect = Fx.casing1;
             rotateSpeed = 8f;
@@ -926,8 +912,8 @@ public abstract class RandomizableCoreUnits {
             shadow = 6f;
         }});
         antumbraWeapons2.add(new Weapon("missiles-mount"){{
-            y = -8f;
-            x = 17f;
+            y = -3.5f;
+            x = 5.5f;
             reload = 35;
             rotateSpeed = 8f;
             ejectEffect = Fx.casing1;
@@ -956,8 +942,8 @@ public abstract class RandomizableCoreUnits {
         eclipseWeapons1.add(new Weapon("large-laser-mount"){{
             shake = 4f;
             shootY = 9f;
-            x = 18f;
-            y = 5f;
+            x = 11f;
+            y = 0f;
             rotateSpeed = 2f;
             reload = 45f;
             recoil = 4f;
@@ -980,8 +966,8 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> eclipseWeapons2 = new Seq<>();
         eclipseWeapons2.add(new Weapon("large-artillery"){{
-            x = 11f;
-            y = 27f;
+            x = 5f;
+            y = 5f;
             rotateSpeed = 2f;
             reload = 9f;
             shootSound = Sounds.shoot;
@@ -1002,8 +988,8 @@ public abstract class RandomizableCoreUnits {
             }};
         }});
         eclipseWeapons2.add(new Weapon("large-artillery"){{
-            y = -13f;
-            x = 20f;
+            y = -4f;
+            x = 7f;
             reload = 12f;
             ejectEffect = Fx.casing1;
             rotateSpeed = 7f;
@@ -1064,8 +1050,8 @@ public abstract class RandomizableCoreUnits {
         megaWeapons.add(new Weapon("heal-weapon-mount"){{
             shootSound = Sounds.lasershoot;
             reload = 24f;
-            x = 8f;
-            y = -6f;
+            x = 4.5f;
+            y = -3f;
             rotate = true;
             bullet = new LaserBoltBulletType(5.2f, 10){{
                 lifetime = 35f;
@@ -1078,8 +1064,8 @@ public abstract class RandomizableCoreUnits {
         megaWeapons.add(new Weapon("heal-weapon-mount"){{
             shootSound = Sounds.lasershoot;
             reload = 15f;
-            x = 4f;
-            y = 5f;
+            x = 3f;
+            y = 2f;
             rotate = true;
             bullet = new LaserBoltBulletType(5.2f, 8){{
                 lifetime = 35f;
@@ -1144,7 +1130,7 @@ public abstract class RandomizableCoreUnits {
             reload = 13f;
             x = 4f;
             shootY = 4f;
-            y = 1.5f;
+            y = 1f;
             rotate = true;
             ejectEffect = Fx.casing1;
             bullet = new BasicBulletType(2.5f, 9){{
@@ -1190,7 +1176,7 @@ public abstract class RandomizableCoreUnits {
         minkeWeapons1.add(new Weapon("mount-weapon"){{
             reload = 10f;
             x = 5f;
-            y = 3.5f;
+            y = 0.5f;
             rotate = true;
             rotateSpeed = 5f;
             inaccuracy = 8f;
@@ -1276,8 +1262,8 @@ public abstract class RandomizableCoreUnits {
         Seq<Weapon> brydeWeapons2 = new Seq<>();
         brydeWeapons2.add(new Weapon("missiles-mount"){{
             reload = 20f;
-            x = 8.5f;
-            y = -9f;
+            x = 6.5f;
+            y = -1f;
 
             shadow = 6f;
 
@@ -1316,8 +1302,8 @@ public abstract class RandomizableCoreUnits {
         seiWeapons1.add(new Weapon("sei-launcher"){{
 
             x = 0f;
-            y = 0f;
-            rotate = true;
+            y = 3f;
+            rotate = false;
             rotateSpeed = 4f;
             mirror = false;
 
@@ -1365,10 +1351,10 @@ public abstract class RandomizableCoreUnits {
         seiWeapons2.add(new Weapon("large-bullet-mount"){{
             reload = 60f;
             cooldownTime = 90f;
-            x = 70f/4f;
-            y = -66f/4f;
+            x = 6f;
+            y = -2f;
             rotateSpeed = 4f;
-            rotate = true;
+            rotate = false;
             shootY = 7f;
             shake = 2f;
             recoil = 3f;
@@ -1440,8 +1426,8 @@ public abstract class RandomizableCoreUnits {
 
             reload = 5f;
             x = 4.5f;
-            y = 6.5f;
-            rotate = true;
+            y = 1.5f;
+            rotate = false;
             rotateSpeed = 5f;
             inaccuracy = 10f;
             ejectEffect = Fx.casing1;
@@ -1495,8 +1481,8 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> cyerceWeapons1 = new Seq<>();
         cyerceWeapons1.add(new RepairBeamWeapon("repair-beam-weapon-center"){{
-            x = 11f;
-            y = -10f;
+            x = 4f;
+            y = -6f;
             shootY = 6f;
             beamWidth = 0.8f;
             repairSpeed = 0.7f;
@@ -1504,19 +1490,19 @@ public abstract class RandomizableCoreUnits {
             bullet = new BulletType(){{
                 maxRange = 130f;
             }};
-        }}); //need to test
+        }});
         coreUnitweapons.add(cyerceWeapons1);
 
         Seq<Weapon> cyerceWeapons2 = new Seq<>();
         cyerceWeapons2.add(new Weapon("plasma-missile-mount"){{
             reload = 60f;
-            x = 9f;
-            y = 3f;
+            x = 5f;
+            y = 4f;
 
             shadow = 5f;
 
             rotateSpeed = 4f;
-            rotate = true;
+            rotate = false;
             inaccuracy = 1f;
             velocityRnd = 0.1f;
             shootSound = Sounds.missile;
@@ -1615,9 +1601,9 @@ public abstract class RandomizableCoreUnits {
         coreUnitweapons.add(cyerceWeapons2);
 
         Seq<Weapon> aegiresWeapons = new Seq<>();
-        for(float mountY : new float[]{-18f, 14}){
+        for(float mountY : new float[]{-4f, 3}){
             aegiresWeapons.add(new PointDefenseWeapon("point-defense-mount"){{
-                x = 12.5f;
+                x = 5f;
                 y = mountY;
                 reload = 4f;
                 targetInterval = 8f;
@@ -1634,7 +1620,7 @@ public abstract class RandomizableCoreUnits {
         coreUnitweapons.add(aegiresWeapons);
 
         Seq<Weapon> navanaxWeapons1 = new Seq<>();
-        for(float mountY : new float[]{-117/4f, 50/4f}){
+        for(float mountY : new float[]{-5f, 6f}){
             for(float sign : Mathf.signs){
                 navanaxWeapons1.add(new Weapon("plasma-laser-mount"){{
                     shadow = 20f;
@@ -1644,7 +1630,7 @@ public abstract class RandomizableCoreUnits {
                     shake = 3f;
                     shootY = 7f;
                     rotate = true;
-                    x = 84f/4f * sign;
+                    x = 8f * sign;
                     y = mountY;
 
                     targetInterval = 20f;
@@ -1689,8 +1675,8 @@ public abstract class RandomizableCoreUnits {
         navanaxWeapons2.add(new Weapon("emp-cannon-mount"){{
             rotate = true;
 
-            x = 70f/4f;
-            y = -26f/4f;
+            x = 10f;
+            y = -3f;
 
             reload = 65f;
             shake = 3f;
@@ -1844,7 +1830,7 @@ public abstract class RandomizableCoreUnits {
             reload = 50f;
             shootY = 4.5f;
             recoil = 1f;
-            rotate = true;
+            rotate = false;
             rotateSpeed = 2.2f;
             mirror = false;
             x = 0f;
@@ -1876,7 +1862,7 @@ public abstract class RandomizableCoreUnits {
             reload = 18f;
             shootY = 10f;
             recoil = 1f;
-            rotate = true;
+            rotate = false;
             rotateSpeed = 1.4f;
             mirror = false;
             shootCone = 2f;
@@ -1944,12 +1930,12 @@ public abstract class RandomizableCoreUnits {
             reload = 80f;
             shootY = 16f;
             recoil = 3f;
-            rotate = true;
+            rotate = false;
             rotateSpeed = 1.3f;
             mirror = false;
             shootCone = 2f;
             x = 0f;
-            y = -1f;
+            y = 2.5f;
             heatColor = Color.valueOf("f9350f");
             cooldownTime = 30f;
             bullet = new BasicBulletType(7f, 120){{
@@ -2005,11 +1991,11 @@ public abstract class RandomizableCoreUnits {
             shootY = 71f / 4f;
             shake = 5f;
             recoil = 4f;
-            rotate = true;
+            rotate = false;
             rotateSpeed = 1f;
             mirror = false;
             x = 0f;
-            y = 0;
+            y = 3f;
             shadow = 28f;
             heatColor = Color.valueOf("f9350f");
             cooldownTime = 80f;
@@ -2060,15 +2046,15 @@ public abstract class RandomizableCoreUnits {
 
         Seq<Weapon> vanquishWeapons2 = new Seq<>();
         int i = 0;
-        for(float f : new float[]{34f / 4f, -36f / 4f}){
+        for(float f : new float[]{3f, -5.5f }){
             int fi = i ++;
             vanquishWeapons2.add(new Weapon("vanquish-point-weapon"){{
                 reload = 35f + fi * 5;
-                x = 48f / 4f;
+                x = 5f;
                 y = f;
                 shootY = 5.5f;
                 recoil = 2f;
-                rotate = true;
+                rotate = false;
                 rotateSpeed = 2f;
 
                 bullet = new BasicBulletType(4.5f, 25){{
@@ -2094,11 +2080,11 @@ public abstract class RandomizableCoreUnits {
             shootY = 32.5f;
             shake = 5f;
             recoil = 5f;
-            rotate = true;
+            rotate = false;
             rotateSpeed = 0.6f;
             mirror = false;
             x = 0f;
-            y = -2f;
+            y = 2f;
             shadow = 50f;
             heatColor = Color.valueOf("f9350f");
             shootWarmupSpeed = 0.06f;
@@ -2296,7 +2282,7 @@ public abstract class RandomizableCoreUnits {
         cleroiWeapons1.add(new Weapon("cleroi-weapon"){{
             shootSound = Sounds.blaster;
             x = 14f / 4f;
-            y = 33f / 4f;
+            y = 3f;
             reload = 30f;
             layerOffset = -0.002f;
             alternate = false;
@@ -2345,7 +2331,7 @@ public abstract class RandomizableCoreUnits {
         Seq<Weapon> cleroiWeapons2 = new Seq<>();
         cleroiWeapons2.add(new PointDefenseWeapon("cleroi-point-defense"){{
             x = 16f / 4f;
-            y = -20f / 4f;
+            y = -3f;
             reload = 9f;
 
             targetInterval = 9f;
@@ -2368,7 +2354,7 @@ public abstract class RandomizableCoreUnits {
             mirror = true;
             top = false;
 
-            x = 62/4f;
+            x = 8f;
             y = 1f;
             shootY = 47 / 4f;
             recoil = 3f;
@@ -2426,9 +2412,9 @@ public abstract class RandomizableCoreUnits {
             mirror = true;
             rotationLimit = 30f;
             rotateSpeed = 0.4f;
-            rotate = true;
+            rotate = false;
 
-            x = 48 / 4f;
+            x = 8.5f;
             y = -28f / 4f;
             shootY = 64f / 4f;
             recoil = 4f;
@@ -2587,7 +2573,7 @@ public abstract class RandomizableCoreUnits {
             shootSound = Sounds.blaster;
             reload = 35f;
             x = 0f;
-            y = 6.5f;
+            y = 5.5f;
             shootY = 5f;
             recoil = 1f;
             top = false;
@@ -2696,52 +2682,6 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(obviateWeapons);
 
-        Seq<Weapon> quellWeapons = new Seq<>();
-        quellWeapons.add(new Weapon("quell-weapon"){{
-            shootSound = Sounds.missileSmall;
-            x = 51 / 4f;
-            y = 5 / 4f;
-            rotate = true;
-            rotateSpeed = 2f;
-            reload = 55f;
-            layerOffset = -0.001f;
-            recoil = 1f;
-            rotationLimit = 60f;
-
-            bullet = new BulletType(){{
-                shootEffect = Fx.shootBig;
-                smokeEffect = Fx.shootBigSmoke2;
-                shake = 1f;
-                speed = 0f;
-                keepVelocity = false;
-                collidesAir = false;
-
-                spawnUnit = new MissileUnitType("quell-missile-ap"){{
-                    display = false;
-                    targetAir = false;
-                    speed = 4.3f;
-                    maxRange = 6f;
-                    lifetime = 60f * 1.4f;
-                    outlineColor = Pal.darkOutline;
-                    engineColor = trailColor = Pal.sapBulletBack;
-                    engineLayer = Layer.effect;
-                    health = 45;
-                    loopSoundVolume = 0.1f;
-
-                    weapons.add(new Weapon(){{
-                        shootCone = 360f;
-                        mirror = false;
-                        reload = 1f;
-                        shootOnDeath = true;
-                        bullet = new ExplosionBulletType(110f, 25f){{
-                            shootEffect = Fx.massiveExplosion;
-                            collidesAir = false;
-                        }};
-                    }});
-                }};
-            }};
-        }});
-        coreUnitweapons.add(quellWeapons);
 
         return coreUnitweapons;
     }

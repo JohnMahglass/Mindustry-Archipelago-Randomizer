@@ -23,6 +23,7 @@ public enum SettingStrings {
     AP_MAKE_EARLY_ROADBLOCKS_LOCAL("APmakeEarlyRoadblocksLocal"),
     AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO("APdeathLinkRussianRouletteAmmo"),
     AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR("APdeathLinkProtectCapturedSector"),
+    AMOUNT_OF_RESOURCES_REQUIRED("APamountOfResourcesRequired"),
     RANDOMIZE_BLOCK_SIZE("APrandomizeBlockSize"),
     RANDOMIZE_CORE_UNITS_WEAPON("APrandomizeCoreUnitsWeapon"),
     LOGISTIC_DISTRIBUTION("APlogisticDistribution"),

@@ -40,6 +40,9 @@ public class SlotData {
     @SerializedName("make_early_roadblocks_local")
     private boolean makeEarlyRoadblocksLocal = false;
 
+    @SerializedName("amount_of_resources_required")
+    private int amountOfResourcesRequired = 2000;
+
 
     public boolean getTutorialSkip() {
         return tutorialSkip;
@@ -79,6 +82,10 @@ public class SlotData {
 
     public boolean getMakeEarlyRoadblocksLocal() {
         return this.makeEarlyRoadblocksLocal;
+    }
+
+    public int getAmountOfResourcesRequired() {
+        return this.amountOfResourcesRequired;
     }
 
 }

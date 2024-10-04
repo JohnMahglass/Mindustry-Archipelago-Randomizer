@@ -187,17 +187,20 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
         //TODO might be unnecessary with no asteroids
         Seq<Objectives.Objective> erekirSector = Seq.with(new Objectives.OnPlanet(Planets.erekir));
 
+        /*
         var costMultipliers = new ObjectFloatMap<Item>();
         for(var item : content.items()) costMultipliers.put(item, 0.9f);
+
+
 
         //these are hard to make
         costMultipliers.put(Items.oxide, 0.5f);
         costMultipliers.put(Items.surgeAlloy, 0.7f);
         costMultipliers.put(Items.carbide, 0.3f);
         costMultipliers.put(Items.phaseFabric, 0.2f);
+         */
 
         Planets.erekir.techTree = nodeRoot("erekir", coreBastion, true, () -> {
-            context().researchCostMultipliers = costMultipliers;
 
             node(duct, erekirSector, () -> {
                 apNode(createApLocation("AP-E-01-02", ductRouter, 201L), () -> {

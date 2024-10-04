@@ -83,6 +83,11 @@ public class MindustryOptions {
     private int logisticDistribution;
 
     /**
+     * The amount of resources required to unlock the victory nodes.
+     */
+    private int amountOfResourcesRequired;
+
+    /**
      * Make some research early local items.
      */
     private boolean makeEarlyRoadblocksLocal;
@@ -135,6 +140,10 @@ public class MindustryOptions {
     }
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
+    }
+
+    public int getAmountOfResourcesRequired() {
+        return this.amountOfResourcesRequired;
     }
 
     /**
@@ -203,6 +212,7 @@ public class MindustryOptions {
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.logisticDistribution = slotData.getLogisticDistribution();
             this.makeEarlyRoadblocksLocal = slotData.getMakeEarlyRoadblocksLocal();
+            this.amountOfResourcesRequired = slotData.getAmountOfResourcesRequired();
 
             this.optionsFilled = true;
             saveOptions();
@@ -229,6 +239,7 @@ public class MindustryOptions {
             this.randomizeCoreUnitsWeapon = false;
             this.logisticDistribution = 0;
             this.makeEarlyRoadblocksLocal = false;
+            this.amountOfResourcesRequired = 2000;
             this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
@@ -293,7 +304,9 @@ public class MindustryOptions {
     private static void randomizeSerpuloCoreUnitsWeapon(ArrayList<Seq<Weapon>> coreUnitWeapons) {
         Random random = new Random(settings.getInt(AP_SEED.value));
         UnitTypes.alpha.weapons.clear();
-        UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
+        //UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size
+        // () - 1)));
+        UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(16)); // 62
 
         UnitTypes.beta.weapons.clear();
         UnitTypes.beta.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
@@ -534,6 +547,7 @@ public class MindustryOptions {
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
         settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
+        settings.put(AMOUNT_OF_RESOURCES_REQUIRED.value, getAmountOfResourcesRequired());
         if (getTutorialSkip()) {
             if (getCampaign() == 0) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
@@ -561,6 +575,7 @@ public class MindustryOptions {
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
+        this.amountOfResourcesRequired = settings.getInt(AMOUNT_OF_RESOURCES_REQUIRED.value);
 
         this.optionsFilled = true;
         if (this.randomizeCoreUnitsWeapon) {

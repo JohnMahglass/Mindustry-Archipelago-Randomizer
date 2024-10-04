@@ -107,6 +107,7 @@ public class ClientCommandController {
         if (randomizer.worldState.options.getOptionsFilled()) {
             chat.addLocalMessage(new APMessage("Options:\n" +
                     "   Selected campaign: " + getCampaignName() + "\n" +
+                    "   Amount of resources required: " + getAmountofResourcesRequired() + "\n" +
                     "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
                     "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
                     "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
@@ -193,6 +194,10 @@ public class ClientCommandController {
             name = "Campaign name error";
         }
         return name;
+    }
+
+    private int getAmountofResourcesRequired() {
+        return randomizer.worldState.options.getAmountOfResourcesRequired();
     }
 
     /**

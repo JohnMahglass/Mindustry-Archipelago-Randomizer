@@ -1165,7 +1165,7 @@ public class Blocks{
             itemCapacity = 30;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawArcSmelt(), new DrawDefault());
             fogRadius = 3;
-            researchCost = with(Items.beryllium, 150, Items.graphite, 50);
+            researchCost = with(Items.beryllium, 135, Items.graphite, 45);
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.12f;
 
@@ -1177,7 +1177,8 @@ public class Blocks{
             requirements(Category.crafting, with(Items.silicon, 50, Items.graphite, 40, Items.beryllium, 130, Items.tungsten, 80));
             size = 3;
 
-            researchCostMultiplier = 1.2f;
+            researchCost = with(Items.graphite, 1300, Items.silicon, 1700, Items.beryllium, 4800,
+                    Items.tungsten, 2700);
             craftTime = 10f;
             rotate = true;
             invertFlip = true;
@@ -1232,7 +1233,6 @@ public class Blocks{
                 particleLife = 140f;
             }});
 
-            researchCostMultiplier = 1.1f;
             itemCapacity = 0;
             liquidCapacity = 40f;
             consumePower(2f);
@@ -1243,7 +1243,7 @@ public class Blocks{
 
             outputLiquid = new LiquidStack(Liquids.nitrogen, 4f / 60f);
 
-            researchCost = with(Items.silicon, 2000, Items.oxide, 900, Items.beryllium, 2400);
+            researchCost = with(Items.silicon, 1800, Items.oxide, 450, Items.beryllium, 2100);
         }};
 
         oxidationChamber = new HeatProducer("oxidation-chamber"){{
@@ -1251,7 +1251,8 @@ public class Blocks{
             size = 3;
 
             outputItem = new ItemStack(Items.oxide, 1);
-            researchCostMultiplier = 1.1f;
+            researchCost = with(Items.graphite, 2600, Items.silicon, 3300, Items.beryllium, 4000,
+                    Items.tungsten, 4000);
 
             consumeLiquid(Liquids.ozone, 2f / 60f);
             consumeItem(Items.beryllium);
@@ -1272,7 +1273,7 @@ public class Blocks{
         electricHeater = new HeatProducer("electric-heater"){{
             requirements(Category.crafting, with(Items.tungsten, 30, Items.oxide, 30));
 
-            researchCostMultiplier = 4f;
+            researchCost = with(Items.tungsten, 3300, Items.oxide, 1800);
 
             drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput());
             rotateDraw = false;
@@ -1287,7 +1288,6 @@ public class Blocks{
         slagHeater = new HeatProducer("slag-heater"){{
             requirements(Category.crafting, with(Items.tungsten, 50, Items.oxide, 20, Items.beryllium, 20));
 
-            researchCostMultiplier = 4f;
 
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.slag), new DrawDefault(), new DrawHeatOutput());
             size = 3;
@@ -1299,7 +1299,7 @@ public class Blocks{
             consumeLiquid(Liquids.slag, 40f / 60f);
             heatOutput = 8f;
 
-            researchCost = with(Items.tungsten, 1200, Items.oxide, 900, Items.beryllium, 2400);
+            researchCost = with(Items.tungsten, 1000, Items.oxide, 450, Items.beryllium, 2100);
         }};
 
         phaseHeater = new HeatProducer("phase-heater"){{
@@ -1310,13 +1310,14 @@ public class Blocks{
             heatOutput = 15f;
             craftTime = 60f * 8f;
             ambientSound = Sounds.hum;
+            researchCost = with(Items.beryllium, 810, Items.oxide, 450, Items.carbide, 270);
             consumeItem(Items.phaseFabric);
         }};
 
         heatRedirector = new HeatConductor("heat-redirector"){{
             requirements(Category.crafting, with(Items.tungsten, 10, Items.graphite, 10));
 
-            researchCostMultiplier = 10f;
+            researchCost = with(Items.graphite, 2700, Items.tungsten, 2700);
 
             group = BlockGroup.heat;
             size = 3;
@@ -1327,7 +1328,7 @@ public class Blocks{
         heatRouter = new HeatConductor("heat-router"){{
             requirements(Category.crafting, with(Items.tungsten, 15, Items.graphite, 10));
 
-            researchCostMultiplier = 10f;
+            researchCost = with(Items.graphite, 2700, Items.tungsten, 4100);
 
             group = BlockGroup.heat;
             size = 3;
@@ -1338,6 +1339,7 @@ public class Blocks{
 
         slagIncinerator = new ItemIncinerator("slag-incinerator"){{
             requirements(Category.crafting, with(Items.tungsten, 15));
+            researchCost = with(Items.tungsten, 360);
             size = 1;
             consumeLiquid(Liquids.slag, 2f / 60f);
         }};
@@ -1356,6 +1358,7 @@ public class Blocks{
 
             heatRequirement = 10f;
 
+            researchCost = with(Items.thorium, 4600, Items.tungsten, 3300, Items.oxide, 950);
             consumeItems(with(Items.tungsten, 2, Items.graphite, 3));
             consumePower(2f);
         }};
@@ -1421,6 +1424,9 @@ public class Blocks{
                 color.a = 1f;
             }});
 
+            researchCost = with(Items.graphite, 2300, Items.silicon, 2900, Items.tungsten, 2300,
+                    Items.oxide, 1300);
+
             consumeItem(Items.silicon, 3);
             //TODO consume hydrogen/ozone?
             consumeLiquid(Liquids.slag, 40f / 60f);
@@ -1451,6 +1457,7 @@ public class Blocks{
 
             liquidCapacity = 80f;
             outputLiquid = new LiquidStack(Liquids.cyanogen, 3f / 60f);
+            researchCost = with(Items.silicon, 2300, Items.beryllium, 2700, Items.carbide, 450);
 
             //consumeLiquids(LiquidStack.with(Liquids.hydrogen, 3f / 60f, Liquids.nitrogen, 2f / 60f));
             consumeLiquid(Liquids.arkycite, 40f / 60f);
@@ -1486,6 +1493,8 @@ public class Blocks{
                 color = new Color(1f, 0.4f, 0.3f, 1f);
             }});
 
+            researchCost = with(Items.thorium, 2900, Items.silicon, 2900, Items.tungsten, 6400,
+                    Items.carbide, 900);
             consumeItems(with(Items.thorium, 2, Items.sand, 6));
             consumeLiquid(Liquids.ozone, 2f / 60f);
             consumePower(8f);
@@ -1657,14 +1666,14 @@ public class Blocks{
             requirements(Category.defense, with(Items.beryllium, 6));
             health = 130 * wallHealthMultiplier;
             armor = 2f;
-            buildCostMultiplier = 8f;
+            researchCost = with(Items.beryllium, 180);
         }};
 
         berylliumWallLarge = new Wall("beryllium-wall-large"){{
             requirements(Category.defense, ItemStack.mult(berylliumWall.requirements, 4));
             health = 130 * wallHealthMultiplier * 4;
             armor = 2f;
-            buildCostMultiplier = 5f;
+            researchCost = with(Items.beryllium, 630);
             size = 2;
         }};
 
@@ -1672,14 +1681,14 @@ public class Blocks{
             requirements(Category.defense, with(Items.tungsten, 6));
             health = 180 * wallHealthMultiplier;
             armor = 14f;
-            buildCostMultiplier = 8f;
+            researchCost = with(Items.tungsten, 180);
         }};
 
         tungstenWallLarge = new Wall("tungsten-wall-large"){{
             requirements(Category.defense, ItemStack.mult(tungstenWall.requirements, 4));
             health = 180 * wallHealthMultiplier * 4;
             armor = 14f;
-            buildCostMultiplier = 5f;
+            researchCost = with(Items.beryllium, 630);
             size = 2;
         }};
 
@@ -1688,6 +1697,7 @@ public class Blocks{
             health = 175 * wallHealthMultiplier * 4;
             armor = 14f;
             size = 2;
+            researchCost = with(Items.silicon, 630, Items.tungsten, 630);
         }};
 
         reinforcedSurgeWall = new Wall("reinforced-surge-wall"){{
@@ -1696,7 +1706,7 @@ public class Blocks{
             lightningChance = 0.05f;
             lightningDamage = 30f;
             armor = 20f;
-            researchCost = with(Items.surgeAlloy, 20, Items.tungsten, 100);
+            researchCost = with(Items.surgeAlloy, 14, Items.tungsten, 90);
         }};
 
         reinforcedSurgeWallLarge = new Wall("reinforced-surge-wall-large"){{
@@ -1706,13 +1716,14 @@ public class Blocks{
             lightningDamage = 30f;
             armor = 20f;
             size = 2;
-            researchCost = with(Items.surgeAlloy, 40, Items.tungsten, 200);
+            researchCost = with(Items.surgeAlloy, 28, Items.tungsten, 180);
         }};
 
         carbideWall = new Wall("carbide-wall"){{
             requirements(Category.defense, with(Items.thorium, 6, Items.carbide, 6));
             health = 270 * wallHealthMultiplier;
             armor = 16f;
+            researchCost = with(Items.carbide, 60, Items.thorium, 180);
         }};
 
         carbideWallLarge = new Wall("carbide-wall-large"){{
@@ -1720,6 +1731,7 @@ public class Blocks{
             health = 270 * wallHealthMultiplier * 4;
             armor = 16f;
             size = 2;
+            researchCost = with(Items.carbide, 210, Items.thorium, 630);
         }};
 
         shieldedWall = new ShieldWall("shielded-wall"){{
@@ -1736,6 +1748,8 @@ public class Blocks{
             health = 260 * wallHealthMultiplier * 4;
             armor = 15f;
             size = 2;
+            researchCost = with(Items.phaseFabric, 120, Items.surgeAlloy, 210, Items.beryllium,
+                    270);
         }};
 
         mender = new MendProjector("mender"){{
@@ -1809,7 +1823,7 @@ public class Blocks{
             requirements(Category.effect, BuildVisibility.fogOnly, with(Items.silicon, 60, Items.graphite, 50, Items.beryllium, 10));
             outlineColor = Color.valueOf("4a4b53");
             fogRadius = 34;
-            researchCost = with(Items.silicon, 70, Items.graphite, 70);
+            researchCost = with(Items.silicon, 63, Items.graphite, 63);
 
             consumePower(0.6f);
         }};
@@ -1821,6 +1835,7 @@ public class Blocks{
             range = 200f;
             size = 3;
             buildSpeed = 1.5f;
+            researchCost = with(Items.thorium, 1700, Items.silicon, 4600, Items.oxide, 600);
 
             consumePower(3f);
             consumeLiquid(Liquids.nitrogen, 3f / 60f);
@@ -1839,6 +1854,8 @@ public class Blocks{
             healPercent = 4f / 60f;
 
             Color col = Color.valueOf("8ca9e8");
+            researchCost = with(Items.silicon, 2300, Items.beryllium, 2300, Items.tungsten, 1700,
+                    Items.oxide, 600);
 
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.hydrogen, 9f / 4f), new DrawDefault(), new DrawGlowRegion(){{
                 color = Color.sky;
@@ -1875,6 +1892,8 @@ public class Blocks{
             consumePower(100f / 60f);
             range = 170f;
             reload = 80f;
+            researchCost = with(Items.silicon, 4600, Items.surgeAlloy, 1000, Items.tungsten, 2900,
+                    Items.oxide, 450);
         }};
 
         //TODO 5x5??
@@ -2004,7 +2023,7 @@ public class Blocks{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 90;
             speed = 4f;
-            researchCost = with(Items.beryllium, 5);
+            researchCost = with(Items.beryllium, 4);
         }};
 
         armoredDuct = new Duct("armored-duct"){{
@@ -2012,7 +2031,7 @@ public class Blocks{
             health = 140;
             speed = 4f;
             armored = true;
-            researchCost = with(Items.beryllium, 300, Items.tungsten, 100);
+            researchCost = with(Items.beryllium, 270, Items.tungsten, 90);
         }};
 
         ductRouter = new DuctRouter("duct-router"){{
@@ -2021,7 +2040,7 @@ public class Blocks{
             speed = 4f;
             regionRotated1 = 1;
             solid = false;
-            researchCost = with(Items.beryllium, 30);
+            researchCost = with(Items.beryllium, 27);
         }};
 
         overflowDuct = new OverflowDuct("overflow-duct"){{
@@ -2029,7 +2048,7 @@ public class Blocks{
             health = 90;
             speed = 4f;
             solid = false;
-            researchCostMultiplier = 1.5f;
+            researchCost = with(Items.beryllium, 270, Items.graphite, 270);
         }};
 
         underflowDuct = new OverflowDuct("underflow-duct"){{
@@ -2037,7 +2056,7 @@ public class Blocks{
             health = 90;
             speed = 4f;
             solid = false;
-            researchCostMultiplier = 1.5f;
+            researchCost = with(Items.beryllium, 270, Items.graphite, 270);
             invert = true;
         }};
 
@@ -2046,7 +2065,7 @@ public class Blocks{
             health = 90;
             speed = 4f;
             buildCostMultiplier = 2f;
-            researchCostMultiplier = 0.3f;
+            researchCost = with(Items.beryllium, 90);
         }};
 
         ductUnloader = new DirectionalUnloader("duct-unloader"){{
@@ -2056,6 +2075,7 @@ public class Blocks{
             solid = false;
             underBullets = true;
             regionRotated1 = 1;
+            researchCost = with(Items.graphite, 20, Items.silicon, 20, Items.tungsten, 10);
         }};
 
         surgeConveyor = new StackConveyor("surge-conveyor"){{
@@ -2073,7 +2093,7 @@ public class Blocks{
             underBullets = true;
             baseEfficiency = 1f;
             consumePower(1f / 60f);
-            researchCost = with(Items.surgeAlloy, 30, Items.tungsten, 80);
+            researchCost = with(Items.surgeAlloy, 21, Items.tungsten, 72);
         }};
 
         surgeRouter = new StackRouter("surge-router"){{
@@ -2089,6 +2109,7 @@ public class Blocks{
             underBullets = true;
             solid = false;
             consumePower(3f / 60f);
+            researchCost = with(Items.surgeAlloy, 70, Items.tungsten, 72);
         }};
 
         unitCargoLoader = new UnitCargoLoader("unit-cargo-loader"){{
@@ -2103,7 +2124,7 @@ public class Blocks{
             consumeLiquid(Liquids.nitrogen, 10f / 60f);
 
             itemCapacity = 200;
-            researchCost = with(Items.silicon, 2500, Items.surgeAlloy, 20, Items.oxide, 30);
+            researchCost = with(Items.silicon, 2200, Items.surgeAlloy, 14, Items.oxide, 15);
         }};
 
         unitCargoUnloadPoint = new UnitCargoUnloadPoint("unit-cargo-unload-point"){{
@@ -2113,7 +2134,7 @@ public class Blocks{
 
             itemCapacity = 100;
 
-            researchCost = with(Items.silicon, 3000, Items.oxide, 20);
+            researchCost = with(Items.silicon, 2700, Items.oxide, 10);
         }};
 
         //endregion
@@ -2451,7 +2472,7 @@ public class Blocks{
             health = 90;
             range = 10;
             fogRadius = 1;
-            researchCost = with(Items.beryllium, 5);
+            researchCost = with(Items.beryllium, 4);
 
             consumePowerBuffered(1000f);
         }};
@@ -2463,6 +2484,7 @@ public class Blocks{
             range = 23;
             scaledHealth = 90;
             fogRadius = 2;
+            researchCost = with(Items.beryllium, 270, Items.silicon, 810, Items.oxide, 150);
 
             consumePowerBuffered(40000f);
         }};
@@ -2500,13 +2522,14 @@ public class Blocks{
             outputLiquid = new LiquidStack(Liquids.water, 5f / 60f / 9f);
             liquidCapacity = 20f;
             fogRadius = 3;
-            researchCost = with(Items.beryllium, 15);
+            researchCost = with(Items.beryllium, 13);
         }};
 
         chemicalCombustionChamber = new ConsumeGenerator("chemical-combustion-chamber"){{
             requirements(Category.power, with(Items.graphite, 40, Items.tungsten, 40, Items.oxide, 40f, Items.silicon, 30));
             powerProduction = 10f;
-            researchCost = with(Items.graphite, 2000, Items.tungsten, 1000, Items.oxide, 10, Items.silicon, 1500);
+            researchCost = with(Items.graphite, 1800, Items.tungsten, 900, Items.oxide, 5,
+                    Items.silicon, 1300);
             consumeLiquids(LiquidStack.with(Liquids.ozone, 2f / 60f, Liquids.arkycite, 40f / 60f));
             size = 3;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawPistons(){{
@@ -2552,13 +2575,16 @@ public class Blocks{
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.06f;
 
-            researchCostMultiplier = 0.4f;
+            researchCost = with(Items.graphite, 540, Items.silicon, 540, Items.oxide, 350,
+                    Items.carbide, 180);
         }};
 
         fluxReactor = new VariableReactor("flux-reactor"){{
             requirements(Category.power, with(Items.graphite, 300, Items.carbide, 200, Items.oxide, 100, Items.silicon, 600, Items.surgeAlloy, 300));
             powerProduction = 120f;
             maxHeat = 140f;
+            researchCost = with(Items.graphite, 9900, Items.silicon, 21000, Items.oxide, 1600,
+                    Items.carbide, 2100, Items.surgeAlloy, 7700);
 
             consumeLiquid(Liquids.cyanogen, 9f / 60f);
             liquidCapacity = 30f;
@@ -2594,6 +2620,8 @@ public class Blocks{
         neoplasiaReactor = new HeaterGenerator("neoplasia-reactor"){{
             requirements(Category.power, with(Items.tungsten, 1000, Items.carbide, 300, Items.oxide, 150, Items.silicon, 500, Items.phaseFabric, 300, Items.surgeAlloy, 200));
 
+            researchCost = with(Items.silicon, 17000, Items.tungsten, 37000, Items.oxide, 2600,
+                    Items.carbide, 3300, Items.surgeAlloy, 5000, Items.phaseFabric, 2200);
             size = 5;
             liquidCapacity = 80f;
             outputLiquid = new LiquidStack(Liquids.neoplasm, 20f / 60f);
@@ -5460,7 +5488,7 @@ public class Blocks{
             size = 3;
             configurable = false;
             plans.add(new UnitPlan(UnitTypes.stell, 60f * 35f, with(Items.beryllium, 40, Items.silicon, 50)));
-            researchCost = with(Items.beryllium, 200, Items.graphite, 80, Items.silicon, 80);
+            researchCost = with(Items.beryllium, 180, Items.graphite, 72, Items.silicon, 72);
             regionSuffix = "-dark";
             fogRadius = 3;
             consumePower(2f);
@@ -5474,7 +5502,7 @@ public class Blocks{
             plans.add(new UnitPlan(UnitTypes.elude, 60f * 40f, with(Items.graphite, 50, Items.silicon, 70)));
             regionSuffix = "-dark";
             fogRadius = 3;
-            researchCostMultiplier = 0.5f;
+            researchCost = with(Items.silicon, 4100, Items.beryllium, 1200);
             consumePower(2f);
         }};
 
@@ -5485,7 +5513,7 @@ public class Blocks{
             plans.add(new UnitPlan(UnitTypes.merui, 60f * 40f, with(Items.beryllium, 50, Items.silicon, 70)));
             regionSuffix = "-dark";
             fogRadius = 3;
-            researchCostMultiplier = 0.65f;
+            researchCost = with(Items.graphite, 6500, Items.silicon, 4100, Items.tungsten, 1000);
             consumePower(2f);
         }};
 
@@ -5499,7 +5527,7 @@ public class Blocks{
             consumeItems(with(Items.silicon, 40, Items.tungsten, 30));
 
             constructTime = 60f * 30f;
-            researchCostMultiplier = 0.75f;
+            researchCost = with(Items.silicon, 2200, Items.beryllium, 4800, Items.tungsten, 1700);
 
             upgrades.addAll(
             new UnitType[]{UnitTypes.stell, UnitTypes.locus}
@@ -5521,7 +5549,8 @@ public class Blocks{
             new UnitType[]{UnitTypes.elude, UnitTypes.avert}
             );
 
-            researchCost = with(Items.beryllium, 500, Items.tungsten, 200, Items.silicon, 300, Items.oxide, 80);
+            researchCost = with(Items.beryllium, 450, Items.tungsten, 180, Items.silicon, 270,
+                    Items.oxide, 40);
         }};
 
         mechRefabricator = new Reconstructor("mech-refabricator"){{
@@ -5534,7 +5563,7 @@ public class Blocks{
             consumeItems(with(Items.silicon, 50, Items.tungsten, 40));
 
             constructTime = 60f * 45f;
-            researchCostMultiplier = 0.75f;
+            researchCost = with(Items.silicon, 3500, Items.beryllium, 6200, Items.tungsten, 2700);
 
             upgrades.addAll(
             new UnitType[]{UnitTypes.merui, UnitTypes.cleroi}
@@ -5546,7 +5575,8 @@ public class Blocks{
             requirements(Category.units, with(Items.thorium, 250, Items.oxide, 200, Items.tungsten, 200, Items.silicon, 400));
             regionSuffix = "-dark";
 
-            researchCostMultipliers.put(Items.thorium, 0.2f);
+            researchCost = with(Items.thorium, 1600, Items.silicon, 13000, Items.tungsten, 6400,
+                    Items.oxide, 3600);
 
             size = 5;
             consumePower(5f);
@@ -5571,7 +5601,8 @@ public class Blocks{
             new AssemblerUnitPlan(UnitTypes.conquer, 60f * 60f * 3f, PayloadStack.list(UnitTypes.locus, 6, Blocks.carbideWallLarge, 20))
             );
             areaSize = 13;
-            researchCostMultiplier = 0.4f;
+            researchCost = with(Items.thorium, 7100, Items.silicon, 7100, Items.oxide, 1000,
+                    Items.carbide, 300);
 
             consumePower(3f);
             consumeLiquid(Liquids.cyanogen, 9f / 60f);
@@ -5586,6 +5617,8 @@ public class Blocks{
             new AssemblerUnitPlan(UnitTypes.disrupt, 60f * 60f * 3f, PayloadStack.list(UnitTypes.avert, 6, Blocks.carbideWallLarge, 20))
             );
             areaSize = 13;
+            researchCost = with(Items.thorium, 21000, Items.silicon, 34000, Items.tungsten, 17000
+                    , Items.oxide, 3600, Items.carbide, 2100);
 
             consumePower(3f);
             consumeLiquid(Liquids.cyanogen, 12f / 60f);
@@ -5601,6 +5634,8 @@ public class Blocks{
             new AssemblerUnitPlan(UnitTypes.collaris, 60f * 60f * 3f, PayloadStack.list(UnitTypes.cleroi, 6, Blocks.carbideWallLarge, 20))
             );
             areaSize = 13;
+            researchCost = with(Items.thorium, 21000, Items.silicon, 34000, Items.tungsten, 17000
+                    , Items.oxide, 3600, Items.carbide, 2100);
 
             consumePower(3.5f);
             consumeLiquid(Liquids.cyanogen, 12f / 60f);
@@ -5618,6 +5653,7 @@ public class Blocks{
 
         unitRepairTower = new RepairTower("unit-repair-tower"){{
             requirements(Category.units, with(Items.graphite, 90, Items.silicon, 90, Items.tungsten, 80));
+            researchCost = with(Items.graphite, 2700 , Items.silicon, 2700, Items.tungsten, 2300);
 
             size = 2;
             range = 100f;
@@ -5645,7 +5681,7 @@ public class Blocks{
             moveTime = 35f;
             canOverdrive = false;
             health = 800;
-            researchCostMultiplier = 4f;
+            researchCost = with(Items.tungsten, 1000);
             underBullets = true;
         }};
 
@@ -5654,7 +5690,7 @@ public class Blocks{
             moveTime = 35f;
             health = 800;
             canOverdrive = false;
-            researchCostMultiplier = 4f;
+            researchCost = with(Items.tungsten, 1600);
             underBullets = true;
         }};
 
@@ -5667,6 +5703,7 @@ public class Blocks{
             range = 700f;
             maxPayloadSize = 2.5f;
             fogRadius = 5;
+            researchCost = with(Items.graphite, 1300, Items.silicon, 3600, Items.tungsten, 3600);
             consumePower(0.5f);
         }};
 
@@ -5678,6 +5715,8 @@ public class Blocks{
             chargeTime = 100f;
             range = 1100f;
             maxPayloadSize = 3.5f;
+            researchCost = with(Items.graphite, 2900, Items.thorium, 6400, Items.silicon, 6400,
+                    Items.tungsten, 6400, Items.oxide, 450);
             consumePower(3f);
         }};
 
@@ -5688,6 +5727,8 @@ public class Blocks{
             consumePower(1f);
             size = 3;
             deconstructSpeed = 1f;
+            researchCost = with(Items.graphite, 2300, Items.silicon, 2900, Items.beryllium, 2900,
+                    Items.oxide, 600);
         }};
 
         deconstructor = new PayloadDeconstructor("deconstructor"){{
@@ -5697,6 +5738,8 @@ public class Blocks{
             consumePower(3f);
             size = 5;
             deconstructSpeed = 2f;
+            researchCost = with(Items.silicon, 4600, Items.phaseFabric, 240, Items.tungsten, 6400,
+                    Items.oxide, 2600);
         }};
 
         constructor = new Constructor("constructor"){{
@@ -5706,6 +5749,7 @@ public class Blocks{
             buildSpeed = 0.6f;
             consumePower(2f);
             size = 3;
+            researchCost = with(Items.silicon, 2900, Items.beryllium, 4600, Items.tungsten, 2300);
             //TODO expand this list
             filter = Seq.with(Blocks.tungstenWallLarge, Blocks.berylliumWallLarge, Blocks.carbideWallLarge, Blocks.reinforcedSurgeWallLarge, Blocks.reinforcedLiquidContainer, Blocks.reinforcedContainer, Blocks.beamNode);
         }};
@@ -5719,6 +5763,8 @@ public class Blocks{
             maxBlockSize = 4;
             minBlockSize = 3;
             size = 5;
+            researchCost = with(Items.silicon, 46000, Items.phaseFabric, 240, Items.tungsten,
+                    6400, Items.oxide, 2600);
 
             consumePower(2f);
         }};
@@ -5730,6 +5776,7 @@ public class Blocks{
             consumePower(2f);
             size = 3;
             fogRadius = 5;
+            researchCost = with(Items.graphite, 1300, Items.silicon, 1300, Items.tungsten, 2300);
         }};
 
         payloadUnloader = new PayloadUnloader("payload-unloader"){{
@@ -5739,6 +5786,7 @@ public class Blocks{
             consumePower(2f);
             size = 3;
             fogRadius = 5;
+            researchCost = with(Items.graphite, 1300, Items.silicon, 1300, Items.tungsten, 810);
         }};
 
         //endregion
@@ -5918,6 +5966,7 @@ public class Blocks{
 
             canvasSize = 12;
             padding = 7f / 4f * 2f;
+            researchCost = with(Items.silicon, 270, Items.beryllium, 270);
 
             size = 2;
         }};
@@ -5925,6 +5974,7 @@ public class Blocks{
         reinforcedMessage = new MessageBlock("reinforced-message"){{
             requirements(Category.logic, with(Items.graphite, 10, Items.beryllium, 5));
             health = 100;
+            researchCost = with(Items.graphite, 270,Items.beryllium, 90);
         }};
 
         worldProcessor = new LogicBlock("world-processor"){{
