@@ -79,16 +79,19 @@ public class ClientCommandController {
     }
 
     private void executeDevCommand(String[] commandParts) {
-        if (commandParts.length > 1) {
+        if (commandParts.length > 2) {
             tooManyArgumentMessage();
-            return;
+        } else {
+            if (commandParts.length == 2 && commandParts[1].equals("c")) {
+                randomizer.client.setSlotName("Dev");
+                randomizer.client.setAddress("localhost:38281");
+                randomizer.client.connectRandomizer();
+            }
+            randomizer.sendLocalMessage("-----EXECUTE DEV COMMAND-----");
+            randomizer.debug = true;
+            randomizer.sendLocalMessage("---Debug mode activated---");
         }
-        randomizer.sendLocalMessage("-----EXECUTE DEV COMMAND-----");
-        randomizer.debug = true;
-        randomizer.sendLocalMessage("---Debug mode activated---");
-        randomizer.client.setSlotName("Dev");
-        randomizer.client.setAddress("localhost:38281");
-        randomizer.client.connectRandomizer();
+
     }
 
     private void executeClearCommand(String[] commandParts) {
