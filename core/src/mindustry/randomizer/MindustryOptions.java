@@ -304,9 +304,7 @@ public class MindustryOptions {
     private static void randomizeSerpuloCoreUnitsWeapon(ArrayList<Seq<Weapon>> coreUnitWeapons) {
         Random random = new Random(settings.getInt(AP_SEED.value));
         UnitTypes.alpha.weapons.clear();
-        //UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size
-        // () - 1)));
-        UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(16)); // 62
+        UnitTypes.alpha.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
 
         UnitTypes.beta.weapons.clear();
         UnitTypes.beta.weapons.add(coreUnitWeapons.remove(random.nextInt(coreUnitWeapons.size() - 1)));
