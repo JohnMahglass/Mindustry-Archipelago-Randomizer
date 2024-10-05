@@ -14,6 +14,7 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - You can use the chat to send messages to other client (If they support it).
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
+- The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
 
 ## Version 0.2.1 changelog
 ### Changes
