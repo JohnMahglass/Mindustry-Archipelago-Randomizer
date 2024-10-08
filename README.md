@@ -1,4 +1,4 @@
-# Mindustry integration for Archipelago (v0.2.1)
+# Mindustry integration for Archipelago (v0.3.0)
 (https://github.com/ArchipelagoMW/Archipelago)
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
@@ -15,33 +15,26 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
 - The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
+- On Serpulo, some derelict has been removed to prevent the player from breaking out of logic.
 
-## Version 0.2.1 changelog
+## Version 0.3.0 changelog
 ### Changes
-- The research tree will now display every node of the tree. Node information that was obfuscated in the vanilla game when a node was locked has been made visible. This will make it easier to plan a route when you need to check a specific location.
+- Changed chat color for FILLER and TRAP items
+- Made the Archipelago menu in Settings prettier
+- Added client options to filter chat messages. You can find theses new options in Settings -> Archipelago.
+- Death link now have 3 mode. "Unit" will kill the player unit and send a signal when the player's unit dies. "Core" Will destroy every player core and will send a signal when a sector is lost. "Core Russian roulette" behave like "Core" but will have a 1/6 starting chance of destroying the core upon receiving a signal.
+- Added client options to protect captured sector from being destroyed by some Death link modes. You can find this new option in the Settings -> Archipelago
+- Added the "Make early roadblocks local" option. This option make sure that some basic research required to progress early on are local.
+- Added the "Amount of resources required" option. You can now ajust how much of each resources you need to unlock the "Victory" nodes.
+- Removed some derelict from Serpulo map to prevent player from going out of logic.
 
 ### Fix
-- The "/options" client command would not display the correct text for the "Local early logistics" and "Starter logistics" option.
+- Fixed Randomized Serpulo weapon position to better fit the core unit.
+- Fixed a bug were the "Error" icon would be displayed when unlocking multiple nodes.
+- Fixed a bug were progressive items would not be unlocked when received.
+- Fixed a bug were invasion could still happen when the player selected the "Disable invasion" option.
+- In the generated spoiler, the "->" symbol has been changed to "to" to prevent confusion of overlapping symbols.
 
-## Version 0.2.0 changelog
-### Changes
-- It is now required for the game to close and be open again after the first connection to a game. This will make sure that all of the randomizer options are correctly applied.
-- Chat will now highlight specific words to make it easier to see important information.
-- Chat will now display the color of an item fitting to its classification when receiving an item event message. (Progression, Useful, Filler)
-- Added "/clear" client command to clear all chat messages.
-- Moved some items into progressive categories for some research that did not make sense.
-- Renamed progressive items categories for Serpulo campaign.
-- When selecting a campaign, any unselected campaign will now behave as vanilla.
-- "Military level tracking" option is now available. Serpulo and Erekir logic has been improved with a "Military level" tracking the player's research that can be used
-to capture sectors to make sure the player has a minimum amount of tools. You can opt out of this option if you would like to live dangerously.
-- "Randomize core units weapon" option is now available. Serpulo's core unit will have a randomized weapon while Erekir's core unit will be given an ability **and be made vulnerable**
-- "Logistic distribution" option is now available. You can select "Randomize logistics", "Early logistics", "Local early logistics" and "Starter logistics". Logistics being junction,router and bridge for belt,duct and conduit. Also include the Power Node for Serpulo campaign.
-- Starting items is now supported by the client.
-- Starting items from pool is now supported by the client.
-- Added Empty filler item "A fistful of nothing..." to the world to prevent generation failure if an item is taken out of the item pool.
-### Fix
-- Fixed Erekir's ai
-- Fixed a bug were the ai would not be able to place fabricators.
 
 ## Setup guide.
 
@@ -63,16 +56,11 @@ to capture sectors to make sure the player has a minimum amount of tools. You ca
     7. Have fun.
 
 
-
 ## Known bugs
 
 - Sometimes when unlocking a research from a new category, the selectable block UI will not update until you exit the sector and enter again or receive another item.
 
-- Upon unlocking a node multiple nodes at once, the error icon will appear in the toast announcing the new research to the player.
-
 - Serpulo Events trigger "Produce Slag on Serpulo" might not be accurate when viewing with a tracker.
-
-- In the spoiler generated by the APworld, the "Paths" section show duplicated path. (Menu -> Menu -> Erekir -> Erekir etc...)
 
 ## Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
