@@ -189,9 +189,29 @@ public class ArchipelagoDialog extends BaseDialog {
         cont.add(pane);
         cont.row();
 
+        Table resetButtonTable = new Table();
+
+        resetButtonTable.button("Reset AP data", Icon.trash, () -> {
+            ui.showConfirm("@confirm", "Wipe campaign/research/saves and Archipelago related data" +
+                            " and force exit the program. It is not recommended you use this " +
+                            "setting" + " unless you have finished playing a " + "game.",
+                    () -> {
+                        client.disconnect();
+                        randomizer.reset(); //Reset data related to Archipelago
+                        clearAllResearch(); //Reset all research
+                        control.saves.deleteAll(); //Delete all saves
+                        clearAllCampaign(); //Reset the campaign
+                        Core.app.exit(); //Force exit to reload game data
+
+                    });
+        }).tooltip("Reset Archipelago related data. To be used when you have completed a game and" +
+                " want to start another one.").size(300f, 60f).pad(4f);
+
+        cont.add(resetButtonTable);
+        cont.row();
+
         Table buttonTable = new Table();
 
-        buttonTable.row();
         buttonTable.button("Apply changes", () -> {
             if (newAddress != null) {
                 client.disconnect();
@@ -234,7 +254,32 @@ public class ArchipelagoDialog extends BaseDialog {
                 settingChanged = false;
             }
         }).size(150f, 60f).pad(4f);
-        buttonTable.button("Refresh status", Icon.refreshSmall, this::reload).size(150f, 60f).pad(4f);
+
+        buttonTable.button("Manually verify victory", () -> {
+            if (randomizer.worldState.isVictoryConditionMet()) {
+                randomizer.sendGoalSignal();
+            } else {
+                randomizer.sendLocalMessage("Victory condition has not been met.");
+            }
+        }).size(150f, 60f).pad(4f);
+
+        /*
+        buttonTable.button("Clear login info", Icon.eraser, () -> {
+            client.disconnect();
+            passwordTextField.clearText();
+            client.setPassword("");
+
+            newAddress = "";
+            client.setAddress("");
+
+            newSlotName = "";
+            client.setSlotName("");
+
+            reload();
+        }).size(150f, 60f).pad(4f);
+         */
+
+        //buttonTable.button("Refresh status", Icon.refreshSmall, this::reload).size(150f, 60f).pad(4f);
 
         buttonTable.row();
         buttonTable.button("Connect", () -> {
@@ -256,35 +301,6 @@ public class ArchipelagoDialog extends BaseDialog {
         }).size(150f, 60f).pad(4f);
         buttonTable.button("Disconnect", () -> {
             client.disconnect();
-            reload();
-        }).size(150f, 60f).pad(4f);
-
-        buttonTable.row();
-        buttonTable.button("Clear data", Icon.trash, () -> {
-            ui.showConfirm("@confirm", "Wipe campaign/research/saves and Archipelago related data" +
-                            " and force exit the program. It is not recommended you use this " +
-                            "setting" + " unless you have finished playing a " + "game.",
-                    () -> {
-                        client.disconnect();
-                        randomizer.reset(); //Reset data related to Archipelago
-                        clearAllResearch(); //Reset all research
-                        control.saves.deleteAll(); //Delete all saves
-                        clearAllCampaign(); //Reset the campaign
-                        Core.app.exit(); //Force exit to reload game data
-
-                    });
-        }).size(150f, 60f).pad(4f);
-        buttonTable.button("Clear login info", Icon.eraser, () -> {
-            client.disconnect();
-            passwordTextField.clearText();
-            client.setPassword("");
-
-            newAddress = "";
-            client.setAddress("");
-
-            newSlotName = "";
-            client.setSlotName("");
-
             reload();
         }).size(150f, 60f).pad(4f);
 

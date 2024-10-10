@@ -106,8 +106,27 @@ public class Randomizer {
         }
 
         if (worldState.isVictoryConditionMet()) {
+            sendGoalSignal();
+        }
+    }
+
+    /**
+     * Verify if the player is connected and send the goal signal to archipelago.
+     */
+    public void sendGoalSignal() {
+        if (client.isConnected()) {
             client.setGameState(ClientStatus.CLIENT_GOAL);
             RandomizerMessageHandler.printAllGoalCompleted();
+            //Making sure that if the player didnt reset the client when playing a new game,
+            // the goal signal is not sent to archipelago.
+            settings.put(SERPULO_VICTORY.value, false);
+            settings.put(EREKIR_VICTORY.value, false);
+        } else {
+            RandomizerMessageHandler.printErrorWithReason("Goal completed, but you are not " +
+                    "connected. Goal has not been sent to Archipelago. Once you are " +
+                    "reconnected, you can force check the victory condition by going into " +
+                    "Settings -> Archipelago and using the 'Manually verify victory " +
+                    "condition' button.");
         }
     }
 

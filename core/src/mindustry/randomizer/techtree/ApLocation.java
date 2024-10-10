@@ -6,6 +6,7 @@ import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.EventType;
 import mindustry.randomizer.Shared;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
 import mindustry.world.Block;
 
 import static mindustry.Vars.randomizer;
@@ -42,7 +43,7 @@ public class ApLocation extends Block {
             if (locationId != null) {
                 randomizer.checkLocation(locationId);
             } else {
-                //Error needs to be logged
+                RandomizerMessageHandler.printErrorWithReason("Location ID was null");
             }
         }
     }
