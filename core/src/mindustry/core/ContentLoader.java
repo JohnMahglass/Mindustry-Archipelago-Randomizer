@@ -59,7 +59,7 @@ public class ContentLoader{
         Planets.load();
         SectorPresets.load();
         randomizer = new Randomizer();
-        if (settings.getBool(HAS_CONNECTED.value)) {
+        if (settings != null && settings.getBool(HAS_CONNECTED.value)) {
             switch (randomizer.worldState.options.getCampaign()){
                 case 0: //Serpulo
                     SerpuloTechTreeRandomizer.load();
