@@ -254,7 +254,7 @@ public class WorldState {
     }
 
     private void initialize() {
-        if (settings.getInt(AP_SEED.value) != 0){ // 0 = no value saved.
+        if (settings != null && settings.getInt(AP_SEED.value) != 0){ // 0 = no value saved.
             seed = settings.getInt(AP_SEED.value);
         } else {
             seed = 0;
