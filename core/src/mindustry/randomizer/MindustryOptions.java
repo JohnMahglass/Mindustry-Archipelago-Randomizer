@@ -58,6 +58,11 @@ public class MindustryOptions {
     private int deathLinkMode;
 
     /**
+     * The amount of chambers to be used for the 'Core russian roulette' death link mode.
+     */
+    private int coreRussianRouletteChambers;
+
+    /**
      * Disable death link even if it was chosen as an option for generation.
      */
     private boolean forceDisableDeathLink;
@@ -135,6 +140,10 @@ public class MindustryOptions {
         return this.deathLinkMode;
     }
 
+    public int getCoreRussianRouletteChambers(){
+        return this.coreRussianRouletteChambers;
+    }
+
     public boolean getRandomizeCoreUnitsWeapon(){
         return this.randomizeCoreUnitsWeapon;
     }
@@ -205,6 +214,7 @@ public class MindustryOptions {
         if (slotData != null) {
             this.deathLink = slotData.getDeathlink();
             this.deathLinkMode = slotData.getDeathLinkMode();
+            this.coreRussianRouletteChambers = slotData.getCoreRussianRouletteChambers();
             this.tutorialSkip = slotData.getTutorialSkip();
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
@@ -236,6 +246,7 @@ public class MindustryOptions {
             this.fasterProduction = false;
             this.deathLink = false;
             this.deathLinkMode = 0;
+            this.coreRussianRouletteChambers = 6;
             this.randomizeCoreUnitsWeapon = false;
             this.logisticDistribution = 0;
             this.makeEarlyRoadblocksLocal = false;
@@ -538,6 +549,8 @@ public class MindustryOptions {
     private void saveOptions() {
         settings.put(DEATH_LINK.value, getDeathLink());
         settings.put(DEATH_LINK_MODE.value, getDeathLinkMode());
+        settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_CHAMBERS.value, getCoreRussianRouletteChambers());
+        settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, getCoreRussianRouletteChambers());
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
@@ -565,6 +578,7 @@ public class MindustryOptions {
     private void loadOptions() {
         this.deathLink = settings.getBool(DEATH_LINK.value);
         this.deathLinkMode = settings.getInt(DEATH_LINK_MODE.value);
+        this.coreRussianRouletteChambers = settings.getInt(AP_DEATH_LINK_RUSSIAN_ROULETTE_CHAMBERS.value);
         this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);

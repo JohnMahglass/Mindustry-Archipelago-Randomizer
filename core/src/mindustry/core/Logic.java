@@ -297,7 +297,7 @@ public class Logic implements ApplicationListener{
                             if (deathLinkMode == 2) {
                                 randomizer.sendLocalMessage("Core destroyed, " + ChatColor.applyColor(ApChatColors.RED, "reloading") +
                                         " the Archipelago Death Link Gun™");
-                                Core.settings.put(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, 6);
+                                Core.settings.put(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, randomizer.worldState.options.getCoreRussianRouletteChambers());
                             }
                         } else {
                             randomizer.worldState.deathLinkDying = false;

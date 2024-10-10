@@ -83,17 +83,18 @@ public class onDeathLink {
      * Fire the Archipelago Death Link Gun™. Has a chance to fire a live ammo.
      */
     private static void fireDeathLinkGun() {
+        int chamberSize = randomizer.worldState.options.getCoreRussianRouletteChambers();
         randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, "=== Archipelago Death" +
                 " Link Gun™ triggered ==="));
 
         int ammoInChamber = settings.getInt(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
-        if (ammoInChamber >= 1 && ammoInChamber <= 6) { //Valid amount of ammo
+        if (ammoInChamber >= 1 && ammoInChamber <= chamberSize) { //Valid amount of ammo
             Random random = new Random();
             int fireAttempt = random.nextInt(ammoInChamber);
             if (fireAttempt == 0) { //Live shot
                 randomizer.sendLocalMessage("BANG! The Archipelago Death Link Gun™ has " +
                         "obliterated your core!");
-                settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, 6);
+                settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, chamberSize);
                 destroyPlayerCores();
             } else { //Blank shot
                 randomizer.sendLocalMessage("The Archipelago Death Link Gun™ fired a blank shot. " +
@@ -105,17 +106,16 @@ public class onDeathLink {
             if (ammoInChamber == 0) { //Gun never fired a live shot.
                 RandomizerMessageHandler.printErrorWithReason("No more ammo in the Archipelago " +
                         "Death Link Gun™. Reloading... ");
-                settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, 6);
+                settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, chamberSize);
             }
         } else { //Invalid amount of ammo.
             RandomizerMessageHandler.printErrorWithReason("Invalid ammo amount inside the " +
                     "Archipelago Death Link Gun™. Reloading...");
-            settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, 6);
+            settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, chamberSize);
         }
 
         randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, "===      Archipelago " +
                 "Death Link Gun™ end      ==="));
     }
-
 
 }

@@ -28,11 +28,11 @@ public class SlotData {
     @SerializedName("death_link_mode")
     private int deathLinkMode = 0;
 
+    @SerializedName("core_russian_roulette_chambers")
+    private int coreRussianRouletteChambers = 0;
+
     @SerializedName("randomize_core_units_weapon")
     private boolean randomizeCoreUnitsWeapon = false;
-
-    @SerializedName("randomize_block_size")
-    private boolean randomizeBlockSize = false;
 
     @SerializedName("logistic_distribution")
     private int logisticDistribution = 0;
@@ -68,12 +68,12 @@ public class SlotData {
         return deathLinkMode;
     }
 
-    public boolean getRandomizeCoreUnitsWeapon() {
-        return randomizeCoreUnitsWeapon;
+    public int getCoreRussianRouletteChambers() {
+        return coreRussianRouletteChambers;
     }
 
-    public boolean getRandomizeBlockSize(){
-        return randomizeBlockSize;
+    public boolean getRandomizeCoreUnitsWeapon() {
+        return randomizeCoreUnitsWeapon;
     }
 
     public int getLogisticDistribution(){

@@ -169,6 +169,7 @@ public class WorldState {
         settings.remove(AP_CHAT_SELF_ITEM_ONLY.value);
         settings.remove(AP_CHAT_DISABLED.value);
         settings.remove(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
+        settings.remove(AP_DEATH_LINK_RUSSIAN_ROULETTE_CHAMBERS.value);
         settings.remove(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value);
         settings.remove(DEATH_LINK_MODE.value);
         settings.remove(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
@@ -260,8 +261,6 @@ public class WorldState {
         }
         loadStates();
     }
-
-
 
     /**
      * Save current state to the save file.
