@@ -202,7 +202,7 @@ public class Logic implements ApplicationListener{
         });
 
         Events.on(PlayerDestroyEvent.class, e -> {
-            if (!randomizer.worldState.deathLinkDying) {
+            if (!randomizer.worldState.deathLinkDying && randomizer.worldState.options.getDeathLinkMode() == 0) {
                 randomizer.sendDeathLink(randomizer.client.getSlotName(),
                         randomizer.client.getSlotName() + " " + e.cause);
             } else {
