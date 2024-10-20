@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.enums.ProgressiveItemType;
@@ -177,12 +178,11 @@ public class WorldState {
     }
 
     /**
-     * Create a seed using the Archipelago Room Info seed. The seed is converted to an int so
-     * that it can easily be stored inside Settings
-     * @param roomInfoSeed The seed from the Room Info.
+     * Create a seed for the client's randomization.
      */
-    public void createSeed(String roomInfoSeed){
-        seed = Integer.parseInt(roomInfoSeed.substring(0, 7));
+    public void createSeed(){
+        Random random = new Random();
+        seed = random.nextInt(1000000);
         settings.put(AP_SEED.value, seed);
     }
 

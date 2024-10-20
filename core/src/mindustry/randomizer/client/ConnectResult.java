@@ -33,7 +33,7 @@ public class ConnectResult {
             if (!randomizer.hasConnectedPreviously) { //First time the player is connecting
                 // to the game
                 randomizer.worldState.options.fillOptions(client.slotData);
-                randomizer.worldState.createSeed(client.getRoomInfo().seedName);
+                randomizer.worldState.createSeed();
                 randomizer.initialize();
                 randomizer.updateForceExit(); //Required to apply all randomizer options.
             }
