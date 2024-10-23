@@ -370,7 +370,7 @@ public class Randomizer {
 
     public void updateForceExit() {
         //open confirmation dialog to warn the user of the required game restart.
-        APApplyOptionsDialog dialog = new APApplyOptionsDialog("Apply randomizer options");
+        APApplyOptionsDialog dialog = new APApplyOptionsDialog();
         dialog.show();
     }
 }

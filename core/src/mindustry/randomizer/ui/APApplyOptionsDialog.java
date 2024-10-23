@@ -14,8 +14,8 @@ import mindustry.ui.dialogs.BaseDialog;
  * @version 1.0.0 2024-09-01
  */
 public class APApplyOptionsDialog extends BaseDialog {
-    public APApplyOptionsDialog(String title) {
-        super(title);
+    public APApplyOptionsDialog() {
+        super("Apply randomizer options");
         setup();
     }
 
@@ -25,13 +25,13 @@ public class APApplyOptionsDialog extends BaseDialog {
         cont.table(t -> {
             t.background(Tex.button).margin(0);
             t.row();
-            t.add("Restart to apply randomizer option").color(Pal.accent).growX().padLeft(30f);
+            t.labelWrap("Restart to apply randomizer option").color(Pal.accent).growX().padLeft(30f).center();
             t.row();
-            t.add("" +
+            t.labelWrap("" +
                 "To properly apply the randomizer options it is required" + "\n" +
                 "to reload the game when you successfully connect to a" + "\n" +
                 "game for the first time. Press 'Exit' to close the program." +
-                "").pad(10f);
+                "").pad(10f).left();
             t.row();
 
             t.button("Exit", Icon.exit, () -> {
