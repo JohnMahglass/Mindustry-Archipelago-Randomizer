@@ -92,5 +92,30 @@ This option will add additional logic tracking for the Mindustry items related t
 Change how some logistics research are distributed:
 
 #### Randomized logistics
-Randomize logistics research. It is possible that you have to play your game 
+Randomize logistics research. It is possible that you have to play your game without some basic research like bridge and router using this option.
 
+#### Early logistics
+Logistics research will be placed within sphere 1 of players of the Multiworld.
+
+#### Local early logistics
+Logistics research will be placed in the Mindustry player world within sphere 1.
+
+#### Starter logistics
+Logistics will be unlocked when starting the game.
+
+## Make early roadblocks local
+This option will place some item that are required early on to progress in their respective campaign. This will make sure the player is not stuck waiting to receive some research after 10 - 30 min of playtime. Recommended when playing with a large group of player. The items that are affected by this option are:
+
+#### Serpulo
+- Graphite Press
+- Silicon Smelter
+- Combustion Generator
+
+#### Erekir
+- Impact Drill
+- Reinforced Conduit
+- Ship Fabricator
+- Progressive Ships x1 (Elude)
+
+## Amount of resources required
+This option allow customization of the amount of resources required to unlock the 'Victory node'.
