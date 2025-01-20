@@ -536,6 +536,14 @@ public class EventType{
         }
     }
 
+    public static class PlayerDestroyEvent{
+        public final String cause;
+
+        public PlayerDestroyEvent(String cause){
+            this.cause = cause;
+        }
+    }
+
     public static class UnitDestroyEvent{
         public final Unit unit;
 

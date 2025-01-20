@@ -11,6 +11,7 @@ import arc.util.*;
 import mindustry.annotations.Annotations.*;
 import mindustry.content.TechTree.*;
 import mindustry.game.EventType.*;
+import mindustry.gen.Icon;
 import mindustry.graphics.*;
 import mindustry.graphics.MultiPacker.*;
 import mindustry.type.*;
@@ -69,6 +70,9 @@ public abstract class UnlockableContent extends MappableContent{
             Core.atlas.find(name + "1")))));
 
         uiIcon = Core.atlas.find(getContentType().name() + "-" + name + "-ui", fullIcon);
+        if (!uiIcon.found()) {
+            uiIcon = Icon.box.getRegion();
+        }
     }
 
     public int getLogicId(){

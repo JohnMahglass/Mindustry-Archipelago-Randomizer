@@ -85,7 +85,6 @@ public class Control implements ApplicationListener, Loadable{
         Events.on(PlayEvent.class, event -> {
             player.team(netServer.assignTeam(player));
             player.add();
-
             state.set(State.playing);
         });
 

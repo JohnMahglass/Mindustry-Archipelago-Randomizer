@@ -38,6 +38,7 @@ public class SettingsMenuDialog extends BaseDialog{
     public SettingsTable game;
     public SettingsTable sound;
     public SettingsTable main;
+    public SettingsTable archipelago;
 
     private Table prefs;
     private Table menu;
@@ -72,6 +73,7 @@ public class SettingsMenuDialog extends BaseDialog{
         game = new SettingsTable();
         graphics = new SettingsTable();
         sound = new SettingsTable();
+        archipelago = new SettingsTable();
 
         prefs = new Table();
         prefs.top();
@@ -293,6 +295,10 @@ public class SettingsMenuDialog extends BaseDialog{
         }
 
         menu.button("@settings.data", Icon.save, style, isize, () -> dataDialog.show()).marginLeft(marg).row();
+        menu.button("Archipelago", Icon.eye, style, isize, () -> {
+            ui.archipelago.forceReload();
+            ui.archipelago.show();
+        }).marginLeft(marg).row();
 
         int i = 3;
         for(var cat : categories){

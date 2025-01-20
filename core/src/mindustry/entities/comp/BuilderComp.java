@@ -123,6 +123,17 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc{
             BuildPlan current = buildPlan();
             Tile tile = current.tile();
 
+            // Prevent the player from placing a Fabricator if they do not have a unit they can
+            // produce. This make sure the player has both the factory and the unit.
+            if (!team.isAI() && isFabricator(current.block)) {
+                if (!canMakeUnits(current.block)) {
+                    randomizer.sendLocalMessage("Build canceled. You have not received a matching unit " +
+                            "for this building.");
+                    current.breaking = true;
+                    return;
+                }
+            }
+
             lastActive = current;
             buildAlpha = 1f;
             if(current.breaking) lastSize = tile.block().size;
@@ -175,6 +186,40 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc{
             current.stuck = Mathf.equal(current.progress, entity.progress);
             current.progress = entity.progress;
         }
+    }
+
+    /**
+     * Check if the block being placed is a fabricator.
+     * @param result The block being placed.
+     * @return True if the block is a fabricator.
+     */
+    private static boolean isFabricator(Block result) {
+        return result.name.contains("fabricator");
+    }
+    /**
+     * Verify that the player have received the research unit associated with this fabricator.
+     * @param result The fabricator being placed.
+     * @return True if the player can produce a unit with the fabricator
+     */
+    private static boolean canMakeUnits(Block result) {
+        boolean canMakeUnits = false;
+        String name = result.name;
+        if (name.contains("fabricator")) {
+            if (name.contains("tank")) {
+                if (!UnitTypes.stell.locked()) {
+                    canMakeUnits = true;
+                }
+            } else if (name.contains("ship")) {
+                if (!UnitTypes.elude.locked()) {
+                    canMakeUnits = true;
+                }
+            } else if (name.contains("mech")) {
+                if (!UnitTypes.merui.locked()) {
+                    canMakeUnits = true;
+                }
+            }
+        }
+        return canMakeUnits;
     }
 
     /** Draw all current build plans. Does not draw the beam effect, only the positions. */

@@ -7,6 +7,7 @@ import arc.struct.*;
 import arc.util.*;
 import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
+import mindustry.randomizer.techtree.ApObjectives;
 import mindustry.type.*;
 
 /** Class for storing a list of TechNodes with some utility tree builder methods; context dependent. See {@link SerpuloTechTree#load} source for example usage. */
@@ -81,7 +82,16 @@ public class TechTree{
     public static TechNode node(UnlockableContent content, ItemStack[] requirements, Seq<Objective> objectives, Runnable children){
         TechNode node = new TechNode(context, content, requirements);
         if(objectives != null){
+            if (node.parent != null) {
+                objectives.add(new ApObjectives.UnlockParent(node.parent));
+            }
             node.objectives.addAll(objectives);
+        } else {
+            if (node.parent != null) {
+                objectives = new Seq<>();
+                objectives.add(new ApObjectives.UnlockParent(node.parent));
+                node.objectives.addAll(objectives);
+            }
         }
 
         TechNode prev = context;

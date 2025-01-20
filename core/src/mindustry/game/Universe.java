@@ -184,27 +184,27 @@ public class Universe{
 
             //third pass: everything else
             for(Sector sector : planet.sectors){
-                if(sector.hasBase()){
+                if(sector.hasBase()) {
 
                     //if it is being attacked, capture time is 0; otherwise, increment the timer
-                    if(sector.isAttacked()){
+                    if (sector.isAttacked()) {
                         sector.info.minutesCaptured = 0;
-                    }else{
+                    } else {
                         sector.info.minutesCaptured += turnDuration / 60 / 60;
                     }
 
                     //increment seconds passed for this sector by the time that just passed with this turn
-                    if(!sector.isBeingPlayed()){
+                    if (!sector.isBeingPlayed()) {
 
                         //increment time if attacked
-                        if(sector.isAttacked()){
-                            sector.info.secondsPassed += turnDuration/60f;
+                        if (sector.isAttacked()) {
+                            sector.info.secondsPassed += turnDuration / 60f;
                         }
 
-                        int wavesPassed = (int)(sector.info.secondsPassed*60f / sector.info.waveSpacing);
+                        int wavesPassed = (int) (sector.info.secondsPassed * 60f / sector.info.waveSpacing);
                         boolean attacked = sector.info.waves && sector.planet.allowWaveSimulation;
 
-                        if(attacked){
+                        if (attacked) {
                             sector.info.wavesPassed = wavesPassed;
                         }
 
@@ -214,7 +214,7 @@ public class Universe{
                         sector.info.damage = Math.max(sector.info.damage, damage);
 
                         //check if the sector has been attacked too many times...
-                        if(attacked && damage >= 0.999f){
+                        if (attacked && damage >= 0.999f) {
                             //fire event for losing the sector
                             Events.fire(new SectorLoseEvent(sector));
 
@@ -223,7 +223,7 @@ public class Universe{
                             sector.info.damage = 1f;
                             sector.info.hasCore = false;
                             sector.info.production.clear();
-                        }else if(attacked && wavesPassed > 0 && sector.info.winWave > 1 && sector.info.wave + wavesPassed >= sector.info.winWave && !sector.hasEnemyBase()){
+                        } else if (attacked && wavesPassed > 0 && sector.info.winWave > 1 && sector.info.wave + wavesPassed >= sector.info.winWave && !sector.hasEnemyBase()) {
                             //autocapture the sector
                             sector.info.waves = false;
                             boolean was = sector.info.wasCaptured;
@@ -236,12 +236,12 @@ public class Universe{
                         float scl = sector.getProductionScale();
 
                         //add production, making sure that it's capped
-                        sector.info.production.each((item, stat) -> sector.info.items.add(item, Math.min((int)(stat.mean * newSecondsPassed * scl), sector.info.storageCapacity - sector.info.items.get(item))));
+                        sector.info.production.each((item, stat) -> sector.info.items.add(item, Math.min((int) (stat.mean * newSecondsPassed * scl), sector.info.storageCapacity - sector.info.items.get(item))));
 
                         sector.info.export.each((item, stat) -> {
-                            if(sector.info.items.get(item) <= 0 && sector.info.production.get(item, ExportStat::new).mean < 0 && stat.mean > 0){
+                            if (sector.info.items.get(item) <= 0 && sector.info.production.get(item, ExportStat::new).mean < 0 && stat.mean > 0) {
                                 //cap export by import when production is negative.
-                                stat.mean = Math.min(sector.info.lastImported.get(item) / (float)newSecondsPassed, stat.mean);
+                                stat.mean = Math.min(sector.info.lastImported.get(item) / (float) newSecondsPassed, stat.mean);
                             }
                         });
 
@@ -252,30 +252,32 @@ public class Universe{
                     }
 
                     //queue random invasions
-                    if(!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns){
-                        int count = sector.near().count(s -> s.hasEnemyBase() && !s.hasBase());
+                    if (!randomizer.worldState.options.getDisableInvasions()) {
+                        if (!sector.isAttacked() && sector.planet.allowSectorInvasion && sector.info.minutesCaptured > invasionGracePeriod && sector.info.hasSpawns) {
+                            int count = sector.near().count(s -> s.hasEnemyBase() && !s.hasBase());
 
-                        //invasion chance depends on # of nearby bases
-                        if(count > 0 && Mathf.chance(baseInvasionChance * (0.8f + (count - 1) * 0.3f))){
-                            int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ? state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
+                            //invasion chance depends on # of nearby bases
+                            if (count > 0 && Mathf.chance(baseInvasionChance * (0.8f + (count - 1) * 0.3f))) {
+                                int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ? state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
 
-                            //assign invasion-related things
-                            if(sector.isBeingPlayed()){
-                                state.rules.winWave = waveMax;
-                                state.rules.waves = true;
-                                state.rules.attackMode = false;
-                                //update rules in multiplayer
-                                if(net.server()){
-                                    Call.setRules(state.rules);
+                                //assign invasion-related things
+                                if (sector.isBeingPlayed()) {
+                                    state.rules.winWave = waveMax;
+                                    state.rules.waves = true;
+                                    state.rules.attackMode = false;
+                                    //update rules in multiplayer
+                                    if (net.server()) {
+                                        Call.setRules(state.rules);
+                                    }
+                                } else {
+                                    sector.info.winWave = waveMax;
+                                    sector.info.waves = true;
+                                    sector.info.attack = false;
+                                    sector.saveInfo();
                                 }
-                            }else{
-                                sector.info.winWave = waveMax;
-                                sector.info.waves = true;
-                                sector.info.attack = false;
-                                sector.saveInfo();
-                            }
 
-                            Events.fire(new SectorInvasionEvent(sector));
+                                Events.fire(new SectorInvasionEvent(sector));
+                            }
                         }
                     }
                 }

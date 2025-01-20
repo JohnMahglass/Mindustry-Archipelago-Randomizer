@@ -12,11 +12,15 @@ import mindustry.entities.bullet.*;
 import mindustry.game.EventType.*;
 import mindustry.io.*;
 import mindustry.mod.Mods.*;
+import mindustry.randomizer.Randomizer;
+import mindustry.randomizer.techtree.ErekirTechTreeRandomizer;
+import mindustry.randomizer.techtree.SerpuloTechTreeRandomizer;
 import mindustry.type.*;
 import mindustry.world.*;
 
 import static arc.Core.*;
 import static mindustry.Vars.*;
+import static mindustry.randomizer.enums.SettingStrings.HAS_CONNECTED;
 
 /**
  * Loads all game content.
@@ -51,8 +55,27 @@ public class ContentLoader{
         Weathers.load();
         Planets.load();
         SectorPresets.load();
-        SerpuloTechTree.load();
-        ErekirTechTree.load();
+        randomizer = new Randomizer();
+        if (settings != null && settings.getBool(HAS_CONNECTED.value)) {
+            switch (randomizer.worldState.options.getCampaign()){
+                case 0: //Serpulo
+                    SerpuloTechTreeRandomizer.load();
+                    ErekirTechTree.load();
+                    break;
+                case 1: //Erekir
+                    SerpuloTechTree.load();
+                    ErekirTechTreeRandomizer.load();
+                    break;
+                case 2: //All
+                    SerpuloTechTreeRandomizer.load();
+                    ErekirTechTreeRandomizer.load();
+                    break;
+            }
+        } else { //Player never connected, load Randomizer tree so that checks are saved if
+            // player is doing checks offline.
+            SerpuloTechTreeRandomizer.load();
+            ErekirTechTreeRandomizer.load();
+        }
     }
 
     /** Creates mod content, if applicable. */
