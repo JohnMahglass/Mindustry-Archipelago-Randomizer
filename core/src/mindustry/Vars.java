@@ -25,6 +25,7 @@ import mindustry.maps.Map;
 import mindustry.maps.*;
 import mindustry.mod.*;
 import mindustry.net.*;
+import mindustry.randomizer.Randomizer;
 import mindustry.service.*;
 import mindustry.ui.dialogs.*;
 import mindustry.world.*;
@@ -63,7 +64,7 @@ public class Vars implements Loadable{
     /** global charset, since Android doesn't support the Charsets class */
     public static final Charset charset = Charset.forName("UTF-8");
     /** main application name, capitalized */
-    public static final String appName = "Mindustry";
+    public static final String appName = "AP_Mindustry";
     /** Github API URL. */
     public static final String ghApi = "https://api.github.com";
     /** URL for discord invite. */
@@ -218,6 +219,7 @@ public class Vars implements Loadable{
     //the main executor will only have at most [cores] number of threads active
     public static ExecutorService mainExecutor = Threads.executor("Main Executor", OS.cores);
 
+    public static Randomizer randomizer;
     public static FileTree tree = new FileTree();
     public static Net net;
     public static ContentLoader content;

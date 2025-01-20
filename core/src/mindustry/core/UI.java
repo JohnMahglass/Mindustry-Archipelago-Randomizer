@@ -25,6 +25,7 @@ import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.logic.*;
+import mindustry.randomizer.ui.APChat.APChatFragment;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 import mindustry.ui.fragments.*;
@@ -39,7 +40,7 @@ public class UI implements ApplicationListener, Loadable{
 
     public MenuFragment menufrag;
     public HudFragment hudfrag;
-    public ChatFragment chatfrag;
+    public APChatFragment chatfrag;
     public ConsoleFragment consolefrag;
     public MinimapFragment minimapfrag;
     public PlayerListFragment listfrag;
@@ -177,7 +178,7 @@ public class UI implements ApplicationListener, Loadable{
         menufrag = new MenuFragment();
         hudfrag = new HudFragment();
         hints = new HintsFragment();
-        chatfrag = new ChatFragment();
+        chatfrag = new APChatFragment();
         minimapfrag = new MinimapFragment();
         listfrag = new PlayerListFragment();
         loadfrag = new LoadingFragment();

@@ -1,0 +1,15 @@
+package mindustry.randomizer.enums;
+
+public enum ProgressiveItemType {
+    S_OFFENSIVE_GROUND_UNIT,
+    S_SUPPORT_GROUND_UNIT,
+    S_INSECTOID_GROUND_UNIT,
+    S_OFFENSIVE_AIR_UNIT,
+    S_SUPPORT_AIR_UNIT,
+    S_OFFENSIVE_NAVAL_UNIT,
+    S_SUPPORT_NAVAL_UNIT,
+    S_RECONSTRUCTOR,
+    E_TANKS,
+    E_SHIPS,
+    E_MECHS
+}

@@ -23,6 +23,8 @@ import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.input.*;
+import mindustry.randomizer.enums.ApChatColors;
+import mindustry.randomizer.utils.ChatColor;
 import mindustry.ui.*;
 
 import java.io.*;
@@ -86,6 +88,14 @@ public class SettingsMenuDialog extends BaseDialog{
         dataDialog.cont.table(Tex.button, t -> {
             t.defaults().size(280f, 60f).left();
             TextButtonStyle style = Styles.flatt;
+
+            t.labelWrap(ChatColor.applyColor(ApChatColors.RED, "Warning!")).padBottom(14f).get().setAlignment(Align.center);
+            t.row();
+            t.labelWrap("This menu will not reset your Archipelago data. If you are looking to " +
+                    "play another Multiworld go to").wrapLabel(true).padBottom(5f).grow();
+            t.row();
+            t.labelWrap("Settings -> Archipelago and use the 'Reset AP data' button.");
+            t.row();
 
             t.button("@settings.cleardata", Icon.trash, style, () -> ui.showConfirm("@confirm", "@settings.clearall.confirm", () -> {
                 ObjectMap<String, Object> map = new ObjectMap<>();

@@ -551,7 +551,7 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         return (planet.alwaysUnlocked && planet.isLandable()) || planet.sectors.contains(Sector::hasBase) || debugSelect;
     }
 
-    void setup(){
+    public void setup(){
         searchText = "";
         zoom = state.zoom = 1f;
         state.uiAlpha = 1f;
