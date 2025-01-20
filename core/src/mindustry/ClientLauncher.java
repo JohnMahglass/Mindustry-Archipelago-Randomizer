@@ -68,7 +68,7 @@ public abstract class ClientLauncher extends ApplicationCore implements Platform
             return (Float.isNaN(result) || Float.isInfinite(result)) ? 1f : Mathf.clamp(result, 0.0001f, 60f / 10f);
         });
 
-        batch = new SortedSpriteBatch();
+        batch = new SpriteBatch();
         assets = new AssetManager();
         assets.setLoader(Texture.class, "." + mapExtension, new MapPreviewLoader());
 
