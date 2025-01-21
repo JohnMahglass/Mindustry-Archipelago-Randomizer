@@ -70,7 +70,7 @@ public abstract class UnlockableContent extends MappableContent{
             Core.atlas.find(name + "1")))));
 
         uiIcon = Core.atlas.find(getContentType().name() + "-" + name + "-ui", fullIcon);
-        if (!uiIcon.found()) {
+        if (!uiIcon.found() && Icon.box != null) {
             uiIcon = Icon.box.getRegion();
         }
     }
