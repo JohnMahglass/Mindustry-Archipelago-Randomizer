@@ -1235,6 +1235,12 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
                 //clear loadout information, so only the basic loadout gets used
                 universe.clearLoadoutInfo();
                 //free launch.
+                if (randomizer.serpuloFreeLaunchTarget(sector)) {
+                    settings.put("APfreeLaunchSerpulo", false);
+                }
+                if (randomizer.erekirFreeLaunchTarget(sector)) {
+                    settings.put("APfreeLaunchErekir", false);
+                }
                 control.playSector(sector);
             }else{
                 CoreBlock block = sector.allowLaunchSchematics() ? (from.info.bestCoreType instanceof CoreBlock b ? b : (CoreBlock)from.planet.defaultCore) : (CoreBlock)from.planet.defaultCore;
