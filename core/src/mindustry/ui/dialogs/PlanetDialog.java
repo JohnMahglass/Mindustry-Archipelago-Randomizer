@@ -214,9 +214,12 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         }
 
         //unlock defaults for older campaign saves (TODO move? where to?)
+        //Disabled since players always end up receiving these item in the randomizer.
+        /*
         if(content.planets().contains(p -> p.sectors.contains(s -> s.hasBase())) || Blocks.scatter.unlocked() || Blocks.router.unlocked()){
             Seq.with(Blocks.junction, Blocks.mechanicalDrill, Blocks.conveyor, Blocks.duo, Items.copper, Items.lead).each(UnlockableContent::quietUnlock);
         }
+        */
     }
 
     /** show with no limitations, just as a map. */
@@ -383,7 +386,7 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         if(mode == select) return sector.hasBase() && launchSector != null && sector.planet == launchSector.planet;
         //cannot launch to existing sector w/ accelerator TODO test
         if(mode == planetLaunch) return sector.id == sector.planet.startSector;
-        if(sector.hasBase() || sector.id == sector.planet.startSector) return true;
+        if(sector.hasBase() || sector.id == sector.planet.startSector || randomizer.allowFreeLaunch(sector)) return true;
         //preset sectors can only be selected once unlocked
         if(sector.preset != null){
             TechNode node = sector.preset.techNode;
