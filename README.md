@@ -1,68 +1,72 @@
-![Logo](core/assets-raw/sprites/ui/logo.png)
+# Mindustry integration for Archipelago (v0.3.0)
+(https://github.com/ArchipelagoMW/Archipelago)
 
-[![Build Status](https://github.com/Anuken/Mindustry/workflows/Tests/badge.svg?event=push)](https://github.com/Anuken/Mindustry/actions)
-[![Discord](https://img.shields.io/discord/391020510269669376.svg?logo=discord&logoColor=white&logoWidth=20&labelColor=7289DA&label=Discord&color=17cf48)](https://discord.gg/mindustry)  
+This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 
-The automation tower defense RTS, written in Java.
+To generate a World(APworld), you will need to install the Mindustry World to your Archipelago folder. You can find the Mindustry World release here -> (https://github.com/JohnMahglass/Archipelago-Mindustry/releases)
 
-_[Trello Board](https://trello.com/b/aE2tcUwF/mindustry-40-plans)_  
-_[Wiki](https://mindustrygame.github.io/wiki)_  
-_[Javadoc](https://mindustrygame.github.io/docs/)_ 
+### What has been changed from the vanilla game?
 
-## Contributing
+- Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)
+- Most node from the research tree has been replaced with location checks.
+- A "Victory" node has been added, researching this node will inform Archipelago that the player has finished their World. If both planet are selected as a campaign, each victory nodes need to be researched to complete the goal.
+- A new menu has been added in Settings to configure Archipelago's settings.
+- You can use the chat to send messages to other client (If they support it).
+- Use '/help' in the client to list all client commands.
+- It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
+- The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
+- On Serpulo, some derelict has been removed to prevent the player from breaking out of logic.
 
-See [CONTRIBUTING](CONTRIBUTING.md).
+## Version 0.3.0 changelog
+### Changes
+- Made the Archipelago menu in Settings prettier
+- Added client options to filter chat messages. You can find theses new options in Settings -> Archipelago.
+- Death link now have 3 mode. "Unit" will kill the player unit and send a signal when the player's unit dies. "Core" Will destroy every player core and will send a signal when a sector is lost. "Core Russian roulette" behave like "Core" but will have a chance of destroying the core upon receiving a signal (customizable).
+- Added client options to protect captured sector from being destroyed by some Death link modes. You can find this new option in the Settings -> Archipelago
+- Added the "Make early roadblocks local" option. This option make sure that some basic research required to progress early on are local.
+- Added the "Amount of resources required" option. You can now ajust how much of each resources you need to unlock the "Victory" nodes.
+- Removed some derelict from Serpulo map to prevent player from going out of logic.
+- Changed text and added tooltip for the "Clear data" button to prevent confusion.
+- Removed some old buttons in the Settings -> Archipelago menu.
+- Added warning text on the 'Game data' setting page to inform player that theses options will not reset AP data.
 
-## Building
+### Fix
+- Fixed Randomized Serpulo weapon position to better fit the core unit.
+- Fixed a bug where the "Error" icon would be displayed when unlocking multiple nodes.
+- Fixed a bug where progressive items would not be unlocked when received.
+- Fixed a bug where invasion could still happen when the player selected the "Disable invasion" option.
+- In the generated spoiler, the "->" symbol has been changed to "to" to prevent confusion of overlapping symbols.
+- Fixed a bug where upon not reseting the client after goaling a game the goal signal could be sent again when unlocking a node in a new game.
+- Fixed a bug where multiple Mindustry player in the same multiworld would have the same randomized weapons.
+- Possible fix for a crash happening on the window showing up the first time a player connect to a game.
 
-Bleeding-edge builds are generated automatically for every commit. You can see them [here](https://github.com/Anuken/MindustryBuilds/releases).
 
-If you'd rather compile on your own, follow these instructions.
-First, make sure you have [JDK 16-17](https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot) installed. **Other JDK versions will not work.** Open a terminal in the Mindustry directory and run the following commands:
+## Setup guide.
 
 ### Windows
+	1. Download the latest release.
+	2. Extract the downloaded file in a directory.
+	3. Run "Mindustry-Archipelago.exe"
+	3. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
+	4. Have fun.
 
-_Running:_ `gradlew desktop:run`  
-_Building:_ `gradlew desktop:dist`  
-_Sprite Packing:_ `gradlew tools:pack`
+### Linux
+	1. Download the .jar file from the latest release.
+    2. Make sure you have Java JRE installed. You can install the Java 17 JRE using the terminal:
+    Ubuntu -> "sudo apt install openjdk-17-jre"
+    Arch based -> "sudo pacman -S jdk17-openjdk"
+    4. Open the terminal
+    5. Make sure you are in the directory containing 'Mindustry-Archipelago.jar' (The file you downloaded from the release page.)
+    6. Type "java -jar Mindustry-Archipelago.jar" in the terminal.
+    7. Have fun.
 
-### Linux/Mac OS
 
-_Running:_ `./gradlew desktop:run`  
-_Building:_ `./gradlew desktop:dist`  
-_Sprite Packing:_ `./gradlew tools:pack`
+## Known bugs
 
-### Server
+- Sometimes when unlocking a research from a new category, the selectable block UI will not update until you exit the sector and enter again or receive another item.
+- Serpulo Events trigger "Produce Slag on Serpulo" might not be accurate when viewing with a tracker.
+- On the "Basin" sector in Erekir campaign, the AI might not launch attack on the player, stacking massive quantities of units in their bases.
+- When playing with the death link option, it is possible that the client stop receiving and sending death link signal. Restarting the game will solve the issue.
 
-Server builds are bundled with each released build (in Releases). If you'd rather compile on your own, replace 'desktop' with 'server', e.g. `gradlew server:dist`.
-
-### Android
-
-1. Install the Android SDK [here.](https://developer.android.com/studio#command-tools) Make sure you're downloading the "Command line tools only", as Android Studio is not required.
-2. In the unzipped Android SDK folder, find the cmdline-tools directory. Then create a folder inside of it called `latest` and put all of its contents into the newly created folder.
-3. In the same directory run the command `sdkmanager --licenses` (or `./sdkmanager --licenses` if on linux/mac)
-4. Set the `ANDROID_HOME` environment variable to point to your unzipped Android SDK directory.
-5. Enable developer mode on your device/emulator. If you are on testing on a phone you can follow [these instructions](https://developer.android.com/studio/command-line/adb#Enabling), otherwise you need to google how to enable your emulator's developer mode specifically.
-6. Run `gradlew android:assembleDebug` (or `./gradlew` if on linux/mac). This will create an unsigned APK in `android/build/outputs/apk`.
-
-To debug the application on a connected device/emulator, run `gradlew android:installDebug android:run`.
-
-### Troubleshooting
-
-#### Permission Denied
-
-If the terminal returns `Permission denied` or `Command not found` on Mac/Linux, run `chmod +x ./gradlew` before running `./gradlew`. *This is a one-time procedure.*
-
----
-
-Gradle may take up to several minutes to download files. Be patient. <br>
-After building, the output .JAR file should be in `/desktop/build/libs/Mindustry.jar` for desktop builds, and in `/server/build/libs/server-release.jar` for server builds.
-
-## Feature Requests
-
-Post feature requests and feedback [here](https://github.com/Anuken/Mindustry-Suggestions/issues/new/choose).
-
-## Downloads
-
-| [![](https://static.itch.io/images/badge.svg)](https://anuke.itch.io/mindustry)    |    [![](https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png)](https://play.google.com/store/apps/details?id=io.anuke.mindustry)   |    [![](https://fdroid.gitlab.io/artwork/badge/get-it-on.png)](https://f-droid.org/packages/io.anuke.mindustry)	| [![](https://flathub.org/assets/badges/flathub-badge-en.svg)](https://flathub.org/apps/details/com.github.Anuken.Mindustry)  
-|---	|---	|---	|---	|
+## Report a bug.
+You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
