@@ -49,14 +49,17 @@ public class ApLocation extends Block {
     }
 
 
-    public ApLocation(String name, UnlockableContent content, Long locationId) {
+    public ApLocation(String name, String localizedName, UnlockableContent content,
+                      Long locationId) {
         super(name);
+        this.localizedName = localizedName;
         this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
         this.originalContent = content;
         if (content != null) {
             this.researchCost = content.researchRequirements();
         }
     }
+
 
     @Deprecated
     public ApLocation(String name, UnlockableContent content, Long locationId, Long itemId) {

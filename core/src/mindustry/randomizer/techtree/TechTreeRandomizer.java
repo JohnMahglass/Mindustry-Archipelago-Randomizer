@@ -29,10 +29,26 @@ abstract class TechTreeRandomizer {
      */
     protected static ApLocation createApLocation(String name, UnlockableContent content,
                                                Long locationId){
-        ApLocation location = new ApLocation(name, content, locationId);
+        String fileName = normalizeName(name);
+        ApLocation location = new ApLocation(fileName, name, content, locationId);
         randomizer.worldState.apLocations.add(location);
         randomizer.worldState.locations.put(locationId, name);
         return location;
+    }
+
+    /**
+     * Normalize name by removing Capital letters and spaces
+     * @param name The name of the node
+     * @return The normalized name of the node
+     */
+    private static String normalizeName(String name) {
+        StringBuilder normalizedName = new StringBuilder(name.toLowerCase());
+        for (int i = 0; i < name.length(); i++) {
+            if (Character.isSpaceChar(name.charAt(i))) {
+                normalizedName.setCharAt(i, '-');
+            }
+        }
+        return normalizedName.toString();
     }
 
     /**
@@ -46,7 +62,8 @@ abstract class TechTreeRandomizer {
     protected static ApLocation createApLocation(String name, UnlockableContent content,
                                                Long locationId,
                                                ItemStack[] locationResearchCost){
-        ApLocation apContent = new ApLocation(name, content, locationId);
+        String fileName = normalizeName(name);
+        ApLocation apContent = new ApLocation(fileName, name, content, locationId);
 
         apContent.researchCost = locationResearchCost;
         randomizer.worldState.locations.put(locationId, name);
