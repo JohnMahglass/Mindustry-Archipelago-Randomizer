@@ -502,7 +502,7 @@ public class APResearchDialog extends BaseDialog {
                         button.setPosition(node.x + panX + width / 2f, node.y + panY + height / 2f + offset, Align.center);
                         button.getStyle().up = !locked(node.node) ? Tex.buttonOver : !selectable(node.node) || !canSpend(node.node) ? Tex.buttonRed : Tex.button;
 
-                        if (node.node.content != null && node.node.content.name.startsWith("Victory")) {
+                        if (node.node.content != null && node.node.content.name.startsWith("victory")) {
                             ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? Icon.star.getRegion() : Icon.lock.getRegion());
                         } else {
                             ((TextureRegionDrawable)button.getStyle().imageUp).setRegion(node.selectable ? Icon.box.getRegion() : Icon.lock.getRegion());

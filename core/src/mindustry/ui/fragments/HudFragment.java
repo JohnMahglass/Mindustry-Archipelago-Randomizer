@@ -515,9 +515,9 @@ public class HudFragment{
 
                 //create texture stack for displaying
                 Image image = new Image();
-                if (content.name.startsWith("AP-")) { //Archipelago node
+                if (content.name.startsWith("ap-")) { //Archipelago node
                     image = new Image(Icon.box);
-                } else if (content.name.startsWith("Victory")) { //Victory node
+                } else if (content.name.startsWith("victory")) { //Victory node
                     image = new Image(Icon.star);
                 } else { //Vanilla node
                     image = new Image(content.uiIcon);
@@ -528,9 +528,9 @@ public class HudFragment{
 
                 //add to table
                 table.add(in).padRight(8);
-                if (content.name.startsWith("AP-")) { //Archipelago node
+                if (content.name.startsWith("ap-")) { //Archipelago node
                     table.add("Location sent!");
-                } else if (content.name.startsWith("Victory")) { //Victory node
+                } else if (content.name.startsWith("victory")) { //Victory node
                     table.add("Victory condition(s) met!");
                 } else { //Vanilla node
                     table.add("@unlocked");
