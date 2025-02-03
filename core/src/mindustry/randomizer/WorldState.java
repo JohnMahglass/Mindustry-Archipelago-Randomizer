@@ -153,6 +153,7 @@ public class WorldState {
         settings.remove(DISABLE_INVASIONS.value);
         settings.remove(FASTER_PRODUCTION.value);
         settings.remove(CAMPAIGN_CHOICE.value);
+        settings.remove(AP_GOAL.value);
         settings.remove(CLIENT_ADDRESS.value);
         settings.remove(CLIENT_NAME.value);
         settings.remove(CLIENT_PASSWORD.value);

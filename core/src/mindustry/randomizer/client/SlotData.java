@@ -16,6 +16,9 @@ public class SlotData {
     @SerializedName("campaign_choice")
     private int campaignChoice = 0;
 
+    @SerializedName("goal")
+    private int goal = 0;
+
     @SerializedName("disable_invasions")
     private boolean disableInvasions = false;
 
@@ -50,6 +53,11 @@ public class SlotData {
 
     public int getCampaignChoice() {
         return campaignChoice;
+    }
+
+    public int getGoal()
+    {
+        return goal;
     }
 
     public boolean getFasterProduction() {

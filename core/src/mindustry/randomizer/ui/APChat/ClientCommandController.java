@@ -110,6 +110,7 @@ public class ClientCommandController {
         if (randomizer.worldState.options.getOptionsFilled()) {
             chat.addLocalMessage(new APMessage("Options:\n" +
                     "   Selected campaign: " + getCampaignName() + "\n" +
+                    "   Goal: " + getGoalName() + "\n" +
                     "   Amount of resources required: " + getAmountofResourcesRequired() + "\n" +
                     "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
                     "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
@@ -200,6 +201,23 @@ public class ClientCommandController {
             name = ChatColor.applyColor(SERPULO, "Serpulo") + " and " + ChatColor.applyColor(EREKIR, "Erekir");
         } else {
             name = "Campaign name error";
+        }
+        return name;
+    }
+
+    /**
+     * Return the goal name
+     * @return The goal name
+     */
+    private String getGoalName(){
+        String name;
+        int goal = randomizer.worldState.options.getGoal();
+        if (goal == 0) { //Resources
+            name = ChatColor.applyColor(GOLD, "Recources");
+        } else if (goal == 1) { //Conquest
+            name = ChatColor.applyColor(GOLD, "Conquest");
+        } else {
+            name = "Goal name error";
         }
         return name;
     }

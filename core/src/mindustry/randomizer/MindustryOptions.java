@@ -48,6 +48,11 @@ public class MindustryOptions {
     private int campaign;
 
     /**
+     * The selected goal.
+     */
+    private int goal;
+
+    /**
      * If death link is activated
      */
     private boolean deathLink;
@@ -140,6 +145,10 @@ public class MindustryOptions {
         return this.deathLinkMode;
     }
 
+    public int getGoal(){
+        return this.goal;
+    }
+
     public int getCoreRussianRouletteChambers(){
         return this.coreRussianRouletteChambers;
     }
@@ -219,6 +228,7 @@ public class MindustryOptions {
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
             this.campaign = slotData.getCampaignChoice();
+            this.goal = slotData.getGoal();
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.logisticDistribution = slotData.getLogisticDistribution();
             this.makeEarlyRoadblocksLocal = slotData.getMakeEarlyRoadblocksLocal();
@@ -242,6 +252,7 @@ public class MindustryOptions {
             this.optionsFilled = false;
             this.tutorialSkip = false;
             this.campaign = 0;
+            this.goal = 0;
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.deathLink = false;
@@ -555,6 +566,7 @@ public class MindustryOptions {
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
         settings.put(CAMPAIGN_CHOICE.value, getCampaign());
+        settings.put(AP_GOAL.value, getGoal());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
         settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
@@ -584,6 +596,7 @@ public class MindustryOptions {
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
+        this.goal = settings.getInt(AP_GOAL.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
         this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
