@@ -153,7 +153,7 @@ public abstract class LocationResearchCost {
      * Requirement for unlocking the Victory node.
      * @return The requirement for the Victory node
      */
-    public static ItemStack[] reqVictoryErekir() {
+    public static ItemStack[] reqResourcesVictoryErekir() {
         ItemStack[] totalResearchCost = new ItemStack[9];
 
         //Possible range = 100 - 100 000
@@ -179,7 +179,7 @@ public abstract class LocationResearchCost {
      * Requirement for unlocking the Victory node.
      * @return The requirement for the Victory node
      */
-    public static ItemStack[] reqVictorySerpulo() {
+    public static ItemStack[] reqResourcesVictorySerpulo() {
         ItemStack[] totalResearchCost = new ItemStack[16];
 
         //Possible range = 100 - 100 000

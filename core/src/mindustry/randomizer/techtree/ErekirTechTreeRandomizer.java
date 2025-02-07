@@ -1,9 +1,9 @@
 package mindustry.randomizer.techtree;
 
 import arc.struct.IntSet;
-import arc.struct.ObjectFloatMap;
 import arc.struct.Seq;
 import arc.util.Structs;
+import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
@@ -11,7 +11,6 @@ import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.entities.bullet.BulletType;
 import mindustry.game.Objectives;
-import mindustry.type.Item;
 import mindustry.type.unit.ErekirUnitType;
 import mindustry.world.blocks.defense.turrets.ContinuousLiquidTurret;
 import mindustry.world.blocks.defense.turrets.ContinuousTurret;
@@ -120,22 +119,39 @@ import static mindustry.content.Blocks.ventCondenser;
 import static mindustry.content.SectorPresets.aegis;
 import static mindustry.content.SectorPresets.atlas;
 import static mindustry.content.SectorPresets.basin;
+import static mindustry.content.SectorPresets.biomassFacility;
 import static mindustry.content.SectorPresets.caldera;
+import static mindustry.content.SectorPresets.coastline;
+import static mindustry.content.SectorPresets.craters;
 import static mindustry.content.SectorPresets.crevice;
 import static mindustry.content.SectorPresets.crossroads;
+import static mindustry.content.SectorPresets.desolateRift;
+import static mindustry.content.SectorPresets.extractionOutpost;
+import static mindustry.content.SectorPresets.frozenForest;
+import static mindustry.content.SectorPresets.fungalPass;
+import static mindustry.content.SectorPresets.groundZero;
+import static mindustry.content.SectorPresets.impact0078;
 import static mindustry.content.SectorPresets.intersect;
 import static mindustry.content.SectorPresets.karst;
 import static mindustry.content.SectorPresets.lake;
 import static mindustry.content.SectorPresets.marsh;
+import static mindustry.content.SectorPresets.navalFortress;
+import static mindustry.content.SectorPresets.nuclearComplex;
 import static mindustry.content.SectorPresets.onset;
 import static mindustry.content.SectorPresets.origin;
+import static mindustry.content.SectorPresets.overgrowth;
 import static mindustry.content.SectorPresets.peaks;
+import static mindustry.content.SectorPresets.planetaryTerminal;
 import static mindustry.content.SectorPresets.ravine;
+import static mindustry.content.SectorPresets.ruinousShores;
+import static mindustry.content.SectorPresets.saltFlats;
 import static mindustry.content.SectorPresets.siege;
 import static mindustry.content.SectorPresets.split;
+import static mindustry.content.SectorPresets.stainedMountains;
 import static mindustry.content.SectorPresets.stronghold;
+import static mindustry.content.SectorPresets.tarFields;
+import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.apNode;
-import static mindustry.content.TechTree.context;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 import static mindustry.content.TechTree.nodeRoot;
@@ -455,8 +471,34 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNode(createApLocation("Victory Erekir", null, 999L,
-                    LocationResearchCost.reqVictoryErekir()));
+            if (Vars.randomizer.worldState.options.getGoal() == 0) { //Resources
+                apNode(createApLocation("Victory Erekir", null, 999L,
+                        LocationResearchCost.reqResourcesVictoryErekir()));
+            } else { //Conquest
+                apNode(createApLocation("Victory Erekir", null, 999L),
+                        Seq.with(new Objectives.SectorComplete(onset),
+                                new Objectives.SectorComplete(aegis),
+                                new Objectives.SectorComplete(lake),
+                                new Objectives.SectorComplete(intersect),
+                                new Objectives.SectorComplete(atlas),
+                                new Objectives.SectorComplete(split),
+                                new Objectives.SectorComplete(basin),
+                                new Objectives.SectorComplete(marsh),
+                                new Objectives.SectorComplete(peaks),
+                                new Objectives.SectorComplete(ravine),
+                                new Objectives.SectorComplete(caldera),
+                                new Objectives.SectorComplete(stronghold),
+                                new Objectives.SectorComplete(crevice),
+                                new Objectives.SectorComplete(siege),
+                                new Objectives.SectorComplete(crossroads),
+                                new Objectives.SectorComplete(karst),
+                                new Objectives.SectorComplete(origin)), () -> {
+                        });
+            }
+
+
+
+
                 node(tankFabricator, Seq.with(new Objectives.Research(siliconArcFurnace), new Objectives.Research(plasmaBore), new Objectives.Research(turbineCondenser)), () -> {
                     node(UnitTypes.stell);
                 apNode(createApLocation("AP-E-06-03", unitRepairTower, 287L),
