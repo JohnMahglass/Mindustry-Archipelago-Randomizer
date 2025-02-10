@@ -386,7 +386,7 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         if(mode == select) return sector.hasBase() && launchSector != null && sector.planet == launchSector.planet;
         //cannot launch to existing sector w/ accelerator TODO test
         if(mode == planetLaunch) return sector.id == sector.planet.startSector;
-        if(sector.hasBase() || sector.id == sector.planet.startSector || randomizer.allowFreeLaunch(sector)) return true;
+        if(sector.hasBase() || sector.id == sector.planet.startSector || randomizer.allowFreeLaunch(sector) || randomizer.debug) return true;
         //preset sectors can only be selected once unlocked
         if(sector.preset != null){
             TechNode node = sector.preset.techNode;
