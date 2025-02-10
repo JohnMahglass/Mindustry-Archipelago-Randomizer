@@ -540,24 +540,41 @@ public class WorldState {
         progressiveItems.add(item1);
 
         items.put(MINDUSTRY_BASE_ID + 342, null); //Progressive Ships
-        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.E_SHIPS,
+        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_SHIPS,
                 MINDUSTRY_BASE_ID + 342, 5);
-        item3.items.add(UnitTypes.elude);
-        item3.items.add(UnitTypes.avert);
-        item3.items.add(UnitTypes.obviate);
-        item3.items.add(UnitTypes.quell);
-        item3.items.add(UnitTypes.disrupt);
-        progressiveItems.add(item3);
+        item2.items.add(UnitTypes.elude);
+        item2.items.add(UnitTypes.avert);
+        item2.items.add(UnitTypes.obviate);
+        item2.items.add(UnitTypes.quell);
+        item2.items.add(UnitTypes.disrupt);
+        progressiveItems.add(item2);
 
         items.put(MINDUSTRY_BASE_ID + 343, null); //Progressive Mechs
-        ProgressiveItem item2 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
+        ProgressiveItem item3 = new ProgressiveItem(ProgressiveItemType.E_MECHS,
                 MINDUSTRY_BASE_ID + 343, 5);
-        item2.items.add(UnitTypes.merui);
-        item2.items.add(UnitTypes.cleroi);
-        item2.items.add(UnitTypes.anthicus);
-        item2.items.add(UnitTypes.tecta);
-        item2.items.add(UnitTypes.collaris);
-        progressiveItems.add(item2);
+        item3.items.add(UnitTypes.merui);
+        item3.items.add(UnitTypes.cleroi);
+        item3.items.add(UnitTypes.anthicus);
+        item3.items.add(UnitTypes.tecta);
+        item3.items.add(UnitTypes.collaris);
+        progressiveItems.add(item3);
+
+        items.put(MINDUSTRY_BASE_ID + 344, null);
+        ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.E_DRILLS,
+                MINDUSTRY_BASE_ID + 344, 3);
+        item4.items.add(Blocks.impactDrill);
+        item4.items.add(Blocks.largePlasmaBore);
+        item4.items.add(Blocks.eruptionDrill);
+        progressiveItems.add(item4);
+
+        items.put(MINDUSTRY_BASE_ID + 345, null);
+        ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.E_GENERATORS,
+                MINDUSTRY_BASE_ID + 345, 4);
+        item5.items.add(Blocks.chemicalCombustionChamber);
+        item5.items.add(Blocks.pyrolysisGenerator);
+        item5.items.add(Blocks.fluxReactor);
+        item5.items.add(Blocks.neoplasiaReactor);
+        progressiveItems.add(item5);
     }
 
 
@@ -809,6 +826,26 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 169, Items.thorium);
         items.put(MINDUSTRY_BASE_ID + 170, Items.surgeAlloy);
         items.put(MINDUSTRY_BASE_ID + 171, Items.phaseFabric);
+
+        items.put(MINDUSTRY_BASE_ID + 172, null);
+        ProgressiveItem item9 = new ProgressiveItem(ProgressiveItemType.S_DRILLS,
+                MINDUSTRY_BASE_ID + 172, 3);
+        item9.items.add(Blocks.pneumaticDrill);
+        item9.items.add(Blocks.laserDrill);
+        item9.items.add(Blocks.blastDrill);
+        progressiveItems.add(item9);
+
+        items.put(MINDUSTRY_BASE_ID + 173, null);
+        ProgressiveItem item10 = new ProgressiveItem(ProgressiveItemType.S_GENERATORS,
+                MINDUSTRY_BASE_ID + 173, 7);
+        item10.items.add(Blocks.combustionGenerator);
+        item10.items.add(Blocks.steamGenerator);
+        item10.items.add(Blocks.thermalGenerator);
+        item10.items.add(Blocks.differentialGenerator);
+        item10.items.add(Blocks.thoriumReactor);
+        item10.items.add(Blocks.impactReactor);
+        item10.items.add(Blocks.rtgGenerator);
+        progressiveItems.add(item10);
     }
 
 }
