@@ -135,62 +135,6 @@ public class APClient extends Client {
         return this.address;
     }
 
-    /**
-     * Return location name from dataPackage.
-     * @param id Id of the location.
-     * @param gameName Name of the game of the location.
-     * @return Return the name of the location.
-     */
-    public String getLocationName(Long id, String gameName){
-        return dataPackage.getGame(gameName).getLocation(id);
-    }
-
-    /**
-     * Return item name from dataPackage.
-     * @param id Id of the item.
-     * @param gameName Name of the game of the item.
-     * @return Return the name of the item.
-     */
-    public String getItemName(Long id, String gameName){
-        return dataPackage.getGame(gameName).getItem(id);
-    }
-
-    /**
-     * Get player name from their slot id.
-     * @param slot The slot id of the player.
-     * @return Return the name of the player.
-     */
-    public String getPlayerName(int slot) {
-        String playerName = null;
-        for (NetworkPlayer player : getRoomInfo().networkPlayers) {
-            if (player.slot == slot) {
-                playerName = player.name;
-            }
-        }
-        if (playerName == null) {
-            playerName = "NAME ERROR";
-        }
-        return  playerName;
-    }
-
-    /**
-     * Return the game of the slot user.
-     * @param slot The slot user.
-     * @return The name of the game.
-     */
-    public String getPlayerGame(int slot){
-        String playerGame = "";
-
-        NetworkSlot ns = getSlotInfo().get(slot);
-        if (playerGame != null) {
-            playerGame = ns.game;
-        } else {
-            playerGame = "GAME NAME ERROR";
-        }
-
-        return playerGame;
-    }
-
 
     public APClient () {
         super();

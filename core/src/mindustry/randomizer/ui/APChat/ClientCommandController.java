@@ -78,6 +78,9 @@ public class ClientCommandController {
         }
     }
 
+    /**
+     * Execute commands meant for development.
+     */
     private void executeDevCommand(String[] commandParts) {
         if (commandParts.length > 2) {
             tooManyArgumentMessage();
@@ -94,6 +97,9 @@ public class ClientCommandController {
 
     }
 
+    /**
+     * Remove all messages from the chat.
+     */
     private void executeClearCommand(String[] commandParts) {
         if (commandParts.length > 1) {
             tooManyArgumentMessage();
@@ -102,6 +108,9 @@ public class ClientCommandController {
         chat.clearMessages();
     }
 
+    /**
+     * Display the players options in chat.
+     */
     private void executeOptionsCommand(String[] commandParts) {
         if (commandParts.length > 1) {
             tooManyArgumentMessage();

@@ -34,6 +34,10 @@ public class onDeathLink {
         }
     }
 
+    /**
+     * Process when a death link signal is received depending on player options.
+     * @param deathLinkMode The selected death link mode.
+     */
     private static void processDeathLinkBounce(int deathLinkMode) {
         switch (deathLinkMode) {
             case 0:

@@ -184,6 +184,11 @@ public class Randomizer {
         return content;
     }
 
+    /**
+     * Send a death link signal to Archipelago.
+     * @param source The source of the signal.
+     * @param cause The cause of death.
+     */
     public void sendDeathLink(String source, String cause){
         if (client.isConnected() && worldState.options.getDeathLink() && !worldState.deathLinkDying) {
             DeathLink.SendDeathLink(source, cause);
@@ -209,6 +214,10 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Send a message locally
+     * @param message message to be sent.
+     */
     public void sendLocalMessage (APMessage message) {
         if (Vars.ui.chatfrag != null) {
             Vars.ui.chatfrag.addLocalMessage(message);
@@ -368,8 +377,10 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Opens a dialog informing the player that they need to restart the game to apply options.
+     */
     public void updateForceExit() {
-        //open confirmation dialog to warn the user of the required game restart.
         APApplyOptionsDialog dialog = new APApplyOptionsDialog();
         dialog.show();
     }

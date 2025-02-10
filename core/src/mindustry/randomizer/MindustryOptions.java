@@ -102,6 +102,9 @@ public class MindustryOptions {
      */
     private boolean makeEarlyRoadblocksLocal;
 
+    /**
+     * Contains the list of every available ability for the core units randomization.
+     */
     private ArrayList<Ability[]> coreUnitAbilities;
 
     private ArrayList<Ability[]> getCoreUnitAbilities() {
@@ -480,6 +483,10 @@ public class MindustryOptions {
         doubleOutputItem(((GenericCrafter) Blocks.cultivator));
     }
 
+    /**
+     * Double the output of liquid generating Crafter.
+     * @param crafter The crafter to double the output.
+     */
     private static void doubleOutputLiquids(GenericCrafter crafter) {
         for (int i = 0; i < crafter.outputLiquids.length; i++) {
             crafter.outputLiquids[i].amount = crafter.outputLiquids[i].amount * 2;
@@ -487,7 +494,7 @@ public class MindustryOptions {
     }
 
     /**
-     * Reduce time required by the miner to extract ressources by half.
+     * Reduce time required by the miner to extract resources by half.
      * @param miner the miner to have the extract time reduced by half
      */
     private static void halfWallCrafterDrillTime(WallCrafter miner) {
@@ -495,16 +502,15 @@ public class MindustryOptions {
     }
 
     /**
-     * Reduce time required by the drill to extract ressources by half.
+     * Reduce time required by the drill to extract resources by half.
      * @param drill the drill to have the extract time reduced by half
      */
     private static void halfBeamDrillTime(BeamDrill drill) {
         drill.drillTime = drill.drillTime / 2;
     }
 
-
     /**
-     * Reduce time required by the drill to extract ressources by half.
+     * Reduce time required by the drill to extract resources by half.
      * @param drill the drill to have the extract time reduced by half
      */
     private static void halfDrillTime(Drill drill) {
