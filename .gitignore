@@ -10,6 +10,8 @@ logs/
 /core/assets/settings_backups/
 /core/assets/last_log.txt
 /core/assets/RandomizerCheckPending.txt
+/core/assets/APData/DataPackage.ser
+/core/assets/APData/
 /core/assets/.gifimages/
 /deploy/
 /out/
