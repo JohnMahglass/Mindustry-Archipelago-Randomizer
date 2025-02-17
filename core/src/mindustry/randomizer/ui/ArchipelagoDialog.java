@@ -263,24 +263,6 @@ public class ArchipelagoDialog extends BaseDialog {
             }
         }).size(150f, 60f).pad(4f);
 
-        /*
-        buttonTable.button("Clear login info", Icon.eraser, () -> {
-            client.disconnect();
-            passwordTextField.clearText();
-            client.setPassword("");
-
-            newAddress = "";
-            client.setAddress("");
-
-            newSlotName = "";
-            client.setSlotName("");
-
-            reload();
-        }).size(150f, 60f).pad(4f);
-         */
-
-        //buttonTable.button("Refresh status", Icon.refreshSmall, this::reload).size(150f, 60f).pad(4f);
-
         buttonTable.row();
         buttonTable.button("Connect", () -> {
             if (client.isConnected()) {

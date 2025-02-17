@@ -34,7 +34,7 @@ public class APClient extends Client {
     private String address;
 
     /**
-     * Temporary to fix the onClose twice bug.
+     * To prevent the onClose twice bug.
      */
     public boolean onCloseTriggered;
 

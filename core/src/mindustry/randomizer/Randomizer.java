@@ -319,8 +319,6 @@ public class Randomizer {
         return client.checkLocation(id);
     }
 
-
-
     /**
      * Apply options.
      */
