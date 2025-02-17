@@ -3,8 +3,6 @@ package mindustry.randomizer.client;
 import dev.koifysh.archipelago.Client;
 import dev.koifysh.archipelago.flags.ItemsHandling;
 import dev.koifysh.archipelago.parts.DataPackage;
-import dev.koifysh.archipelago.parts.NetworkPlayer;
-import dev.koifysh.archipelago.parts.NetworkSlot;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ConnectionStatus;

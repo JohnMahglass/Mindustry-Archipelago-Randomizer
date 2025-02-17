@@ -1,7 +1,6 @@
 package mindustry.randomizer.ui;
 
 import arc.Core;
-import arc.graphics.Color;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.graphics.Pal;

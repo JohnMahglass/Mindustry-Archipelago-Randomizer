@@ -5,7 +5,7 @@ import mindustry.randomizer.enums.ApChatColors;
 import static mindustry.Vars.randomizer;
 import static mindustry.randomizer.enums.ApChatColors.*;
 /**
- * ErrorMessageHandler
+ * Message handler for the randomizer
  *
  * @author John Mahglass
  * @version 1.0.0 2024-09-24

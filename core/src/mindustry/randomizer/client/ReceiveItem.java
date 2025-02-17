@@ -1,12 +1,10 @@
 package mindustry.randomizer.client;
 
-import arc.Core;
 import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.ReceiveItemEvent;
 import mindustry.ctype.UnlockableContent;
 
 import static mindustry.Vars.randomizer;
-import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 
 /**
  * ReceiveItem
