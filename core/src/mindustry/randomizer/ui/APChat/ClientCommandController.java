@@ -401,9 +401,13 @@ public class ClientCommandController {
                   [#FFDF29]/status[#FFFFFF]
                         Display connection status.
                   [#FFDF29]/options[#FFFFFF]
-                        Display selected options for game generation.
+                        Display relevant options for game generation.
                         You need to have connected once to be able
-                        to view selected options
+                        to view selected options.
+                  [#FFDF29]/options[#FFFFFF] [f]
+                        Display every selected options for game generation.
+                        You need to have connected once to be able
+                        to view selected options.
                   [#FFDF29]/connect[#FFFFFF]
                         Connect using the information provided in
                         Settings -> Archipelago
