@@ -9,6 +9,7 @@ import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.randomizer.utils.EmptyFillerText;
@@ -242,13 +243,13 @@ public class Randomizer {
     public boolean allowFreeLaunch(Sector sector) {
         boolean allow = false;
         switch (worldState.options.getCampaign()) {
-            case 0: //Serpulo
+            case SERPULO:
                 allow = serpuloFreeLaunchTarget(sector);
                 break;
-            case 1: //Erekir
+            case EREKIR:
                 allow = erekirFreeLaunchTarget(sector);
                 break;
-            case 2: //All
+            case ALL:
                 if (serpuloFreeLaunchTarget(sector) || erekirFreeLaunchTarget(sector)) {
                     allow = true;
                 }
@@ -330,25 +331,25 @@ public class Randomizer {
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
-            if (options.getLogisticDistribution() == 3) { //Starter logistics
+            if (options.getLogisticDistribution() == LogisticsDistribution.STARTER) {
                 MindustryOptions.applyStarterLogistics(options.getCampaign());
             }
             switch (options.getCampaign()) {
-                case 0: //Serpulo
+                case SERPULO:
                     worldState.initializeSerpuloItems();
                     worldState.initializeSerpuloFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                     }
                     break;
-                case 1: //Erekir
+                case EREKIR:
                     worldState.initializeErekirItems();
                     worldState.initializeErekirFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
-                case 2: //All
+                case ALL:
                     worldState.initializeAllItems();
                     worldState.initializeAllFillers();
                     if (options.getTutorialSkip()) {

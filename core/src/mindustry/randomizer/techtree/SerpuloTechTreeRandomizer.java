@@ -8,6 +8,7 @@ import mindustry.content.Planets;
 import mindustry.game.Objectives;
 
 import mindustry.game.Objectives.*;
+import mindustry.randomizer.enums.ArchipelagoGoal;
 
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Blocks.additiveReconstructor;
@@ -453,10 +454,10 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            if (Vars.randomizer.worldState.options.getGoal() == 0) { //Resources
+            if (Vars.randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES) {
                 apNode(createApLocation("Victory Serpulo", null, 998L,
                         LocationResearchCost.reqResourcesVictorySerpulo()));
-            } else { //Conquest
+            } else {
                 apNode(createApLocation("Victory Serpulo", null, 998L),
                         Seq.with(new SectorComplete(groundZero),
                                 new SectorComplete(frozenForest),

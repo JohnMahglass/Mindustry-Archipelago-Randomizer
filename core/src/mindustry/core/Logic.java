@@ -13,6 +13,7 @@ import mindustry.game.Teams.*;
 import mindustry.gen.*;
 import mindustry.maps.*;
 import mindustry.randomizer.enums.ApChatColors;
+import mindustry.randomizer.enums.DeathLinkMode;
 import mindustry.randomizer.enums.SettingStrings;
 import mindustry.randomizer.utils.ChatColor;
 import mindustry.type.*;
@@ -202,7 +203,7 @@ public class Logic implements ApplicationListener{
         });
 
         Events.on(PlayerDestroyEvent.class, e -> {
-            if (!randomizer.worldState.deathLinkDying && randomizer.worldState.options.getDeathLinkMode() == 0) {
+            if (!randomizer.worldState.deathLinkDying && randomizer.worldState.options.getDeathLinkMode() == DeathLinkMode.UNIT) {
                 randomizer.sendDeathLink(randomizer.client.getSlotName(),
                         randomizer.client.getSlotName() + " " + e.cause);
             } else {
@@ -290,14 +291,16 @@ public class Logic implements ApplicationListener{
                 if (randomizer.client.isConnected()) {
                     if (!randomizer.worldState.deathLinkDying) {
                         boolean deathLinkActivated = randomizer.worldState.options.getDeathLink();
-                        int deathLinkMode = randomizer.worldState.options.getDeathLinkMode();
-                        if (deathLinkActivated && (deathLinkMode == 1 || deathLinkMode == 2)) { //1 or 2 is deathlink on core destroyed
+                        DeathLinkMode deathLinkMode = randomizer.worldState.options.getDeathLinkMode();
+                        if (deathLinkActivated && (deathLinkMode == DeathLinkMode.CORE ||
+                                deathLinkMode == DeathLinkMode.CORE_RUSSIAN_ROULETTE)) {
                             randomizer.sendDeathLink(randomizer.client.getSlotName(), "Core has been " +
                                     "destroyed.");
-                            if (deathLinkMode == 2) {
+                            if (deathLinkMode == DeathLinkMode.CORE_RUSSIAN_ROULETTE) {
                                 randomizer.sendLocalMessage("Core destroyed, " + ChatColor.applyColor(ApChatColors.RED, "reloading") +
                                         " the Archipelago Death Link Gun™");
-                                Core.settings.put(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, randomizer.worldState.options.getCoreRussianRouletteChambers());
+                                Core.settings.put(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value,
+                                        randomizer.worldState.options.getCoreRussianRouletteChambers());
                             }
                         } else {
                             randomizer.worldState.deathLinkDying = false;

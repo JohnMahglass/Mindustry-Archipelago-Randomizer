@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Random;
 
 import mindustry.ctype.UnlockableContent;
+import mindustry.randomizer.enums.CampaignType;
 import mindustry.randomizer.enums.ProgressiveItemType;
 import mindustry.randomizer.techtree.ApLocation;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
@@ -120,19 +121,19 @@ public class WorldState {
      */
     public boolean isVictoryConditionMet(){
         boolean victory = false;
-        int campaign = options.getCampaign();
+        CampaignType campaign = options.getCampaign();
         switch (campaign) {
-            case 0: //Serpulo
+            case SERPULO:
                 if (settings.getBool(SERPULO_VICTORY.value)) {
                     victory = true;
                 }
                 break;
-            case 1: //Erekir
+            case EREKIR:
                 if (settings.getBool(EREKIR_VICTORY.value)) {
                     victory = true;
                 }
                 break;
-            case 2: //All
+            case ALL:
                 if (settings.getBool(SERPULO_VICTORY.value) && settings.getBool(EREKIR_VICTORY.value)) {
                     victory = true;
                 }

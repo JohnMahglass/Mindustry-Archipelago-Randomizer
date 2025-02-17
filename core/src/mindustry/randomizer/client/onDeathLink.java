@@ -4,6 +4,7 @@ import dev.koifysh.archipelago.events.ArchipelagoEventListener;
 import dev.koifysh.archipelago.events.DeathLinkEvent;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ApChatColors;
+import mindustry.randomizer.enums.DeathLinkMode;
 import mindustry.randomizer.utils.ChatColor;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 
@@ -38,20 +39,20 @@ public class onDeathLink {
      * Process when a death link signal is received depending on player options.
      * @param deathLinkMode The selected death link mode.
      */
-    private static void processDeathLinkBounce(int deathLinkMode) {
+    private static void processDeathLinkBounce(DeathLinkMode deathLinkMode) {
         switch (deathLinkMode) {
-            case 0:
+            case UNIT:
                 if (state.isCampaign() && !Vars.player.unit().dead) {
                     randomizer.worldState.deathLinkDying = true;
                     Vars.player.unit().kill();
                 }
                 break;
-            case 1:
+            case CORE:
                 if (state.isCampaign()) {
                     destroyPlayerCores();
                 }
                 break;
-            case 2:
+            case CORE_RUSSIAN_ROULETTE:
                 if (state.isCampaign()) {
                     fireDeathLinkGun();
                 }
@@ -76,7 +77,7 @@ public class onDeathLink {
             for(var core : player.team().cores().copy()){
                 core.kill();
             }
-        } else {
+        } else { //Shot is fired on protected sector
             randomizer.sendLocalMessage("But your battle-hardened core " + ChatColor.applyColor(ApChatColors.GOLD, "deflected") +
                     " the bullet!");
         }

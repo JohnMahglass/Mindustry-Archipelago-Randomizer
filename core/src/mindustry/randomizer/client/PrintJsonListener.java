@@ -6,8 +6,6 @@ import dev.koifysh.archipelago.events.PrintJSONEvent;
 import mindustry.randomizer.ui.APChat.APMessage;
 
 import static mindustry.Vars.randomizer;
-import static mindustry.randomizer.enums.SettingStrings.*;
-import static arc.Core.settings;
 
 /**
  * Print Json message from Archipelago
@@ -22,7 +20,7 @@ public class PrintJsonListener {
         if (type.equals(APPrintJsonType.ItemSend)){
             filterItemMessage(event);
         } else {
-            if (settings.getBool(AP_CHAT_DISABLED.value)) {
+            if (randomizer.worldState.options.getDisableChat()) {
                 if (type.equals(APPrintJsonType.Hint) || type.equals(APPrintJsonType.Tutorial)) {
                     randomizer.sendLocalMessage(new APMessage(event));
                 }
@@ -38,12 +36,12 @@ public class PrintJsonListener {
      * @param event The Archipelago event received from the client.
      */
     private void filterItemMessage(PrintJSONEvent event) {
-        if (!settings.getBool(AP_CHAT_DISABLED.value)) {
+        if (!randomizer.worldState.options.getDisableChat()) {
             int receivingPlayer = event.apPrint.receiving;
             int sendingPlayer = event.item.playerID;
             int mindustryPlayer = randomizer.client.getSlot();
 
-            if (settings.getBool(AP_CHAT_SELF_ITEM_ONLY.value)) {
+            if (randomizer.worldState.options.getAllowOnlySelfItem()) {
                 if (sendingPlayer == mindustryPlayer) {
                     randomizer.sendLocalMessage(new APMessage(event));
                 } else {

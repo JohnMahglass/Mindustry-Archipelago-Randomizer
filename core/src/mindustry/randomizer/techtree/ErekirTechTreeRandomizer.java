@@ -11,6 +11,7 @@ import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
 import mindustry.entities.bullet.BulletType;
 import mindustry.game.Objectives;
+import mindustry.randomizer.enums.ArchipelagoGoal;
 import mindustry.type.unit.ErekirUnitType;
 import mindustry.world.blocks.defense.turrets.ContinuousLiquidTurret;
 import mindustry.world.blocks.defense.turrets.ContinuousTurret;
@@ -453,7 +454,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            if (Vars.randomizer.worldState.options.getGoal() == 0) { //Resources
+            if (Vars.randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES) {
                 apNode(createApLocation("Victory Erekir", null, 999L,
                         LocationResearchCost.reqResourcesVictoryErekir()));
             } else { //Conquest

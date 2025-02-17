@@ -1,6 +1,10 @@
 package mindustry.randomizer.ui.APChat;
 
 import arc.Core;
+import mindustry.randomizer.enums.ArchipelagoGoal;
+import mindustry.randomizer.enums.CampaignType;
+import mindustry.randomizer.enums.DeathLinkMode;
+import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.enums.SettingStrings;
 import mindustry.randomizer.utils.ChatColor;
 
@@ -145,18 +149,19 @@ public class ClientCommandController {
                 sb.append("Options:\n");
                 sb.append(getCampaignOptionText());
                 sb.append(getGoalOptionText());
-                if (randomizer.worldState.options.getGoal() == 0) { //Resources goal
+                if (randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES) {
                     sb.append(getAmountofResourcesRequiredOptionText());
                 }
                 sb.append(getTutorialSkipOptionText());
-                if(randomizer.worldState.options.getCampaign() == 0 || randomizer.worldState.options.getCampaign() == 2) { // Serpulo included in chosen campaigns
+                if(randomizer.worldState.options.getCampaign() == CampaignType.SERPULO ||
+                        randomizer.worldState.options.getCampaign() == CampaignType.ALL) { // Serpulo included in chosen campaign
                     sb.append(getDisableInvasionsOptionText());
                 }
                 sb.append(getFasterProductionOptionText());
                 sb.append(getDeathLinkOptionText());
                 if(randomizer.worldState.options.getTrueDeathLink()){
                     sb.append(getDeathLinkModeOptionText());
-                    if (randomizer.worldState.options.getDeathLinkMode() == 2) { //Russian roulette
+                    if (randomizer.worldState.options.getDeathLinkMode() == DeathLinkMode.CORE_RUSSIAN_ROULETTE) {
                         sb.append(getCoreRussianRouletteSizeOptionText());
                     }
                 }
@@ -224,17 +229,17 @@ public class ClientCommandController {
     }
 
     private String getDeathLinkModeText() {
-        int mode = randomizer.worldState.options.getDeathLinkMode();
         String modeText;
-        switch (mode) {
-            case 0:
+        switch (randomizer.worldState.options.getDeathLinkMode()) {
+            case UNIT:
                 modeText = "Unit";
                 break;
-            case 1:
+            case CORE:
                 modeText = "Core";
                 break;
-            case 2:
-                int ammo = Core.settings.getInt(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
+            case CORE_RUSSIAN_ROULETTE:
+                int ammo =
+                        Core.settings.getInt(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value); //TODO make a method to fetch this value in MindustryOption
                 modeText = "Core russian roulette. 1/" + ammo + " ammo left.";
                 break;
             default:
@@ -249,19 +254,19 @@ public class ClientCommandController {
      * @param logisticOption The selected option
      * @return The selected option in text format.
      */
-    private String getLogisticDistributionValue(int logisticOption) {
+    private String getLogisticDistributionValue(LogisticsDistribution logisticOption) {
         String text = "Error";
         switch (logisticOption){
-            case 0: // Randomized logistics
+            case RANDOMIZED:
                 text = "Randomized logistics";
                 break;
-            case 1: // Early logistics
+            case EARLY:
                 text = "Early logistics";
                 break;
-            case 2: // Local early logistics
+            case LOCAL_EARLY:
                 text = "Local early logistics";
                 break;
-            case 3: //Starter logistics
+            case STARTER:
                 text = "Starter logistics";
                 break;
         }
@@ -283,12 +288,12 @@ public class ClientCommandController {
      */
     private String getCampaignOptionText() {
         String name;
-        int campaign = randomizer.worldState.options.getCampaign();
-        if (campaign == 0) { //Serpulo
+        CampaignType campaign = randomizer.worldState.options.getCampaign();
+        if (campaign == CampaignType.SERPULO) {
             name = ChatColor.applyColor(SERPULO, "Serpulo");
-        } else if (campaign == 1) { //Erekir
+        } else if (campaign == CampaignType.EREKIR) {
             name = ChatColor.applyColor(EREKIR, "Erekir");
-        } else if (campaign == 2) { //All
+        } else if (campaign == CampaignType.ALL) {
             name = ChatColor.applyColor(SERPULO, "Serpulo") + " and " + ChatColor.applyColor(EREKIR, "Erekir");
         } else {
             name = "Campaign name error";
@@ -302,10 +307,10 @@ public class ClientCommandController {
      */
     private String getGoalOptionText(){
         String name;
-        int goal = randomizer.worldState.options.getGoal();
-        if (goal == 0) { //Resources
+        ArchipelagoGoal goal = randomizer.worldState.options.getGoal();
+        if (goal == ArchipelagoGoal.RESOURCES) {
             name = ChatColor.applyColor(GOLD, "Recources");
-        } else if (goal == 1) { //Conquest
+        } else if (goal == ArchipelagoGoal.CONQUEST) {
             name = ChatColor.applyColor(GOLD, "Conquest");
         } else {
             name = "Goal name error";

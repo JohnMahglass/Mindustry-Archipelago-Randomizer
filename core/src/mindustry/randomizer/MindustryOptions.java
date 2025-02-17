@@ -8,6 +8,10 @@ import mindustry.content.UnitTypes;
 import mindustry.entities.abilities.Ability;
 import mindustry.gen.Unit;
 import mindustry.randomizer.client.SlotData;
+import mindustry.randomizer.enums.ArchipelagoGoal;
+import mindustry.randomizer.enums.CampaignType;
+import mindustry.randomizer.enums.DeathLinkMode;
+import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
 import mindustry.world.blocks.power.ThermalGenerator;
@@ -121,7 +125,14 @@ public class MindustryOptions {
         return (ArrayList<Ability[]>)this.coreUnitAbilities.clone();
     }
 
-    public int getLogisticDistribution(){
+    public LogisticsDistribution getLogisticDistribution(){
+        return LogisticsDistribution.toLogisticDistribution(this.logisticDistribution);
+    }
+
+    /**
+     * Return the value of LogisticDistribution. Used for storing information in settings.
+     */
+    private int getLogisticDistributionValue(){
         return this.logisticDistribution;
     }
 
@@ -154,11 +165,25 @@ public class MindustryOptions {
         return this.deathLink && !this.forceDisableDeathLink;
     }
 
-    public int getDeathLinkMode() {
+    public DeathLinkMode getDeathLinkMode() {
+        return DeathLinkMode.toDeathLinkMode(this.deathLinkMode);
+    }
+
+    /**
+     * Return the value of DeathLinkMode. Used for storing informations in settings.
+     */
+    private int getDeathLinkModeValue(){
         return this.deathLinkMode;
     }
 
-    public int getGoal(){
+    public ArchipelagoGoal getGoal(){
+        return ArchipelagoGoal.toArchipelagoGoal(this.goal);
+    }
+
+    /**
+     * Return the value of Goal. Used for storing informations in settings.
+     */
+    private int getGoalValue(){
         return this.goal;
     }
 
@@ -169,6 +194,7 @@ public class MindustryOptions {
     public boolean getRandomizeCoreUnitsWeapon(){
         return this.randomizeCoreUnitsWeapon;
     }
+
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
     }
@@ -204,7 +230,14 @@ public class MindustryOptions {
         return this.makeEarlyRoadblocksLocal;
     }
 
-    public int getCampaign() {
+    public CampaignType getCampaign() {
+        return CampaignType.toCampaignType(this.campaign);
+    }
+
+    /**
+     * Return the value of Campaign. Used for storing informations in settings.
+     */
+    private int getCampaignValue(){
         return this.campaign;
     }
 
@@ -295,7 +328,7 @@ public class MindustryOptions {
      * Randomize core units weapon.
      */
     public void randomizeCoreUnitsWeapon(Unit unit) {
-        if (getCampaign() == 1 || getCampaign() == 2) {
+        if (getCampaign() == CampaignType.EREKIR || getCampaign() == CampaignType.ALL) {
             ArrayList<Ability[]> possibleCoreUnitAbilities = getCoreUnitAbilities();
             randomizeErekirCoreUnitsAbility(possibleCoreUnitAbilities, unit);
         }
@@ -418,15 +451,15 @@ public class MindustryOptions {
      * Apply the starter logistics option.
      * @param campaign The selected campaign.
      */
-    protected static void applyStarterLogistics(int campaign){
+    protected static void applyStarterLogistics(CampaignType campaign){
         switch (campaign) {
-            case 0: //Serpulo
+            case SERPULO:
                 unlockSerpuloLogisticItems();
                 break;
-            case 1: //Erekir
+            case EREKIR:
                 unlockErekirLogisticItems();
                 break;
-            case 2: //All
+            case ALL:
                 unlockSerpuloLogisticItems();
                 unlockErekirLogisticItems();
                 break;
@@ -437,15 +470,20 @@ public class MindustryOptions {
      * Apply the faster production option to the selected campaign.
      * @param campaign The selected campaign.
      */
-    protected static void applyFasterProduction(int campaign){
-        if (campaign == 0) { //Serpulo
-            applySerpuloFasterProduction();
-        } else if (campaign == 1) { //Erekir
-            applyErekirFasterProduction();
-        } else if (campaign == 2) { //All
-            applySerpuloFasterProduction();
-            applyErekirFasterProduction();
+    protected static void applyFasterProduction(CampaignType campaign){
+        switch (campaign) {
+            case SERPULO:
+                applySerpuloFasterProduction();
+                break;
+            case EREKIR:
+                applyErekirFasterProduction();
+                break;
+            case ALL:
+                applySerpuloFasterProduction();
+                applyErekirFasterProduction();
+                break;
         }
+
     }
 
     /**
@@ -583,26 +621,26 @@ public class MindustryOptions {
      */
     private void saveOptions() {
         settings.put(DEATH_LINK.value, getDeathLink());
-        settings.put(DEATH_LINK_MODE.value, getDeathLinkMode());
+        settings.put(DEATH_LINK_MODE.value, getDeathLinkModeValue());
         settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_CHAMBERS.value, getCoreRussianRouletteChambers());
         settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, getCoreRussianRouletteChambers());
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
-        settings.put(CAMPAIGN_CHOICE.value, getCampaign());
-        settings.put(AP_GOAL.value, getGoal());
+        settings.put(CAMPAIGN_CHOICE.value, getCampaignValue());
+        settings.put(AP_GOAL.value, getGoalValue());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
-        settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
+        settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistributionValue());
         settings.put(PROGRESSIVE_DRILLS.value, getProgressiveDrills());
         settings.put(PROGRESSIVE_GENERATORS.value, getProgressiveGenerators());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
         settings.put(AMOUNT_OF_RESOURCES_REQUIRED.value, getAmountOfResourcesRequired());
         if (getTutorialSkip()) {
-            if (getCampaign() == 0) {
+            if (getCampaign() == CampaignType.SERPULO) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
-            } else if (getCampaign() == 1) {
+            } else if (getCampaign() == CampaignType.EREKIR) {
                 settings.put(FREE_LAUNCH_EREKIR.value, true);
-            } else if (getCampaign() == 2) {
+            } else if (getCampaign() == CampaignType.ALL) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
                 settings.put(FREE_LAUNCH_EREKIR.value, true);
             }
@@ -632,11 +670,11 @@ public class MindustryOptions {
 
         this.optionsFilled = true;
         if (this.randomizeCoreUnitsWeapon) {
-            if (getCampaign() == 0) { //Serpulo
+            if (getCampaign() == CampaignType.SERPULO) {
                 randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
-            } else if (getCampaign() == 1) { //Erekir
+            } else if (getCampaign() == CampaignType.EREKIR) {
                 coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
-            } else if (getCampaign() == 2) { //All
+            } else if (getCampaign() == CampaignType.ALL) {
                 randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
                 coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             }
