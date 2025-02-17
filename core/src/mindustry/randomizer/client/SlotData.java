@@ -43,9 +43,14 @@ public class SlotData {
     @SerializedName("make_early_roadblocks_local")
     private boolean makeEarlyRoadblocksLocal = false;
 
+    @SerializedName("progressive_drills")
+    private boolean progressiveDrills = false;
+
+    @SerializedName("progressive_generators")
+    private boolean progressiveGenerators = false;
+
     @SerializedName("amount_of_resources_required")
     private int amountOfResourcesRequired = 2000;
-
 
     public boolean getTutorialSkip() {
         return tutorialSkip;
@@ -90,6 +95,14 @@ public class SlotData {
 
     public boolean getMakeEarlyRoadblocksLocal() {
         return this.makeEarlyRoadblocksLocal;
+    }
+
+    public boolean getProgressiveDrills(){
+        return this.progressiveDrills;
+    }
+
+    public boolean getProgressiveGenerators(){
+        return this.progressiveGenerators;
     }
 
     public int getAmountOfResourcesRequired() {

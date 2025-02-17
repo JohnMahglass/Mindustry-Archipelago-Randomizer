@@ -103,6 +103,16 @@ public class MindustryOptions {
     private boolean makeEarlyRoadblocksLocal;
 
     /**
+     * Make drills into progressive items
+     */
+    private boolean progressiveDrills;
+
+    /**
+     * Make generators into progressive items
+     */
+    private boolean progressiveGenerators;
+
+    /**
      * Contains the list of every available ability for the core units randomization.
      */
     private ArrayList<Ability[]> coreUnitAbilities;
@@ -165,6 +175,12 @@ public class MindustryOptions {
 
     public int getAmountOfResourcesRequired() {
         return this.amountOfResourcesRequired;
+    }
+    public boolean getProgressiveDrills(){
+        return this.progressiveDrills;
+    }
+    public boolean getProgressiveGenerators(){
+        return this.progressiveGenerators;
     }
 
     /**
@@ -236,6 +252,8 @@ public class MindustryOptions {
             this.logisticDistribution = slotData.getLogisticDistribution();
             this.makeEarlyRoadblocksLocal = slotData.getMakeEarlyRoadblocksLocal();
             this.amountOfResourcesRequired = slotData.getAmountOfResourcesRequired();
+            this.progressiveDrills = slotData.getProgressiveDrills();
+            this.progressiveGenerators = slotData.getProgressiveGenerators();
 
             this.optionsFilled = true;
             saveOptions();
@@ -575,6 +593,8 @@ public class MindustryOptions {
         settings.put(AP_GOAL.value, getGoal());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
         settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
+        settings.put(PROGRESSIVE_DRILLS.value, getProgressiveDrills());
+        settings.put(PROGRESSIVE_GENERATORS.value, getProgressiveGenerators());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
         settings.put(AMOUNT_OF_RESOURCES_REQUIRED.value, getAmountOfResourcesRequired());
         if (getTutorialSkip()) {
@@ -605,6 +625,8 @@ public class MindustryOptions {
         this.goal = settings.getInt(AP_GOAL.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
+        this.progressiveDrills = settings.getBool(PROGRESSIVE_DRILLS.value);
+        this.progressiveGenerators = settings.getBool(PROGRESSIVE_GENERATORS.value);
         this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
         this.amountOfResourcesRequired = settings.getInt(AMOUNT_OF_RESOURCES_REQUIRED.value);
 

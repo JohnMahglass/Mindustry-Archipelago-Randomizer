@@ -131,7 +131,9 @@ public class ClientCommandController {
                         getSeedText() +
                         getRandomizeCoreUnitsWeaponOptionText() +
                         getLogisiticDistributionOptionText() +
-                        getLocalEarlyRoadblocksOptionText()
+                        getLocalEarlyRoadblocksOptionText() +
+                        getProgressiveDrillsOptionText() +
+                        getProgressiveGeneratorsOptionText()
                         ));
             } else {
                 chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
@@ -161,6 +163,8 @@ public class ClientCommandController {
                 sb.append(getRandomizeCoreUnitsWeaponOptionText());
                 sb.append(getLogisiticDistributionOptionText());
                 sb.append(getLocalEarlyRoadblocksOptionText());
+                sb.append(getProgressiveDrillsOptionText());
+                sb.append(getProgressiveGeneratorsOptionText());
 
                 chat.addLocalMessage(new APMessage(sb.toString()));
             } else {
@@ -169,6 +173,14 @@ public class ClientCommandController {
             }
         }
 
+    }
+
+    private String getProgressiveGeneratorsOptionText() {
+        return "   Progressive Generators: " + getActivationStatus(randomizer.worldState.options.getProgressiveGenerators()) + "\n";
+    }
+
+    private String getProgressiveDrillsOptionText() {
+        return "   Progressive Drills: " + getActivationStatus(randomizer.worldState.options.getProgressiveDrills()) + "\n";
     }
 
     private String getLocalEarlyRoadblocksOptionText() {
@@ -281,7 +293,7 @@ public class ClientCommandController {
         } else {
             name = "Campaign name error";
         }
-        return "    Selected campaign: " + name + "\n";
+        return "   Selected campaign: " + name + "\n";
     }
 
     /**
