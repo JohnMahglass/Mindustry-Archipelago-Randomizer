@@ -638,7 +638,6 @@ public class MindustryOptions {
         doubleConveyorSpeed(((Conveyor) Blocks.titaniumConveyor));
         doubleConveyorSpeed(((Conveyor) Blocks.armoredConveyor));
         doubleStackConveyorSpeed(((StackConveyor) Blocks.plastaniumConveyor));
-        doubleStackConveyorSpeed(((StackConveyor) Blocks.surgeConveyor));
     }
 
     /**
