@@ -17,10 +17,12 @@ import mindustry.entities.abilities.Ability;
 import mindustry.entities.abilities.EnergyFieldAbility;
 import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.abilities.MoveEffectAbility;
+import mindustry.entities.abilities.MoveLightningAbility;
 import mindustry.entities.abilities.RepairFieldAbility;
 import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.abilities.ShieldRegenFieldAbility;
 import mindustry.entities.abilities.StatusFieldAbility;
+import mindustry.entities.abilities.SuppressionFieldAbility;
 import mindustry.entities.abilities.UnitSpawnAbility;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
@@ -59,7 +61,9 @@ import java.util.ArrayList;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
+import static mindustry.content.UnitTypes.anthicus;
 import static mindustry.content.UnitTypes.elude;
+import static mindustry.content.UnitTypes.locus;
 
 
 /**
@@ -78,37 +82,37 @@ public abstract class RandomizableCoreUnits {
         ArrayList<Ability[]> coreUnitAbility = new ArrayList<>();
 
 
-        Ability[] scepterAbilities = new Ability[]{
+        Ability[] scepterAbilities = new Ability[]{ //0
                 new ShieldRegenFieldAbility(25f, 250f, 60f * 1, 60f)
         };
         coreUnitAbility.add(scepterAbilities);
 
 
-        Ability[] quasarAbilities = new Ability[]{ //shield health upgraded
+        Ability[] quasarAbilities = new Ability[]{ //1 ,shield health upgraded
                 new ForceFieldAbility(60f, 0.5f, 1000f, 60f * 6)
         };
         coreUnitAbility.add(quasarAbilities);
 
 
-        Ability[] polyAbilities = new Ability[]{ //healing boosted
+        Ability[] polyAbilities = new Ability[]{ //2, healing boosted
                 new RepairFieldAbility(45f, 50f * 8, 50f)
         };
         coreUnitAbility.add(polyAbilities);
 
 
-        Ability[] omuraAbilities = new Ability[]{ //Made spawn time longer
+        Ability[] omuraAbilities = new Ability[]{ //3, Made spawn time longer
                 new UnitSpawnAbility(elude, 75f * 15f, 0f, 0f)
         };
         coreUnitAbility.add(omuraAbilities);
 
 
-        Ability[] oxynoeAbilities = new Ability[]{
+        Ability[] oxynoeAbilities = new Ability[]{//4
                 new StatusFieldAbility(StatusEffects.overclock, 60f * 6, 60f * 6f, 60f)
         };
         coreUnitAbility.add(oxynoeAbilities);
 
 
-        Ability[] tectaShield = new Ability[]{ //Boosted shield hp and size
+        Ability[] tectaShield = new Ability[]{ //5, Boosted shield hp and size
                 new ShieldArcAbility(){{
                     region = "tecta-shield";
                     radius = 45f;
@@ -124,13 +128,13 @@ public abstract class RandomizableCoreUnits {
         coreUnitAbility.add(tectaShield);
 
 
-        Ability[] eludeAbilities = new Ability[]{
+        Ability[] eludeAbilities = new Ability[]{ //6
                 new MoveEffectAbility(0f, -7f, Pal.sapBulletBack, Fx.missileTrailShort, 4f)
         };
         coreUnitAbility.add(eludeAbilities);
 
 
-        Ability[] aegiresAbilities = new Ability[]{ //Reduced area to prevent cheesing
+        Ability[] aegiresAbilities = new Ability[]{ //7, Reduced area to prevent cheesing
                 new EnergyFieldAbility(40f, 65f, 90f){{
                     statusDuration = 60f * 6f;
                     maxTargets = 25;
@@ -139,6 +143,34 @@ public abstract class RandomizableCoreUnits {
                 }}};
         coreUnitAbility.add(aegiresAbilities);
 
+
+        Ability[] suppressionFieldAbility = new Ability[]{ //8 Quell, Not too noticable, remove? or
+                // add info for all weapons/ability
+                new SuppressionFieldAbility(){{
+                    orbRadius = 5.3f;
+                    y = 1f;
+                }}};
+        coreUnitAbility.add(suppressionFieldAbility);
+
+        Ability[] moveLightningAbility = new Ability[]{ //9
+                new MoveLightningAbility(40f, 12, 0.25f, 0f, 0.8f, 1.2f, Color.gold)
+        };
+        coreUnitAbility.add(moveLightningAbility);
+
+        Ability[] moveLightningAbility2 = new Ability[]{ //10
+                new MoveLightningAbility(150f, 20, 0.06f, 0f, 0.5f, 0.8f, Color.red)
+        };
+        coreUnitAbility.add(moveLightningAbility2);
+
+        Ability[] spawnT2Tank = new Ability[]{ //11
+                new UnitSpawnAbility(locus, 80f * 25f, 0f, 0f)
+        };
+        coreUnitAbility.add(spawnT2Tank);
+
+        Ability[] spawnT3Mech = new Ability[]{ //12
+                new UnitSpawnAbility(anthicus, 90f * 40f, 0f, 0f)
+        };
+        coreUnitAbility.add(spawnT3Mech);
 
         return coreUnitAbility;
     }
@@ -153,7 +185,7 @@ public abstract class RandomizableCoreUnits {
         // This is why a restart of the game is required.
         ArrayList<Seq<Weapon>> coreUnitweapons = new ArrayList<>();
 
-        Seq<Weapon> daggerWeapons = new Seq<>();
+        Seq<Weapon> daggerWeapons = new Seq<>(); //0
         daggerWeapons.add(new Weapon("large-weapon"){{
             reload = 13f;
             x = 4f;
@@ -168,7 +200,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(daggerWeapons);
 
-        Seq<Weapon> maceWeapons = new Seq<>();
+        Seq<Weapon> maceWeapons = new Seq<>(); //1
         maceWeapons.add(new Weapon("flamethrower"){{
             top = false;
             shootSound = Sounds.flame;
@@ -194,7 +226,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(maceWeapons);
 
-        Seq<Weapon> fortressWeapons = new Seq<>();
+        Seq<Weapon> fortressWeapons = new Seq<>(); //2
         fortressWeapons.add(new Weapon("artillery"){{
             top = false;
             y = 1f;
@@ -219,7 +251,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(fortressWeapons);
 
-        Seq<Weapon> scepterWeapons1 = new Seq<>();
+        Seq<Weapon> scepterWeapons1 = new Seq<>(); //3
         scepterWeapons1.add(new Weapon("scepter-weapon"){{
             top = false;
             y = 1f;
@@ -249,12 +281,12 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(scepterWeapons1);
 
-        Seq<Weapon> scepterWeapons2 = new Seq<>();
+        Seq<Weapon> scepterWeapons2 = new Seq<>();//4
         scepterWeapons2.add(new Weapon("mount-weapon"){{
             reload = 13f;
             x = 4.5f;
             y = 3f;
-            rotate = true;
+            rotate = false;
             ejectEffect = Fx.casing1;
             bullet = new BasicBulletType(3f, 10){{
                 width = 7f;
@@ -266,7 +298,7 @@ public abstract class RandomizableCoreUnits {
             reload = 16f;
             x = 4.5f;
             y = -4f;
-            rotate = true;
+            rotate = false;
             ejectEffect = Fx.casing1;
             bullet = new BasicBulletType(3f, 10){{
                 width = 7f;
@@ -276,7 +308,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(scepterWeapons2);
 
-        Seq<Weapon> reignWeapons = new Seq<>();
+        Seq<Weapon> reignWeapons = new Seq<>(); //5
         reignWeapons.add(new Weapon("reign-weapon"){{
             top = false;
             y = 1f;
@@ -321,7 +353,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(reignWeapons);
 
-        Seq<Weapon> novaWeapons = new Seq<>();
+        Seq<Weapon> novaWeapons = new Seq<>(); //6
         novaWeapons.add(new Weapon("heal-weapon"){{
             top = false;
             shootY = 2f;
@@ -342,7 +374,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(novaWeapons);
 
-        Seq<Weapon> pulsarWeapons = new Seq<>();
+        Seq<Weapon> pulsarWeapons = new Seq<>(); //7
         pulsarWeapons.add(new Weapon("heal-shotgun-weapon"){{
             top = false;
             x = 5f;
@@ -383,7 +415,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(pulsarWeapons);
 
-        Seq<Weapon> quasarWeapons = new Seq<>();
+        Seq<Weapon> quasarWeapons = new Seq<>(); //8
         quasarWeapons.add(new Weapon("beam-weapon"){{
             top = false;
             shake = 2f;
@@ -407,7 +439,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(quasarWeapons);
 
-        Seq<Weapon> velaWeapons1 = new Seq<>();
+        Seq<Weapon> velaWeapons1 = new Seq<>(); //9
         velaWeapons1.add(new Weapon("vela-weapon"){{
             mirror = false;
             top = false;
@@ -453,7 +485,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(velaWeapons1);
 
-        Seq<Weapon> corvusWeapons = new Seq<>();
+        Seq<Weapon> corvusWeapons = new Seq<>();//10
         corvusWeapons.add(new Weapon("corvus-weapon"){{
             shootSound = Sounds.laserblast;
             chargeSound = Sounds.lasercharge;
@@ -502,7 +534,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(corvusWeapons);
 
-        Seq<Weapon> crawlerWeapons = new Seq<>();
+        Seq<Weapon> crawlerWeapons = new Seq<>(); //11
         crawlerWeapons.add(new Weapon(){{
             shootOnDeath = true;
             reload = 24f;
@@ -529,7 +561,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(crawlerWeapons);
 
-        Seq<Weapon> atraxWeapons = new Seq<>();
+        Seq<Weapon> atraxWeapons = new Seq<>(); //12
         atraxWeapons.add(new Weapon("atrax-weapon"){{
             top = false;
             shootY = 3f;
@@ -550,7 +582,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(atraxWeapons);
 
-        Seq<Weapon> spiroctWeapons1 = new Seq<>();
+        Seq<Weapon> spiroctWeapons1 = new Seq<>(); //13
         spiroctWeapons1.add(new Weapon("spiroct-weapon"){{
             shootY = 4f;
             reload = 14f;
@@ -576,7 +608,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(spiroctWeapons1);
 
-        Seq<Weapon> spiroctWeapons2 = new Seq<>();
+        Seq<Weapon> spiroctWeapons2 = new Seq<>(); //14
         spiroctWeapons2.add(new Weapon("mount-purple-weapon"){{
             reload = 18f;
             rotate = true;
@@ -598,7 +630,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(spiroctWeapons2);
 
-        Seq<Weapon> arkyidWeapons1 = new Seq<>();
+        Seq<Weapon> arkyidWeapons1 = new Seq<>(); //15
         arkyidWeapons1.add(new Weapon("large-purple-mount"){{
             y = -2f;
             x = 8f;
@@ -634,7 +666,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(arkyidWeapons1);
 
-        Seq<Weapon> arkyidWeapons2 = new Seq<>();
+        Seq<Weapon> arkyidWeapons2 = new Seq<>(); //16
         arkyidWeapons2.add(new Weapon("spiroct-weapon"){{
             reload = 9f;
             x = 2.5f;
@@ -691,7 +723,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(arkyidWeapons2);
 
-        Seq<Weapon> toxopidWeapons1 = new Seq<>();
+        Seq<Weapon> toxopidWeapons1 = new Seq<>(); //17
         toxopidWeapons1.add(new Weapon("large-purple-mount"){{
             y = -2f;
             x = 8f;
@@ -723,7 +755,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(toxopidWeapons1);
 
-        Seq<Weapon> toxopidWeapons2 = new Seq<>();
+        Seq<Weapon> toxopidWeapons2 = new Seq<>(); //18
         toxopidWeapons2.add(new Weapon("toxopid-cannon"){{
             y = -1f;
             x = 0f;
@@ -790,7 +822,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(toxopidWeapons2);
 
-        Seq<Weapon> flareWeapons = new Seq<>();
+        Seq<Weapon> flareWeapons = new Seq<>(); //19
         flareWeapons.add(new Weapon(){{
             y = 0f;
             x = 2f;
@@ -808,7 +840,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(flareWeapons);
 
-        Seq<Weapon> horizonWeapons = new Seq<>();
+        Seq<Weapon> horizonWeapons = new Seq<>(); //20
         horizonWeapons.add(new Weapon(){{
             minShootVelocity = 0.75f;
             x = 3f;
@@ -832,7 +864,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(horizonWeapons);
 
-        Seq<Weapon> zenithWeapons = new Seq<>();
+        Seq<Weapon> zenithWeapons = new Seq<>(); //21
         zenithWeapons.add(new Weapon("zenith-missiles"){{
             reload = 40f;
             x = 6.5f;
@@ -864,7 +896,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(zenithWeapons);
 
-        Seq<Weapon> antumbraWeapons1 = new Seq<>();
+        Seq<Weapon> antumbraWeapons1 = new Seq<>(); //22
         antumbraWeapons1.add(new Weapon("large-bullet-mount"){{
                                 y = 0f;
                                 x = 7f;
@@ -885,7 +917,7 @@ public abstract class RandomizableCoreUnits {
                             }});
         coreUnitweapons.add(antumbraWeapons1);
 
-        Seq<Weapon> antumbraWeapons2 = new Seq<>();
+        Seq<Weapon> antumbraWeapons2 = new Seq<>(); //23
         antumbraWeapons2.add(new Weapon("missiles-mount"){{
             y = 3f;
             x = 5.5f;
@@ -938,7 +970,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(antumbraWeapons2);
 
-        Seq<Weapon> eclipseWeapons1 = new Seq<>();
+        Seq<Weapon> eclipseWeapons1 = new Seq<>(); //24
         eclipseWeapons1.add(new Weapon("large-laser-mount"){{
             shake = 4f;
             shootY = 9f;
@@ -964,7 +996,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(eclipseWeapons1);
 
-        Seq<Weapon> eclipseWeapons2 = new Seq<>();
+        Seq<Weapon> eclipseWeapons2 = new Seq<>(); //25
         eclipseWeapons2.add(new Weapon("large-artillery"){{
             x = 5f;
             y = 5f;
@@ -1012,7 +1044,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(eclipseWeapons2);
 
-        Seq<Weapon> polyWeapons = new Seq<>();
+        Seq<Weapon> polyWeapons = new Seq<>(); //26
         polyWeapons.add(new Weapon("poly-weapon"){{
             top = false;
             y = -2.5f;
@@ -1046,7 +1078,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(polyWeapons);
 
-        Seq<Weapon> megaWeapons = new Seq<>();
+        Seq<Weapon> megaWeapons = new Seq<>(); //27
         megaWeapons.add(new Weapon("heal-weapon-mount"){{
             shootSound = Sounds.lasershoot;
             reload = 24f;
@@ -1077,7 +1109,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(megaWeapons);
 
-        Seq<Weapon> quadWeapons = new Seq<>();
+        Seq<Weapon> quadWeapons = new Seq<>(); //28
         quadWeapons.add(new Weapon(){{
             x = y = 0f;
             mirror = false;
@@ -1125,7 +1157,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(quadWeapons);
 
-        Seq<Weapon> rissoWeapons1 = new Seq<>();
+        Seq<Weapon> rissoWeapons1 = new Seq<>(); //29
         rissoWeapons1.add(new Weapon("mount-weapon"){{
             reload = 13f;
             x = 4f;
@@ -1142,7 +1174,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(rissoWeapons1);
 
-        Seq<Weapon> rissoWeapons2 = new Seq<>();
+        Seq<Weapon> rissoWeapons2 = new Seq<>(); //30
         rissoWeapons2.add(new Weapon("missiles-mount"){{
             mirror = false;
             reload = 25f;
@@ -1172,7 +1204,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(rissoWeapons2);
 
-        Seq<Weapon> minkeWeapons1 = new Seq<>();
+        Seq<Weapon> minkeWeapons1 = new Seq<>(); //31
         minkeWeapons1.add(new Weapon("mount-weapon"){{
             reload = 10f;
             x = 5f;
@@ -1195,7 +1227,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(minkeWeapons1);
 
-        Seq<Weapon> minkeWeapons2 = new Seq<>();
+        Seq<Weapon> minkeWeapons2 = new Seq<>(); //32
         minkeWeapons2.add(new Weapon("artillery-mount"){{
             reload = 30f;
             x = 5f;
@@ -1218,7 +1250,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(minkeWeapons2);
 
-        Seq<Weapon> brydeWeapons1 = new Seq<>();
+        Seq<Weapon> brydeWeapons1 = new Seq<>(); //33
         brydeWeapons1.add(new Weapon("large-artillery"){{
             reload = 65f;
             mirror = false;
@@ -1259,7 +1291,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(brydeWeapons1);
 
-        Seq<Weapon> brydeWeapons2 = new Seq<>();
+        Seq<Weapon> brydeWeapons2 = new Seq<>(); //34
         brydeWeapons2.add(new Weapon("missiles-mount"){{
             reload = 20f;
             x = 6.5f;
@@ -1298,7 +1330,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(brydeWeapons2);
 
-        Seq<Weapon> seiWeapons1 = new Seq<>();
+        Seq<Weapon> seiWeapons1 = new Seq<>(); //35
         seiWeapons1.add(new Weapon("sei-launcher"){{
 
             x = 0f;
@@ -1347,7 +1379,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(seiWeapons1);
 
-        Seq<Weapon> seiWeapons2 = new Seq<>();
+        Seq<Weapon> seiWeapons2 = new Seq<>(); //36
         seiWeapons2.add(new Weapon("large-bullet-mount"){{
             reload = 60f;
             cooldownTime = 90f;
@@ -1375,7 +1407,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(seiWeapons2);
 
-        Seq<Weapon> omuraWeapons = new Seq<>();
+        Seq<Weapon> omuraWeapons = new Seq<>(); //37
         omuraWeapons.add(new Weapon("omura-cannon"){{
             reload = 110f;
             cooldownTime = 90f;
@@ -1406,7 +1438,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(omuraWeapons);
 
-        Seq<Weapon> retusaWeapons = new Seq<>();
+        Seq<Weapon> retusaWeapons = new Seq<>(); //38
         retusaWeapons.add(new RepairBeamWeapon("repair-beam-weapon-center"){{
             x = 0f;
             y = -5.5f;
@@ -1421,7 +1453,7 @@ public abstract class RandomizableCoreUnits {
         }}); //need to test
         coreUnitweapons.add(retusaWeapons);
 
-        Seq<Weapon> oxynoeWeapons1 = new Seq<>();
+        Seq<Weapon> oxynoeWeapons1 = new Seq<>(); //39
         oxynoeWeapons1.add(new Weapon("plasma-mount-weapon"){{
 
             reload = 5f;
@@ -1461,7 +1493,7 @@ public abstract class RandomizableCoreUnits {
         }}); //oxynoe
         coreUnitweapons.add(oxynoeWeapons1);
 
-        Seq<Weapon> oxynoeWeapons2 = new Seq<>();
+        Seq<Weapon> oxynoeWeapons2 = new Seq<>(); //40
         oxynoeWeapons2.add(new PointDefenseWeapon("point-defense-mount"){{
             mirror = false;
             x = 0f;
@@ -1479,7 +1511,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(oxynoeWeapons2);
 
-        Seq<Weapon> cyerceWeapons1 = new Seq<>();
+        Seq<Weapon> cyerceWeapons1 = new Seq<>(); //41
         cyerceWeapons1.add(new RepairBeamWeapon("repair-beam-weapon-center"){{
             x = 4f;
             y = -6f;
@@ -1493,7 +1525,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(cyerceWeapons1);
 
-        Seq<Weapon> cyerceWeapons2 = new Seq<>();
+        Seq<Weapon> cyerceWeapons2 = new Seq<>(); //42
         cyerceWeapons2.add(new Weapon("plasma-missile-mount"){{
             reload = 60f;
             x = 5f;
@@ -1600,7 +1632,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(cyerceWeapons2);
 
-        Seq<Weapon> aegiresWeapons = new Seq<>();
+        Seq<Weapon> aegiresWeapons = new Seq<>(); //43
         for(float mountY : new float[]{-4f, 3}){
             aegiresWeapons.add(new PointDefenseWeapon("point-defense-mount"){{
                 x = 5f;
@@ -1619,7 +1651,7 @@ public abstract class RandomizableCoreUnits {
         }
         coreUnitweapons.add(aegiresWeapons);
 
-        Seq<Weapon> navanaxWeapons1 = new Seq<>();
+        Seq<Weapon> navanaxWeapons1 = new Seq<>(); //44
         for(float mountY : new float[]{-5f, 6f}){
             for(float sign : Mathf.signs){
                 navanaxWeapons1.add(new Weapon("plasma-laser-mount"){{
@@ -1671,7 +1703,7 @@ public abstract class RandomizableCoreUnits {
         }
         coreUnitweapons.add(navanaxWeapons1);
 
-        Seq<Weapon> navanaxWeapons2 = new Seq<>();
+        Seq<Weapon> navanaxWeapons2 = new Seq<>(); //45
         navanaxWeapons2.add(new Weapon("emp-cannon-mount"){{
             rotate = true;
 
@@ -1756,7 +1788,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(navanaxWeapons2);
 
-        Seq<Weapon> alphaWeapons = new Seq<>();
+        Seq<Weapon> alphaWeapons = new Seq<>(); //46
         alphaWeapons.add(new Weapon("small-basic-weapon"){{
             reload = 17f;
             x = 2.75f;
@@ -1775,7 +1807,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(alphaWeapons);
 
-        Seq<Weapon> betaWeapons = new Seq<>();
+        Seq<Weapon> betaWeapons = new Seq<>(); //47
         betaWeapons.add(new Weapon("small-mount-weapon"){{
             top = false;
             reload = 20f;
@@ -1797,7 +1829,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(betaWeapons);
 
-        Seq<Weapon> gammaWeapons = new Seq<>();
+        Seq<Weapon> gammaWeapons = new Seq<>(); //48
         gammaWeapons.add(new Weapon("small-mount-weapon"){{
             top = false;
             reload = 15f;
@@ -1824,7 +1856,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(gammaWeapons);
 
-        Seq<Weapon> stellWeapons = new Seq<>();
+        Seq<Weapon> stellWeapons = new Seq<>(); //49
         stellWeapons.add(new Weapon("stell-weapon"){{
             layerOffset = 0.0001f;
             reload = 50f;
@@ -1855,7 +1887,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(stellWeapons);
 
-        Seq<Weapon> locusWeapons = new Seq<>();
+        Seq<Weapon> locusWeapons = new Seq<>(); //50
         locusWeapons.add(new Weapon("locus-weapon"){{
             shootSound = Sounds.bolt;
             layerOffset = 0.0001f;
@@ -1923,7 +1955,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(locusWeapons);
 
-        Seq<Weapon> preceptWeapons = new Seq<>();
+        Seq<Weapon> preceptWeapons = new Seq<>(); //51
         preceptWeapons.add(new Weapon("precept-weapon"){{
             shootSound = Sounds.dullExplosion;
             layerOffset = 0.0001f;
@@ -1983,7 +2015,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(preceptWeapons);
 
-        Seq<Weapon> vanquishWeapons1 = new Seq<>();
+        Seq<Weapon> vanquishWeapons1 = new Seq<>(); //52
         vanquishWeapons1.add(new Weapon("vanquish-weapon"){{
             shootSound = Sounds.mediumCannon;
             layerOffset = 0.0001f;
@@ -2044,7 +2076,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(vanquishWeapons1);
 
-        Seq<Weapon> vanquishWeapons2 = new Seq<>();
+        Seq<Weapon> vanquishWeapons2 = new Seq<>(); //53
         int i = 0;
         for(float f : new float[]{3f, -5.5f }){
             int fi = i ++;
@@ -2072,7 +2104,7 @@ public abstract class RandomizableCoreUnits {
         }
         coreUnitweapons.add(vanquishWeapons2);
 
-        Seq<Weapon> conquerWeapons = new Seq<>();
+        Seq<Weapon> conquerWeapons = new Seq<>(); //54
         conquerWeapons.add(new Weapon("conquer-weapon"){{
             shootSound = Sounds.largeCannon;
             layerOffset = 0.1f;
@@ -2227,7 +2259,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(conquerWeapons);
 
-        Seq<Weapon> meruiWeapons = new Seq<>();
+        Seq<Weapon> meruiWeapons = new Seq<>(); //55
         meruiWeapons.add(new Weapon("merui-weapon"){{
             shootSound = Sounds.missile;
             mirror = false;
@@ -2278,7 +2310,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(meruiWeapons);
 
-        Seq<Weapon> cleroiWeapons1 = new Seq<>();
+        Seq<Weapon> cleroiWeapons1 = new Seq<>(); //56
         cleroiWeapons1.add(new Weapon("cleroi-weapon"){{
             shootSound = Sounds.blaster;
             x = 14f / 4f;
@@ -2328,7 +2360,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(cleroiWeapons1);
 
-        Seq<Weapon> cleroiWeapons2 = new Seq<>();
+        Seq<Weapon> cleroiWeapons2 = new Seq<>(); //57
         cleroiWeapons2.add(new PointDefenseWeapon("cleroi-point-defense"){{
             x = 16f / 4f;
             y = -3f;
@@ -2348,7 +2380,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(cleroiWeapons2);
 
-        Seq<Weapon> tectaWeapons = new Seq<>();
+        Seq<Weapon> tectaWeapons = new Seq<>(); //58
         tectaWeapons.add(new Weapon("tecta-weapon"){{
             shootSound = Sounds.malignShoot;
             mirror = true;
@@ -2406,7 +2438,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(tectaWeapons);
 
-        Seq<Weapon> collarisWeapons = new Seq<>();
+        Seq<Weapon> collarisWeapons = new Seq<>(); //59
         collarisWeapons.add(new Weapon("collaris-weapon"){{
             shootSound = Sounds.pulseBlast;
             mirror = true;
@@ -2538,7 +2570,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(collarisWeapons);
 
-        Seq<Weapon> eludeWeapons = new Seq<>();
+        Seq<Weapon> eludeWeapons = new Seq<>(); //60
         eludeWeapons.add(new Weapon("elude-weapon"){{
             shootSound = Sounds.blaster;
             y = -2f;
@@ -2568,7 +2600,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(eludeWeapons);
 
-        Seq<Weapon> avertWeapons = new Seq<>();
+        Seq<Weapon> avertWeapons = new Seq<>(); //61
         avertWeapons.add(new Weapon("avert-weapon"){{
             shootSound = Sounds.blaster;
             reload = 35f;
@@ -2597,7 +2629,7 @@ public abstract class RandomizableCoreUnits {
         }});
         coreUnitweapons.add(avertWeapons);
 
-        Seq<Weapon> obviateWeapons = new Seq<>();
+        Seq<Weapon> obviateWeapons = new Seq<>(); //62
         obviateWeapons.add(new Weapon(){{
             shootSound = Sounds.shockBlast;
             x = 0f;

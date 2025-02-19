@@ -9,6 +9,7 @@ import dev.koifysh.archipelago.helper.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.randomizer.utils.EmptyFillerText;
@@ -184,6 +185,11 @@ public class Randomizer {
         return content;
     }
 
+    /**
+     * Send a death link signal to Archipelago.
+     * @param source The source of the signal.
+     * @param cause The cause of death.
+     */
     public void sendDeathLink(String source, String cause){
         if (client.isConnected() && worldState.options.getDeathLink() && !worldState.deathLinkDying) {
             DeathLink.SendDeathLink(source, cause);
@@ -209,6 +215,10 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Send a message locally
+     * @param message message to be sent.
+     */
     public void sendLocalMessage (APMessage message) {
         if (Vars.ui.chatfrag != null) {
             Vars.ui.chatfrag.addLocalMessage(message);
@@ -233,13 +243,13 @@ public class Randomizer {
     public boolean allowFreeLaunch(Sector sector) {
         boolean allow = false;
         switch (worldState.options.getCampaign()) {
-            case 0: //Serpulo
+            case SERPULO:
                 allow = serpuloFreeLaunchTarget(sector);
                 break;
-            case 1: //Erekir
+            case EREKIR:
                 allow = erekirFreeLaunchTarget(sector);
                 break;
-            case 2: //All
+            case ALL:
                 if (serpuloFreeLaunchTarget(sector) || erekirFreeLaunchTarget(sector)) {
                     allow = true;
                 }
@@ -310,8 +320,6 @@ public class Randomizer {
         return client.checkLocation(id);
     }
 
-
-
     /**
      * Apply options.
      */
@@ -326,25 +334,25 @@ public class Randomizer {
             if (options.getFasterConveyor()) {
                 MindustryOptions.applyFasterConveyor();
             }
-            if (options.getLogisticDistribution() == 3) { //Starter logistics
+            if (options.getLogisticDistribution() == LogisticsDistribution.STARTER) {
                 MindustryOptions.applyStarterLogistics(options.getCampaign());
             }
             switch (options.getCampaign()) {
-                case 0: //Serpulo
+                case SERPULO:
                     worldState.initializeSerpuloItems();
                     worldState.initializeSerpuloFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                     }
                     break;
-                case 1: //Erekir
+                case EREKIR:
                     worldState.initializeErekirItems();
                     worldState.initializeErekirFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
-                case 2: //All
+                case ALL:
                     worldState.initializeAllItems();
                     worldState.initializeAllFillers();
                     if (options.getTutorialSkip()) {
@@ -371,8 +379,10 @@ public class Randomizer {
         }
     }
 
+    /**
+     * Opens a dialog informing the player that they need to restart the game to apply options.
+     */
     public void updateForceExit() {
-        //open confirmation dialog to warn the user of the required game restart.
         APApplyOptionsDialog dialog = new APApplyOptionsDialog();
         dialog.show();
     }

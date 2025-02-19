@@ -2,8 +2,6 @@ package mindustry.randomizer.utils;
 
 import arc.struct.Seq;
 
-import java.util.ArrayList;
-
 /**
  * EmptyFillerStrings
  *

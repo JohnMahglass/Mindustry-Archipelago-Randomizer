@@ -13,6 +13,7 @@ public enum SettingStrings {
     FORCE_DISABLE_DEATH_LINK("APforceDisableDeathLink"),
     TUTORIAL_SKIP("APtutorialSkip"),
     CAMPAIGN_CHOICE("APcampaignChoice"),
+    AP_GOAL("APgoal"),
     CLIENT_ADDRESS("APaddress"),
     CLIENT_NAME("APslotName"),
     CLIENT_PASSWORD("APpassword"),
@@ -31,7 +32,9 @@ public enum SettingStrings {
     EREKIR_RANDOMIZED_WEAPON_EVOKE("APrandomizedEvokeWeapon"),
     EREKIR_RANDOMIZED_WEAPON_INCITE("APrandomizedInciteWeapon"),
     EREKIR_RANDOMIZED_WEAPON_EMANATE("APrandomizedEmanateWeapon"),
-    EREKIR_RANDOMIZED_WEAPON_INIT("APrandomizedWeaponInit");
+    EREKIR_RANDOMIZED_WEAPON_INIT("APrandomizedWeaponInit"),
+    PROGRESSIVE_DRILLS("APprogressiveDrills"),
+    PROGRESSIVE_GENERATORS("APprogressiveGenerators");
 
 
     public final String value;

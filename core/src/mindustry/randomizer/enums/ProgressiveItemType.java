@@ -9,7 +9,11 @@ public enum ProgressiveItemType {
     S_OFFENSIVE_NAVAL_UNIT,
     S_SUPPORT_NAVAL_UNIT,
     S_RECONSTRUCTOR,
+    S_DRILLS,
+    S_GENERATORS,
     E_TANKS,
     E_SHIPS,
-    E_MECHS
+    E_MECHS,
+    E_DRILLS,
+    E_GENERATORS
 }

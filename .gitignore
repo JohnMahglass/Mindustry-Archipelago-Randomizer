@@ -3,6 +3,15 @@ logs/
 /core/assets/mindustry-saves/
 /core/assets/mindustry-maps/
 /core/assets/bundles/output/
+/core/assets/mods/
+/core/assets/previews/
+/core/assets/settings.bin
+/core/assets/settings_backup.bin
+/core/assets/settings_backups/
+/core/assets/last_log.txt
+/core/assets/RandomizerCheckPending.txt
+/core/assets/APData/DataPackage.ser
+/core/assets/APData/
 /core/assets/.gifimages/
 /deploy/
 /out/

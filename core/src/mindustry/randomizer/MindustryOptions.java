@@ -8,6 +8,10 @@ import mindustry.content.UnitTypes;
 import mindustry.entities.abilities.Ability;
 import mindustry.gen.Unit;
 import mindustry.randomizer.client.SlotData;
+import mindustry.randomizer.enums.ArchipelagoGoal;
+import mindustry.randomizer.enums.CampaignType;
+import mindustry.randomizer.enums.DeathLinkMode;
+import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
 import mindustry.world.blocks.distribution.Conveyor;
@@ -48,6 +52,11 @@ public class MindustryOptions {
      * The selected campaign.
      */
     private int campaign;
+
+    /**
+     * The selected goal.
+     */
+    private int goal;
 
     /**
      * If death link is activated
@@ -105,13 +114,33 @@ public class MindustryOptions {
      */
     private boolean makeEarlyRoadblocksLocal;
 
+    /**
+     * Make drills into progressive items
+     */
+    private boolean progressiveDrills;
+
+    /**
+     * Make generators into progressive items
+     */
+    private boolean progressiveGenerators;
+
+    /**
+     * Contains the list of every available ability for the core units randomization.
+     */
     private ArrayList<Ability[]> coreUnitAbilities;
 
     private ArrayList<Ability[]> getCoreUnitAbilities() {
         return (ArrayList<Ability[]>)this.coreUnitAbilities.clone();
     }
 
-    public int getLogisticDistribution(){
+    public LogisticsDistribution getLogisticDistribution(){
+        return LogisticsDistribution.toLogisticDistribution(this.logisticDistribution);
+    }
+
+    /**
+     * Return the value of LogisticDistribution. Used for storing information in settings.
+     */
+    private int getLogisticDistributionValue(){
         return this.logisticDistribution;
     }
 
@@ -148,8 +177,26 @@ public class MindustryOptions {
         return this.deathLink && !this.forceDisableDeathLink;
     }
 
-    public int getDeathLinkMode() {
+    public DeathLinkMode getDeathLinkMode() {
+        return DeathLinkMode.toDeathLinkMode(this.deathLinkMode);
+    }
+
+    /**
+     * Return the value of DeathLinkMode. Used for storing informations in settings.
+     */
+    private int getDeathLinkModeValue(){
         return this.deathLinkMode;
+    }
+
+    public ArchipelagoGoal getGoal(){
+        return ArchipelagoGoal.toArchipelagoGoal(this.goal);
+    }
+
+    /**
+     * Return the value of Goal. Used for storing informations in settings.
+     */
+    private int getGoalValue(){
+        return this.goal;
     }
 
     public int getCoreRussianRouletteChambers(){
@@ -159,12 +206,19 @@ public class MindustryOptions {
     public boolean getRandomizeCoreUnitsWeapon(){
         return this.randomizeCoreUnitsWeapon;
     }
+
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
     }
 
     public int getAmountOfResourcesRequired() {
         return this.amountOfResourcesRequired;
+    }
+    public boolean getProgressiveDrills(){
+        return this.progressiveDrills;
+    }
+    public boolean getProgressiveGenerators(){
+        return this.progressiveGenerators;
     }
 
     /**
@@ -188,7 +242,14 @@ public class MindustryOptions {
         return this.makeEarlyRoadblocksLocal;
     }
 
-    public int getCampaign() {
+    public CampaignType getCampaign() {
+        return CampaignType.toCampaignType(this.campaign);
+    }
+
+    /**
+     * Return the value of Campaign. Used for storing informations in settings.
+     */
+    private int getCampaignValue(){
         return this.campaign;
     }
 
@@ -232,10 +293,13 @@ public class MindustryOptions {
             this.fasterProduction = slotData.getFasterProduction();
             this.fasterConveyor = slotData.getFasterConveyor();
             this.campaign = slotData.getCampaignChoice();
+            this.goal = slotData.getGoal();
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.logisticDistribution = slotData.getLogisticDistribution();
             this.makeEarlyRoadblocksLocal = slotData.getMakeEarlyRoadblocksLocal();
             this.amountOfResourcesRequired = slotData.getAmountOfResourcesRequired();
+            this.progressiveDrills = slotData.getProgressiveDrills();
+            this.progressiveGenerators = slotData.getProgressiveGenerators();
 
             this.optionsFilled = true;
             saveOptions();
@@ -255,6 +319,7 @@ public class MindustryOptions {
             this.optionsFilled = false;
             this.tutorialSkip = false;
             this.campaign = 0;
+            this.goal = 0;
             this.disableInvasions = false;
             this.fasterProduction = false;
             this.fasterConveyor = false;
@@ -277,7 +342,7 @@ public class MindustryOptions {
      * Randomize core units weapon.
      */
     public void randomizeCoreUnitsWeapon(Unit unit) {
-        if (getCampaign() == 1 || getCampaign() == 2) {
+        if (getCampaign() == CampaignType.EREKIR || getCampaign() == CampaignType.ALL) {
             ArrayList<Ability[]> possibleCoreUnitAbilities = getCoreUnitAbilities();
             randomizeErekirCoreUnitsAbility(possibleCoreUnitAbilities, unit);
         }
@@ -400,15 +465,15 @@ public class MindustryOptions {
      * Apply the starter logistics option.
      * @param campaign The selected campaign.
      */
-    protected static void applyStarterLogistics(int campaign){
+    protected static void applyStarterLogistics(CampaignType campaign){
         switch (campaign) {
-            case 0: //Serpulo
+            case SERPULO:
                 unlockSerpuloLogisticItems();
                 break;
-            case 1: //Erekir
+            case EREKIR:
                 unlockErekirLogisticItems();
                 break;
-            case 2: //All
+            case ALL:
                 unlockSerpuloLogisticItems();
                 unlockErekirLogisticItems();
                 break;
@@ -419,15 +484,20 @@ public class MindustryOptions {
      * Apply the faster production option to the selected campaign.
      * @param campaign The selected campaign.
      */
-    protected static void applyFasterProduction(int campaign){
-        if (campaign == 0) { //Serpulo
-            applySerpuloFasterProduction();
-        } else if (campaign == 1) { //Erekir
-            applyErekirFasterProduction();
-        } else if (campaign == 2) { //All
-            applySerpuloFasterProduction();
-            applyErekirFasterProduction();
+    protected static void applyFasterProduction(CampaignType campaign){
+        switch (campaign) {
+            case SERPULO:
+                applySerpuloFasterProduction();
+                break;
+            case EREKIR:
+                applyErekirFasterProduction();
+                break;
+            case ALL:
+                applySerpuloFasterProduction();
+                applyErekirFasterProduction();
+                break;
         }
+
     }
 
     /**
@@ -483,6 +553,10 @@ public class MindustryOptions {
         doubleOutputItem(((GenericCrafter) Blocks.cultivator));
     }
 
+    /**
+     * Double the output of liquid generating Crafter.
+     * @param crafter The crafter to double the output.
+     */
     private static void doubleOutputLiquids(GenericCrafter crafter) {
         for (int i = 0; i < crafter.outputLiquids.length; i++) {
             crafter.outputLiquids[i].amount = crafter.outputLiquids[i].amount * 2;
@@ -490,7 +564,7 @@ public class MindustryOptions {
     }
 
     /**
-     * Reduce time required by the miner to extract ressources by half.
+     * Reduce time required by the miner to extract resources by half.
      * @param miner the miner to have the extract time reduced by half
      */
     private static void halfWallCrafterDrillTime(WallCrafter miner) {
@@ -498,16 +572,15 @@ public class MindustryOptions {
     }
 
     /**
-     * Reduce time required by the drill to extract ressources by half.
+     * Reduce time required by the drill to extract resources by half.
      * @param drill the drill to have the extract time reduced by half
      */
     private static void halfBeamDrillTime(BeamDrill drill) {
         drill.drillTime = drill.drillTime / 2;
     }
 
-
     /**
-     * Reduce time required by the drill to extract ressources by half.
+     * Reduce time required by the drill to extract resources by half.
      * @param drill the drill to have the extract time reduced by half
      */
     private static void halfDrillTime(Drill drill) {
@@ -591,23 +664,26 @@ public class MindustryOptions {
      */
     private void saveOptions() {
         settings.put(DEATH_LINK.value, getDeathLink());
-        settings.put(DEATH_LINK_MODE.value, getDeathLinkMode());
+        settings.put(DEATH_LINK_MODE.value, getDeathLinkModeValue());
         settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_CHAMBERS.value, getCoreRussianRouletteChambers());
         settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, getCoreRussianRouletteChambers());
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
-        settings.put(CAMPAIGN_CHOICE.value, getCampaign());
+        settings.put(CAMPAIGN_CHOICE.value, getCampaignValue());
+        settings.put(AP_GOAL.value, getGoalValue());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
-        settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistribution());
+        settings.put(LOGISTIC_DISTRIBUTION.value, getLogisticDistributionValue());
+        settings.put(PROGRESSIVE_DRILLS.value, getProgressiveDrills());
+        settings.put(PROGRESSIVE_GENERATORS.value, getProgressiveGenerators());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
         settings.put(AMOUNT_OF_RESOURCES_REQUIRED.value, getAmountOfResourcesRequired());
         if (getTutorialSkip()) {
-            if (getCampaign() == 0) {
+            if (getCampaign() == CampaignType.SERPULO) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
-            } else if (getCampaign() == 1) {
+            } else if (getCampaign() == CampaignType.EREKIR) {
                 settings.put(FREE_LAUNCH_EREKIR.value, true);
-            } else if (getCampaign() == 2) {
+            } else if (getCampaign() == CampaignType.ALL) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
                 settings.put(FREE_LAUNCH_EREKIR.value, true);
             }
@@ -628,18 +704,21 @@ public class MindustryOptions {
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
         this.fasterConveyor = settings.getBool(FASTER_CONVEYOR.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
+        this.goal = settings.getInt(AP_GOAL.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
+        this.progressiveDrills = settings.getBool(PROGRESSIVE_DRILLS.value);
+        this.progressiveGenerators = settings.getBool(PROGRESSIVE_GENERATORS.value);
         this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
         this.amountOfResourcesRequired = settings.getInt(AMOUNT_OF_RESOURCES_REQUIRED.value);
 
         this.optionsFilled = true;
         if (this.randomizeCoreUnitsWeapon) {
-            if (getCampaign() == 0) { //Serpulo
+            if (getCampaign() == CampaignType.SERPULO) {
                 randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
-            } else if (getCampaign() == 1) { //Erekir
+            } else if (getCampaign() == CampaignType.EREKIR) {
                 coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
-            } else if (getCampaign() == 2) { //All
+            } else if (getCampaign() == CampaignType.ALL) {
                 randomizeSerpuloCoreUnitsWeapon(RandomizableCoreUnits.getPossibleCoreUnitsWeapons());
                 coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             }

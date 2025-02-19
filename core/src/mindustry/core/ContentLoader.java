@@ -58,15 +58,15 @@ public class ContentLoader{
         randomizer = new Randomizer();
         if (settings != null && settings.getBool(HAS_CONNECTED.value)) {
             switch (randomizer.worldState.options.getCampaign()){
-                case 0: //Serpulo
+                case SERPULO:
                     SerpuloTechTreeRandomizer.load();
                     ErekirTechTree.load();
                     break;
-                case 1: //Erekir
+                case EREKIR:
                     SerpuloTechTree.load();
                     ErekirTechTreeRandomizer.load();
                     break;
-                case 2: //All
+                case ALL:
                     SerpuloTechTreeRandomizer.load();
                     ErekirTechTreeRandomizer.load();
                     break;

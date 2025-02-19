@@ -1,12 +1,14 @@
 package mindustry.randomizer.techtree;
 
 import arc.struct.Seq;
+import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
 import mindustry.game.Objectives;
 
 import mindustry.game.Objectives.*;
+import mindustry.randomizer.enums.ArchipelagoGoal;
 
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Blocks.additiveReconstructor;
@@ -452,8 +454,32 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNode(createApLocation("Victory Serpulo", null, 998L,
-                    LocationResearchCost.reqVictorySerpulo()));
+            if (Vars.randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES) {
+                apNode(createApLocation("Victory Serpulo", null, 998L,
+                        LocationResearchCost.reqResourcesVictorySerpulo()));
+            } else {
+                apNode(createApLocation("Victory Serpulo", null, 998L),
+                        Seq.with(new SectorComplete(groundZero),
+                                new SectorComplete(frozenForest),
+                                new SectorComplete(craters),
+                                new SectorComplete(biomassFacility),
+                                new SectorComplete(ruinousShores),
+                                new SectorComplete(stainedMountains),
+                                new SectorComplete(windsweptIslands),
+                                new SectorComplete(fungalPass),
+                                new SectorComplete(overgrowth),
+                                new SectorComplete(tarFields),
+                                new SectorComplete(extractionOutpost),
+                                new SectorComplete(saltFlats),
+                                new SectorComplete(coastline),
+                                new SectorComplete(nuclearComplex),
+                                new SectorComplete(impact0078),
+                                new SectorComplete(navalFortress),
+                                new SectorComplete(desolateRift),
+                                new SectorComplete(planetaryTerminal)), () -> {
+                        });
+            }
+
 
             apNode(createApLocation("AP-S-05-01", groundFactory, 124L), () -> {
 

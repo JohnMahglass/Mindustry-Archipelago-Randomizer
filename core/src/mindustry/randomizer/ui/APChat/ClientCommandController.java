@@ -1,6 +1,10 @@
 package mindustry.randomizer.ui.APChat;
 
 import arc.Core;
+import mindustry.randomizer.enums.ArchipelagoGoal;
+import mindustry.randomizer.enums.CampaignType;
+import mindustry.randomizer.enums.DeathLinkMode;
+import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.enums.SettingStrings;
 import mindustry.randomizer.utils.ChatColor;
 
@@ -78,6 +82,9 @@ public class ClientCommandController {
         }
     }
 
+    /**
+     * Execute commands meant for development.
+     */
     private void executeDevCommand(String[] commandParts) {
         if (commandParts.length > 2) {
             tooManyArgumentMessage();
@@ -94,6 +101,9 @@ public class ClientCommandController {
 
     }
 
+    /**
+     * Remove all messages from the chat.
+     */
     private void executeClearCommand(String[] commandParts) {
         if (commandParts.length > 1) {
             tooManyArgumentMessage();
@@ -102,47 +112,134 @@ public class ClientCommandController {
         chat.clearMessages();
     }
 
+    /**
+     * Display the players options in chat.
+     */
     private void executeOptionsCommand(String[] commandParts) {
-        if (commandParts.length > 1) {
+        if (commandParts.length > 2) {
             tooManyArgumentMessage();
             return;
         }
-        if (randomizer.worldState.options.getOptionsFilled()) {
-            chat.addLocalMessage(new APMessage("Options:\n" +
-                    "   Selected campaign: " + getCampaignName() + "\n" +
-                    "   Amount of resources required: " + getAmountofResourcesRequired() + "\n" +
-                    "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n" +
-                    "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n" +
-                    "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n" +
-                    "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n" +
-                    "   Death link mode: " + getDeathLinkModeText() + "\n" +
-                    "   Core russian roulette chambers size: " + getCoreRussianRouletteChambersAmount() + "\n" +
-                    "   Seed: " + randomizer.worldState.getSeed() + "\n" +
-                    "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) + "\n" +
-                    "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution()) + "\n" +
-                    "   Make early roadblocks local: " + getActivationStatus(randomizer.worldState.options.getMakeEarlyRoadblocksLocal())));
-        } else {
-            chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
-                    "options."));
+        else if (commandParts.length == 2 && commandParts[1].equals("f")) {
+            if (randomizer.worldState.options.getOptionsFilled()) {
+                chat.addLocalMessage(new APMessage("Options:\n" +
+                        getCampaignOptionText()+
+                        getGoalOptionText() +
+                        getAmountofResourcesRequiredOptionText() +
+                        getTutorialSkipOptionText() +
+                        getDisableInvasionsOptionText() +
+                        getFasterProductionOptionText() +
+                        getDeathLinkOptionText() +
+                        getDeathLinkModeOptionText() +
+                        getCoreRussianRouletteSizeOptionText() +
+                        getSeedText() +
+                        getRandomizeCoreUnitsWeaponOptionText() +
+                        getLogisiticDistributionOptionText() +
+                        getLocalEarlyRoadblocksOptionText() +
+                        getProgressiveDrillsOptionText() +
+                        getProgressiveGeneratorsOptionText()
+                        ));
+            } else {
+                chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
+                        "options."));
+            }
+        } else if(commandParts.length == 1){
+            if (randomizer.worldState.options.getOptionsFilled()) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("Options:\n");
+                sb.append(getCampaignOptionText());
+                sb.append(getGoalOptionText());
+                if (randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES) {
+                    sb.append(getAmountofResourcesRequiredOptionText());
+                }
+                sb.append(getTutorialSkipOptionText());
+                if(randomizer.worldState.options.getCampaign() == CampaignType.SERPULO ||
+                        randomizer.worldState.options.getCampaign() == CampaignType.ALL) { // Serpulo included in chosen campaign
+                    sb.append(getDisableInvasionsOptionText());
+                }
+                sb.append(getFasterProductionOptionText());
+                sb.append(getDeathLinkOptionText());
+                if(randomizer.worldState.options.getTrueDeathLink()){
+                    sb.append(getDeathLinkModeOptionText());
+                    if (randomizer.worldState.options.getDeathLinkMode() == DeathLinkMode.CORE_RUSSIAN_ROULETTE) {
+                        sb.append(getCoreRussianRouletteSizeOptionText());
+                    }
+                }
+                sb.append(getRandomizeCoreUnitsWeaponOptionText());
+                sb.append(getLogisiticDistributionOptionText());
+                sb.append(getLocalEarlyRoadblocksOptionText());
+                sb.append(getProgressiveDrillsOptionText());
+                sb.append(getProgressiveGeneratorsOptionText());
+
+                chat.addLocalMessage(new APMessage(sb.toString()));
+            } else {
+                chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
+                        "options."));
+            }
         }
+
     }
 
-    private int getCoreRussianRouletteChambersAmount(){
-        return randomizer.worldState.options.getCoreRussianRouletteChambers();
+    private String getProgressiveGeneratorsOptionText() {
+        return "   Progressive Generators: " + getActivationStatus(randomizer.worldState.options.getProgressiveGenerators()) + "\n";
+    }
+
+    private String getProgressiveDrillsOptionText() {
+        return "   Progressive Drills: " + getActivationStatus(randomizer.worldState.options.getProgressiveDrills()) + "\n";
+    }
+
+    private String getLocalEarlyRoadblocksOptionText() {
+        return "   Make early roadblocks local: " + getActivationStatus(randomizer.worldState.options.getMakeEarlyRoadblocksLocal()) + "\n";
+    }
+
+    private String getLogisiticDistributionOptionText() {
+        return "   Logistic Distribution: " + getLogisticDistributionValue(randomizer.worldState.options.getLogisticDistribution()) + "\n";
+    }
+
+    private String getRandomizeCoreUnitsWeaponOptionText() {
+        return "   Randomize core units weapon: " + getActivationStatus(randomizer.worldState.options.getRandomizeCoreUnitsWeapon()) + "\n";
+    }
+
+    private String getSeedText() {
+        return "   Seed: " + randomizer.worldState.getSeed() + "\n";
+    }
+
+    private String getDeathLinkModeOptionText() {
+        return "   Death link mode: " + getDeathLinkModeText() + "\n";
+    }
+
+    private String getDeathLinkOptionText() {
+        return "   Death link: " + getActivationStatus(randomizer.worldState.options.getDeathLink()) + "\n";
+    }
+
+    private String getFasterProductionOptionText() {
+        return "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n";
+    }
+
+    private String getDisableInvasionsOptionText() {
+        return "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n";
+    }
+
+    private String getTutorialSkipOptionText() {
+        return "   Tutorial skip: " + getActivationStatus(randomizer.worldState.options.getTutorialSkip()) + "\n";
+    }
+
+    private String getCoreRussianRouletteSizeOptionText(){
+        return  "   Core russian roulette chambers size: " + randomizer.worldState.options.getCoreRussianRouletteChambers() + "\n";
     }
 
     private String getDeathLinkModeText() {
-        int mode = randomizer.worldState.options.getDeathLinkMode();
         String modeText;
-        switch (mode) {
-            case 0:
+        switch (randomizer.worldState.options.getDeathLinkMode()) {
+            case UNIT:
                 modeText = "Unit";
                 break;
-            case 1:
+            case CORE:
                 modeText = "Core";
                 break;
-            case 2:
-                int ammo = Core.settings.getInt(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
+            case CORE_RUSSIAN_ROULETTE:
+                int ammo =
+                        Core.settings.getInt(SettingStrings.AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value); //TODO make a method to fetch this value in MindustryOption
                 modeText = "Core russian roulette. 1/" + ammo + " ammo left.";
                 break;
             default:
@@ -157,19 +254,19 @@ public class ClientCommandController {
      * @param logisticOption The selected option
      * @return The selected option in text format.
      */
-    private String getLogisticDistributionValue(int logisticOption) {
+    private String getLogisticDistributionValue(LogisticsDistribution logisticOption) {
         String text = "Error";
         switch (logisticOption){
-            case 0: // Randomized logistics
+            case RANDOMIZED:
                 text = "Randomized logistics";
                 break;
-            case 1: // Early logistics
+            case EARLY:
                 text = "Early logistics";
                 break;
-            case 2: // Local early logistics
+            case LOCAL_EARLY:
                 text = "Local early logistics";
                 break;
-            case 3: //Starter logistics
+            case STARTER:
                 text = "Starter logistics";
                 break;
         }
@@ -189,23 +286,40 @@ public class ClientCommandController {
      * Return the selected campaign name.
      * @return The campaign name.
      */
-    private String getCampaignName() {
+    private String getCampaignOptionText() {
         String name;
-        int campaign = randomizer.worldState.options.getCampaign();
-        if (campaign == 0) { //Serpulo
+        CampaignType campaign = randomizer.worldState.options.getCampaign();
+        if (campaign == CampaignType.SERPULO) {
             name = ChatColor.applyColor(SERPULO, "Serpulo");
-        } else if (campaign == 1) { //Erekir
+        } else if (campaign == CampaignType.EREKIR) {
             name = ChatColor.applyColor(EREKIR, "Erekir");
-        } else if (campaign == 2) { //All
+        } else if (campaign == CampaignType.ALL) {
             name = ChatColor.applyColor(SERPULO, "Serpulo") + " and " + ChatColor.applyColor(EREKIR, "Erekir");
         } else {
             name = "Campaign name error";
         }
-        return name;
+        return "   Selected campaign: " + name + "\n";
     }
 
-    private int getAmountofResourcesRequired() {
-        return randomizer.worldState.options.getAmountOfResourcesRequired();
+    /**
+     * Return the goal name
+     * @return The goal name
+     */
+    private String getGoalOptionText(){
+        String name;
+        ArchipelagoGoal goal = randomizer.worldState.options.getGoal();
+        if (goal == ArchipelagoGoal.RESOURCES) {
+            name = ChatColor.applyColor(GOLD, "Recources");
+        } else if (goal == ArchipelagoGoal.CONQUEST) {
+            name = ChatColor.applyColor(GOLD, "Conquest");
+        } else {
+            name = "Goal name error";
+        }
+        return "   Goal: " + name + "\n";
+    }
+
+    private String getAmountofResourcesRequiredOptionText() {
+        return "   Amount of resources required: " + randomizer.worldState.options.getAmountOfResourcesRequired() + "\n";
     }
 
     /**
@@ -292,9 +406,13 @@ public class ClientCommandController {
                   [#FFDF29]/status[#FFFFFF]
                         Display connection status.
                   [#FFDF29]/options[#FFFFFF]
-                        Display selected options for game generation.
+                        Display relevant options for game generation.
                         You need to have connected once to be able
-                        to view selected options
+                        to view selected options.
+                  [#FFDF29]/options[#FFFFFF] [f]
+                        Display every selected options for game generation.
+                        You need to have connected once to be able
+                        to view selected options.
                   [#FFDF29]/connect[#FFFFFF]
                         Connect using the information provided in
                         Settings -> Archipelago
