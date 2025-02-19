@@ -332,7 +332,7 @@ public class Randomizer {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
             if (options.getFasterConveyor()) {
-                MindustryOptions.applyFasterConveyor();
+                MindustryOptions.applyFasterConveyor(options.getCampaign());
             }
             if (options.getLogisticDistribution() == LogisticsDistribution.STARTER) {
                 MindustryOptions.applyStarterLogistics(options.getCampaign());

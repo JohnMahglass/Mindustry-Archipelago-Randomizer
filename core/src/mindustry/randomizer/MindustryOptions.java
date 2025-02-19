@@ -14,8 +14,18 @@ import mindustry.randomizer.enums.DeathLinkMode;
 import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
+import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
+import mindustry.world.blocks.distribution.DirectionalUnloader;
+import mindustry.world.blocks.distribution.Duct;
+import mindustry.world.blocks.distribution.DuctBridge;
+import mindustry.world.blocks.distribution.DuctRouter;
+import mindustry.world.blocks.distribution.ItemBridge;
+import mindustry.world.blocks.distribution.Junction;
+import mindustry.world.blocks.distribution.MassDriver;
+import mindustry.world.blocks.distribution.OverflowDuct;
 import mindustry.world.blocks.distribution.StackConveyor;
+import mindustry.world.blocks.distribution.StackRouter;
 import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.blocks.production.Drill;
@@ -501,6 +511,26 @@ public class MindustryOptions {
     }
 
     /**
+     * Apply the faster production option to the selected campaign.
+     * @param campaign The selected campaign.
+     */
+    protected static void applyFasterConveyor(CampaignType campaign){
+        switch (campaign) {
+            case SERPULO:
+                applySerpuloFasterConveyor();
+                break;
+            case EREKIR:
+                applyErekirFasterConveyor();
+                break;
+            case ALL:
+                applySerpuloFasterConveyor();
+                applyErekirFasterConveyor();
+                break;
+        }
+
+    }
+
+    /**
      * Apply the faster production option on Erekir's research.
      */
     private static void applyErekirFasterProduction() {
@@ -633,11 +663,31 @@ public class MindustryOptions {
     /**
      * Apply the faster conveyor option on Serpulo's research.
      */
-    public static void applyFasterConveyor() {
+    public static void applySerpuloFasterConveyor() {
         doubleConveyorSpeed(((Conveyor) Blocks.conveyor));
         doubleConveyorSpeed(((Conveyor) Blocks.titaniumConveyor));
         doubleConveyorSpeed(((Conveyor) Blocks.armoredConveyor));
         doubleStackConveyorSpeed(((StackConveyor) Blocks.plastaniumConveyor));
+        doubleBridgeSpeed(((ItemBridge) Blocks.phaseConveyor));
+        doubleBridgeSpeed(((BufferedItemBridge) Blocks.itemBridge));
+        ((Junction) Blocks.junction).speed = ((Junction) Blocks.junction).speed * 2;
+        ((MassDriver) Blocks.massDriver).reload = ((MassDriver) Blocks.massDriver).reload / 2;
+    }
+
+    /**
+     * Apply the faster conveyor option on Erekir's research.
+     */
+    public static void applyErekirFasterConveyor() {
+        doubleDuctSpeed(((Duct) Blocks.duct));
+        doubleDuctSpeed(((Duct) Blocks.armoredDuct));
+        doubleStackConveyorSpeed((StackConveyor) Blocks.surgeConveyor);
+        doubleDuctRouterSpeed((DuctRouter) Blocks.ductRouter);
+        doubleDuctRouterSpeed((StackRouter) Blocks.surgeRouter);
+        doubleDuctOverFlowSpeed((OverflowDuct) Blocks.overflowDuct);
+        doubleDuctOverFlowSpeed((OverflowDuct) Blocks.underflowDuct);
+        ((DuctBridge) Blocks.phaseConveyor).speed = ((DuctBridge) Blocks.phaseConveyor).speed * 2;
+        ((DirectionalUnloader) Blocks.ductUnloader).speed =
+                ((DirectionalUnloader) Blocks.ductUnloader).speed * 2;
     }
 
     /**
@@ -656,6 +706,54 @@ public class MindustryOptions {
     private static void doubleStackConveyorSpeed(StackConveyor conveyor) {
         conveyor.speed = conveyor.speed * 2;
         conveyor.baseEfficiency = conveyor.baseEfficiency * 2;
+    }
+
+    /**
+     * Double the speed of the conveyor.
+     * @param bridge The bridge to have the speed doubled.
+     */
+    private static void doubleBridgeSpeed(ItemBridge bridge) {
+        bridge.transportTime = bridge.transportTime / 2;
+        if(bridge instanceof BufferedItemBridge bufferedBridge){
+            bufferedBridge.speed = bufferedBridge.speed * 2;
+
+        }
+    }
+
+    /**
+     * Double the speed of the stack conveyor.
+     * @param duct The duct to have the speed doubled.
+     */
+    private static void doubleDuctSpeed(Duct duct) {
+        duct.speed = duct.speed * 2;
+    }
+
+     /**
+     * Double the speed of the stack conveyor.
+     * @param duct The duct bridge to have the speed doubled.
+     */
+    private static void doubleDuctBridgeSpeed(DuctBridge duct) {
+        duct.speed = duct.speed * 2;
+    }
+
+    /**
+     * Double the speed of the stack conveyor.
+     * @param duct The duct bridge to have the speed doubled.
+     */
+    private static void doubleDuctOverFlowSpeed(OverflowDuct duct) {
+        duct.speed = duct.speed * 2;
+    }
+
+    /**
+     * Double the speed of the conveyor.
+     * @param router The router to have the speed doubled.
+     */
+    private static void doubleDuctRouterSpeed(DuctRouter router) {
+        router.speed = router.speed * 2;
+        if(router instanceof StackRouter stackRouter){
+            stackRouter.baseEfficiency = stackRouter.baseEfficiency * 2;
+
+        }
     }
 
     /**
@@ -701,7 +799,7 @@ public class MindustryOptions {
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
-        this.fasterConveyor = settings.getBool(FASTER_CONVEYOR.value);
+        this.fasterConveyor = true;//settings.getBool(FASTER_CONVEYOR.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.goal = settings.getInt(AP_GOAL.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
