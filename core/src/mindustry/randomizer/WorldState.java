@@ -152,6 +152,7 @@ public class WorldState {
         settings.remove(TUTORIAL_SKIP.value);
         settings.remove(DISABLE_INVASIONS.value);
         settings.remove(FASTER_PRODUCTION.value);
+        settings.remove(FASTER_CONVEYOR.value);
         settings.remove(CAMPAIGN_CHOICE.value);
         settings.remove(CLIENT_ADDRESS.value);
         settings.remove(CLIENT_NAME.value);

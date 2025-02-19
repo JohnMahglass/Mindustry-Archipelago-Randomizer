@@ -323,6 +323,9 @@ public class Randomizer {
             if (options.getFasterProduction()) {
                 MindustryOptions.applyFasterProduction(options.getCampaign());
             }
+            if (options.getFasterConveyor()) {
+                MindustryOptions.applyFasterConveyor();
+            }
             if (options.getLogisticDistribution() == 3) { //Starter logistics
                 MindustryOptions.applyStarterLogistics(options.getCampaign());
             }

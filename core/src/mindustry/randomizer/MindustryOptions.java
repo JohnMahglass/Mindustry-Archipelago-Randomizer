@@ -10,6 +10,8 @@ import mindustry.gen.Unit;
 import mindustry.randomizer.client.SlotData;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
+import mindustry.world.blocks.distribution.Conveyor;
+import mindustry.world.blocks.distribution.StackConveyor;
 import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.blocks.production.Drill;
@@ -77,6 +79,12 @@ public class MindustryOptions {
      */
     private boolean fasterProduction;
 
+
+    /**
+     * Increase the speed at which the conveyor transport ressources.
+     */
+    private boolean fasterConveyor;
+
     /**
      * Randomize core units weapon.
      */
@@ -117,6 +125,10 @@ public class MindustryOptions {
 
     public boolean getFasterProduction() {
         return this.fasterProduction;
+    }
+
+    public boolean getFasterConveyor() {
+        return this.fasterConveyor;
     }
 
     /**
@@ -218,6 +230,7 @@ public class MindustryOptions {
             this.tutorialSkip = slotData.getTutorialSkip();
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
+            this.fasterConveyor = slotData.getFasterConveyor();
             this.campaign = slotData.getCampaignChoice();
             this.randomizeCoreUnitsWeapon = slotData.getRandomizeCoreUnitsWeapon();
             this.logisticDistribution = slotData.getLogisticDistribution();
@@ -244,6 +257,7 @@ public class MindustryOptions {
             this.campaign = 0;
             this.disableInvasions = false;
             this.fasterProduction = false;
+            this.fasterConveyor = false;
             this.deathLink = false;
             this.deathLinkMode = 0;
             this.coreRussianRouletteChambers = 6;
@@ -544,6 +558,35 @@ public class MindustryOptions {
 
 
     /**
+     * Apply the faster conveyor option on Serpulo's research.
+     */
+    public static void applyFasterConveyor() {
+        doubleConveyorSpeed(((Conveyor) Blocks.conveyor));
+        doubleConveyorSpeed(((Conveyor) Blocks.titaniumConveyor));
+        doubleConveyorSpeed(((Conveyor) Blocks.armoredConveyor));
+        doubleStackConveyorSpeed(((StackConveyor) Blocks.plastaniumConveyor));
+        doubleStackConveyorSpeed(((StackConveyor) Blocks.surgeConveyor));
+    }
+
+    /**
+     * Double the speed of the conveyor.
+     * @param conveyor The conveyor to have the speed doubled.
+     */
+    private static void doubleConveyorSpeed(Conveyor conveyor) {
+        conveyor.speed = conveyor.speed * 2;
+        conveyor.displayedSpeed = conveyor.displayedSpeed * 2;
+    }
+
+    /**
+     * Double the speed of the stack conveyor.
+     * @param conveyor The stack conveyor to have the speed doubled.
+     */
+    private static void doubleStackConveyorSpeed(StackConveyor conveyor) {
+        conveyor.speed = conveyor.speed * 2;
+        conveyor.baseEfficiency = conveyor.baseEfficiency * 2;
+    }
+
+    /**
      * Save options locally
      */
     private void saveOptions() {
@@ -583,6 +626,7 @@ public class MindustryOptions {
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
+        this.fasterConveyor = settings.getBool(FASTER_CONVEYOR.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
         this.logisticDistribution = settings.getInt(LOGISTIC_DISTRIBUTION.value);
