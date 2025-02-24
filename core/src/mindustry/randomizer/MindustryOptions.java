@@ -809,7 +809,7 @@ public class MindustryOptions {
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
-        this.fasterConveyor = true;//settings.getBool(FASTER_CONVEYOR.value);
+        this.fasterConveyor = settings.getBool(FASTER_CONVEYOR.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.goal = settings.getInt(AP_GOAL.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
