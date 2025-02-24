@@ -1,12 +1,15 @@
 package mindustry.world.blocks.distribution;
 
 import arc.util.io.*;
+import mindustry.Vars;
 import mindustry.gen.*;
+import mindustry.randomizer.MindustryOptions;
+import mindustry.randomizer.Randomizer;
 import mindustry.type.*;
 import mindustry.world.*;
 
 public class BufferedItemBridge extends ItemBridge{
-    public final int timerAccept = timers++;
+    public int timerAccept = timers++;
 
     public float speed = 40f;
     public int bufferCapacity = 50;

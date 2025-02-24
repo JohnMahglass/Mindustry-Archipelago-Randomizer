@@ -129,6 +129,7 @@ public class ClientCommandController {
                         getTutorialSkipOptionText() +
                         getDisableInvasionsOptionText() +
                         getFasterProductionOptionText() +
+                        getFasterConveyorOptionText() +
                         getDeathLinkOptionText() +
                         getDeathLinkModeOptionText() +
                         getCoreRussianRouletteSizeOptionText() +
@@ -158,6 +159,7 @@ public class ClientCommandController {
                     sb.append(getDisableInvasionsOptionText());
                 }
                 sb.append(getFasterProductionOptionText());
+                sb.append(getFasterConveyorOptionText());
                 sb.append(getDeathLinkOptionText());
                 if(randomizer.worldState.options.getTrueDeathLink()){
                     sb.append(getDeathLinkModeOptionText());
@@ -214,6 +216,10 @@ public class ClientCommandController {
 
     private String getFasterProductionOptionText() {
         return "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n";
+    }
+
+    private String getFasterConveyorOptionText() {
+        return "   Faster conveyor: " + getActivationStatus(randomizer.worldState.options.getFasterConveyor()) + "\n";
     }
 
     private String getDisableInvasionsOptionText() {

@@ -14,6 +14,7 @@ import mindustry.randomizer.enums.DeathLinkMode;
 import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.utils.RandomizableCoreUnits;
 import mindustry.type.Weapon;
+import mindustry.world.Block;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.DirectionalUnloader;
@@ -26,6 +27,7 @@ import mindustry.world.blocks.distribution.MassDriver;
 import mindustry.world.blocks.distribution.OverflowDuct;
 import mindustry.world.blocks.distribution.StackConveyor;
 import mindustry.world.blocks.distribution.StackRouter;
+import mindustry.world.blocks.payloads.PayloadMassDriver;
 import mindustry.world.blocks.power.ThermalGenerator;
 import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.blocks.production.Drill;
@@ -33,6 +35,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Pump;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.production.WallCrafter;
+import mindustry.world.blocks.storage.Unloader;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -672,6 +675,7 @@ public class MindustryOptions {
         doubleBridgeSpeed(((BufferedItemBridge) Blocks.itemBridge));
         ((Junction) Blocks.junction).speed = ((Junction) Blocks.junction).speed * 2;
         ((MassDriver) Blocks.massDriver).reload = ((MassDriver) Blocks.massDriver).reload / 2;
+        ((Unloader) Blocks.unloader).speed = ((Unloader) Blocks.unloader).speed / 2;
     }
 
     /**
@@ -685,9 +689,12 @@ public class MindustryOptions {
         doubleDuctRouterSpeed((StackRouter) Blocks.surgeRouter);
         doubleDuctOverFlowSpeed((OverflowDuct) Blocks.overflowDuct);
         doubleDuctOverFlowSpeed((OverflowDuct) Blocks.underflowDuct);
-        ((DuctBridge) Blocks.phaseConveyor).speed = ((DuctBridge) Blocks.phaseConveyor).speed * 2;
+        doublePayloadMassDriver((PayloadMassDriver) Blocks.payloadMassDriver);
+        doublePayloadMassDriver((PayloadMassDriver) Blocks.largePayloadMassDriver);
+        ((DuctBridge) Blocks.ductBridge).speed = ((DuctBridge) Blocks.ductBridge).speed / 2;
         ((DirectionalUnloader) Blocks.ductUnloader).speed =
-                ((DirectionalUnloader) Blocks.ductUnloader).speed * 2;
+                ((DirectionalUnloader) Blocks.ductUnloader).speed / 2;
+
     }
 
     /**
@@ -709,51 +716,53 @@ public class MindustryOptions {
     }
 
     /**
-     * Double the speed of the conveyor.
+     * Double the speed of the bridge.
      * @param bridge The bridge to have the speed doubled.
      */
     private static void doubleBridgeSpeed(ItemBridge bridge) {
         bridge.transportTime = bridge.transportTime / 2;
         if(bridge instanceof BufferedItemBridge bufferedBridge){
-            bufferedBridge.speed = bufferedBridge.speed * 2;
-
+            bufferedBridge.speed = bufferedBridge.speed / 2;
+            bufferedBridge.bufferCapacity = bufferedBridge.bufferCapacity * 2;
         }
     }
 
     /**
-     * Double the speed of the stack conveyor.
+     * Double the speed of the duct.
      * @param duct The duct to have the speed doubled.
      */
     private static void doubleDuctSpeed(Duct duct) {
-        duct.speed = duct.speed * 2;
-    }
-
-     /**
-     * Double the speed of the stack conveyor.
-     * @param duct The duct bridge to have the speed doubled.
-     */
-    private static void doubleDuctBridgeSpeed(DuctBridge duct) {
-        duct.speed = duct.speed * 2;
+        duct.speed = duct.speed / 2;
     }
 
     /**
-     * Double the speed of the stack conveyor.
-     * @param duct The duct bridge to have the speed doubled.
+     * Double the speed of the overflow duct.
+     * @param duct The overflow duct to have the speed doubled.
      */
     private static void doubleDuctOverFlowSpeed(OverflowDuct duct) {
-        duct.speed = duct.speed * 2;
+        duct.speed = duct.speed / 2;
     }
 
     /**
-     * Double the speed of the conveyor.
+     * Double the speed of the router.
      * @param router The router to have the speed doubled.
      */
     private static void doubleDuctRouterSpeed(DuctRouter router) {
-        router.speed = router.speed * 2;
+        router.speed = router.speed / 2;
         if(router instanceof StackRouter stackRouter){
             stackRouter.baseEfficiency = stackRouter.baseEfficiency * 2;
 
         }
+    }
+
+    /**
+     * Double the speed of the payload mass driver.
+     * @param massDriver The payload mass driver to have the speed doubled.
+     */
+    private static void doublePayloadMassDriver(PayloadMassDriver massDriver) {
+        massDriver.reload = massDriver.reload * 2;
+        massDriver.chargeTime = massDriver.chargeTime / 2;
+
     }
 
     /**
@@ -767,6 +776,7 @@ public class MindustryOptions {
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
+        settings.put(FASTER_CONVEYOR.value, getFasterConveyor());
         settings.put(CAMPAIGN_CHOICE.value, getCampaignValue());
         settings.put(AP_GOAL.value, getGoalValue());
         settings.put(RANDOMIZE_CORE_UNITS_WEAPON.value, getRandomizeCoreUnitsWeapon());
@@ -799,7 +809,7 @@ public class MindustryOptions {
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
-        this.fasterConveyor = settings.getBool(FASTER_CONVEYOR.value);
+        this.fasterConveyor = true;//settings.getBool(FASTER_CONVEYOR.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.goal = settings.getInt(AP_GOAL.value);
         this.randomizeCoreUnitsWeapon = settings.getBool(RANDOMIZE_CORE_UNITS_WEAPON.value);
