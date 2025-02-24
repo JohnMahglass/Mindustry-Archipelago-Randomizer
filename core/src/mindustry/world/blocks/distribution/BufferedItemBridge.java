@@ -1,10 +1,7 @@
 package mindustry.world.blocks.distribution;
 
 import arc.util.io.*;
-import mindustry.Vars;
 import mindustry.gen.*;
-import mindustry.randomizer.MindustryOptions;
-import mindustry.randomizer.Randomizer;
 import mindustry.type.*;
 import mindustry.world.*;
 
