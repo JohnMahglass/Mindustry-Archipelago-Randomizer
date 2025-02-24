@@ -25,6 +25,9 @@ public class SlotData {
     @SerializedName("faster_production")
     private boolean fasterProduction = false;
 
+    @SerializedName("faster_conveyor")
+    private boolean fasterConveyor = false;
+
     @SerializedName("death_link")
     private boolean deathLink = false;
 
@@ -67,6 +70,10 @@ public class SlotData {
 
     public boolean getFasterProduction() {
         return fasterProduction;
+    }
+
+    public boolean getFasterConveyor() {
+        return fasterConveyor;
     }
 
     public boolean getDisableInvasions() {
