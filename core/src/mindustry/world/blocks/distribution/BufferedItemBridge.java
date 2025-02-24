@@ -9,7 +9,7 @@ import mindustry.type.*;
 import mindustry.world.*;
 
 public class BufferedItemBridge extends ItemBridge{
-    public int timerAccept = timers++;
+    public final int timerAccept = timers++;
 
     public float speed = 40f;
     public int bufferCapacity = 50;
