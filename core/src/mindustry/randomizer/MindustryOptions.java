@@ -673,7 +673,7 @@ public class MindustryOptions {
         doubleStackConveyorSpeed(((StackConveyor) Blocks.plastaniumConveyor));
         doubleBridgeSpeed(((ItemBridge) Blocks.phaseConveyor));
         doubleBridgeSpeed(((BufferedItemBridge) Blocks.itemBridge));
-        ((Junction) Blocks.junction).speed = ((Junction) Blocks.junction).speed * 2;
+        ((Junction) Blocks.junction).speed = ((Junction) Blocks.junction).speed / 2;
         ((MassDriver) Blocks.massDriver).reload = ((MassDriver) Blocks.massDriver).reload / 2;
         ((Unloader) Blocks.unloader).speed = ((Unloader) Blocks.unloader).speed / 2;
     }
