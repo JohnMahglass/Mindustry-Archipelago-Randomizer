@@ -1,6 +1,6 @@
-# Mindustry integration for Archipelago (v0.3.0)
+# Mindustry integration for Archipelago (v0.4.0)
 https://github.com/ArchipelagoMW/Archipelago \
-Last update: 2025-01-31
+Last update: 2025-02-26
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 
@@ -24,28 +24,23 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
 - On Serpulo, some derelict has been removed to prevent the player from breaking out of logic.
 
-## Version 0.3.0 changelog <a name="changelog" />
+## Version 0.4.0 changelog <a name="changelog" />
 ### Changes
-- Made the Archipelago menu in Settings prettier
-- Added client options to filter chat messages. You can find theses new options in Settings -> Archipelago.
-- Death link now have 3 mode. "Unit" will kill the player unit and send a signal when the player's unit dies. "Core" Will destroy every player core and will send a signal when a sector is lost. "Core Russian roulette" behave like "Core" but will have a chance of destroying the core upon receiving a signal (customizable).
-- Added client options to protect captured sector from being destroyed by some Death link modes. You can find this new option in the Settings -> Archipelago
-- Added the "Make early roadblocks local" option. This option make sure that some basic research required to progress early on are local.
-- Added the "Amount of resources required" option. You can now ajust how much of each resources you need to unlock the "Victory" nodes.
-- Removed some derelict from Serpulo map to prevent player from going out of logic.
-- Changed text and added tooltip for the "Clear data" button to prevent confusion.
-- Removed some old buttons in the Settings -> Archipelago menu.
-- Added warning text on the 'Game data' setting page to inform player that theses options will not reset AP data.
+- Downgraded game version to the last official Mindustry release.*
+- Added new Conquest goal. This goal will require you to capture every **named** sector from the selected campaign.
+- Reverted previous derelict change. Every derelict are present again in sectors.
+- Added new "Progressive Drills" option. 
+- Added new "Progressive Generators" option.
+- Added new "Faster Conveyor" option. @Antydon
+- It is now possible to play multiple Mindustry multiworld on the same computer. To do so, simply copy/paste the client into **another directory**.
+- Added 4 new abilities to the list of possible ability on Erekir for the "Randomize core units weapon" option.
+- The `/options` command from the client chat will now only display relevant information for your selected yaml option. (ex: Death link mode will not be shown if death link is not enabled)
+- Added `/options f` command to the client chat to display every option chosen in the yaml file.
 
 ### Fix
-- Fixed Randomized Serpulo weapon position to better fit the core unit.
-- Fixed a bug where the "Error" icon would be displayed when unlocking multiple nodes.
-- Fixed a bug where progressive items would not be unlocked when received.
-- Fixed a bug where invasion could still happen when the player selected the "Disable invasion" option.
-- In the generated spoiler, the "->" symbol has been changed to "to" to prevent confusion of overlapping symbols.
-- Fixed a bug where upon not reseting the client after goaling a game the goal signal could be sent again when unlocking a node in a new game.
-- Fixed a bug where multiple Mindustry player in the same multiworld would have the same randomized weapons.
-- Possible fix for a crash happening on the window showing up the first time a player connect to a game.
+- Fixed a bug where the logic would not consider the player able to produce Silicon on Serpulo if they did not have the ability to produce Graphite.
+- Fixed AI on Erekir being 'frozen' on some sectors.
+- Fixed a bug that would cause the death link signal to not be received until the player restarted their client. 
 
 
 ## Setup guide <a name="setup" />
@@ -73,8 +68,6 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 
 - Sometimes when unlocking a research from a new category, the selectable block UI will not update until you exit the sector and enter again or receive another item.
 - Serpulo Events trigger "Produce Slag on Serpulo" might not be accurate when viewing with a tracker.
-- On the "Basin" sector in Erekir campaign, the AI might not launch attack on the player, stacking massive quantities of units in their bases.
-- When playing with the death link option, it is possible that the client stop receiving and sending death link signal. Restarting the game will solve the issue.
 
 ### Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
