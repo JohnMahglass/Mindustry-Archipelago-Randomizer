@@ -727,9 +727,9 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
 
                     nodeProduce(Items.coal, () -> {
                         nodeProduce(Items.graphite, () -> {
-                            nodeProduce(Items.silicon, () -> {
+                        });
 
-                            });
+                        nodeProduce(Items.silicon, () -> {
                         });
 
                         nodeProduce(Items.pyratite, () -> {
