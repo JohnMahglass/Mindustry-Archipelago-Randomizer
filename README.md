@@ -1,6 +1,6 @@
 # Mindustry integration for Archipelago (v0.4.0)
 https://github.com/ArchipelagoMW/Archipelago \
-Last update: 2025-02-26
+Last update: 2025-03-01
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 
@@ -22,13 +22,12 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - Use '/help' in the client to list all client commands.
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
 - The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
-- On Serpulo, some derelict has been removed to prevent the player from breaking out of logic.
 
 ## Version 0.4.0 changelog <a name="changelog" />
 ### Changes
-- Downgraded game version to the last official Mindustry release.*
+- Reverted game version to the last official Mindustry release.
 - Added new Conquest goal. This goal will require you to capture every **named** sector from the selected campaign.
-- Reverted previous derelict change. Every derelict are present again in sectors.
+- Reverted previous derelict change that was made in version 0.3.0.
 - Added new "Progressive Drills" option. 
 - Added new "Progressive Generators" option.
 - Added new "Faster Conveyor" option. @Antydon
@@ -38,9 +37,10 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - Added `/options f` command to the client chat to display every option chosen in the yaml file.
 
 ### Fix
-- Fixed a bug where the logic would not consider the player able to produce Silicon on Serpulo if they did not have the ability to produce Graphite.
+- Fixed multiple randomization logic bugs.
 - Fixed AI on Erekir being 'frozen' on some sectors.
 - Fixed a bug that would cause the death link signal to not be received until the player restarted their client. 
+- Fixed a bug where the event "Produce Slag on Serpulo" was being incorrectly triggered.
 
 
 ## Setup guide <a name="setup" />
@@ -67,10 +67,10 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 ## Known bugs
 
 - Sometimes when unlocking a research from a new category, the selectable block UI will not update until you exit the sector and enter again or receive another item.
-- Serpulo Events trigger "Produce Slag on Serpulo" might not be accurate when viewing with a tracker.
 
 ### Report a bug.
-You can report bugs that you find in the game's thread in the Archipelago Discord server, you can find the Discord invite on the Archipelago website. You can find the game's thread by searching "Mindustry" in the "future-game-design" section.
+You can report bugs that you find in the game's thread in the Archipelago Discord server, you 
+can find the Discord invite on the Archipelago website. You can find the game's thread by searching `Mindustry` in the "future-game-design" section.
 
 ## How to compile <a name="compile" />
 If you would like to compile this code on your machine you can follow these instructions:
