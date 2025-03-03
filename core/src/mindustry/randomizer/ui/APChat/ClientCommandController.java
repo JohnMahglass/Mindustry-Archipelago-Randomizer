@@ -1,6 +1,7 @@
 package mindustry.randomizer.ui.APChat;
 
 import arc.Core;
+import mindustry.Vars;
 import mindustry.randomizer.enums.ArchipelagoGoal;
 import mindustry.randomizer.enums.CampaignType;
 import mindustry.randomizer.enums.DeathLinkMode;
@@ -89,14 +90,17 @@ public class ClientCommandController {
         if (commandParts.length > 2) {
             tooManyArgumentMessage();
         } else {
+            randomizer.sendLocalMessage("-----EXECUTE DEV COMMAND-----");
             if (commandParts.length == 2 && commandParts[1].equals("c")) {
                 randomizer.client.setSlotName("Dev");
                 randomizer.client.setAddress("localhost:38281");
                 randomizer.client.connectRandomizer();
+            } else if (commandParts.length == 2 && commandParts[1].equals("debug")) {
+                randomizer.sendLocalMessage("---Debug mode activated---");
+                randomizer.debug = true;
+                Vars.state.rules.infiniteResources = true;
+                Vars.state.rules.fog = false;
             }
-            randomizer.sendLocalMessage("-----EXECUTE DEV COMMAND-----");
-            randomizer.debug = true;
-            randomizer.sendLocalMessage("---Debug mode activated---");
         }
 
     }
