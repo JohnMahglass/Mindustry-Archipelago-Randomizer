@@ -36,6 +36,9 @@ import mindustry.world.blocks.production.Pump;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.production.WallCrafter;
 import mindustry.world.blocks.storage.Unloader;
+import mindustry.world.blocks.units.Reconstructor;
+import mindustry.world.blocks.units.UnitAssembler;
+import mindustry.world.blocks.units.UnitFactory;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -101,6 +104,10 @@ public class MindustryOptions {
      */
     private boolean fasterProduction;
 
+    /**
+     * Increase the rate at which units are produced.
+     */
+    private boolean fasterUnitProduction;
 
     /**
      * Increase the speed at which the conveyor transport ressources.
@@ -167,6 +174,10 @@ public class MindustryOptions {
 
     public boolean getFasterProduction() {
         return this.fasterProduction;
+    }
+
+    public boolean getFasterUnitProduction() {
+        return this.fasterUnitProduction;
     }
 
     public boolean getFasterConveyor() {
@@ -304,6 +315,7 @@ public class MindustryOptions {
             this.tutorialSkip = slotData.getTutorialSkip();
             this.disableInvasions = slotData.getDisableInvasions();
             this.fasterProduction = slotData.getFasterProduction();
+            this.fasterUnitProduction = slotData.getFasterUnitProduction();
             this.fasterConveyor = slotData.getFasterConveyor();
             this.campaign = slotData.getCampaignChoice();
             this.goal = slotData.getGoal();
@@ -335,6 +347,7 @@ public class MindustryOptions {
             this.goal = 0;
             this.disableInvasions = false;
             this.fasterProduction = false;
+            this.fasterUnitProduction = false;
             this.fasterConveyor = false;
             this.deathLink = false;
             this.deathLinkMode = 0;
@@ -510,6 +523,25 @@ public class MindustryOptions {
                 applyErekirFasterProduction();
                 break;
         }
+    }
+
+    /**
+     * Apply the faster unit production option to the selected campaign.
+     * @param campaign The selected campaign.
+     */
+    protected static void applyFasterUnitProduction(CampaignType campaign){
+        switch (campaign) {
+            case SERPULO:
+                applySerpuloFasterUnitProduction();
+                break;
+            case EREKIR:
+                applyErekirFasterUnitProduction();
+                break;
+            case ALL:
+                applySerpuloFasterUnitProduction();
+                applyErekirFasterUnitProduction();
+                break;
+        }
 
     }
 
@@ -587,6 +619,35 @@ public class MindustryOptions {
     }
 
     /**
+     * Apply the faster unit production option on Serpulo's blocks.
+     */
+    private static void applySerpuloFasterUnitProduction() {
+       halfUnitProduction(((UnitFactory)Blocks.groundFactory));
+       halfUnitProduction(((UnitFactory)Blocks.airFactory));
+       halfUnitProduction(((UnitFactory)Blocks.navalFactory));
+       halfReconstructorProduction(((Reconstructor)Blocks.additiveReconstructor));
+       halfReconstructorProduction(((Reconstructor)Blocks.multiplicativeReconstructor));
+       halfReconstructorProduction(((Reconstructor)Blocks.exponentialReconstructor));
+       halfReconstructorProduction(((Reconstructor)Blocks.tetrativeReconstructor));
+    }
+
+    /**
+     * Apply the faster unit production option on Erekir's blocks.
+     */
+    private static void applyErekirFasterUnitProduction() {
+        halfUnitProduction(((UnitFactory)Blocks.tankFabricator));
+        halfUnitProduction(((UnitFactory)Blocks.shipFabricator));
+        halfUnitProduction(((UnitFactory)Blocks.mechFabricator));
+        halfReconstructorProduction(((Reconstructor)Blocks.tankRefabricator));
+        halfReconstructorProduction(((Reconstructor)Blocks.mechRefabricator));
+        halfReconstructorProduction(((Reconstructor)Blocks.shipRefabricator));
+        halfReconstructorProduction(((Reconstructor)Blocks.primeRefabricator));
+        halfUnitAssemblerProduction(((UnitAssembler)Blocks.tankAssembler));
+        halfUnitAssemblerProduction(((UnitAssembler)Blocks.shipAssembler));
+        halfUnitAssemblerProduction(((UnitAssembler)Blocks.mechAssembler));
+    }
+
+    /**
      * Double the output of liquid generating Crafter.
      * @param crafter The crafter to double the output.
      */
@@ -618,6 +679,34 @@ public class MindustryOptions {
      */
     private static void halfDrillTime(Drill drill) {
         drill.drillTime = drill.drillTime / 2;
+    }
+
+    /**
+     * Half the production time for the factory
+     * @param factory The factory to have the crafting time halved.
+     */
+    private static void halfUnitProduction(UnitFactory factory){
+        for(UnitFactory.UnitPlan plan : factory.plans){
+            plan.time = plan.time / 2f;
+        }
+    }
+
+    /**
+     * Half the production time for the reconstructor
+     * @param reconstructor The reconstructor to have the crafting time halved.
+     */
+    private static void halfReconstructorProduction(Reconstructor reconstructor){
+        reconstructor.constructTime = reconstructor.constructTime / 2f;
+    }
+
+    /**
+     * Half the production time for the unit assembler
+     * @param unitAssembler The unit assembler to have the crafting time halved.
+     */
+    private static void halfUnitAssemblerProduction(UnitAssembler unitAssembler){
+        for(UnitAssembler.AssemblerUnitPlan plan : unitAssembler.plans){
+            plan.time = plan.time / 2f;
+        }
     }
 
     /**
@@ -776,6 +865,7 @@ public class MindustryOptions {
         settings.put(TUTORIAL_SKIP.value, getTutorialSkip());
         settings.put(DISABLE_INVASIONS.value, getDisableInvasions());
         settings.put(FASTER_PRODUCTION.value, getFasterProduction());
+        settings.put(FASTER_UNIT_PRODUCTION.value, getFasterUnitProduction());
         settings.put(FASTER_CONVEYOR.value, getFasterConveyor());
         settings.put(CAMPAIGN_CHOICE.value, getCampaignValue());
         settings.put(AP_GOAL.value, getGoalValue());
@@ -809,6 +899,7 @@ public class MindustryOptions {
         this.tutorialSkip = settings.getBool(TUTORIAL_SKIP.value);
         this.disableInvasions = settings.getBool(DISABLE_INVASIONS.value);
         this.fasterProduction = settings.getBool(FASTER_PRODUCTION.value);
+        this.fasterUnitProduction = settings.getBool(FASTER_UNIT_PRODUCTION.value);
         this.fasterConveyor = settings.getBool(FASTER_CONVEYOR.value);
         this.campaign = settings.getInt(CAMPAIGN_CHOICE.value);
         this.goal = settings.getInt(AP_GOAL.value);

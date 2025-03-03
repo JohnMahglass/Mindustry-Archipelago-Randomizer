@@ -133,6 +133,7 @@ public class ClientCommandController {
                         getTutorialSkipOptionText() +
                         getDisableInvasionsOptionText() +
                         getFasterProductionOptionText() +
+                        getFasterUnitProductionOptionText() +
                         getFasterConveyorOptionText() +
                         getDeathLinkOptionText() +
                         getDeathLinkModeOptionText() +
@@ -163,6 +164,7 @@ public class ClientCommandController {
                     sb.append(getDisableInvasionsOptionText());
                 }
                 sb.append(getFasterProductionOptionText());
+                sb.append(getFasterUnitProductionOptionText());
                 sb.append(getFasterConveyorOptionText());
                 sb.append(getDeathLinkOptionText());
                 if(randomizer.worldState.options.getTrueDeathLink()){
@@ -220,6 +222,10 @@ public class ClientCommandController {
 
     private String getFasterProductionOptionText() {
         return "   Faster production: " + getActivationStatus(randomizer.worldState.options.getFasterProduction()) + "\n";
+    }
+
+    private String getFasterUnitProductionOptionText() {
+        return "   Faster unit production: " + getActivationStatus(randomizer.worldState.options.getFasterUnitProduction()) + "\n";
     }
 
     private String getFasterConveyorOptionText() {

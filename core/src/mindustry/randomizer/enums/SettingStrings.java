@@ -6,6 +6,7 @@ public enum SettingStrings {
     FREE_LAUNCH_SERPULO("APfreeLaunchSerpulo"),
     FREE_LAUNCH_EREKIR("APfreeLaunchErekir"),
     FASTER_PRODUCTION("APfasterProduction"),
+    FASTER_UNIT_PRODUCTION("APfasterUnitProduction"),
     FASTER_CONVEYOR("APfasterConveyor"),
     DISABLE_INVASIONS("APdisableInvasions"),
     DEATH_LINK("APdeathLink"),
