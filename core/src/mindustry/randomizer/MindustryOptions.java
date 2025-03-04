@@ -356,6 +356,8 @@ public class MindustryOptions {
             this.logisticDistribution = 0;
             this.makeEarlyRoadblocksLocal = false;
             this.amountOfResourcesRequired = 2000;
+            this.progressiveDrills = false;
+            this.progressiveGenerators = false;
             this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
