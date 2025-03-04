@@ -181,6 +181,7 @@ public class WorldState {
         settings.remove(AMOUNT_OF_RESOURCES_REQUIRED.value);
         settings.remove(PROGRESSIVE_GENERATORS.value);
         settings.remove(PROGRESSIVE_DRILLS.value);
+        settings.remove(PROGRESSIVE_PUMPS.value);
     }
 
     /**
@@ -851,6 +852,14 @@ public class WorldState {
         item10.items.add(Blocks.impactReactor);
         item10.items.add(Blocks.rtgGenerator);
         progressiveItems.add(item10);
+
+        items.put(MINDUSTRY_BASE_ID + 174, null);
+        ProgressiveItem item11 = new ProgressiveItem(ProgressiveItemType.S_PUMPS,
+                MINDUSTRY_BASE_ID + 174, 3);
+        item11.items.add(Blocks.mechanicalPump);
+        item11.items.add(Blocks.rotaryPump);
+        item11.items.add(Blocks.impulsePump);
+        progressiveItems.add(item11);
     }
 
 }

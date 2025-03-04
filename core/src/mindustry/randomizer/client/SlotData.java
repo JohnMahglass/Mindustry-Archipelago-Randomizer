@@ -55,6 +55,9 @@ public class SlotData {
     @SerializedName("progressive_generators")
     private boolean progressiveGenerators = false;
 
+    @SerializedName("progressive_pumps")
+    private boolean progressivePumps = false;
+
     @SerializedName("amount_of_resources_required")
     private int amountOfResourcesRequired = 2000;
 
@@ -118,7 +121,9 @@ public class SlotData {
     public boolean getProgressiveGenerators(){
         return this.progressiveGenerators;
     }
-
+    public boolean getProgressivePumps(){
+        return this.progressivePumps;
+    }
     public int getAmountOfResourcesRequired() {
         return this.amountOfResourcesRequired;
     }

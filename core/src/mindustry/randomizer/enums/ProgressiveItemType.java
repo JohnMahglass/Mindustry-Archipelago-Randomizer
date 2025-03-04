@@ -11,6 +11,7 @@ public enum ProgressiveItemType {
     S_RECONSTRUCTOR,
     S_DRILLS,
     S_GENERATORS,
+    S_PUMPS,
     E_TANKS,
     E_SHIPS,
     E_MECHS,

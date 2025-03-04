@@ -35,7 +35,8 @@ public enum SettingStrings {
     EREKIR_RANDOMIZED_WEAPON_EMANATE("APrandomizedEmanateWeapon"),
     EREKIR_RANDOMIZED_WEAPON_INIT("APrandomizedWeaponInit"),
     PROGRESSIVE_DRILLS("APprogressiveDrills"),
-    PROGRESSIVE_GENERATORS("APprogressiveGenerators");
+    PROGRESSIVE_GENERATORS("APprogressiveGenerators"),
+    PROGRESSIVE_PUMPS("APprogressivePumps");
 
 
     public final String value;

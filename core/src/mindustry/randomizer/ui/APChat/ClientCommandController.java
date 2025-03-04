@@ -143,7 +143,8 @@ public class ClientCommandController {
                         getLogisiticDistributionOptionText() +
                         getLocalEarlyRoadblocksOptionText() +
                         getProgressiveDrillsOptionText() +
-                        getProgressiveGeneratorsOptionText()
+                        getProgressiveGeneratorsOptionText() +
+                        getProgressivePumpsOptionText()
                         ));
             } else {
                 chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
@@ -178,6 +179,7 @@ public class ClientCommandController {
                 sb.append(getLocalEarlyRoadblocksOptionText());
                 sb.append(getProgressiveDrillsOptionText());
                 sb.append(getProgressiveGeneratorsOptionText());
+                sb.append(getProgressivePumpsOptionText());
 
                 chat.addLocalMessage(new APMessage(sb.toString()));
             } else {
@@ -190,6 +192,10 @@ public class ClientCommandController {
 
     private String getProgressiveGeneratorsOptionText() {
         return "   Progressive Generators: " + getActivationStatus(randomizer.worldState.options.getProgressiveGenerators()) + "\n";
+    }
+
+    private String getProgressivePumpsOptionText() {
+        return "   Progressive Pumps: " + getActivationStatus(randomizer.worldState.options.getProgressivePumps()) + "\n";
     }
 
     private String getProgressiveDrillsOptionText() {
