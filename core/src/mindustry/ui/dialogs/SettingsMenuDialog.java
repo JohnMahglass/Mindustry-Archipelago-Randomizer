@@ -99,6 +99,7 @@ public class SettingsMenuDialog extends BaseDialog{
             t.labelWrap("Settings -> Archipelago and use the 'Reset AP data' button.");
             t.row();
 
+            /**
             t.button("@settings.cleardata", Icon.trash, style, () -> ui.showConfirm("@confirm", "@settings.clearall.confirm", () -> {
                 ObjectMap<String, Object> map = new ObjectMap<>();
                 for(String value : Core.settings.keys()){
@@ -115,6 +116,7 @@ public class SettingsMenuDialog extends BaseDialog{
 
                 Core.app.exit();
             })).marginLeft(4);
+             */
 
             t.row();
 
