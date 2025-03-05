@@ -67,6 +67,7 @@ import static mindustry.content.SectorPresets.stainedMountains;
 import static mindustry.content.SectorPresets.tarFields;
 import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.apNode;
+import static mindustry.content.TechTree.apNodeProduce;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 import static mindustry.content.TechTree.nodeRoot;
@@ -696,54 +697,67 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
 
                 });
 
-                nodeProduce(Items.lead, () -> {
-                    nodeProduce(Items.titanium, () -> {
-                        nodeProduce(Liquids.cryofluid, () -> {
+                apNodeProduce(createApLocation("lead", Items.lead, 183L), () -> {
+                    apNodeProduce(createApLocation("Titanium Serpulo", Items.titanium, 184L),
+                            () -> {
+                        apNodeProduce(createApLocation("Cryofluid Serpulo", Liquids.cryofluid,
+                                185L), () -> {
 
                         });
 
-                        nodeProduce(Items.thorium, () -> {
-                            nodeProduce(Items.surgeAlloy, () -> {
+                        apNodeProduce(createApLocation("Thorium Serpulo", Items.thorium, 186L),
+                                () -> {
+                            apNodeProduce(createApLocation("Surge Alloy Serpulo", Items.surgeAlloy,
+                                    187L), () -> {
 
                             });
 
-                            nodeProduce(Items.phaseFabric, () -> {
+                            apNodeProduce(createApLocation("Phase Fabric Serpulo", Items.phaseFabric,
+                                    188L), () -> {
 
                             });
                         });
                     });
 
-                    nodeProduce(Items.metaglass, () -> {
+                    apNodeProduce(createApLocation("Metaglass Serpulo", Items.metaglass, 189L),
+                            () -> {
 
                     });
                 });
 
                 nodeProduce(Items.sand, () -> {
-                    nodeProduce(Items.scrap, () -> {
-                        nodeProduce(Liquids.slag, () -> {
+                    apNodeProduce(createApLocation("Scrap Serpulo", Items.scrap, 190L), () -> {
+                        apNodeProduce(createApLocation("Slag Serpulo", Liquids.slag, 191L), () -> {
 
                         });
                     });
 
-                    nodeProduce(Items.coal, () -> {
-                        nodeProduce(Items.graphite, () -> {
+                    apNodeProduce(createApLocation("Coal Serpulo", Items.coal, 192L), () -> {
+                        apNodeProduce(createApLocation("Graphite Serpulo", Items.graphite, 193L),
+                                () -> {
                         });
 
-                        nodeProduce(Items.silicon, () -> {
+                        apNodeProduce(createApLocation("Silicon Serpulo", Items.silicon, 194L),
+                                () -> {
                         });
 
-                        nodeProduce(Items.pyratite, () -> {
-                            nodeProduce(Items.blastCompound, () -> {
+                        apNodeProduce(createApLocation("Pyratite Serpulo", Items.pyratite, 195L),
+                                () -> {
+                            apNodeProduce(createApLocation("Blast Compound Serpulo",
+                                    Items.blastCompound, 196L), () -> {
 
                             });
                         });
 
-                        nodeProduce(Items.sporePod, () -> {
+                        apNodeProduce(createApLocation("Spore Pod Serpulo", Items.scrap, 197L),
+                                () -> {
 
                         });
 
-                        nodeProduce(Liquids.oil, () -> {
-                            nodeProduce(Items.plastanium, () -> {
+                        apNodeProduce(createApLocation("Oil Serpulo", Liquids.oil, 198L), () -> {
+                            apNodeProduce(createApLocation("Plastanium Serpulo", Items.plastanium
+                                            , 199L),
+                                    () -> {
 
                             });
                         });

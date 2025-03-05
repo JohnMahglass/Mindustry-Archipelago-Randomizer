@@ -135,6 +135,7 @@ import static mindustry.content.SectorPresets.siege;
 import static mindustry.content.SectorPresets.split;
 import static mindustry.content.SectorPresets.stronghold;
 import static mindustry.content.TechTree.apNode;
+import static mindustry.content.TechTree.apNodeProduce;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 import static mindustry.content.TechTree.nodeRoot;
@@ -591,24 +592,30 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            nodeProduce(Items.beryllium, () -> {
+            apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 328L), () -> {
                 nodeProduce(Items.sand, () -> {
-                    nodeProduce(Items.silicon, () -> {
-                        nodeProduce(Items.oxide, () -> {
+                    apNodeProduce(createApLocation("Silicon Erekir", Items.silicon, 330L), () -> {
+                        apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 331L),
+                                () -> {
                             //nodeProduce(Items.fissileMatter, () -> {});
                         });
                     });
                 });
 
                 nodeProduce(Liquids.water, () -> {
-                    nodeProduce(Liquids.ozone, () -> {
-                        nodeProduce(Liquids.hydrogen, () -> {
-                            nodeProduce(Liquids.nitrogen, () -> {
+                    apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 333L), () -> {
+                        apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 334L),
+                                () -> {
+                            apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen,
+                                    335L), () -> {
 
                             });
 
-                            nodeProduce(Liquids.cyanogen, () -> {
-                                nodeProduce(Liquids.neoplasm, () -> {
+                            apNodeProduce(createApLocation("Cyanogen Erekir", Liquids.cyanogen,
+                                    336L), () -> {
+                                apNodeProduce(createApLocation("Neoplasm Erekir", Liquids.neoplasm,
+                                                337L),
+                                        () -> {
 
                                 });
                             });
@@ -616,25 +623,33 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                     });
                 });
 
-                nodeProduce(Items.graphite, () -> {
-                    nodeProduce(Items.tungsten, () -> {
-                        nodeProduce(Liquids.slag, () -> {
+                apNodeProduce(createApLocation("Graphite Erekir", Items.graphite, 338L), () -> {
+                    apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 339L),
+                            () -> {
+                        apNodeProduce(createApLocation("Slag Erekir", Liquids.slag, 340L),
+                                () -> {
 
                         });
 
-                        nodeProduce(Liquids.arkycite, () -> {
+                        apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 341L),
+                                () -> {
 
                         });
 
-                        nodeProduce(Items.thorium, () -> {
-                            nodeProduce(Items.carbide, () -> {
+                        apNodeProduce(createApLocation("Thorium Erekir", Items.thorium, 342L),
+                                () -> {
+                            apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 343L),
+                                    () -> {
 
                                 //nodeProduce(Liquids.gallium, () -> {});
                             });
                         });
 
-                        nodeProduce(Items.surgeAlloy, () -> {
-                            nodeProduce(Items.phaseFabric, () -> {
+                        apNodeProduce(createApLocation("Surge Alloy Erekir", Items.surgeAlloy,
+                                344L), () -> {
+                            apNodeProduce(createApLocation("Phase Fabric Erekir", Items.phaseFabric,
+                                            345L),
+                                    () -> {
 
                             });
                         });

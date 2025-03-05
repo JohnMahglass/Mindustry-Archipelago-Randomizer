@@ -118,6 +118,19 @@ public class TechTree{
         return nodeProduce(content, new Seq<>(), children);
     }
 
+    public static TechNode apNodeProduce(UnlockableContent content, Seq<Objective> objectives,
+                                        Runnable children){
+        TechNode node = node(content, content.researchRequirements(), objectives.add(new Produce(content)), children);
+        node.isApNode = true;
+        return node;
+    }
+
+    public static TechNode apNodeProduce(UnlockableContent content, Runnable children){
+        TechNode node = nodeProduce(content, new Seq<>(), children);
+        node.isApNode = true;
+        return node;
+    }
+
     public static @Nullable TechNode context(){
         return context;
     }
