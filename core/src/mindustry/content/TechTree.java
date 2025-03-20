@@ -114,6 +114,13 @@ public class TechTree{
         return node(content, content.researchRequirements(), objectives.add(new Produce(content)), children);
     }
 
+    public static TechNode apNodeProduce(UnlockableContent content, UnlockableContent unlockCondition,
+                                         Seq<Objective> objectives,
+                                        Runnable children){
+        return node(content, content.researchRequirements(), objectives.add(new Produce(unlockCondition)),
+                children);
+    }
+
     public static TechNode nodeProduce(UnlockableContent content, Runnable children){
         return nodeProduce(content, new Seq<>(), children);
     }
@@ -127,6 +134,14 @@ public class TechTree{
 
     public static TechNode apNodeProduce(UnlockableContent content, Runnable children){
         TechNode node = nodeProduce(content, new Seq<>(), children);
+        node.isApNode = true;
+        return node;
+    }
+
+    public static TechNode apNodeProduce(UnlockableContent content,
+                                         UnlockableContent unlockCondition,
+                                         Runnable children){
+        TechNode node = apNodeProduce(content, unlockCondition, new Seq<>(), children);
         node.isApNode = true;
         return node;
     }

@@ -469,7 +469,7 @@ public class MindustryOptions {
         Blocks.breach.quietUnlock();
         Blocks.berylliumWall.quietUnlock();
         Blocks.tankFabricator.quietUnlock();
-        UnitTypes.stell.unlock();
+        UnitTypes.stell.quietUnlock();
         SectorPresets.aegis.quietUnlock();
         SectorPresets.aegis.alwaysUnlocked = true;
     }

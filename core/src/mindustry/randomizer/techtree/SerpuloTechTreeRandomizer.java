@@ -692,71 +692,75 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            nodeProduce(Items.copper, () -> {
-                nodeProduce(Liquids.water, () -> {
+            apNodeProduce(createApLocation("Copper Serpulo", Items.copper, 210L), Items.copper,
+                    () -> {
+                        apNodeProduce(createApLocation("Water Serpulo", Liquids.water, 211L),
+                                Liquids.water, () -> {
 
                 });
 
-                apNodeProduce(createApLocation("lead", Items.lead, 183L), () -> {
-                    apNodeProduce(createApLocation("Titanium Serpulo", Items.titanium, 184L),
+                apNodeProduce(createApLocation("Lead Serpulo", Items.lead, 212L), Items.lead,
+                        () -> {
+                    apNodeProduce(createApLocation("Titanium Serpulo", Items.titanium, 213L),
                             () -> {
                         apNodeProduce(createApLocation("Cryofluid Serpulo", Liquids.cryofluid,
-                                185L), () -> {
+                                214L), () -> {
 
                         });
 
-                        apNodeProduce(createApLocation("Thorium Serpulo", Items.thorium, 186L),
+                        apNodeProduce(createApLocation("Thorium Serpulo", Items.thorium, 215L),
                                 () -> {
                             apNodeProduce(createApLocation("Surge Alloy Serpulo", Items.surgeAlloy,
-                                    187L), () -> {
+                                    216L), () -> {
 
                             });
 
                             apNodeProduce(createApLocation("Phase Fabric Serpulo", Items.phaseFabric,
-                                    188L), () -> {
+                                    217L), () -> {
 
                             });
                         });
                     });
 
-                    apNodeProduce(createApLocation("Metaglass Serpulo", Items.metaglass, 189L),
+                    apNodeProduce(createApLocation("Metaglass Serpulo", Items.metaglass, 218L),
                             () -> {
 
                     });
                 });
 
-                nodeProduce(Items.sand, () -> {
-                    apNodeProduce(createApLocation("Scrap Serpulo", Items.scrap, 190L), () -> {
-                        apNodeProduce(createApLocation("Slag Serpulo", Liquids.slag, 191L), () -> {
+                        apNodeProduce(createApLocation("Sand Serpulo", Items.sand, 219L),
+                                Items.sand, () -> {
+                    apNodeProduce(createApLocation("Scrap Serpulo", Items.scrap, 220L), () -> {
+                        apNodeProduce(createApLocation("Slag Serpulo", Liquids.slag, 221L), () -> {
 
                         });
                     });
 
-                    apNodeProduce(createApLocation("Coal Serpulo", Items.coal, 192L), () -> {
-                        apNodeProduce(createApLocation("Graphite Serpulo", Items.graphite, 193L),
+                    apNodeProduce(createApLocation("Coal Serpulo", Items.coal, 222L), () -> {
+                        apNodeProduce(createApLocation("Graphite Serpulo", Items.graphite, 223L),
                                 () -> {
                         });
 
-                        apNodeProduce(createApLocation("Silicon Serpulo", Items.silicon, 194L),
+                        apNodeProduce(createApLocation("Silicon Serpulo", Items.silicon, 224L),
                                 () -> {
                         });
 
-                        apNodeProduce(createApLocation("Pyratite Serpulo", Items.pyratite, 195L),
+                        apNodeProduce(createApLocation("Pyratite Serpulo", Items.pyratite, 225L),
                                 () -> {
                             apNodeProduce(createApLocation("Blast Compound Serpulo",
-                                    Items.blastCompound, 196L), () -> {
+                                    Items.blastCompound, 226L), () -> {
 
                             });
                         });
 
-                        apNodeProduce(createApLocation("Spore Pod Serpulo", Items.scrap, 197L),
+                        apNodeProduce(createApLocation("Spore Pod Serpulo", Items.sporePod, 227L),
                                 () -> {
 
                         });
 
-                        apNodeProduce(createApLocation("Oil Serpulo", Liquids.oil, 198L), () -> {
+                        apNodeProduce(createApLocation("Oil Serpulo", Liquids.oil, 228L), () -> {
                             apNodeProduce(createApLocation("Plastanium Serpulo", Items.plastanium
-                                            , 199L),
+                                            , 229L),
                                     () -> {
 
                             });

@@ -592,29 +592,37 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 328L), () -> {
-                nodeProduce(Items.sand, () -> {
-                    apNodeProduce(createApLocation("Silicon Erekir", Items.silicon, 330L), () -> {
-                        apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 331L),
+            apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L),
+                    Items.beryllium,
+                    () -> {
+                apNodeProduce(createApLocation("Sand Erekir", Items.sand, 501L), Items.sand,
+                        () -> {
+                    apNodeProduce(createApLocation("Silicon Erekir", Items.silicon, 502L),
+                            Items.silicon, () -> {
+                        apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L),
+                                Items.oxide,
                                 () -> {
                             //nodeProduce(Items.fissileMatter, () -> {});
                         });
                     });
                 });
 
-                nodeProduce(Liquids.water, () -> {
-                    apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 333L), () -> {
-                        apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 334L),
+                        apNodeProduce(createApLocation("Water Erekir", Liquids.water, 504L) ,
+                                Liquids.water, () -> {
+                    apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L),
+                            Liquids.ozone, () -> {
+                        apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L),
+                                Liquids.hydrogen,
                                 () -> {
                             apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen,
-                                    335L), () -> {
+                                    507L), Liquids.nitrogen, () -> {
 
                             });
 
                             apNodeProduce(createApLocation("Cyanogen Erekir", Liquids.cyanogen,
-                                    336L), () -> {
+                                    508L), Liquids.cyanogen, () -> {
                                 apNodeProduce(createApLocation("Neoplasm Erekir", Liquids.neoplasm,
-                                                337L),
+                                                509L), Liquids.neoplasm,
                                         () -> {
 
                                 });
@@ -623,22 +631,28 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                     });
                 });
 
-                apNodeProduce(createApLocation("Graphite Erekir", Items.graphite, 338L), () -> {
-                    apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 339L),
+                apNodeProduce(createApLocation("Graphite Erekir", Items.graphite, 510L),
+                        Items.graphite, () -> {
+                    apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 511L),
+                            Items.tungsten,
                             () -> {
-                        apNodeProduce(createApLocation("Slag Erekir", Liquids.slag, 340L),
+                        apNodeProduce(createApLocation("Slag Erekir", Liquids.slag, 512L),
+                                Liquids.slag,
                                 () -> {
 
                         });
 
-                        apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 341L),
+                        apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 513L),
+                                Liquids.arkycite,
                                 () -> {
 
                         });
 
-                        apNodeProduce(createApLocation("Thorium Erekir", Items.thorium, 342L),
+                        apNodeProduce(createApLocation("Thorium Erekir", Items.thorium, 514L),
+                                Items.thorium,
                                 () -> {
-                            apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 343L),
+                            apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 515L),
+                                    Items.carbide,
                                     () -> {
 
                                 //nodeProduce(Liquids.gallium, () -> {});
@@ -646,9 +660,9 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                         });
 
                         apNodeProduce(createApLocation("Surge Alloy Erekir", Items.surgeAlloy,
-                                344L), () -> {
+                                516L), Items.surgeAlloy, () -> {
                             apNodeProduce(createApLocation("Phase Fabric Erekir", Items.phaseFabric,
-                                            345L),
+                                            517L), Items.phaseFabric,
                                     () -> {
 
                             });
