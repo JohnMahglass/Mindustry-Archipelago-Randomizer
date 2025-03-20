@@ -1,6 +1,6 @@
-# Mindustry integration for Archipelago (v0.4.0)
+# Mindustry integration for Archipelago (v0.4.1)
 https://github.com/ArchipelagoMW/Archipelago \
-Last update: 2025-03-01
+Last update: 2025-03-20
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 
@@ -23,7 +23,7 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
 - The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
 
-## Version 0.4.0 changelog <a name="changelog" />
+## Version 0.4.1 changelog <a name="changelog" />
 ### Changes
 - Reverted game version to the last official Mindustry release.
 - Added new Conquest goal. This goal will require you to capture every **named** sector from the selected campaign.
@@ -47,7 +47,7 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 
 ### Windows
 1. Download the latest release.
-2. Extract the downloaded file in a directory.
+2. Extract the downloaded files in a directory.
 3. Run `Mindustry-Archipelago.exe`
 4. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 5. Have fun.
@@ -60,8 +60,9 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
    Arch based => `sudo pacman -S jdk17-openjdk`
 3. Open the terminal
 4. Make sure you are in the directory containing `Mindustry-Archipelago.jar` (The file you downloaded from the release page.)
-5. Type `java -jar Mindustry-Archipelago.jar` in the terminal.
-6. Have fun.
+5. Run the game by typing `java -jar Mindustry-Archipelago.jar` in the terminal.
+6. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
+7. Have fun.
 
 
 ## Known bugs
