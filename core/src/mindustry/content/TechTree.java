@@ -146,6 +146,18 @@ public class TechTree{
         return node;
     }
 
+    public static TechNode apNodeCapture(UnlockableContent content, Runnable children){
+        TechNode node = node(content, content.researchRequirements(), children);
+        node.isApNode = true;
+        return node;
+    }
+
+    public static TechNode apNodeCapture(UnlockableContent content, Seq<Objective> objectives, Runnable children){
+        TechNode node = node(content, content.researchRequirements(), objectives, children);
+        node.isApNode = true;
+        return node;
+    }
+
     public static @Nullable TechNode context(){
         return context;
     }
