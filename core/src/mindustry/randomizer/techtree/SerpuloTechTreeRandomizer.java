@@ -67,6 +67,7 @@ import static mindustry.content.SectorPresets.stainedMountains;
 import static mindustry.content.SectorPresets.tarFields;
 import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.apNode;
+import static mindustry.content.TechTree.apNodeCapture;
 import static mindustry.content.TechTree.apNodeProduce;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
@@ -603,29 +604,37 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            node(groundZero, () -> {
-                node(frozenForest, Seq.with(
+            apNodeCapture(createApLocation("Ground Zero", groundZero, 180L), () -> {
+                apNodeCapture(createApLocation("Frozen Forest", frozenForest, 181L), Seq.with(
                         new Objectives.SectorComplete(groundZero)
                 ), () -> {
-                    node(craters, Seq.with(
+                    apNodeCapture(createApLocation("Craters", craters, 182L), Seq.with(
                             new Objectives.SectorComplete(frozenForest)
                     ), () -> {
-                        node(ruinousShores, Seq.with(
+                        apNodeCapture(createApLocation("Ruinous Shores", ruinousShores, 183L),
+                                Seq.with(
                                 new Objectives.SectorComplete(craters)
                         ), () -> {
-                            node(windsweptIslands, Seq.with(
+                            apNodeCapture(createApLocation("Windswept Islands", windsweptIslands,
+                                    184L
+                                    ), Seq.with(
                                     new Objectives.SectorComplete(ruinousShores)
                             ), () -> {
-                                node(tarFields, Seq.with(
+                                apNodeCapture(createApLocation("Tar Fields", tarFields, 185L),
+                                        Seq.with(
                                         new Objectives.SectorComplete(windsweptIslands)
                                 ), () -> {
-                                    node(impact0078, Seq.with(
+                                    apNodeCapture(createApLocation("Impact 0078", impact0078, 186L),
+                                            Seq.with(
                                             new Objectives.SectorComplete(tarFields)
                                     ), () -> {
-                                        node(desolateRift, Seq.with(
+                                        apNodeCapture(createApLocation("Desolate Rift",
+                                                desolateRift, 187L), Seq.with(
                                                 new Objectives.SectorComplete(impact0078)
                                         ), () -> {
-                                            node(planetaryTerminal, Seq.with(
+                                            apNodeCapture(createApLocation("Planetary Terminal",
+                                                            planetaryTerminal, 188L),
+                                                    Seq.with(
                                                     new Objectives.SectorComplete(desolateRift),
                                                     new Objectives.SectorComplete(nuclearComplex),
                                                     new Objectives.SectorComplete(overgrowth),
@@ -638,21 +647,25 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                                     });
                                 });
 
-                                node(extractionOutpost, Seq.with(
+                                apNodeCapture(createApLocation("Extraction Outpost",
+                                        extractionOutpost, 189L), Seq.with(
                                         new Objectives.SectorComplete(stainedMountains),
                                         new Objectives.SectorComplete(windsweptIslands)
                                 ), () -> {
 
                                 });
 
-                                node(saltFlats, Seq.with(
+                                apNodeCapture(createApLocation("Salt Flats", saltFlats, 190L),
+                                        Seq.with(
                                         new Objectives.SectorComplete(windsweptIslands)
                                 ), () -> {
-                                    node(coastline, Seq.with(
+                                    apNodeCapture(createApLocation("Coastline", coastline, 191L),
+                                            Seq.with(
                                             new Objectives.SectorComplete(windsweptIslands),
                                             new Objectives.SectorComplete(saltFlats)
                                     ), () -> {
-                                        node(navalFortress, Seq.with(
+                                        apNodeCapture(createApLocation("Naval Fortress",
+                                                navalFortress, 192L), Seq.with(
                                                 new Objectives.SectorComplete(coastline),
                                                 new Objectives.SectorComplete(extractionOutpost)
                                         ), () -> {
@@ -663,7 +676,7 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                             });
                         });
 
-                        node(overgrowth, Seq.with(
+                        apNodeCapture(createApLocation("Overgrowth", overgrowth, 193L), Seq.with(
                                 new Objectives.SectorComplete(craters),
                                 new Objectives.SectorComplete(fungalPass)
                         ), () -> {
@@ -671,17 +684,22 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                         });
                     });
 
-                    node(biomassFacility, Seq.with(
+                    apNodeCapture(createApLocation("Biomass Facility", biomassFacility, 194L),
+                            Seq.with(
                             new Objectives.SectorComplete(frozenForest)
                     ), () -> {
-                        node(stainedMountains, Seq.with(
+                        apNodeCapture(createApLocation("Stained Mountains", stainedMountains, 195L),
+                                Seq.with(
                                 new Objectives.SectorComplete(biomassFacility)
                         ), () -> {
-                            node(fungalPass, Seq.with(
+                            apNodeCapture(createApLocation("Fungal Pass", fungalPass, 196L),
+                                    Seq.with(
                                     new Objectives.SectorComplete(stainedMountains),
                                     new Objectives.Research(groundFactory)
                             ), () -> {
-                                node(nuclearComplex, Seq.with(
+                                apNodeCapture(createApLocation("Nuclear Complex", nuclearComplex,
+                                        197L
+                                        ), Seq.with(
                                         new Objectives.SectorComplete(fungalPass)
                                 ), () -> {
 
