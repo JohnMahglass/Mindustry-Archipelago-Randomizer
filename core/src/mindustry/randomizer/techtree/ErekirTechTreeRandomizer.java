@@ -554,7 +554,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNodeCapture(createApLocation("Onset", onset, 450L), () -> {
+            apNodeCapture(createApLocation("The Onset", onset, 450L), () -> {
                 apNodeCapture(createApLocation("Aegis", aegis, 451L),
                         Seq.with(new Objectives.SectorComplete(onset)),
                         () -> {
