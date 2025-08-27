@@ -1,7 +1,7 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.events.ArchipelagoEventListener;
-import dev.koifysh.archipelago.events.DeathLinkEvent;
+import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.DeathLinkEvent;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.DeathLinkMode;

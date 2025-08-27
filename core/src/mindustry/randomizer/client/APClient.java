@@ -1,8 +1,8 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.Client;
-import dev.koifysh.archipelago.flags.ItemsHandling;
-import dev.koifysh.archipelago.parts.DataPackage;
+import io.github.archipelagomw.Client;
+import io.github.archipelagomw.flags.ItemsHandling;
+import io.github.archipelagomw.parts.DataPackage;
 import mindustry.Vars;
 import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ConnectionStatus;

@@ -1,7 +1,7 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.events.ArchipelagoEventListener;
-import dev.koifysh.archipelago.events.ReceiveItemEvent;
+import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.ReceiveItemEvent;
 import mindustry.ctype.UnlockableContent;
 
 import static mindustry.Vars.randomizer;

@@ -1,7 +1,7 @@
 package mindustry.randomizer;
 
 import arc.struct.Seq;
-import dev.koifysh.archipelago.helper.DeathLink;
+import mindustry.randomizer.client.DeathLink;
 import mindustry.content.Blocks;
 import mindustry.content.SectorPresets;
 import mindustry.content.UnitTypes;
