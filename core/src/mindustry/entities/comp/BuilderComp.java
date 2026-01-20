@@ -18,6 +18,7 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.*;
+import mindustry.world.blocks.units.*;
 import mindustry.world.blocks.ConstructBlock.*;
 
 import java.util.*;
@@ -125,13 +126,12 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc{
 
             // Prevent the player from placing a Fabricator if they do not have a unit they can
             // produce. This make sure the player has both the factory and the unit.
-            if (!team.isAI() && isFabricator(current.block)) {
-                if (!canMakeUnits(current.block)) {
-                    randomizer.sendLocalMessage("Build canceled. You have not received a matching unit " +
-                            "for this building.");
-                    current.breaking = true;
-                    return;
-                }
+            // Exception for fabricator that can receive multiple unit as input, for thoses, only one of the required unit is required
+            if (!team.isAI() && !canPlaceBlock(current.block)) {
+                randomizer.sendLocalMessage("Build canceled. You have not received a matching unit " +
+                        "for this building.");
+                current.breaking = true;
+                return;
             }
 
             lastActive = current;
@@ -189,37 +189,70 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc{
     }
 
     /**
-     * Check if the block being placed is a fabricator.
-     * @param result The block being placed.
-     * @return True if the block is a fabricator.
+     * Validate that the block can be place by the player (ARCHIPELAGO)
+     * @param block The block the player is trying to place
+     * @return True if the player is allowed to place the block
      */
-    private static boolean isFabricator(Block result) {
-        return result.name.contains("fabricator");
+    private static boolean canPlaceBlock(Block block) {
+        boolean canPlace = false;
+        UnitType[] matchingUnits = getMatchingUnits(block);
+        if (matchingUnits.length == 0) {
+            return true;
+        }
+        for (UnitType unit : matchingUnits) {
+            if (!unit.locked()) {
+                canPlace = true;
+            }
+        }
+        return canPlace;
     }
+
     /**
-     * Verify that the player have received the research unit associated with this fabricator.
-     * @param result The fabricator being placed.
-     * @return True if the player can produce a unit with the fabricator
+     * Get units that are required to be unlocked for the fabricator
      */
-    private static boolean canMakeUnits(Block result) {
-        boolean canMakeUnits = false;
-        String name = result.name;
-        if (name.contains("fabricator")) {
-            if (name.contains("tank")) {
-                if (!UnitTypes.stell.locked()) {
-                    canMakeUnits = true;
+    private static UnitType[] getMatchingUnits(Block block) {
+        if (block instanceof UnitFactory) { // Tier 1
+            if (block.name.equals(Blocks.tankFabricator.name)) {
+                return new UnitType[] { UnitTypes.stell };
+            }
+            else if (block.name.equals(Blocks.mechFabricator.name)) {
+                return new UnitType[] { UnitTypes.merui };
+            }
+            else if (block.name.equals(Blocks.shipFabricator.name)) {
+                return new UnitType[] { UnitTypes.elude };
+            }
+        }
+        else if (block instanceof Reconstructor) {
+            if (block.name.equals(Blocks.primeRefabricator.name)) { // Tier 3
+                return new UnitType[] { UnitTypes.precept, UnitTypes.anthicus, UnitTypes.obviate };
+            } else { // Tier 2
+                if (block.name.equals(Blocks.tankRefabricator.name)) {
+                    return new UnitType[] { UnitTypes.locus };
                 }
-            } else if (name.contains("ship")) {
-                if (!UnitTypes.elude.locked()) {
-                    canMakeUnits = true;
+                else if (block.name.equals(Blocks.mechRefabricator.name)) {
+                    return new UnitType[] { UnitTypes.cleroi };
                 }
-            } else if (name.contains("mech")) {
-                if (!UnitTypes.merui.locked()) {
-                    canMakeUnits = true;
+                else if (block.name.equals(Blocks.shipRefabricator.name)) {
+                    return new UnitType[] { UnitTypes.avert };
                 }
             }
         }
-        return canMakeUnits;
+        else if (block instanceof UnitAssembler) { // Tier 4
+            if (block.name.equals(Blocks.tankAssembler.name)) {
+                return new UnitType[] { UnitTypes.vanquish };
+            }
+            else if (block.name.equals(Blocks.mechAssembler.name)) {
+                return new UnitType[] { UnitTypes.tecta };
+            }
+            else if (block.name.equals(Blocks.shipAssembler.name)) {
+                return new UnitType[] { UnitTypes.quell };
+            }
+        }
+        else if (block instanceof UnitAssemblerModule) { // Tier5
+            return new UnitType[] { UnitTypes.conquer, UnitTypes.collaris, UnitTypes.disrupt };
+        }
+        
+        return new UnitType[] {}; //The block that is being placed has no restriction.
     }
 
     /** Draw all current build plans. Does not draw the beam effect, only the positions. */
