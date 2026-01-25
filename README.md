@@ -11,6 +11,7 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 2. [Changelog](#changelog)
 3. [Installation](#setup)
 4. [How to compile](#compile)
+5. [Contributors](#contributors)
 
 ### What has been changed from the vanilla game? <a name="introduction" />
 
@@ -90,11 +91,7 @@ If you would like to compile this code on your machine you can follow these inst
 11. The project should compile and run!
 
 
-### notes from flashkirby
-- compile https://github.com/ManNamedGarbo/Mindustry-Archipelago-Randomizer
-   - install open jdk 16 https://jdk.java.net/archive/
-   - change gradle.properties `archash=v151`
-   - change build.gradle `implementation 'io.github.archipelagomw:Java-Client:0.2.0` 
-      - prev https://central.sonatype.com/artifact/dev.koifysh/archipelago-client
-      - new https://central.sonatype.com/artifact/io.github.archipelagomw/Java-Client
-   - copied the DeathLink.java helper file from https://github.com/KonoTyran/archipelago-client/blob/619dfccb20c3d6c97c4bf0c17776bbd5372945ed/src/main/java/dev/koifysh/archipelago/helper/DeathLink.java#L20
+## Contributors <a name="contributors" />
+- Antydon
+- Flashkirby
+- Aidan
