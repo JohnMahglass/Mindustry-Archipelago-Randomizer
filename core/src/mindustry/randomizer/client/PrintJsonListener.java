@@ -1,8 +1,8 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.Print.APPrintJsonType;
-import dev.koifysh.archipelago.events.ArchipelagoEventListener;
-import dev.koifysh.archipelago.events.PrintJSONEvent;
+import io.github.archipelagomw.Print.APPrintJsonType;
+import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.PrintJSONEvent;
 import mindustry.randomizer.ui.APChat.APMessage;
 
 import static mindustry.Vars.randomizer;

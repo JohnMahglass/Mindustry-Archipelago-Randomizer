@@ -1,9 +1,9 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.events.ArchipelagoEventListener;
-import dev.koifysh.archipelago.events.ConnectionResultEvent;
-import dev.koifysh.archipelago.helper.DeathLink;
-import dev.koifysh.archipelago.network.ConnectionResult;
+import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.ConnectionResultEvent;
+import mindustry.randomizer.client.DeathLink;
+import io.github.archipelagomw.network.ConnectionResult;
 import mindustry.randomizer.enums.ConnectionStatus;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 

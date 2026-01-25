@@ -3,9 +3,9 @@ package mindustry.randomizer;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 import static arc.Core.settings;
 
-import dev.koifysh.archipelago.ClientStatus;
-import dev.koifysh.archipelago.events.ReceiveItemEvent;
-import dev.koifysh.archipelago.helper.DeathLink;
+import io.github.archipelagomw.ClientStatus;
+import io.github.archipelagomw.events.ReceiveItemEvent;
+import mindustry.randomizer.client.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;

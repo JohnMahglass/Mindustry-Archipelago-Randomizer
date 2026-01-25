@@ -1,8 +1,8 @@
 package mindustry.randomizer.ui.APChat;
 
-import dev.koifysh.archipelago.Print.APPrintPart;
-import dev.koifysh.archipelago.events.PrintJSONEvent;
-import dev.koifysh.archipelago.flags.NetworkItem;
+import io.github.archipelagomw.Print.APPrintPart;
+import io.github.archipelagomw.events.PrintJSONEvent;
+import io.github.archipelagomw.flags.NetworkItem;
 import mindustry.randomizer.enums.ItemsClassification;
 
 import java.util.ArrayList;

@@ -269,7 +269,7 @@ public class APChatFragment extends Table {
                     finderPlayer + chatMessage.message.get(1) + itemText + chatMessage.message.get(3) + receivingPlayer + endText;
         }
 
-        font.data.markupEnabled = true;
+        font.getData().markupEnabled = true;
         layout.setText(font, finalText, 0, finalText.length(),
                 Color.white, textWidth,
                 Align.bottomLeft, true, null);

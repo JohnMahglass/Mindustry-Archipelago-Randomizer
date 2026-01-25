@@ -11,6 +11,7 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 2. [Changelog](#changelog)
 3. [Installation](#setup)
 4. [How to compile](#compile)
+5. [Contributors](#contributors)
 
 ### What has been changed from the vanilla game? <a name="introduction" />
 
@@ -88,3 +89,9 @@ If you would like to compile this code on your machine you can follow these inst
 9. Open the `Mindustry-Archipelago-Randomizer` directory and open the terminal.
 10. Type `gradlew desktop:run`
 11. The project should compile and run!
+
+
+## Contributors <a name="contributors" />
+- Antydon
+- Flashkirby
+- Aidan
