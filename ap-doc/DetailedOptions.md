@@ -1,7 +1,7 @@
 # Mindustry options explained
 
 ## Campaign choice
-There are 2 campaign in Mindustry. The Serpulo planet and the Erekir planet. Campaign gameplay and lenght varies between both campaign. If you are willing to play a longer game you can also select to play both campaign. Serpulo is a more open-ended campaign with tower defense type gameplay. Erekir is a more linear campaign with an RTS type gameplay.
+There are 2 campaign in Mindustry. The Serpulo planet and the Erekir planet. Campaign gameplay and length varies between both campaign. If you are willing to play a longer game you can also select to play both campaign. Serpulo is a more open-ended campaign with tower defense type gameplay. Erekir is a more linear campaign with an RTS type gameplay.
 
 ## Goal
 There are currently 2 possible goal in Mindustry.\
@@ -16,7 +16,7 @@ Makes the victory nodes require **the completion of every named sector** on that
 This option allows you to skip the first sector of your selected campaign. This option also make the first sector you choose to land on free of resources cost. This means that even if you enable this option and still choose to launch to the tutorial sector first, **your free launch will be consumed**. This option will also unlock every research that are required to clear the tutorial (these research are not randomized).
 
 ## Disable invasion
-This option will only affect the Serpulo campaign. This option will prevent hostile sector from invading the sector you have already conquered. This will prevent the player from losing progress.
+This option will only affect the Serpulo campaign. This option will prevent hostile sector from invading the sector you have already conquered.
 
 ## Faster production
 This option will **double the rate** of production/extraction from the following research:
