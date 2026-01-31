@@ -3,6 +3,7 @@ package mindustry.randomizer.client;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
 import io.github.archipelagomw.events.DeathLinkEvent;
 import mindustry.Vars;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.DeathLinkMode;
 import mindustry.randomizer.utils.ChatColor;
@@ -58,7 +59,7 @@ public class onDeathLink {
                 }
                 break;
             default:
-                RandomizerMessageHandler.printErrorWithReason("Invalid death link mode.");
+                RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.INVALID_DEATH_LINK_MODE);
                 break;
         }
     }
@@ -78,8 +79,7 @@ public class onDeathLink {
                 core.kill();
             }
         } else { //Shot is fired on protected sector
-            randomizer.sendLocalMessage("But your battle-hardened core " + ChatColor.applyColor(ApChatColors.GOLD, "deflected") +
-                    " the bullet!");
+            randomizer.sendLocalMessage(RandomizerConstant.DEATH_LINK_RUSSIAN_ROULETTE_DEFLECTED);
         }
 
     }
@@ -89,38 +89,31 @@ public class onDeathLink {
      */
     private static void fireDeathLinkGun() {
         int chamberSize = randomizer.worldState.options.getCoreRussianRouletteChambers();
-        randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, "=== Archipelago Death" +
-                " Link Gun™ triggered ==="));
+        randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, RandomizerConstant.DEATH_LINK_RUSSIAN_ROULETTE_TRIGGERED));
 
         int ammoInChamber = settings.getInt(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value);
         if (ammoInChamber >= 1 && ammoInChamber <= chamberSize) { //Valid amount of ammo
             Random random = new Random();
             int fireAttempt = random.nextInt(ammoInChamber);
             if (fireAttempt == 0) { //Live shot
-                randomizer.sendLocalMessage("BANG! The Archipelago Death Link Gun™ has " +
-                        "obliterated your core!");
+                randomizer.sendLocalMessage(RandomizerConstant.DEATH_LINK_RUSSIAN_ROULETTE_LIVE_SHOT);
                 settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, chamberSize);
                 destroyPlayerCores();
             } else { //Blank shot
-                randomizer.sendLocalMessage("The Archipelago Death Link Gun™ fired a blank shot. " +
-                        "1/" + (settings.getInt(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value) - 1) +
-                        " ammo remaining.");
+                randomizer.sendLocalMessage("The Archipelago Death Link Gun™ fired a blank shot. 1/" + (settings.getInt(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value) - 1) + " ammo remaining.");
                 ammoInChamber -= 1; //Remove ammo from chamber
                 settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, ammoInChamber);
             }
             if (ammoInChamber == 0) { //Gun never fired a live shot.
-                RandomizerMessageHandler.printErrorWithReason("No more ammo in the Archipelago " +
-                        "Death Link Gun™. Reloading... ");
+                RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.DEATH_LINK_RUSSIAN_ROULETTE_RELOADING);
                 settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, chamberSize);
             }
         } else { //Invalid amount of ammo.
-            RandomizerMessageHandler.printErrorWithReason("Invalid ammo amount inside the " +
-                    "Archipelago Death Link Gun™. Reloading...");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.DEATH_LINK_RUSSIAN_ROULETTE_AMMO_AMOUNT_ERROR);
             settings.put(AP_DEATH_LINK_RUSSIAN_ROULETTE_AMMO.value, chamberSize);
         }
 
-        randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, "===      Archipelago " +
-                "Death Link Gun™ end      ==="));
+        randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, RandomizerConstant.DEATH_LINK_RUSSIAN_ROULETTE_END));
     }
 
 }

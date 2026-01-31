@@ -4,6 +4,7 @@ import io.github.archipelagomw.Client;
 import io.github.archipelagomw.flags.ItemsHandling;
 import io.github.archipelagomw.parts.DataPackage;
 import mindustry.Vars;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.ConnectionStatus;
 import mindustry.randomizer.utils.ChatColor;
@@ -68,7 +69,7 @@ public class APClient extends Client {
             if (isConnected() && connectionStatus.equals(ConnectionStatus.Success)) {
                 sendChat(message);
             } else {
-                RandomizerMessageHandler.printErrorWithReason("You are not connected, message cannot be sent.");
+                RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.CANT_SEND_MSG_NOT_CONNECTED);
             }
         }
     }
@@ -81,8 +82,8 @@ public class APClient extends Client {
     @Override
     public void onClose(String Reason, int attemptingReconnect) { //onClose is triggering twice?
         if (!onCloseTriggered) { //Temporary
-            randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, "Disconnected / Connection lost")  +
-                    ". Offline checks will be saved and sent when connecting to the game again.");
+            randomizer.sendLocalMessage(ChatColor.applyColor(ApChatColors.RED, RandomizerConstant.DISCONNECTED)  +
+                    RandomizerConstant.DISCONNECTED_INFO);
         }
         onCloseTriggered = true;
     }
@@ -96,17 +97,16 @@ public class APClient extends Client {
                 if (address != null && slotName != null) {
                     connect(address);
                 } else {
-                    RandomizerMessageHandler.printErrorWithReason("Address or Slot name empty.");
+                    RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NAME_OR_SLOT_EMPTY);
                 }
             } catch (URISyntaxException e) {
                 if (randomizer.debug) {
                     e.printStackTrace();
                 }
-                RandomizerMessageHandler.printClientError("Connection failed. Please verify your " +
-                        "login information in Settings -> Archipelago.");
+                RandomizerMessageHandler.printClientError(RandomizerConstant.CONNETION_FAILED);
             }
         } else {
-            RandomizerMessageHandler.printErrorWithReason("You are already connected.");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.ALREADY_CONNECTED);
         }
     }
 

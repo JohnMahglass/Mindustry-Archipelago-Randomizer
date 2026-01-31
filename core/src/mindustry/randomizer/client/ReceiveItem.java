@@ -17,8 +17,7 @@ public class ReceiveItem {
     @ArchipelagoEventListener
     public static void onReceiveItem(ReceiveItemEvent event) {
         UnlockableContent content = randomizer.itemIdToUnlockableContent(event.getItemID());
-        if (content != null) { //Making
-            // sure the content is not already unlocked.
+        if (content != null) { //Making sure the content is not already unlocked.
             randomizer.unlock(event.getItemID(), content);
             randomizer.worldState.saveStates();
         }

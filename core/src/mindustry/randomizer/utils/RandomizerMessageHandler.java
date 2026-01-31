@@ -1,5 +1,6 @@
 package mindustry.randomizer.utils;
 
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ApChatColors;
 
 import static mindustry.Vars.randomizer;
@@ -28,7 +29,7 @@ public abstract class RandomizerMessageHandler {
      * Print an error with an unknown reason.
      */
     public static void printUnknownError(){
-        randomizer.sendLocalMessage(ERROR + " Unknown error.");
+        randomizer.sendLocalMessage(ERROR + RandomizerConstant.UNKNOWN_ERROR);
     }
 
     /**
@@ -60,7 +61,7 @@ public abstract class RandomizerMessageHandler {
      * @param source The source of the death link bounce.
      */
     public static void printDeathLinkBounce(String source){
-        randomizer.sendLocalMessage("Death link triggered by " + source);
+        randomizer.sendLocalMessage(RandomizerConstant.DEATH_LINK_TRIGGERED_BY + source);
     }
 
     /**
@@ -77,6 +78,6 @@ public abstract class RandomizerMessageHandler {
      * Print a message notifying the player that they reached all their goal (if they add multiple).
      */
     public static void printAllGoalCompleted(){
-        randomizer.sendLocalMessage(ChatColor.applyColor(GOLD, "All goals has been met!"));
+        randomizer.sendLocalMessage(ChatColor.applyColor(GOLD, RandomizerConstant.ALL_GOAL_MET));
     }
 }

@@ -1,6 +1,8 @@
 package mindustry.randomizer.ui.APChat;
 
 import arc.Core;
+import arc.math.Rand;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ArchipelagoGoal;
 import mindustry.randomizer.enums.CampaignType;
 import mindustry.randomizer.enums.DeathLinkMode;
@@ -46,38 +48,37 @@ public class ClientCommandController {
         command = command.toLowerCase();
         boolean connectionOpen = randomizer.client.isConnected();
         switch (command) {
-            case "connect":
+            case RandomizerConstant.CONNECT_COMMAND:
                 if (!connectionOpen) {
                     executeConnectCommand(commandParts);
                 } else {
-                    chat.addLocalMessage(new APMessage("You are already connected."));
+                    chat.addLocalMessage(new APMessage(RandomizerConstant.ALREADY_CONNECTED));
                 }
                 break;
-            case "disconnect":
+            case RandomizerConstant.DISCONNECT_COMMAND:
                 if (connectionOpen) {
                     executeDisconnectCommand(commandParts);
                 } else {
-                    chat.addLocalMessage(new APMessage("You are not connected to any game."));
+                    chat.addLocalMessage(new APMessage(RandomizerConstant.DISCONNECT_WHEN_NOT_CONNECTED));
                 }
                 break;
-            case "status":
+            case RandomizerConstant.STATUS_COMMAND:
                 executeStatusCommand(commandParts);
                 break;
-            case "options":
+            case RandomizerConstant.OPTIONS_COMMAND:
                 executeOptionsCommand(commandParts);
                 break;
-            case "help":
+            case RandomizerConstant.HELP_COMMAND:
                 listAvailableCommands();
                 break;
-            case "clear":
+            case RandomizerConstant.CLEAR_COMMAND:
                 executeClearCommand(commandParts);
                 break;
-            case "dev":
+            case RandomizerConstant.DEV_COMMAND:
                 executeDevCommand(commandParts);
                 break;
             default:
-                chat.addLocalMessage(new APMessage("Unknown command. Use '/help' for command " +
-                        "usage."));
+                chat.addLocalMessage(new APMessage(RandomizerConstant.UNKNOWN_COMMAND));
                 break;
         }
     }

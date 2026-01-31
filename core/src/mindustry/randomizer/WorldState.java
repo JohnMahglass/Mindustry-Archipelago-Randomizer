@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Random;
 
 import mindustry.ctype.UnlockableContent;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.CampaignType;
 import mindustry.randomizer.enums.ProgressiveItemType;
 import mindustry.randomizer.techtree.ApLocation;
@@ -44,7 +45,7 @@ public class WorldState {
     /**
      * Name of the file containing locations that are pending.
      */
-    public String checkPendingFile = "RandomizerCheckPending.txt";
+    public static final String checkPendingFile = "RandomizerCheckPending.txt";
 
     /**
      * List of all progressive items.
@@ -199,8 +200,7 @@ public class WorldState {
         if (isMindustryAPItem(itemId)) {
             unlockedItems.add(itemId);
         } else {
-            RandomizerMessageHandler.printErrorWithReason("Invalid item was called for unlock " +
-                    "(Invalid ID)");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.INVALID_ITEM_TO_BE_ADDED_TO_UNLOCK_LIST);
         }
     }
 
@@ -335,7 +335,6 @@ public class WorldState {
         }
     }
 
-
     /**
      * Add a check to an array. Note that the state should be saved after using this method by
      * calling saveState().
@@ -353,7 +352,7 @@ public class WorldState {
         if (!checkExist) {
             stateArray.add(newCheck);
         } else {
-            //log error
+            //log error (someday this error will be logged...)
         }
     }
 
@@ -376,21 +375,21 @@ public class WorldState {
      * Initialize a list of possible filler item for Serpulo.
      */
     protected void initializeSerpuloFillers(){
-        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, RandomizerConstant.FISTFUL_OF_NOTHING);
     }
 
     /**
      * Initialize a list of possible filler item for Erekir.
      */
     protected void initializeErekirFillers(){
-        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, RandomizerConstant.FISTFUL_OF_NOTHING);
     }
 
     /**
      * Initialize a list of possible filler item for all campaigns.
      */
     protected void initializeAllFillers(){
-        fillerItems.put(MINDUSTRY_BASE_ID + 700, "A fistful of nothing...");
+        fillerItems.put(MINDUSTRY_BASE_ID + 700, RandomizerConstant.FISTFUL_OF_NOTHING);
     }
 
     /**

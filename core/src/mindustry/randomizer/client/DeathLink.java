@@ -3,6 +3,7 @@ package mindustry.randomizer.client;
 import io.github.archipelagomw.network.client.BouncePacket;
 import io.github.archipelagomw.network.server.BouncedPacket;
 import io.github.archipelagomw.events.DeathLinkEvent;
+import mindustry.randomizer.constant.RandomizerConstant;
 
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public class DeathLink {
             DeathLinkEvent dl = new DeathLinkEvent((String)bounced.data.get("source"), (String)bounced.data.get("cause"), (Double)bounced.data.get("time"));
             client.getEventManager().callEvent(dl);
         } catch (ClassCastException ex) {
-            System.out.println("Error Receiving DeathLink, possible malformed bounce packet");
+            System.out.println(RandomizerConstant.RECEIVING_DEATH_LINK_ERROR);
         }
     }
 

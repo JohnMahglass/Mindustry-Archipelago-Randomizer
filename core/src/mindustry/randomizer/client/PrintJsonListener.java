@@ -8,7 +8,7 @@ import mindustry.randomizer.ui.APChat.APMessage;
 import static mindustry.Vars.randomizer;
 
 /**
- * Print Json message from Archipelago
+ * Print JSON message from Archipelago
  *
  * @author John Mahglass
  * @version 1.0.0 2024-07-29
