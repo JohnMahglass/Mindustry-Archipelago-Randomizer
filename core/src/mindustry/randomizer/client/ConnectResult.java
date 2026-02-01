@@ -1,9 +1,10 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.events.ArchipelagoEventListener;
-import dev.koifysh.archipelago.events.ConnectionResultEvent;
-import dev.koifysh.archipelago.helper.DeathLink;
-import dev.koifysh.archipelago.network.ConnectionResult;
+import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.ConnectionResultEvent;
+import mindustry.randomizer.client.DeathLink;
+import io.github.archipelagomw.network.ConnectionResult;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ConnectionStatus;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 
@@ -27,18 +28,15 @@ public class ConnectResult {
     public void onConnectResult(ConnectionResultEvent event) {
         if (event.getResult() == ConnectionResult.Success) {
             client.connectionStatus = ConnectionStatus.Success;
-            client.onCloseTriggered = false; //To prevent a bug were onClose method is being
-            // called twice, this needs to be investigated.
+            client.onCloseTriggered = false; // To prevent a bug were onClose method is being called twice, this needs to be investigated.
             client.slotData = event.getSlotData(SlotData.class);
-            if (!randomizer.hasConnectedPreviously) { //First time the player is connecting
-                // to the game
+            if (!randomizer.hasConnectedPreviously) { // First time the player is connecting to the game
                 randomizer.worldState.options.fillOptions(client.slotData);
                 randomizer.worldState.createSeed();
                 randomizer.initialize();
                 randomizer.updateForceExit(); //Required to apply all randomizer options.
             }
-            while (randomizer.worldState.hasCheckPending()) { // The player has item
-                // waiting to be sent to Archipelago
+            while (randomizer.worldState.hasCheckPending()) { // The player has items waiting to be sent to Archipelago
                 randomizer.sendPendingLocations();
             }
             RandomizerMessageHandler.printSuccessfulConnection("'" + client.getAddress() + "'");
@@ -48,19 +46,19 @@ public class ConnectResult {
         } else {
             if (event.getResult() == ConnectionResult.InvalidSlot) {
                 client.connectionStatus = ConnectionStatus.InvalidSlot;
-                RandomizerMessageHandler.printFailedConnection("Invalid Slot name.");
+                RandomizerMessageHandler.printFailedConnection(RandomizerConstant.INVALID_SLOT_NAME);
             } else if (event.getResult() == ConnectionResult.InvalidPassword) {
                 client.connectionStatus = ConnectionStatus.InvalidPassword;
-                RandomizerMessageHandler.printFailedConnection("Invalid Password.");
+                RandomizerMessageHandler.printFailedConnection(RandomizerConstant.INVALID_PASSWORD);
             } else if (event.getResult() == ConnectionResult.SlotAlreadyTaken) {
                 client.connectionStatus = ConnectionStatus.SlotAlreadyTaken;
-                RandomizerMessageHandler.printFailedConnection("Slot already taken.");
+                RandomizerMessageHandler.printFailedConnection(RandomizerConstant.SLOT_ALREADY_TAKEN);
             } else if (event.getResult() == ConnectionResult.IncompatibleVersion) {
                 client.connectionStatus = ConnectionStatus.IncompatibleVersion;
-                RandomizerMessageHandler.printFailedConnection("Incompatible version");
+                RandomizerMessageHandler.printFailedConnection(RandomizerConstant.INCOMPATIBLE_VERSION);
             } else {
                 client.connectionStatus = ConnectionStatus.NotConnected;
-                RandomizerMessageHandler.printFailedConnection("Unknown reason.");
+                RandomizerMessageHandler.printFailedConnection(RandomizerConstant.UNKNOWN_ERROR);
             }
         }
     }

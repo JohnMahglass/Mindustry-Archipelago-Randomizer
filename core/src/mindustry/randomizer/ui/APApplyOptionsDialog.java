@@ -4,6 +4,7 @@ import arc.Core;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.graphics.Pal;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.ui.dialogs.BaseDialog;
 
 /**
@@ -24,18 +25,14 @@ public class APApplyOptionsDialog extends BaseDialog {
         cont.table(t -> {
             t.background(Tex.button).margin(0);
             t.row();
-            t.labelWrap("Restart to apply randomizer option").color(Pal.accent).growX().padLeft(30f).center();
+            t.labelWrap(RandomizerConstant.TITLE_APPLYING_RANDOMIZER_OPTION_RESTART).color(Pal.accent).growX().padLeft(110f).padTop(20f);
             t.row();
-            t.labelWrap("" +
-                "To properly apply the randomizer options it is required" + "\n" +
-                "to reload the game when you successfully connect to a" + "\n" +
-                "game for the first time. Press 'Exit' to close the program." +
-                "").pad(10f).left();
+            t.labelWrap(RandomizerConstant.APPLYING_RANDOMIZER_OPTION_RESTART).pad(30f).left();
             t.row();
 
-            t.button("Exit", Icon.exit, () -> {
+            t.button(RandomizerConstant.EXIT, Icon.exit, () -> {
                 Core.app.exit();
             }).size(170f, 50);
-        }).size(610f, 170).pad(10f);
+        }).size(610f, 275).padLeft(10f).padRight(10f).padBottom(10f);
     }
 }

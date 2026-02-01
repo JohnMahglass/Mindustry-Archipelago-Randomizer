@@ -1,6 +1,6 @@
-# Mindustry integration for Archipelago (v0.4.0)
+# Mindustry integration for Archipelago (v0.4.2)
 https://github.com/ArchipelagoMW/Archipelago \
-Last update: 2025-03-01
+Last update: 2026-01-29
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 
@@ -8,9 +8,9 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 
 # Table of Contents
 1. [Introduction](#introduction)
-2. [Changelog](#changelog)
-3. [Installation](#setup)
-4. [How to compile](#compile)
+2. [Installation](#setup)
+3. [How to compile](#compile)
+4. [Contributors](#contributors)
 
 ### What has been changed from the vanilla game? <a name="introduction" />
 
@@ -23,31 +23,12 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 - It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
 - The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
 
-## Version 0.4.0 changelog <a name="changelog" />
-### Changes
-- Reverted game version to the last official Mindustry release.
-- Added new Conquest goal. This goal will require you to capture every **named** sector from the selected campaign.
-- Reverted previous derelict change that was made in version 0.3.0.
-- Added new "Progressive Drills" option. 
-- Added new "Progressive Generators" option.
-- Added new "Faster Conveyor" option. @Antydon
-- It is now possible to play multiple Mindustry multiworld on the same computer. To do so, simply copy/paste the client into **another directory**.
-- Added 4 new abilities to the list of possible ability on Erekir for the "Randomize core units weapon" option.
-- The `/options` command from the client chat will now only display relevant information for your selected yaml option. (ex: Death link mode will not be shown if death link is not enabled)
-- Added `/options f` command to the client chat to display every option chosen in the yaml file.
-
-### Fix
-- Fixed multiple randomization logic bugs.
-- Fixed AI on Erekir being 'frozen' on some sectors.
-- Fixed a bug that would cause the death link signal to not be received until the player restarted their client. 
-- Fixed a bug where the event "Produce Slag on Serpulo" was being incorrectly triggered.
-
 
 ## Setup guide <a name="setup" />
 
 ### Windows
 1. Download the latest release.
-2. Extract the downloaded file in a directory.
+2. Extract the downloaded files in a directory.
 3. Run `Mindustry-Archipelago.exe`
 4. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 5. Have fun.
@@ -60,8 +41,9 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
    Arch based => `sudo pacman -S jdk17-openjdk`
 3. Open the terminal
 4. Make sure you are in the directory containing `Mindustry-Archipelago.jar` (The file you downloaded from the release page.)
-5. Type `java -jar Mindustry-Archipelago.jar` in the terminal.
-6. Have fun.
+5. Run the game by typing `java -jar Mindustry-Archipelago.jar` in the terminal.
+6. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
+7. Have fun.
 
 
 ## Known bugs
@@ -87,3 +69,9 @@ If you would like to compile this code on your machine you can follow these inst
 9. Open the `Mindustry-Archipelago-Randomizer` directory and open the terminal.
 10. Type `gradlew desktop:run`
 11. The project should compile and run!
+
+
+## Contributors <a name="contributors" />
+- Antydon
+- Flashkirby
+- 9382

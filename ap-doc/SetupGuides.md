@@ -1,3 +1,4 @@
+Last update: 2025-03-20
 # Mindustry randomizer setup guide
 ## Required software
 The custom [Mindustry client for Archipelago](https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases)
@@ -7,7 +8,7 @@ Mindustry is a free open-source game. If you enjoy the game, please consider sup
 ## Installation procedures
 ### Windows
 1. Download the latest release.
-2. Extract the downloaded file in a directory.
+2. Extract the downloaded files in a directory.
 3. Run "Mindustry-Archipelago.exe"
 
 ### Linux
@@ -38,8 +39,14 @@ There is 2 way to connect to an Archipelago multiworld once you are in Mindustry
 
 The client will now remember your connection informations. When resuming play, you will only need to use the ```/connect``` command (without arguments) to connect to the multiworld
 
+## Playing multiple multiworld on the same computer
+If you would like to play multiple instance of mindustry in the same multiworld, you need to 
+copy `Mindustry-Archipelago-version.exe` and `jre` to a different directory. Game settings and 
+game data are saved in the directory that holds `Mindustry-Archipelago-version.exe`.
+
 ## Create a config (.yaml) file
-There is currently no web pages for generating a Mindustry config file. In the meantime, you can get a default config file from the Mindustry thread in the Future game design section of the Archipelago Discord server. The default config file is commented to help with option description.
+There is currently no web pages for generating a Mindustry config file. In the meantime, you can 
+get a default config file from the release page of the Mindustry-Archipelago client.
 
 ## About multiplayer
 Multiplayer is currently not supported, however it is a planned feature.

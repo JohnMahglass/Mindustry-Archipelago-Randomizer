@@ -1,7 +1,7 @@
 package mindustry.randomizer.client;
 
-import dev.koifysh.archipelago.events.ArchipelagoEventListener;
-import dev.koifysh.archipelago.events.ReceiveItemEvent;
+import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.ReceiveItemEvent;
 import mindustry.ctype.UnlockableContent;
 
 import static mindustry.Vars.randomizer;
@@ -17,8 +17,7 @@ public class ReceiveItem {
     @ArchipelagoEventListener
     public static void onReceiveItem(ReceiveItemEvent event) {
         UnlockableContent content = randomizer.itemIdToUnlockableContent(event.getItemID());
-        if (content != null) { //Making
-            // sure the content is not already unlocked.
+        if (content != null) { //Making sure the content is not already unlocked.
             randomizer.unlock(event.getItemID(), content);
             randomizer.worldState.saveStates();
         }

@@ -19,7 +19,7 @@ public class EmptyFillerText {
         texts.add("A fistful of nothing... It fills you with determination.");
         texts.add("Unfortunately, you received a fistful of nothing...");
         texts.add("This could have been an item, but it was nothing...");
-        texts.add("I hope you were not to excited about this one.");
+        texts.add("I hope you were not to excited about this one...");
         return texts.random();
     }
 }

@@ -3,12 +3,13 @@ package mindustry.randomizer;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 import static arc.Core.settings;
 
-import dev.koifysh.archipelago.ClientStatus;
-import dev.koifysh.archipelago.events.ReceiveItemEvent;
-import dev.koifysh.archipelago.helper.DeathLink;
+import io.github.archipelagomw.ClientStatus;
+import io.github.archipelagomw.events.ReceiveItemEvent;
+import mindustry.randomizer.client.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
@@ -67,7 +68,7 @@ public class Randomizer {
             content.quietUnlock();
         } else {
             //DEBUG
-            RandomizerMessageHandler.printErrorWithReason("Content that was null was called for unlock.");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NULL_CONTENT_UNLOCK_ERROR);
         }
     }
 
@@ -85,8 +86,7 @@ public class Randomizer {
         if (!client.isConnected() || !success) {
             //Check could not be send, added to check pending list.
             worldState.addCheck(worldState.checkPending, locationId);
-            RandomizerMessageHandler.printErrorWithReason("You are not connected, pending checks " +
-                    "will be sent when reconnecting to the game.");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NOT_CONNECTED_PENDING_CHECKS);
         }
         //Add location to checked list and save world state.
         worldState.addCheck(worldState.locationsChecked, locationId);
@@ -99,11 +99,11 @@ public class Randomizer {
     private void verifyVictoryConditions(Long locationId) {
         if (locationId - MINDUSTRY_BASE_ID == 998) { //Victory condition for Serpulo met.
            settings.put(SERPULO_VICTORY.value, true);
-           RandomizerMessageHandler.printGoalCompleted(SERPULO, "Serpulo");
+           RandomizerMessageHandler.printGoalCompleted(SERPULO, RandomizerConstant.SERPULO);
         }
         if (locationId - MINDUSTRY_BASE_ID == 999) { //Victory condition for Erekir met.
             settings.put(EREKIR_VICTORY.value, true);
-            RandomizerMessageHandler.printGoalCompleted(EREKIR, "Erekir");
+            RandomizerMessageHandler.printGoalCompleted(EREKIR, RandomizerConstant.EREKIR);
         }
 
         if (worldState.isVictoryConditionMet()) {
@@ -118,16 +118,11 @@ public class Randomizer {
         if (client.isConnected()) {
             client.setGameState(ClientStatus.CLIENT_GOAL);
             RandomizerMessageHandler.printAllGoalCompleted();
-            //Making sure that if the player didnt reset the client when playing a new game,
-            // the goal signal is not sent to archipelago.
+            //Goal value turned off to prevent sending a goal signal if the player is playing a new game without reseting their game data.
             settings.put(SERPULO_VICTORY.value, false);
             settings.put(EREKIR_VICTORY.value, false);
         } else {
-            RandomizerMessageHandler.printErrorWithReason("Goal completed, but you are not " +
-                    "connected. Goal has not been sent to Archipelago. Once you are " +
-                    "reconnected, you can force check the victory condition by going into " +
-                    "Settings -> Archipelago and using the 'Manually verify victory " +
-                    "condition' button.");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NOT_CONNECTED_GOAL_COMPLETED);
         }
     }
 
@@ -136,7 +131,7 @@ public class Randomizer {
      */
     public void sendPendingLocations () {
         boolean succes;
-        sendLocalMessage("Reconnected, sending pending check...");
+        sendLocalMessage(RandomizerConstant.SENDING_PENDING_CHECK);
         int amountPending = worldState.checkPending.size();
         for (Long locationId : worldState.checkPending) {
             succes = checkPendingLocation(locationId);
@@ -147,10 +142,9 @@ public class Randomizer {
         if (amountPending == 0) { //Every check has been succesfully sent
             worldState.checkPending.clear();
             worldState.saveStates();
-            sendLocalMessage("All pending check has been sent!");
+            sendLocalMessage(RandomizerConstant.PENDING_CHECK_SENT);
         } else { //Not every check has been sent.
-            RandomizerMessageHandler.printErrorWithReason("Pending check remaining. You can try " +
-                    "to send the checks again by reconnecting to Archipelago.");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.PENDING_CHECK_REMAINING);
         }
     }
 
@@ -267,8 +261,8 @@ public class Randomizer {
      */
     public boolean erekirFreeLaunchTarget(Sector sector) {
         boolean allow = false;
-        if (settings.getBool(FREE_LAUNCH_EREKIR.value) && sector.planet.name.equals("erekir")) {
-            if (sector.id == 88) { //86 -> Aegis
+        if (settings.getBool(FREE_LAUNCH_EREKIR.value) && sector.planet.name.equals(RandomizerConstant.EREKIR.toLowerCase())) {
+            if (sector.id == RandomizerConstant.AEGIS_ID) { //88 -> Aegis
                 allow = true;
             }
         }
@@ -282,8 +276,8 @@ public class Randomizer {
      */
     public boolean serpuloFreeLaunchTarget(Sector sector) {
         boolean allow = false;
-        if (settings.getBool(FREE_LAUNCH_SERPULO.value)) {
-            if (sector.id == 86 && sector.planet.name.equals("serpulo")) { //86 -> frozen forest
+        if (settings.getBool(FREE_LAUNCH_SERPULO.value) && sector.planet.name.equals(RandomizerConstant.SERPULO.toLowerCase())) {
+            if (sector.id == RandomizerConstant.FROZEN_FOREST_ID) { //86 -> frozen forest
                 allow = true;
             }
         }
@@ -364,11 +358,10 @@ public class Randomizer {
                     }
                     break;
                 default:
-                    throw new RuntimeException("Invalid CampaignType");
+                    throw new RuntimeException(RandomizerConstant.INVALID_CAMPAIGN_TYPE);
             }
         } else {
-            RandomizerMessageHandler.printErrorWithReason("Options was not filled, cannot apply " +
-                    "options");
+            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.OPTION_NOT_FILLED);
         }
     }
 

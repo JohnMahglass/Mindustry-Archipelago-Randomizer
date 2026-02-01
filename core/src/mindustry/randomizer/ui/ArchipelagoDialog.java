@@ -2,6 +2,7 @@ package mindustry.randomizer.ui;
 
 import arc.Core;
 import arc.graphics.Color;
+import arc.math.Rand;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextField;
 import arc.scene.ui.layout.Table;
@@ -10,6 +11,7 @@ import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ConnectionStatus;
 import mindustry.randomizer.utils.ChatColor;
 import mindustry.ui.dialogs.BaseDialog;
@@ -80,7 +82,7 @@ public class ArchipelagoDialog extends BaseDialog {
     private ConnectionStatus displayedStatus;
 
     public ArchipelagoDialog() {
-        super("Archipelago");
+        super(RandomizerConstant.ARCHIPELAGO);
         this.client = randomizer.client;
         this.newAddress = null;
         this.newSlotName = null;
@@ -118,71 +120,71 @@ public class ArchipelagoDialog extends BaseDialog {
 
         archipelagoTable.defaults().size(280f, 60f).left();
         archipelagoTable.row();
-        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Connection options")).width(archipelagoTable.getWidth())).get().left();
+        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, RandomizerConstant.CONNECTION_OPTIONS)).width(archipelagoTable.getWidth())).get().left();
         archipelagoTable.row();
         archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
-        archipelagoTable.add("Address: " + ((Core.settings.getString(CLIENT_ADDRESS.value) != null) ?
-                Core.settings.getString(CLIENT_ADDRESS.value) : "Address not set"));
+        archipelagoTable.add(RandomizerConstant.ADDRESS_LABEL + ((Core.settings.getString(CLIENT_ADDRESS.value) != null) ?
+                Core.settings.getString(CLIENT_ADDRESS.value) : RandomizerConstant.ADDRESS_NOT_SET));
 
         archipelagoTable.row();
-        archipelagoTable.add("Player name: " + ((Core.settings.getString(CLIENT_NAME.value) != null ?
-                Core.settings.getString(CLIENT_NAME.value) : "Name not set")));
+        archipelagoTable.add(RandomizerConstant.PLAYER_NAME_LABEL + ((Core.settings.getString(CLIENT_NAME.value) != null ?
+                Core.settings.getString(CLIENT_NAME.value) : RandomizerConstant.PLAYER_NAME_NOT_SET)));
 
         archipelagoTable.row();
-        archipelagoTable.add("Password: " + ((Core.settings.getString(CLIENT_PASSWORD.value) != null ?
-                obfuscatePassword() : "Password not set")));
+        archipelagoTable.add(RandomizerConstant.PASSWORD_LABEL + ((Core.settings.getString(CLIENT_PASSWORD.value) != null ?
+                obfuscatePassword() : RandomizerConstant.PASSWORD_NOT_SET)));
 
         archipelagoTable.row();
-        archipelagoTable.add("Connection status: " + getConnectionStatus());
+        archipelagoTable.add(RandomizerConstant.CONNECTION_STATUS_LABEL + getConnectionStatus());
 
         archipelagoTable.row();
-        archipelagoTable.add("New Address: ");
+        archipelagoTable.add(RandomizerConstant.NEW_ADDRESS_LABEL);
         archipelagoTable.field("", text -> {
             newAddress = text;
         }).maxTextLength(100);
 
         archipelagoTable.row();
-        archipelagoTable.add("New SlotName: ");
+        archipelagoTable.add(RandomizerConstant.NEW_SLOT_NAME_LABEL);
         archipelagoTable.field("", text -> {
             newSlotName = text;
         }).maxTextLength(100);
 
         archipelagoTable.row();
-        archipelagoTable.add("New Password: ");
+        archipelagoTable.add(RandomizerConstant.NEW_PASSWORD_LABEL);
         archipelagoTable.add(passwordTextField).maxTextLength(100);
 
         archipelagoTable.row();
-        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Death link options")).width(archipelagoTable.getWidth())).get().left();
+        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, RandomizerConstant.DEATH_LINK_OPTION)).width(archipelagoTable.getWidth())).get().left();
         archipelagoTable.row();
         archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(1).colspan(4).padTop(0).padBottom(1).row();
-        archipelagoTable.check("Force disable death link", settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
+        archipelagoTable.check(RandomizerConstant.FORCE_DISABLE_DEATH_LINK, settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
             newForceDisableDeathLink = bool;
             forceDeathLinkChanged = true;
-        }).tooltip("Disable death link even if it was choosen for the game generation.").grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
+        }).tooltip(RandomizerConstant.FORCE_DISABLE_DEATH_LINK_TOOLTIP).grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
         archipelagoTable.row();
-        archipelagoTable.check("Protect captured sector", settings.getBool(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value),
+        archipelagoTable.check(RandomizerConstant.PROTECT_CAPTURED_SECTOR, settings.getBool(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value),
                 bool -> {
                      newDeathLinkProtectSector = bool;
                      deathLinkProtectedSectorChanged = true;
-                }).tooltip("Death link signal will be ignored when playing in a captured sector").padBottom(1f).get().left();
+                }).tooltip(RandomizerConstant.PROTECT_CAPTURED_SECTOR_TOOLTIP).padBottom(1f).get().left();
 
         archipelagoTable.row();
-        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, "Chat options")).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
+        archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, RandomizerConstant.CHAT_OPTIONS)).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
         archipelagoTable.row();
         archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
 
 
-        archipelagoTable.check("Disable chat", settings.getBool(AP_CHAT_DISABLED.value),
+        archipelagoTable.check(RandomizerConstant.DISABLE_CHAT, settings.getBool(AP_CHAT_DISABLED.value),
                 bool -> {
             newDisableChat = bool;
             disableChatChanged = true;
-        }).tooltip("Will not display any chat message from Archipelago").padBottom(1f).get().left();
+        }).tooltip(RandomizerConstant.DISABLE_CHAT_TOOLTIP).padBottom(1f).get().left();
         archipelagoTable.row();
-        archipelagoTable.check("Self item only.",
+        archipelagoTable.check(RandomizerConstant.SELF_ITEM_ONLY,
                 settings.getBool(AP_CHAT_SELF_ITEM_ONLY.value),  bool -> {
             newAllowOnlySelfItemMessage = bool;
             onlySelfItemChanged = true;
-        }).tooltip("Only display item messages related to self in chat.").padBottom(1f).get().left();
+        }).tooltip(RandomizerConstant.SELF_ITEM_ONLY_TOOLTIP).padBottom(1f).get().left();
         archipelagoTable.row();
 
 
@@ -191,10 +193,8 @@ public class ArchipelagoDialog extends BaseDialog {
 
         Table resetButtonTable = new Table();
 
-        resetButtonTable.button("Reset AP data", Icon.trash, () -> {
-            ui.showConfirm("@confirm", "Wipe campaign/research/saves and Archipelago related data" +
-                            " and force exit the program. It is not recommended you use this " +
-                            "setting" + " unless you have finished playing a " + "game.",
+        resetButtonTable.button(RandomizerConstant.RESET_AP_DATA, Icon.trash, () -> {
+            ui.showConfirm("@confirm", RandomizerConstant.RESET_AP_DATA_WARNING,
                     () -> {
                         client.disconnect();
                         randomizer.reset(); //Reset data related to Archipelago
@@ -204,15 +204,14 @@ public class ArchipelagoDialog extends BaseDialog {
                         Core.app.exit(); //Force exit to reload game data
 
                     });
-        }).tooltip("Reset Archipelago related data. To be used when you have completed a game and" +
-                " want to start another one.").size(300f, 60f).pad(4f);
+        }).tooltip(RandomizerConstant.RESET_AP_DATA_WARNING).size(300f, 60f).pad(4f);
 
         cont.add(resetButtonTable);
         cont.row();
 
         Table buttonTable = new Table();
 
-        buttonTable.button("Apply changes", () -> {
+        buttonTable.button(RandomizerConstant.APPLY_CHANGES, () -> {
             if (newAddress != null) {
                 client.disconnect();
                 client.setAddress(newAddress);
@@ -255,16 +254,16 @@ public class ArchipelagoDialog extends BaseDialog {
             }
         }).size(150f, 60f).pad(4f);
 
-        buttonTable.button("Manually verify victory", () -> {
+        buttonTable.button(RandomizerConstant.MANUALLY_VALIDATE_VICTORY, () -> {
             if (randomizer.worldState.isVictoryConditionMet()) {
                 randomizer.sendGoalSignal();
             } else {
-                randomizer.sendLocalMessage("Victory condition has not been met.");
+                randomizer.sendLocalMessage(RandomizerConstant.GOAL_NOT_MET);
             }
         }).size(150f, 60f).pad(4f);
 
         buttonTable.row();
-        buttonTable.button("Connect", () -> {
+        buttonTable.button(RandomizerConstant.CONNECT, () -> {
             if (client.isConnected()) {
                 client.disconnect();
             }
@@ -281,7 +280,7 @@ public class ArchipelagoDialog extends BaseDialog {
             timerD.schedule(task, 1500);
             reload();
         }).size(150f, 60f).pad(4f);
-        buttonTable.button("Disconnect", () -> {
+        buttonTable.button(RandomizerConstant.DISCONNECT, () -> {
             client.disconnect();
             reload();
         }).size(150f, 60f).pad(4f);
@@ -307,27 +306,27 @@ public class ArchipelagoDialog extends BaseDialog {
         String status;
         switch (client.connectionStatus) {
             case Success:
-                status = "Connected";
+                status = RandomizerConstant.CONNECTED;
                 displayedStatus = ConnectionStatus.Success;
                 break;
             case InvalidSlot:
-                status = "Invalid slot";
+                status = RandomizerConstant.INVALID_SLOT_NAME;
                 displayedStatus = ConnectionStatus.InvalidSlot;
                 break;
             case InvalidPassword:
-                status = "Invalid password";
+                status = RandomizerConstant.INVALID_PASSWORD;
                 displayedStatus = ConnectionStatus.InvalidPassword;
                 break;
             case SlotAlreadyTaken:
-                status = "Slot already taken";
+                status = RandomizerConstant.SLOT_ALREADY_TAKEN;
                 displayedStatus = ConnectionStatus.SlotAlreadyTaken;
                 break;
             case IncompatibleVersion:
-                status = "Incompatible version";
+                status = RandomizerConstant.INCOMPATIBLE_VERSION;
                 displayedStatus = ConnectionStatus.IncompatibleVersion;
                 break;
             default:
-                status = "Not connected";
+                status = RandomizerConstant.NOT_CONNECTED;
                 displayedStatus = ConnectionStatus.NotConnected;
                 break;
         }
@@ -347,7 +346,7 @@ public class ArchipelagoDialog extends BaseDialog {
                 obfuscatedString += "*";
             }
         } else {
-            obfuscatedString = "Password not Set";
+            obfuscatedString = RandomizerConstant.PASSWORD_NOT_SET;
         }
 
         return obfuscatedString;

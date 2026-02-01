@@ -332,7 +332,7 @@ project(":core"){
         api arcModule("extensions:fx")
         api arcModule("extensions:arcnet")
         api "com.github.Anuken:rhino:$rhinoVersion"
-        implementation 'dev.koifysh:archipelago-client:0.1.19'
+        implementation 'io.github.archipelagomw:Java-Client:0.2.0'
         if(localArc() && debugged()) api arcModule("extensions:recorder")
         if(localArc()) api arcModule(":extensions:packer")
 

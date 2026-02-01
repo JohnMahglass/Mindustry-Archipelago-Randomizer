@@ -150,7 +150,7 @@ public abstract class LocationResearchCost {
     }
 
     /**
-     * Requirement for unlocking the Victory node.
+     * Requirement for unlocking the Erekir Victory node.
      * @return The requirement for the Victory node
      */
     public static ItemStack[] reqResourcesVictoryErekir() {
@@ -176,7 +176,7 @@ public abstract class LocationResearchCost {
     }
 
     /**
-     * Requirement for unlocking the Victory node.
+     * Requirement for unlocking the Serpulo Victory node.
      * @return The requirement for the Victory node
      */
     public static ItemStack[] reqResourcesVictorySerpulo() {

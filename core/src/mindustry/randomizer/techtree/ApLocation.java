@@ -6,6 +6,7 @@ import mindustry.ctype.ContentType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.EventType;
 import mindustry.randomizer.Shared;
+import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 import mindustry.world.Block;
 
@@ -43,7 +44,7 @@ public class ApLocation extends Block {
             if (locationId != null) {
                 randomizer.checkLocation(locationId);
             } else {
-                RandomizerMessageHandler.printErrorWithReason("Location ID was null");
+                RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NULL_LOCATION_ID);
             }
         }
     }
@@ -73,7 +74,7 @@ public class ApLocation extends Block {
 
     @Override
     public ContentType getContentType() {
-        return ContentType.block; //Content type irrevelent, this is to prevent an error being raised
+        return ContentType.block; //Content type irrelevant, this is to prevent an error being raised
     }
 
 }

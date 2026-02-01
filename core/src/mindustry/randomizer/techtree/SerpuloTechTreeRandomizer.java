@@ -592,7 +592,7 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                         Seq.with(new SectorComplete(biomassFacility)), () -> {
                             apNode(createApLocation("AP-S-05-40", multiplicativeReconstructor, 163L),
                             Seq.with(new SectorComplete(biomassFacility)),() -> {
-                                        apNode(createApLocation("AP-S-06-41", exponentialReconstructor, 164L),
+                                        apNode(createApLocation("AP-S-05-41", exponentialReconstructor, 164L),
                                 Seq.with(new SectorComplete(overgrowth),
                                         new SectorComplete(biomassFacility)), () -> {
                                                     apNode(createApLocation("AP-S-05-42", tetrativeReconstructor, 165L),
