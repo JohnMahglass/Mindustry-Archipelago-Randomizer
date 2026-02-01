@@ -2,7 +2,6 @@ package mindustry.randomizer.ui.APChat;
 
 import arc.Core;
 import mindustry.Vars;
-import arc.math.Rand;
 import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.ArchipelagoGoal;
 import mindustry.randomizer.enums.CampaignType;

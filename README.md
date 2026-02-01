@@ -1,6 +1,6 @@
-# Mindustry integration for Archipelago (v0.4.2)
+# Mindustry integration for Archipelago (v0.5.0)
 https://github.com/ArchipelagoMW/Archipelago \
-Last update: 2026-01-29
+Last update: 2026-01-31
 
 This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
 

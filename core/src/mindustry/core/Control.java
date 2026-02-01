@@ -319,13 +319,7 @@ public class Control implements ApplicationListener, Loadable{
 
     /** Automatically unlocks things with no requirements and no locked parents. */
     public void checkAutoUnlocks(){
-        if(net.client()) return;
-
-        for(TechNode node : TechTree.all){
-            if(!node.content.unlocked() && (node.parent == null || node.parent.content.unlocked()) && node.requirements.length == 0 && !node.objectives.contains(o -> !o.complete())){
-                node.content.unlock();
-            }
-        }
+        return;
     }
 
     void createPlayer(){
