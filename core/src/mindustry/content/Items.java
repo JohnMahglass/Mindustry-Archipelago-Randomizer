@@ -16,7 +16,6 @@ public class Items{
         copper = new Item("copper", Color.valueOf("d99d73")){{
             hardness = 1;
             cost = 0.5f;
-            alwaysUnlocked = true;
         }};
 
         lead = new Item("lead", Color.valueOf("8c7fa9")){{
@@ -35,8 +34,6 @@ public class Items{
         sand = new Item("sand", Color.valueOf("f7cba4")){{
             lowPriority = true;
             buildable = false;
-            //needed to show up as requirement
-            alwaysUnlocked = true;
         }};
 
         coal = new Item("coal", Color.valueOf("272727")){{
