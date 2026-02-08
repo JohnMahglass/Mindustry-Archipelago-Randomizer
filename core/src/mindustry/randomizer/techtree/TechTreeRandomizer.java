@@ -2,6 +2,7 @@ package mindustry.randomizer.techtree;
 
 import mindustry.ctype.UnlockableContent;
 import mindustry.type.ItemStack;
+import mindustry.type.SectorPreset;
 
 import static mindustry.Vars.randomizer;
 
@@ -31,6 +32,22 @@ abstract class TechTreeRandomizer {
                                                Long locationId){
         String fileName = normalizeName(name);
         ApLocation location = new ApLocation(fileName, name, content, locationId);
+        randomizer.worldState.apLocations.add(location);
+        randomizer.worldState.locations.put(locationId, name);
+        return location;
+    }
+
+    /**
+     * Create a location for a sectorPreset.
+     * @param name name of the node
+     * @param preset the preset that the node contains.
+     * @param locationId the id of the location
+     * @return A sector location.
+     */
+    protected static ApLocation createApLocation(String name, SectorPreset preset,
+                                                 Long locationId){
+        String fileName = normalizeName(name);
+        ApLocation location = new ApLocation(fileName, name, preset, locationId);
         randomizer.worldState.apLocations.add(location);
         randomizer.worldState.locations.put(locationId, name);
         return location;

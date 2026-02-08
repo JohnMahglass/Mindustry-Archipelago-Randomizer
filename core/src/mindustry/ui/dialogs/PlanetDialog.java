@@ -32,6 +32,7 @@ import mindustry.graphics.g3d.PlanetGrid.*;
 import mindustry.graphics.g3d.*;
 import mindustry.input.*;
 import mindustry.maps.*;
+import mindustry.randomizer.enums.CampaignType;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.storage.*;
@@ -40,6 +41,7 @@ import static arc.Core.*;
 import static mindustry.Vars.*;
 import static mindustry.graphics.g3d.PlanetRenderer.*;
 import static mindustry.ui.dialogs.PlanetDialog.Mode.*;
+import static mindustry.Vars.randomizer;
 
 public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
     static final String[] defaultIcons = {
@@ -390,6 +392,16 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         //preset sectors can only be selected once unlocked
         if(sector.preset != null){
             TechNode node = sector.preset.techNode;
+            if (randomizer.worldState.options.getOptionsFilled()) { // Ap sector nodes do not have a preset, need to use own randomizer logic to replicate vanilla behavior
+                CampaignType campaign = randomizer.worldState.options.getCampaign();
+                if ((campaign == CampaignType.SERPULO || campaign == CampaignType.ALL) && sector.planet.name.equals(Planets.serpulo.name)) {
+                    return randomizer.isSectorUnlocked(sector.preset);
+                }
+                if ((campaign == CampaignType.EREKIR || campaign == CampaignType.ALL) && sector.planet.name.equals(Planets.erekir.name)) {
+                    return randomizer.isSectorUnlocked(sector.preset);
+                }
+            }
+            // Use vanilla logic
             return node == null || node.parent == null || (node.parent.content.unlocked() && (!(node.parent.content instanceof SectorPreset preset) || preset.sector.hasBase()));
         }
 

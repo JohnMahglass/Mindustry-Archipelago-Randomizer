@@ -48,6 +48,11 @@ public class WorldState {
     public static final String checkPendingFile = "RandomizerCheckPending.txt";
 
     /**
+     * Name of the file containing sector that are unlocked for the randomizer.
+     */
+    public static final String unlockedSectorFile = "UnlockedSector.txt";
+
+    /**
      * List of all progressive items.
      */
     public ArrayList<ProgressiveItem> progressiveItems;
@@ -57,7 +62,7 @@ public class WorldState {
     public Map<Long, String> fillerItems;
 
     /**
-     * List of all locations used in the randomisation.
+     * List of all locations used in the randomization.
      */
     public Map<Long, String> locations;
 
@@ -70,6 +75,11 @@ public class WorldState {
      * List of checked locations that have not been successfully sent.
      */
     public ArrayList<Long> checkPending;
+
+    /**
+     * List of sector that have been unlocked
+     */
+    public ArrayList<String> unlockedSector;
 
     /**
      * List of all locations.
@@ -110,6 +120,7 @@ public class WorldState {
      */
     public void saveStates(){
         saveState(checkPendingFile, checkPending);
+        saveState(unlockedSectorFile, unlockedSector);
     }
 
     public int getSeed(){
@@ -256,6 +267,7 @@ public class WorldState {
      */
     private void wipeStates() {
         wipeState(checkPendingFile, checkPending);
+        wipeState(unlockedSectorFile, unlockedSector);
         progressiveItems.clear();
         locationsChecked.clear();
     }
@@ -293,6 +305,7 @@ public class WorldState {
      */
     private void loadStates(){
         checkPending = loadState(checkPendingFile);
+        unlockedSector = loadState(unlockedSectorFile);
     }
 
     /**
@@ -348,7 +361,6 @@ public class WorldState {
         for (Long check : stateArray) {
             if (check.equals(newCheck)) {
                checkExist = true;
-               int i = 2;
             }
         }
         if (!checkExist) {

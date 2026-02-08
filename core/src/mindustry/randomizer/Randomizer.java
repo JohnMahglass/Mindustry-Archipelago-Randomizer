@@ -16,6 +16,7 @@ import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.randomizer.utils.EmptyFillerText;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 import mindustry.type.Sector;
+import mindustry.type.SectorPreset;
 
 import static mindustry.randomizer.enums.SettingStrings.*;
 import static mindustry.randomizer.enums.ApChatColors.*;
@@ -91,6 +92,22 @@ public class Randomizer {
         //Add location to checked list and save world state.
         worldState.addCheck(worldState.locationsChecked, locationId);
         worldState.saveStates();
+    }
+
+    /**
+     * Unlock a sector from a planet using randomization.
+     * @param sectorName the name of the sector.
+     */
+    public void unlockSector(String sectorName){
+        boolean isAlreadyUnlocked = false;
+        for (String sector : worldState.unlockedSector) {
+            if (sector.equals(sectorName)) {
+                isAlreadyUnlocked = true;
+            }
+        }
+        if (!isAlreadyUnlocked) {
+            worldState.unlockedSector.add(sectorName);
+        }
     }
 
     /**
@@ -381,5 +398,19 @@ public class Randomizer {
     public void updateForceExit() {
         APApplyOptionsDialog dialog = new APApplyOptionsDialog();
         dialog.show();
+    }
+
+    /**
+     * Validate that the sector has been unlocked by the player.
+     * @param sector The sector to validate
+     */
+    public boolean isSectorUnlocked(SectorPreset sector) {
+        boolean unlocked = false;
+
+        if (worldState.unlockedSector.contains(sector.name)) {
+            unlocked = true;
+        }
+
+        return unlocked;
     }
 }

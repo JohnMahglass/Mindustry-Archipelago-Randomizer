@@ -8,6 +8,7 @@ import mindustry.game.EventType;
 import mindustry.randomizer.Shared;
 import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
+import mindustry.type.SectorPreset;
 import mindustry.world.Block;
 
 import static mindustry.Vars.randomizer;
@@ -43,6 +44,9 @@ public class ApLocation extends Block {
             Events.fire(new EventType.UnlockEvent(this));
             if (locationId != null) {
                 randomizer.checkLocation(locationId);
+                if (originalContent instanceof SectorPreset) {
+                    randomizer.unlockSector(((SectorPreset) originalContent).sector.preset.name);
+                }
             } else {
                 RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NULL_LOCATION_ID);
             }
@@ -51,6 +55,17 @@ public class ApLocation extends Block {
 
 
     public ApLocation(String name, String localizedName, UnlockableContent content,
+                      Long locationId) {
+        super(name);
+        this.localizedName = localizedName;
+        this.locationId = Shared.MINDUSTRY_BASE_ID + locationId;
+        this.originalContent = content;
+        if (content != null) {
+            this.researchCost = content.researchRequirements();
+        }
+    }
+
+    public ApLocation(String name, String localizedName, SectorPreset content,
                       Long locationId) {
         super(name);
         this.localizedName = localizedName;
