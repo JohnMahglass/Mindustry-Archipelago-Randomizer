@@ -1,22 +1,32 @@
 package mindustry.randomizer;
 
+import static arc.math.Mathf.rand;
+import static mindustry.Vars.state;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 import static arc.Core.settings;
 
+import arc.struct.Seq;
 import io.github.archipelagomw.ClientStatus;
 import io.github.archipelagomw.events.ReceiveItemEvent;
+import mindustry.content.Blocks;
+import mindustry.game.Team;
+import mindustry.gen.Building;
 import mindustry.randomizer.client.DeathLink;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.client.APClient;
+import mindustry.randomizer.constant.FillerTrapIdsConstant;
 import mindustry.randomizer.constant.RandomizerConstant;
 import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
-import mindustry.randomizer.utils.EmptyFillerText;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
 import mindustry.type.Sector;
 import mindustry.type.SectorPreset;
+import mindustry.world.Block;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static mindustry.randomizer.enums.SettingStrings.*;
 import static mindustry.randomizer.enums.ApChatColors.*;
@@ -354,21 +364,18 @@ public class Randomizer {
             switch (options.getCampaign()) {
                 case SERPULO:
                     worldState.initializeSerpuloItems();
-                    worldState.initializeSerpuloFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                     }
                     break;
                 case EREKIR:
                     worldState.initializeErekirItems();
-                    worldState.initializeErekirFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockErekirTutorialItems();
                     }
                     break;
                 case ALL:
                     worldState.initializeAllItems();
-                    worldState.initializeAllFillers();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
                         MindustryOptions.unlockErekirTutorialItems();
@@ -384,11 +391,14 @@ public class Randomizer {
 
     /**
      * Process an event that the player received that is not a research.
-     * @param event Event received from the client.
+     * @param eventId Event Id received from the client.
      */
-    public void processEvent(ReceiveItemEvent event) {
-        if (event.getItemID() == MINDUSTRY_BASE_ID + 700) { //A fistful of nothing...
-            sendLocalMessage(EmptyFillerText.getRandomText());
+    public void processEvent(long eventId) {
+        if (eventId >= MINDUSTRY_BASE_ID + 701 && eventId < MINDUSTRY_BASE_ID + 849) { //Fillers (excluding "Nothing"(id=700))
+            processFillerEvent(eventId);
+        }
+        else if (eventId >= MINDUSTRY_BASE_ID + 850 && eventId < MINDUSTRY_BASE_ID + 999) {
+            processTrapEvent(eventId);
         }
     }
 
@@ -413,4 +423,63 @@ public class Randomizer {
 
         return unlocked;
     }
+
+    /**
+     * Process a filler item event
+     * @param eventId The id of the event
+     */
+    private void processFillerEvent(long eventId) {
+        return;
+    }
+
+    /**
+     * Process a trap item event
+     * @param eventId The id of the event
+     */
+    private void processTrapEvent(long eventId) {
+        if (eventId == FillerTrapIdsConstant.FACTORY_MALFUNCTION) {
+            launchFactoryMalfunctionEvent();
+        }
+    }
+
+    private List<Block> getProtectedBlockList() {
+        List<Block> protectedBlock = new ArrayList<>();
+        protectedBlock.add(Blocks.coreShard);
+        protectedBlock.add(Blocks.coreFoundation);
+        protectedBlock.add(Blocks.coreNucleus);
+        protectedBlock.add(Blocks.coreBastion);
+        protectedBlock.add(Blocks.coreCitadel);
+        protectedBlock.add(Blocks.coreAcropolis);
+        protectedBlock.add(Blocks.worldProcessor);
+        return protectedBlock;
+    }
+
+    /**
+     * Destroy a player's building if they are playing a map.
+     */
+    private void launchFactoryMalfunctionEvent() {
+        if (Vars.state.map != Vars.emptyMap) {
+            //Team playerTeam = Vars.player.team();
+            int playerBuildingAmount = state.rules.defaultTeam.data().buildings.size;
+            int amountOfBuildingToDestroy = playerBuildingAmount / 95;
+            if (amountOfBuildingToDestroy == 0) {
+                amountOfBuildingToDestroy = 1;
+            }
+            List<Block> protectedBlocks = getProtectedBlockList();
+            int min = 0;
+            int max = playerBuildingAmount - 1;
+            for (int i = 0; i < amountOfBuildingToDestroy; i++) {
+                int index = rand.nextInt((max - min) + 1) + min;
+                Building candidateBuilding = Vars.state.rules.defaultTeam.data().buildings.get(index);
+                int retry = 0;
+                while (protectedBlocks.contains(candidateBuilding.block) && retry < 15) {
+                    index = rand.nextInt((max - min) + 1) + min;
+                    candidateBuilding = Vars.state.rules.defaultTeam.data().buildings.get(index);
+                    retry++;
+                }
+                Vars.state.rules.defaultTeam.data().buildings.get(index).kill();
+            }
+        }
+    }
+
 }

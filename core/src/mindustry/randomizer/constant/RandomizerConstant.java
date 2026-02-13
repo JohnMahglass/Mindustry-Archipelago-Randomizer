@@ -18,7 +18,7 @@ public class RandomizerConstant {
     public static final String UNLOCK_PARENT_OBJECTIVE = "Unlock parent node";
 
     // Items
-    public static final String FISTFUL_OF_NOTHING = "A fistful of nothing...";
+    public static final String NOTHING = "Nothing";
 
     // Archipelago client
     public static final String SENDING_PENDING_CHECK = "Reconnected, sending pending check...";

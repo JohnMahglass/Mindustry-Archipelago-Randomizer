@@ -386,27 +386,6 @@ public class WorldState {
     }
 
     /**
-     * Initialize a list of possible filler item for Serpulo.
-     */
-    protected void initializeSerpuloFillers(){
-        fillerItems.put(MINDUSTRY_BASE_ID + 700, RandomizerConstant.FISTFUL_OF_NOTHING);
-    }
-
-    /**
-     * Initialize a list of possible filler item for Erekir.
-     */
-    protected void initializeErekirFillers(){
-        fillerItems.put(MINDUSTRY_BASE_ID + 700, RandomizerConstant.FISTFUL_OF_NOTHING);
-    }
-
-    /**
-     * Initialize a list of possible filler item for all campaigns.
-     */
-    protected void initializeAllFillers(){
-        fillerItems.put(MINDUSTRY_BASE_ID + 700, RandomizerConstant.FISTFUL_OF_NOTHING);
-    }
-
-    /**
      * Initialize items for all campaigns.
      */
     protected void initializeAllItems() {
