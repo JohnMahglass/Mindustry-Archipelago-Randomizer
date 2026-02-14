@@ -159,38 +159,27 @@ public class MindustryOptions {
     private ArrayList<Ability[]> getCoreUnitAbilities() {
         return (ArrayList<Ability[]>)this.coreUnitAbilities.clone();
     }
-
     public LogisticsDistribution getLogisticDistribution(){
         return LogisticsDistribution.toLogisticDistribution(this.logisticDistribution);
     }
-
-    /**
-     * Return the value of LogisticDistribution. Used for storing information in settings.
-     */
     private int getLogisticDistributionValue(){
         return this.logisticDistribution;
     }
-
     public boolean getTutorialSkip() {
         return this.tutorialSkip;
     }
-
     public boolean getDisableInvasions() {
         return this.disableInvasions;
     }
-
     public boolean getFasterProduction() {
         return this.fasterProduction;
     }
-
     public boolean getFasterUnitProduction() {
         return this.fasterUnitProduction;
     }
-
     public boolean getFasterConveyor() {
         return this.fasterConveyor;
     }
-
     /**
      * Verify if death link is enable but does not verify if it has been disabled on client side.
      * This should only be used to enable DeathLink tags in the client upon connection.
@@ -199,49 +188,30 @@ public class MindustryOptions {
     public boolean getTrueDeathLink(){
         return this.deathLink;
     }
-
-    /**
-     * Verifiy if death link is enable and also check if force disable has been enable.
-     * @return Return true if death link is activated.
-     */
     public boolean getDeathLink() {
         return this.deathLink && !this.forceDisableDeathLink;
     }
-
     public DeathLinkMode getDeathLinkMode() {
         return DeathLinkMode.toDeathLinkMode(this.deathLinkMode);
     }
-
-    /**
-     * Return the value of DeathLinkMode. Used for storing informations in settings.
-     */
     private int getDeathLinkModeValue(){
         return this.deathLinkMode;
     }
-
     public ArchipelagoGoal getGoal(){
         return ArchipelagoGoal.toArchipelagoGoal(this.goal);
     }
-
-    /**
-     * Return the value of Goal. Used for storing informations in settings.
-     */
     private int getGoalValue(){
         return this.goal;
     }
-
     public int getCoreRussianRouletteChambers(){
         return this.coreRussianRouletteChambers;
     }
-
     public boolean getRandomizeCoreUnitsWeapon(){
         return this.randomizeCoreUnitsWeapon;
     }
-
     public boolean getForceDisableDeathLink() {
         return this.forceDisableDeathLink;
     }
-
     public int getAmountOfResourcesRequired() {
         return this.amountOfResourcesRequired;
     }
@@ -251,7 +221,6 @@ public class MindustryOptions {
     public boolean getProgressiveGenerators(){
         return this.progressiveGenerators;
     }
-
     public boolean getProgressivePumps(){
         return this.progressivePumps;
     }
