@@ -2936,7 +2936,7 @@ public class Blocks{
             thrusterLength = 34/4f;
             armor = 5f;
             alwaysUnlocked = true;
-            incinerateNonBuildable = true;
+            incinerateNonBuildable = false;
             requiresCoreZone = true;
 
             //TODO should this be higher?
@@ -2955,7 +2955,7 @@ public class Blocks{
             size = 5;
             thrusterLength = 40/4f;
             armor = 10f;
-            incinerateNonBuildable = true;
+            incinerateNonBuildable = false;
             buildCostMultiplier = 0.7f;
             requiresCoreZone = true;
 
@@ -2973,7 +2973,7 @@ public class Blocks{
             size = 6;
             thrusterLength = 48/4f;
             armor = 15f;
-            incinerateNonBuildable = true;
+            incinerateNonBuildable = false;
             buildCostMultiplier = 0.7f;
             requiresCoreZone = true;
 
