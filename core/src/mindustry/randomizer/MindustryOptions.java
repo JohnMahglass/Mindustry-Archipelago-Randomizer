@@ -148,6 +148,8 @@ public class MindustryOptions {
      * Make pumps into progressive items
      */
     private boolean progressivePumps;
+    /** Add research discount filler items */
+    private boolean researchDiscount;
 
     /**
      * Contains the list of every available ability for the core units randomization.
@@ -253,6 +255,9 @@ public class MindustryOptions {
     public boolean getProgressivePumps(){
         return this.progressivePumps;
     }
+    public boolean getResearchDiscount(){
+        return this.researchDiscount;
+    }
 
     /**
      * Set forceDisableDeathLink and save the variable in settings.
@@ -335,6 +340,7 @@ public class MindustryOptions {
             this.progressiveDrills = slotData.getProgressiveDrills();
             this.progressiveGenerators = slotData.getProgressiveGenerators();
             this.progressivePumps = slotData.getProgressivePumps();
+            this.researchDiscount = slotData.getResearchDiscount();
 
             this.optionsFilled = true;
             saveOptions();
@@ -369,6 +375,7 @@ public class MindustryOptions {
             this.progressiveDrills = false;
             this.progressiveGenerators = false;
             this.progressivePumps = false;
+            this.researchDiscount = false;
             this.coreUnitAbilities = RandomizableCoreUnits.getPossibleCoreUnitsAbility();
             if (settings != null) { //Locally saved settings
                 this.forceDisableDeathLink = settings.getBool(FORCE_DISABLE_DEATH_LINK.value);
@@ -887,6 +894,7 @@ public class MindustryOptions {
         settings.put(PROGRESSIVE_DRILLS.value, getProgressiveDrills());
         settings.put(PROGRESSIVE_GENERATORS.value, getProgressiveGenerators());
         settings.put(PROGRESSIVE_PUMPS.value, getProgressivePumps());
+        settings.put(RESEARCH_DISCOUNT.value, getResearchDiscount());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
         settings.put(AMOUNT_OF_RESOURCES_REQUIRED.value, getAmountOfResourcesRequired());
         if (getTutorialSkip()) {
@@ -922,6 +930,7 @@ public class MindustryOptions {
         this.progressiveDrills = settings.getBool(PROGRESSIVE_DRILLS.value);
         this.progressiveGenerators = settings.getBool(PROGRESSIVE_GENERATORS.value);
         this.progressivePumps = settings.getBool(PROGRESSIVE_PUMPS.value);
+        this.researchDiscount = settings.getBool(RESEARCH_DISCOUNT.value);
         this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
         this.amountOfResourcesRequired = settings.getInt(AMOUNT_OF_RESOURCES_REQUIRED.value);
 

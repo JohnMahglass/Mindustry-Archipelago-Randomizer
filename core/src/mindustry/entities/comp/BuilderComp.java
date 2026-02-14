@@ -174,7 +174,12 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc{
                 continue;
             }
 
-            float bs = 1f / entity.buildCost * type.buildSpeed * buildSpeedMultiplier * state.rules.buildSpeed(team);
+            float bs;
+            if (!team.isAI()) {
+                bs = (1f / entity.buildCost * type.buildSpeed * buildSpeedMultiplier * state.rules.buildSpeed(team)) * randomizer.worldState.constructionSpeedBuffCached;
+            } else {
+                bs = 1f / entity.buildCost * type.buildSpeed * buildSpeedMultiplier * state.rules.buildSpeed(team);
+            }
 
             //otherwise, update it.
             if(current.breaking){

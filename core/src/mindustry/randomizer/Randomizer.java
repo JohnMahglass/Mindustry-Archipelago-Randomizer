@@ -2,14 +2,14 @@ package mindustry.randomizer;
 
 import static arc.math.Mathf.rand;
 import static mindustry.Vars.state;
+import static mindustry.Vars.ui;
 import static mindustry.randomizer.Shared.MINDUSTRY_BASE_ID;
 import static arc.Core.settings;
 
-import arc.struct.Seq;
+import arc.Events;
 import io.github.archipelagomw.ClientStatus;
-import io.github.archipelagomw.events.ReceiveItemEvent;
 import mindustry.content.Blocks;
-import mindustry.game.Team;
+import mindustry.game.EventType;
 import mindustry.gen.Building;
 import mindustry.randomizer.client.DeathLink;
 import mindustry.Vars;
@@ -21,6 +21,7 @@ import mindustry.randomizer.enums.LogisticsDistribution;
 import mindustry.randomizer.ui.APApplyOptionsDialog;
 import mindustry.randomizer.ui.APChat.APMessage;
 import mindustry.randomizer.utils.RandomizerMessageHandler;
+import mindustry.type.ItemStack;
 import mindustry.type.Sector;
 import mindustry.type.SectorPreset;
 import mindustry.world.Block;
@@ -231,8 +232,8 @@ public class Randomizer {
      * @param message The message to be sent.
      */
     public void sendLocalMessage (String message) {
-        if (Vars.ui.chatfrag != null) {
-            Vars.ui.chatfrag.addLocalMessage(new APMessage(message));
+        if (ui.chatfrag != null) {
+            ui.chatfrag.addLocalMessage(new APMessage(message));
         }
     }
 
@@ -241,8 +242,8 @@ public class Randomizer {
      * @param message message to be sent.
      */
     public void sendLocalMessage (APMessage message) {
-        if (Vars.ui.chatfrag != null) {
-            Vars.ui.chatfrag.addLocalMessage(message);
+        if (ui.chatfrag != null) {
+            ui.chatfrag.addLocalMessage(message);
         }
     }
 
@@ -361,6 +362,9 @@ public class Randomizer {
             if (options.getLogisticDistribution() == LogisticsDistribution.STARTER) {
                 MindustryOptions.applyStarterLogistics(options.getCampaign());
             }
+            if (options.getResearchDiscount()) {
+                startResearchDiscountEventListener();
+            }
             switch (options.getCampaign()) {
                 case SERPULO:
                     worldState.initializeSerpuloItems();
@@ -429,7 +433,14 @@ public class Randomizer {
      * @param eventId The id of the event
      */
     private void processFillerEvent(long eventId) {
-        return;
+        if (eventId == FillerTrapIdsConstant.CONSTRUCTION_SPEED_BUFF) {
+            worldState.constructionSpeedBuffPercentage += 10;
+            worldState.constructionSpeedBuffCached = 1f + (worldState.constructionSpeedBuffPercentage / 100f);
+        } else if (eventId == FillerTrapIdsConstant.RESEARCH_DISCOUNT_BUFF) {
+            worldState.lastResearchDiscountBuffPercentage = worldState.researchDiscountBuffPercentage;
+            worldState.researchDiscountBuffPercentage += 5;
+
+        }
     }
 
     /**
@@ -439,6 +450,8 @@ public class Randomizer {
     private void processTrapEvent(long eventId) {
         if (eventId == FillerTrapIdsConstant.FACTORY_MALFUNCTION) {
             launchFactoryMalfunctionEvent();
+        } else if (eventId == FillerTrapIdsConstant.LAUNCH_WAVE) {
+            launchWaveEvent();
         }
     }
 
@@ -455,11 +468,19 @@ public class Randomizer {
     }
 
     /**
+     * Start a wave if the player is playing a sector with waves rules
+     */
+    private void launchWaveEvent() {
+        if (Vars.state.map != Vars.emptyMap && Vars.state.rules.waves) {
+            Vars.logic.runWave();
+        }
+    }
+
+    /**
      * Destroy a player's building if they are playing a map.
      */
     private void launchFactoryMalfunctionEvent() {
         if (Vars.state.map != Vars.emptyMap) {
-            //Team playerTeam = Vars.player.team();
             int playerBuildingAmount = state.rules.defaultTeam.data().buildings.size;
             int amountOfBuildingToDestroy = playerBuildingAmount / 95;
             if (amountOfBuildingToDestroy == 0) {
@@ -480,6 +501,34 @@ public class Randomizer {
                 Vars.state.rules.defaultTeam.data().buildings.get(index).kill();
             }
         }
+    }
+
+    private void startResearchDiscountEventListener() {
+        Events.run(EventType.Trigger.update, () -> {
+            if (worldState.researchDiscountBuffPercentage != worldState.lastResearchDiscountBuffPercentage) {
+                applyDiscount();
+                worldState.lastResearchDiscountBuffPercentage = worldState.researchDiscountBuffPercentage;
+
+                if (ui.research.isShown()) {
+                    ui.research.view.rebuildAll();
+                }
+            }
+        });
+    }
+
+    private void applyDiscount() {
+        float discountFactor = worldState.getBuffMultiplier(worldState.researchDiscountBuffPercentage);
+
+        Vars.content.each(content -> {
+            if (content instanceof UnlockableContent u && u.techNode != null) {
+                ItemStack[] base = u.techNode.originalRequirements;
+
+                for (int i = 0; i < u.techNode.requirements.length; i++) {
+                    int discountedAmount = Math.round(base[i].amount * (1f - discountFactor));
+                    u.techNode.requirements[i].amount = Math.max(base[i].amount > 0 ? 1 : 0, discountedAmount);
+                }
+            }
+        });
     }
 
 }

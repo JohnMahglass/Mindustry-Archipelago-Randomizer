@@ -108,6 +108,22 @@ public class WorldState {
     public boolean deathLinkDying;
 
     /**
+     * Percentage of construction speed buff the player has unlocked
+     */
+    public int constructionSpeedBuffPercentage;
+
+    public float constructionSpeedBuffCached;
+
+    /**
+     * Percentage of research discount buff the player has unlocked
+     */
+    public int researchDiscountBuffPercentage;
+    /**
+     * Previous value of researchDiscountBuffPercentage, used when updating research costs
+     */
+    public int lastResearchDiscountBuffPercentage;
+
+    /**
      * True if there is a check waiting to be sent to the server.
      * @return True if a check is pending.
      */
@@ -194,6 +210,7 @@ public class WorldState {
         settings.remove(PROGRESSIVE_GENERATORS.value);
         settings.remove(PROGRESSIVE_DRILLS.value);
         settings.remove(PROGRESSIVE_PUMPS.value);
+        settings.remove(RESEARCH_DISCOUNT.value);
     }
 
     /**
@@ -247,6 +264,10 @@ public class WorldState {
         return isMindustryItem;
     }
 
+    public float getBuffMultiplier(int buffPercentageValue) {
+        return (float)buffPercentageValue / 100;
+    }
+
 
     public WorldState() {
         this.options = new MindustryOptions();
@@ -259,6 +280,10 @@ public class WorldState {
         this.progressiveItems = new ArrayList<>();
         this.apLocations = new ArrayList<>();
         this.deathLinkDying = false;
+        this.constructionSpeedBuffPercentage = 0;
+        this.constructionSpeedBuffCached = 1.00f;
+        this.researchDiscountBuffPercentage = 0;
+        this.lastResearchDiscountBuffPercentage = 0;
         initialize();
     }
 

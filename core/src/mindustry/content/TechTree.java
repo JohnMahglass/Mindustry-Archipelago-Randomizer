@@ -181,6 +181,8 @@ public class TechTree{
         public UnlockableContent content;
         /** Item requirements for this content. */
         public ItemStack[] requirements;
+        /** Stores the original requirement */
+        public ItemStack[] originalRequirements;
         /** Requirements that have been fulfilled. Always the same length as the requirement array. */
         public ItemStack[] finishedRequirements;
         /** Extra objectives needed to research this. */
@@ -243,9 +245,13 @@ public class TechTree{
 
         public void setupRequirements(ItemStack[] requirements){
             this.requirements = requirements;
-            this.finishedRequirements = new ItemStack[requirements.length];
 
-            //load up the requirements that have been finished if settings are available
+            this.originalRequirements = new ItemStack[requirements.length];
+            for (int i = 0; i < requirements.length; i++) {
+                this.originalRequirements[i] = new ItemStack(requirements[i].item, requirements[i].amount);
+            }
+
+            this.finishedRequirements = new ItemStack[requirements.length];
             for(int i = 0; i < requirements.length; i++){
                 finishedRequirements[i] = new ItemStack(requirements[i].item, Core.settings == null ? 0 : Core.settings.getInt("req-" + content.name + "-" + requirements[i].item.name));
             }

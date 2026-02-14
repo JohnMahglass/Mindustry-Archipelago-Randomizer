@@ -58,6 +58,9 @@ public class SlotData {
     @SerializedName("progressive_pumps")
     private boolean progressivePumps = false;
 
+    @SerializedName("research_discount_buffs")
+    private boolean researchDiscount = false;
+
     @SerializedName("amount_of_resources_required")
     private int amountOfResourcesRequired = 2000;
 
@@ -126,6 +129,9 @@ public class SlotData {
     }
     public int getAmountOfResourcesRequired() {
         return this.amountOfResourcesRequired;
+    }
+    public boolean getResearchDiscount() {
+        return this.researchDiscount;
     }
 
 }
