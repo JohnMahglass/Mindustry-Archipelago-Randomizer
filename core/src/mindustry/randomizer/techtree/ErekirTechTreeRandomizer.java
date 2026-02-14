@@ -554,45 +554,29 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNodeCapture(createApLocation("The Onset", onset, 450L), () -> {
-                apNodeCapture(createApLocation("Aegis", aegis, 451L),
-                        Seq.with(new Objectives.SectorComplete(onset)),
-                        () -> {
-                            apNodeCapture(createApLocation("Lake", lake, 452L),
-                                    Seq.with(new Objectives.SectorComplete(aegis)),
-                                    () -> {
+
+            node(onset, () -> {
+                apNodeCapture(createApLocation("Aegis", aegis, 451L), Seq.with(new Objectives.SectorComplete(onset)), () -> {
+                    apNodeCapture(createApLocation("Lake", lake, 452L), Seq.with(new Objectives.SectorComplete(aegis)), () -> {
+
                     });
 
-                            apNodeCapture(createApLocation("Intersect", intersect, 453L),
-                                    Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
-                                apNodeCapture(createApLocation("Atlas", atlas, 454L),
-                                        Seq.with(new Objectives.SectorComplete(intersect)), () -> {
-                                    apNodeCapture(createApLocation("Split", split, 455L),
-                                            Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+                    apNodeCapture(createApLocation("Intersect", intersect, 453L), Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
+                        apNodeCapture(createApLocation("Atlas", atlas, 454L), Seq.with(new Objectives.SectorComplete(intersect)), () -> {
+                            apNodeCapture(createApLocation("Split", split, 455L), Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+
                             });
 
-                                    apNodeCapture(createApLocation("Basin", basin, 456L),
-                                            Seq.with(new Objectives.SectorComplete(atlas)), () -> {
-                                        apNodeCapture(createApLocation("Marsh", marsh, 457L),
-                                                Seq.with(new Objectives.SectorComplete(basin)), () -> {
-                                            apNodeCapture(createApLocation("Ravine", ravine, 458L),
-                                                    Seq.with(new Objectives.SectorComplete(marsh)), () -> {
-                                                apNodeCapture(createApLocation("Caldera", caldera, 459L),
-                                                        Seq.with(new Objectives.SectorComplete(peaks)), () -> {
-                                                    apNodeCapture(createApLocation("Stronghold",
-                                                                    stronghold, 460L),
-                                                            Seq.with(new Objectives.SectorComplete(caldera)), () -> {
-                                                        apNodeCapture(createApLocation("Crevice",
-                                                                        crevice, 461L)
-                                                                , Seq.with(new Objectives.SectorComplete(stronghold)), () -> {
-                                                            apNodeCapture(createApLocation("Siege", siege, 462L), Seq.with(new Objectives.SectorComplete(crevice)), () -> {
-                                                                apNodeCapture(createApLocation(
-                                                                        "Crossroads", crossroads,
-                                                                                463L),
-                                                                        Seq.with(new Objectives.SectorComplete(siege)), () -> {
-                                                                    apNodeCapture(createApLocation("Karst", karst, 464L),
-                                                                            Seq.with(new Objectives.SectorComplete(crossroads)), () -> {
-                                                                        apNodeCapture(createApLocation("Origin", origin, 465L), Seq.with(new Objectives.SectorComplete(karst)), () -> {
+                            apNodeCapture(createApLocation("Basin", basin, 456L), Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+                                apNodeCapture(createApLocation("Marsh", marsh, 457L), Seq.with(new Objectives.SectorComplete(basin)), () -> {
+                                    apNodeCapture(createApLocation("Ravine", ravine, 458L), Seq.with(new Objectives.SectorComplete(marsh)), () -> {
+                                        apNodeCapture(createApLocation("Caldera", caldera, 459L), Seq.with(new Objectives.SectorComplete(peaks)), () -> {
+                                            apNodeCapture(createApLocation("Stronghold", stronghold, 460L), Seq.with(new Objectives.SectorComplete(caldera)), () -> {
+                                                apNodeCapture(createApLocation("Crevice", crevice, 461L), Seq.with(new Objectives.SectorComplete(stronghold)), () -> {
+                                                    apNodeCapture(createApLocation("Siege", siege, 462L), Seq.with(new Objectives.SectorComplete(crevice)), () -> {
+                                                        apNodeCapture(createApLocation("Crossroads", crossroads, 463L), Seq.with(new Objectives.SectorComplete(siege)), () -> {
+                                                            apNodeCapture(createApLocation("Karst", karst, 464L), Seq.with(new Objectives.SectorComplete(crossroads)), () -> {
+                                                                apNodeCapture(createApLocation("Origin", origin, 465L), Seq.with(new Objectives.SectorComplete(karst)), () -> {
 
                                                                 });
                                                             });
@@ -603,8 +587,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                         });
                                     });
 
-                                            apNodeCapture(createApLocation("Peaks", peaks, 466L),
-                                                    Seq.with(new Objectives.SectorComplete(marsh)), () -> {
+                                    apNodeCapture(createApLocation("Peaks", peaks, 466L), Seq.with(new Objectives.SectorComplete(marsh), new Objectives.SectorComplete(split)), () -> {
                                     });
                                 });
                             });
@@ -613,44 +596,28 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L),
-                    Items.beryllium,
-                    () -> {
-                apNodeProduce(createApLocation("Sand Erekir", Items.sand, 501L), Items.sand,
-                        () -> {
-                    apNodeProduce(createApLocation("Silicon Erekir", Items.silicon, 502L),
-                            Items.silicon, () -> {
-                        apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L),
-                                Items.oxide,
-                                () -> {
-                            //nodeProduce(Items.fissileMatter, () -> {});
+
+            apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L), Items.beryllium, () -> {
+                apNodeProduce(createApLocation("Sand Erekir", Items.sand, 501L), Items.sand, () -> {
+                    apNodeProduce(createApLocation("Silicon Erekir", Items.silicon, 502L), Items.silicon, () -> {
+                        apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L), Items.oxide, () -> {
                         });
                     });
                 });
 
-                        apNodeProduce(createApLocation("Water Erekir", Liquids.water, 504L) ,
-                                Liquids.water, () -> {
-                    apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L),
-                            Liquids.ozone, () -> {
-                        apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L),
-                                Liquids.hydrogen,
-                                () -> {
-                            apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen,
-                                    507L), Liquids.nitrogen, () -> {
+            apNodeProduce(createApLocation("Water Erekir", Liquids.water, 504L) ,Liquids.water, () -> {
+                apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L), Liquids.ozone, () -> {
+                    apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L), Liquids.hydrogen, () -> {
+                        apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen, 507L), Liquids.nitrogen, () -> {
+                        });
 
-                            });
-
-                            apNodeProduce(createApLocation("Cyanogen Erekir", Liquids.cyanogen,
-                                    508L), Liquids.cyanogen, () -> {
-                                apNodeProduce(createApLocation("Neoplasm Erekir", Liquids.neoplasm,
-                                                509L), Liquids.neoplasm,
-                                        () -> {
-
-                                });
+                        apNodeProduce(createApLocation("Cyanogen Erekir", Liquids.cyanogen, 508L), Liquids.cyanogen, () -> {
+                            apNodeProduce(createApLocation("Neoplasm Erekir", Liquids.neoplasm, 509L), Liquids.neoplasm, () -> {
                             });
                         });
                     });
                 });
+            });
 
                 apNodeProduce(createApLocation("Graphite Erekir", Items.graphite, 510L),
                         Items.graphite, () -> {
