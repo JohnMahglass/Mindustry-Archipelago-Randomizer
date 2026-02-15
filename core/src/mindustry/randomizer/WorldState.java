@@ -102,6 +102,11 @@ public class WorldState {
     public MindustryOptions options;
 
     /**
+     * Contains locations of shared planet ressource for additional logic when unlocking.
+     */
+    public SharedCampaignRessourceLocation sharedRessourceLocation;
+
+    /**
      * True if the player is currently dying from a death link bounce. This prevents the player from
      * sending another death link signal when they die from one themself.
      */
@@ -271,6 +276,7 @@ public class WorldState {
 
     public WorldState() {
         this.options = new MindustryOptions();
+        this.sharedRessourceLocation = new SharedCampaignRessourceLocation();
         this.items = new HashMap<>();
         this.fillerItems = new HashMap<>();
         this.unlockedItems = new ArrayList<>();

@@ -598,14 +598,14 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
 
             apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L), Items.beryllium, () -> {
-                apNodeProduce(createApLocation("Sand Erekir", Items.sand, 501L), Items.sand, () -> {
-                    apNodeProduce(createApLocation("Silicon Erekir", Items.silicon, 502L), Items.silicon, () -> {
+                apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSand, Items.sand, () -> {
+                    apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSilicon, Items.silicon, () -> {
                         apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L), Items.oxide, () -> {
                         });
                     });
                 });
 
-            apNodeProduce(createApLocation("Water Erekir", Liquids.water, 504L) ,Liquids.water, () -> {
+            apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirWater, Liquids.water, () -> {
                 apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L), Liquids.ozone, () -> {
                     apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L), Liquids.hydrogen, () -> {
                         apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen, 507L), Liquids.nitrogen, () -> {
@@ -619,40 +619,22 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-                apNodeProduce(createApLocation("Graphite Erekir", Items.graphite, 510L),
-                        Items.graphite, () -> {
-                    apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 511L),
-                            Items.tungsten,
-                            () -> {
-                        apNodeProduce(createApLocation("Slag Erekir", Liquids.slag, 512L),
-                                Liquids.slag,
-                                () -> {
-
+                apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirGraphite, Items.graphite, () -> {
+                    apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 511L), Items.tungsten, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSlag, Liquids.slag, () -> {
                         });
 
-                        apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 513L),
-                                Liquids.arkycite,
-                                () -> {
-
+                        apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 513L), Liquids.arkycite, () -> {
                         });
 
-                        apNodeProduce(createApLocation("Thorium Erekir", Items.thorium, 514L),
-                                Items.thorium,
-                                () -> {
-                            apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 515L),
-                                    Items.carbide,
-                                    () -> {
-
+                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirThorium, Items.thorium, () -> {
+                            apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 515L), Items.carbide, () -> {
                                 //nodeProduce(Liquids.gallium, () -> {});
                             });
                         });
 
-                        apNodeProduce(createApLocation("Surge Alloy Erekir", Items.surgeAlloy,
-                                516L), Items.surgeAlloy, () -> {
-                            apNodeProduce(createApLocation("Phase Fabric Erekir", Items.phaseFabric,
-                                            517L), Items.phaseFabric,
-                                    () -> {
-
+                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSurgeAlloy, Items.surgeAlloy, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirPhaseFabric, Items.phaseFabric, () -> {
                             });
                         });
                     });

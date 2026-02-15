@@ -77,6 +77,10 @@ public class Randomizer {
                     }
                 }
             }
+            if (worldState.sharedRessourceLocation.isSharedRessource(content)) {
+                worldState.sharedRessourceLocation.unlockSharedRessource(content);
+                return;
+            }
             content.quietUnlock();
         } else {
             //DEBUG
