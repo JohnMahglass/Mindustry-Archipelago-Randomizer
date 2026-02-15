@@ -74,6 +74,9 @@ public class ClientCommandController {
             case RandomizerConstant.CLEAR_COMMAND:
                 executeClearCommand(commandParts);
                 break;
+            case RandomizerConstant.BUFFS_COMMAND:
+                executeBuffsCommand();
+                break;
             case RandomizerConstant.DEV_COMMAND:
                 executeDevCommand(commandParts);
                 break;
@@ -114,6 +117,13 @@ public class ClientCommandController {
             return;
         }
         chat.clearMessages();
+    }
+
+    /**
+     * List the value of the received AP buffs.
+     */
+    private void executeBuffsCommand() {
+        chat.addLocalMessage(new APMessage("Buffs:\n    Construction speed: " + randomizer.worldState.constructionSpeedBuffPercentage + "%\n    Research discount: " + randomizer.worldState.researchDiscountBuffPercentage + "%"));
     }
 
     /**

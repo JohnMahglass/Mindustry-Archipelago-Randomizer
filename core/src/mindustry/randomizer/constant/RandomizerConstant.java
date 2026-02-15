@@ -53,6 +53,7 @@ public class RandomizerConstant {
     public static final String OPTIONS_COMMAND = "options";
     public static final String HELP_COMMAND = "help";
     public static final String CLEAR_COMMAND = "clear";
+    public static final String BUFFS_COMMAND = "buffs";
     public static final String DEV_COMMAND = "dev";
     public static final String UNKNOWN_COMMAND = "Unknown command. Use '/help' for command usage";
 
