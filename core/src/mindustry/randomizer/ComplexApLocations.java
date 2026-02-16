@@ -3,9 +3,11 @@ package mindustry.randomizer;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
+import mindustry.content.SectorPresets;
 import mindustry.ctype.UnlockableContent;
 import mindustry.randomizer.techtree.ApLocation;
 import mindustry.type.Planet;
+import mindustry.type.SectorPreset;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,12 +15,13 @@ import java.util.List;
 
 import static mindustry.Vars.state;
 
-public class SharedCampaignRessourceLocation {
+public class ComplexApLocations {
 
     private static final List<UnlockableContent> sharedRessources = new ArrayList<>(
         Arrays.asList(Items.graphite, Liquids.water, Items.sand, Items.silicon, Liquids.slag, Items.thorium, Items.surgeAlloy, Items.phaseFabric)
     );
 
+    // Ressources
     public ApLocation serpuloGraphite;
     public ApLocation erekirGraphite;
 
@@ -43,8 +46,12 @@ public class SharedCampaignRessourceLocation {
     public ApLocation serpuloPhaseFabric;
     public ApLocation erekirPhaseFabric;
 
+    // Sector
+    public ApLocation serpuloFrozenForest;
+    public ApLocation erekirAegis;
 
-    public SharedCampaignRessourceLocation() {
+    public ComplexApLocations() {
+        // Ressources
         this.serpuloGraphite = new ApLocation("ap-serpulo-graphite", "Graphite", Items.graphite, 223L);
         this.erekirGraphite = new ApLocation("ap-erekir-graphite", "Graphite", Items.graphite, 510L);
 
@@ -68,6 +75,11 @@ public class SharedCampaignRessourceLocation {
 
         this.serpuloPhaseFabric = new ApLocation("ap-serpulo-phase-fabric", "Phase fabric", Items.phaseFabric, 217L);
         this.erekirPhaseFabric = new ApLocation("ap-erekir-phase-fabric", "Phase fabric", Items.phaseFabric, 517L);
+
+
+        // Sector
+        this.serpuloFrozenForest = new ApLocation("ap-frozen-forest", "Frozen Forest", SectorPresets.frozenForest, 181L);
+        this.erekirAegis = new ApLocation("ap-aegis", "Aegis", SectorPresets.aegis, 451L);
     }
 
     public List<UnlockableContent> getSharedRessources() {

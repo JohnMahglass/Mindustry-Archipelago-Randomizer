@@ -117,23 +117,7 @@ import static mindustry.content.Blocks.unitCargoLoader;
 import static mindustry.content.Blocks.unitCargoUnloadPoint;
 import static mindustry.content.Blocks.unitRepairTower;
 import static mindustry.content.Blocks.ventCondenser;
-import static mindustry.content.SectorPresets.aegis;
-import static mindustry.content.SectorPresets.atlas;
-import static mindustry.content.SectorPresets.basin;
-import static mindustry.content.SectorPresets.caldera;
-import static mindustry.content.SectorPresets.crevice;
-import static mindustry.content.SectorPresets.crossroads;
-import static mindustry.content.SectorPresets.intersect;
-import static mindustry.content.SectorPresets.karst;
-import static mindustry.content.SectorPresets.lake;
-import static mindustry.content.SectorPresets.marsh;
-import static mindustry.content.SectorPresets.onset;
-import static mindustry.content.SectorPresets.origin;
-import static mindustry.content.SectorPresets.peaks;
-import static mindustry.content.SectorPresets.ravine;
-import static mindustry.content.SectorPresets.siege;
-import static mindustry.content.SectorPresets.split;
-import static mindustry.content.SectorPresets.stronghold;
+import static mindustry.content.SectorPresets.*;
 import static mindustry.content.TechTree.apNode;
 import static mindustry.content.TechTree.apNodeCapture;
 import static mindustry.content.TechTree.apNodeProduce;
@@ -556,7 +540,7 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
 
             node(onset, () -> {
-                apNodeCapture(createApLocation("Aegis", aegis, 451L), Seq.with(new Objectives.SectorComplete(onset)), () -> {
+                apNodeCapture(Vars.randomizer.worldState.complexLocations.erekirAegis, Seq.with(new Objectives.SectorComplete(onset)), () -> {
                     apNodeCapture(createApLocation("Lake", lake, 452L), Seq.with(new Objectives.SectorComplete(aegis)), () -> {
 
                     });
@@ -598,14 +582,14 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
 
 
             apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L), Items.beryllium, () -> {
-                apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSand, Items.sand, () -> {
-                    apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSilicon, Items.silicon, () -> {
+                apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSand, Items.sand, () -> {
+                    apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSilicon, Items.silicon, () -> {
                         apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L), Items.oxide, () -> {
                         });
                     });
                 });
 
-            apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirWater, Liquids.water, () -> {
+            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirWater, Liquids.water, () -> {
                 apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L), Liquids.ozone, () -> {
                     apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L), Liquids.hydrogen, () -> {
                         apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen, 507L), Liquids.nitrogen, () -> {
@@ -619,22 +603,22 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-                apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirGraphite, Items.graphite, () -> {
+                apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirGraphite, Items.graphite, () -> {
                     apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 511L), Items.tungsten, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSlag, Liquids.slag, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSlag, Liquids.slag, () -> {
                         });
 
                         apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 513L), Liquids.arkycite, () -> {
                         });
 
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirThorium, Items.thorium, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirThorium, Items.thorium, () -> {
                             apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 515L), Items.carbide, () -> {
                                 //nodeProduce(Liquids.gallium, () -> {});
                             });
                         });
 
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirSurgeAlloy, Items.surgeAlloy, () -> {
-                            apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.erekirPhaseFabric, Items.phaseFabric, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSurgeAlloy, Items.surgeAlloy, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirPhaseFabric, Items.phaseFabric, () -> {
                             });
                         });
                     });

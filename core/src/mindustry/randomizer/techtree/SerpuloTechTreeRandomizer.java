@@ -5,7 +5,6 @@ import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
-import mindustry.content.UnitTypes;
 import mindustry.game.Objectives;
 
 import mindustry.game.Objectives.*;
@@ -606,7 +605,7 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
             });
 
             node(groundZero, () -> {
-                apNodeCapture(createApLocation("Frozen Forest", frozenForest, 181L), Seq.with(
+                apNodeCapture(Vars.randomizer.worldState.complexLocations.serpuloFrozenForest, Seq.with(
                         new SectorComplete(groundZero)
                 ), () -> {
                     apNodeCapture(createApLocation("Craters", craters, 182L), Seq.with(
@@ -699,7 +698,7 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
             });
 
             apNodeProduce(createApLocation("Copper Serpulo", Items.copper, 210L), Items.copper, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloWater, Liquids.water, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloWater, Liquids.water, () -> {
                 });
 
                 apNodeProduce(createApLocation("Lead Serpulo", Items.lead, 212L), Items.lead, () -> {
@@ -707,11 +706,11 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                         apNodeProduce(createApLocation("Cryofluid Serpulo", Liquids.cryofluid, 214L), Liquids.cryofluid, () -> {
                         });
 
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloThorium, Items.thorium, () -> {
-                            apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloSurgeAlloy, Items.surgeAlloy, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloThorium, Items.thorium, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSurgeAlloy, Items.surgeAlloy, () -> {
                             });
 
-                            apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloPhaseFabric, Items.phaseFabric, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloPhaseFabric, Items.phaseFabric, () -> {
                             });
                         });
                     });
@@ -720,17 +719,17 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                     });
                 });
 
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloSand, Items.sand, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSand, Items.sand, () -> {
                     apNodeProduce(createApLocation("Scrap Serpulo", Items.scrap, 220L), Items.scrap, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloSlag, Liquids.slag, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSlag, Liquids.slag, () -> {
                         });
                     });
 
                     apNodeProduce(createApLocation("Coal Serpulo", Items.coal, 222L), Items.coal, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloGraphite, Items.graphite, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloGraphite, Items.graphite, () -> {
                         });
 
-                        apNodeProduce(Vars.randomizer.worldState.sharedRessourceLocation.serpuloSilicon, Items.silicon, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSilicon, Items.silicon, () -> {
                         });
 
                         apNodeProduce(createApLocation("Pyratite Serpulo", Items.pyratite, 225L), Items.pyratite, () -> {

@@ -77,8 +77,8 @@ public class Randomizer {
                     }
                 }
             }
-            if (worldState.sharedRessourceLocation.isSharedRessource(content)) {
-                worldState.sharedRessourceLocation.unlockSharedRessource(content);
+            if (worldState.complexLocations.isSharedRessource(content)) {
+                worldState.complexLocations.unlockSharedRessource(content);
                 return;
             }
             content.quietUnlock();
@@ -374,19 +374,23 @@ public class Randomizer {
                     worldState.initializeSerpuloItems();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
+                        worldState.complexLocations.serpuloFrozenForest.quietUnlock();
                     }
                     break;
                 case EREKIR:
                     worldState.initializeErekirItems();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockErekirTutorialItems();
+                        worldState.complexLocations.erekirAegis.quietUnlock();
                     }
                     break;
                 case ALL:
                     worldState.initializeAllItems();
                     if (options.getTutorialSkip()) {
                         MindustryOptions.unlockSerpuloTutorialItems();
+                        worldState.complexLocations.serpuloFrozenForest.quietUnlock();
                         MindustryOptions.unlockErekirTutorialItems();
+                        worldState.complexLocations.erekirAegis.quietUnlock();
                     }
                     break;
                 default:
