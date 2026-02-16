@@ -32,7 +32,12 @@ import mindustry.graphics.g3d.PlanetGrid.*;
 import mindustry.graphics.g3d.*;
 import mindustry.input.*;
 import mindustry.maps.*;
+import mindustry.randomizer.Randomizer;
+import mindustry.randomizer.constant.RandomizerConstant;
+import mindustry.randomizer.enums.ApChatColors;
 import mindustry.randomizer.enums.CampaignType;
+import mindustry.randomizer.utils.ChatColor;
+import mindustry.randomizer.utils.RandomizerMessageHandler;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.storage.*;
@@ -227,6 +232,11 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
     /** show with no limitations, just as a map. */
     @Override
     public Dialog show(){
+        if (!randomizer.worldState.options.getOptionsFilled()) {
+            RandomizerMessageHandler.printErrorWithReason("You need to connect to an Archipelago room first to properly setup your game. Instructions on how to connect to a room can be found at: " + ChatColor.applyColor(ApChatColors.BLUE, "https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/blob/master/ap-doc/SetupGuides.md"));
+            return this;
+        }
+
         if(net.client()){
             ui.showInfo("@map.multiplayer");
             return this;
