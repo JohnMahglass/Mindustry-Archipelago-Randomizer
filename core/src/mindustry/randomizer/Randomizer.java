@@ -66,25 +66,22 @@ public class Randomizer {
      * Unlock a UnlockableContent.
      */
     public void unlock(Long id, UnlockableContent content){
-        if (content != null) {
-            if (worldState.isProgressive(id)) {
-                for (ProgressiveItem item : worldState.progressiveItems) {
-                    if (item.id.equals(id) && !item.allReceived) {
-                        item.amountItemReceived++;
-                        if (item.amountItemReceived == item.itemAmount) {
-                            item.allReceived = true;
-                        }
-                    }
+        try {
+            if (content != null) {
+                if (worldState.isProgressive(id)) {
+                    processProgressiveItem(id);
                 }
+                if (worldState.complexLocations.isSharedRessource(content)) {
+                    worldState.complexLocations.unlockSharedRessource(content);
+                    return;
+                }
+                content.quietUnlock();
+            } else {
+                RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NULL_CONTENT_UNLOCK_ERROR);
             }
-            if (worldState.complexLocations.isSharedRessource(content)) {
-                worldState.complexLocations.unlockSharedRessource(content);
-                return;
-            }
-            content.quietUnlock();
-        } else {
-            //DEBUG
-            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NULL_CONTENT_UNLOCK_ERROR);
+        } catch (Exception e) {
+            //TODO Log the error
+            RandomizerMessageHandler.printErrorWithReason("Unknown error while sending a location check to Archipelago.");
         }
     }
 
@@ -93,20 +90,25 @@ public class Randomizer {
      * @param locationId The id of the location
      */
     public void checkLocation(Long locationId){
-        verifyVictoryConditions(locationId);
-        boolean success = false;
-        if (client.isConnected()) {
-            //Try to send check to archipelago
-            success = client.checkLocation(locationId);
+        try {
+            verifyVictoryConditions(locationId);
+            boolean success = false;
+            if (client.isConnected()) {
+                //Try to send check to archipelago
+                success = client.checkLocation(locationId);
+            }
+            if (!client.isConnected() || !success) {
+                //Check could not be send, added to check pending list.
+                worldState.addCheck(worldState.checkPending, locationId);
+                RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NOT_CONNECTED_PENDING_CHECKS);
+            }
+            //Add location to checked list and save world state.
+            worldState.addCheck(worldState.locationsChecked, locationId);
+            worldState.saveStates();
+        } catch (Exception e) {
+            //TODO Log the error
+            RandomizerMessageHandler.printErrorWithReason("Unknown error while sending a location check to Archipelago.");
         }
-        if (!client.isConnected() || !success) {
-            //Check could not be send, added to check pending list.
-            worldState.addCheck(worldState.checkPending, locationId);
-            RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NOT_CONNECTED_PENDING_CHECKS);
-        }
-        //Add location to checked list and save world state.
-        worldState.addCheck(worldState.locationsChecked, locationId);
-        worldState.saveStates();
     }
 
     /**
@@ -540,4 +542,14 @@ public class Randomizer {
         });
     }
 
+    private void processProgressiveItem(long id) {
+        for (ProgressiveItem item : worldState.progressiveItems) {
+            if (item.id.equals(id) && !item.allReceived) {
+                item.amountItemReceived++;
+                if (item.amountItemReceived == item.itemAmount) {
+                    item.allReceived = true;
+                }
+            }
+        }
+    }
 }

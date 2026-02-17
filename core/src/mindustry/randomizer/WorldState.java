@@ -172,26 +172,32 @@ public class WorldState {
      * @return True if the player has completed all their goal.
      */
     public boolean isVictoryConditionMet(){
-        boolean victory = false;
-        CampaignType campaign = options.getCampaign();
-        switch (campaign) {
-            case SERPULO:
-                if (settings.getBool(SERPULO_VICTORY.value)) {
-                    victory = true;
-                }
-                break;
-            case EREKIR:
-                if (settings.getBool(EREKIR_VICTORY.value)) {
-                    victory = true;
-                }
-                break;
-            case ALL:
-                if (settings.getBool(SERPULO_VICTORY.value) && settings.getBool(EREKIR_VICTORY.value)) {
-                    victory = true;
-                }
-                break;
+        try {
+            boolean victory = false;
+            CampaignType campaign = options.getCampaign();
+            switch (campaign) {
+                case SERPULO:
+                    if (settings.getBool(SERPULO_VICTORY.value)) {
+                        victory = true;
+                    }
+                    break;
+                case EREKIR:
+                    if (settings.getBool(EREKIR_VICTORY.value)) {
+                        victory = true;
+                    }
+                    break;
+                case ALL:
+                    if (settings.getBool(SERPULO_VICTORY.value) && settings.getBool(EREKIR_VICTORY.value)) {
+                        victory = true;
+                    }
+                    break;
+            }
+            return victory;
+        } catch (Exception e) {
+            //TODO Log error
+            RandomizerMessageHandler.printErrorWithReason("Unknown error while validating victory conditions.");
+            return false;
         }
-        return victory;
     }
 
     /**
