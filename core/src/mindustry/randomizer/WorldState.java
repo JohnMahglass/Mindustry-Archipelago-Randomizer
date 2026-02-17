@@ -117,16 +117,35 @@ public class WorldState {
      */
     public int constructionSpeedBuffPercentage;
 
+    /**
+     * Cache the value used to buff construction speed. Since the buff also apply to builder robots, it can be used alot.
+     */
     public float constructionSpeedBuffCached;
 
-    /**
-     * Percentage of research discount buff the player has unlocked
-     */
-    public int researchDiscountBuffPercentage;
     /**
      * Previous value of researchDiscountBuffPercentage, used when updating research costs
      */
     public int lastResearchDiscountBuffPercentage;
+
+    /**
+     * Percentage of research discount buff the player has unlocked
+     */
+    private int researchDiscountBuffPercentage;
+
+    public int getResearchDiscountBuffPercentage() {
+        return this.researchDiscountBuffPercentage;
+    }
+
+    /**
+     * Set the research discount buff value as a percentage. Cannot set the buff value over 99%
+     * @param value
+     */
+    public void setResearchDiscountBuffPercentage(int value) {
+        if (value > 99) {
+            value = 99;
+        }
+        this.researchDiscountBuffPercentage = value;
+    }
 
     /**
      * True if there is a check waiting to be sent to the server.

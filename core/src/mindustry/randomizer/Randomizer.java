@@ -445,9 +445,9 @@ public class Randomizer {
             worldState.constructionSpeedBuffPercentage += 10;
             worldState.constructionSpeedBuffCached = 1f + (worldState.constructionSpeedBuffPercentage / 100f);
         } else if (eventId == FillerTrapIdsConstant.RESEARCH_DISCOUNT_BUFF) {
-            worldState.lastResearchDiscountBuffPercentage = worldState.researchDiscountBuffPercentage;
-            worldState.researchDiscountBuffPercentage += 5;
-
+            int buffValue = worldState.getResearchDiscountBuffPercentage();
+            buffValue += 5;
+            worldState.setResearchDiscountBuffPercentage(buffValue);
         }
     }
 
