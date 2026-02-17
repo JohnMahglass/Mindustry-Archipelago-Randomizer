@@ -134,70 +134,51 @@ public class ClientCommandController {
             tooManyArgumentMessage();
             return;
         }
-        else if (commandParts.length == 2 && commandParts[1].equals("f")) {
-            if (randomizer.worldState.options.getOptionsFilled()) {
-                chat.addLocalMessage(new APMessage("Options:\n" +
-                        getCampaignOptionText()+
-                        getGoalOptionText() +
-                        getAmountofResourcesRequiredOptionText() +
-                        getTutorialSkipOptionText() +
-                        getDisableInvasionsOptionText() +
-                        getFasterProductionOptionText() +
-                        getFasterUnitProductionOptionText() +
-                        getFasterConveyorOptionText() +
-                        getDeathLinkOptionText() +
-                        getDeathLinkModeOptionText() +
-                        getCoreRussianRouletteSizeOptionText() +
-                        getSeedText() +
-                        getRandomizeCoreUnitsWeaponOptionText() +
-                        getLogisiticDistributionOptionText() +
-                        getLocalEarlyRoadblocksOptionText() +
-                        getProgressiveDrillsOptionText() +
-                        getProgressiveGeneratorsOptionText() +
-                        getProgressivePumpsOptionText()
-                        ));
-            } else {
-                chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
-                        "options."));
-            }
-        } else if(commandParts.length == 1){
-            if (randomizer.worldState.options.getOptionsFilled()) {
-                StringBuilder sb = new StringBuilder();
-                sb.append("Options:\n");
-                sb.append(getCampaignOptionText());
-                sb.append(getGoalOptionText());
-                if (randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES) {
-                    sb.append(getAmountofResourcesRequiredOptionText());
-                }
-                sb.append(getTutorialSkipOptionText());
-                if(randomizer.worldState.options.getCampaign() == CampaignType.SERPULO ||
-                        randomizer.worldState.options.getCampaign() == CampaignType.ALL) { // Serpulo included in chosen campaign
-                    sb.append(getDisableInvasionsOptionText());
-                }
-                sb.append(getFasterProductionOptionText());
-                sb.append(getFasterUnitProductionOptionText());
-                sb.append(getFasterConveyorOptionText());
-                sb.append(getDeathLinkOptionText());
-                if(randomizer.worldState.options.getTrueDeathLink()){
-                    sb.append(getDeathLinkModeOptionText());
-                    if (randomizer.worldState.options.getDeathLinkMode() == DeathLinkMode.CORE_RUSSIAN_ROULETTE) {
-                        sb.append(getCoreRussianRouletteSizeOptionText());
-                    }
-                }
-                sb.append(getRandomizeCoreUnitsWeaponOptionText());
-                sb.append(getLogisiticDistributionOptionText());
-                sb.append(getLocalEarlyRoadblocksOptionText());
-                sb.append(getProgressiveDrillsOptionText());
-                sb.append(getProgressiveGeneratorsOptionText());
-                sb.append(getProgressivePumpsOptionText());
-
-                chat.addLocalMessage(new APMessage(sb.toString()));
-            } else {
-                chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml " +
-                        "options."));
-            }
+        if (commandParts.length == 2 && !commandParts[1].equals("f")) {
+            chat.addLocalMessage(new APMessage(RandomizerConstant.UNKNOWN_COMMAND));
+            return;
         }
 
+        if (randomizer.worldState.options.getOptionsFilled()) {
+            boolean listFullOptions = commandParts.length == 2 && commandParts[1].equals("f");
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("Options:\n");
+            sb.append(getCampaignOptionText());
+            sb.append(getGoalOptionText());
+            if (randomizer.worldState.options.getGoal() == ArchipelagoGoal.RESOURCES || listFullOptions) {
+                sb.append(getAmountofResourcesRequiredOptionText());
+            }
+            sb.append(getSectorsAsLocationsOptionText());
+            sb.append(getResourcesAsLocationsOptionText());
+            sb.append(getTutorialSkipOptionText());
+            if(randomizer.worldState.options.getCampaign() == CampaignType.SERPULO || randomizer.worldState.options.getCampaign() == CampaignType.ALL || listFullOptions) {
+                sb.append(getDisableInvasionsOptionText());
+            }
+            sb.append(getFasterProductionOptionText());
+            sb.append(getFasterUnitProductionOptionText());
+            sb.append(getFasterConveyorOptionText());
+            sb.append(getDeathLinkOptionText());
+            if(randomizer.worldState.options.getTrueDeathLink() || listFullOptions){
+                sb.append(getDeathLinkModeOptionText());
+                if (randomizer.worldState.options.getDeathLinkMode() == DeathLinkMode.CORE_RUSSIAN_ROULETTE || listFullOptions) {
+                    sb.append(getCoreRussianRouletteSizeOptionText());
+                }
+            }
+            sb.append(getRandomizeCoreUnitsWeaponOptionText());
+            sb.append(getLogisiticDistributionOptionText());
+            sb.append(getLocalEarlyRoadblocksOptionText());
+            sb.append(getProgressiveDrillsOptionText());
+            sb.append(getProgressiveGeneratorsOptionText());
+            sb.append(getProgressivePumpsOptionText());
+            if (listFullOptions) {
+                sb.append(getSeedText());
+            }
+
+            chat.addLocalMessage(new APMessage(sb.toString()));
+        } else {
+            chat.addLocalMessage(new APMessage("You must connect to a game once to view .yaml options."));
+        }
     }
 
     private String getProgressiveGeneratorsOptionText() {
@@ -250,6 +231,14 @@ public class ClientCommandController {
 
     private String getDisableInvasionsOptionText() {
         return "   Disable invasions: " + getActivationStatus(randomizer.worldState.options.getDisableInvasions()) + "\n";
+    }
+
+    private String getSectorsAsLocationsOptionText() {
+        return "   Sectors as locations: " + getActivationStatus(randomizer.worldState.options.getSectorsAsLocations()) + "\n";
+    }
+
+    private String getResourcesAsLocationsOptionText() {
+        return "   Resources as locations: " + getActivationStatus(randomizer.worldState.options.getResourcesAsLocations()) + "\n";
     }
 
     private String getTutorialSkipOptionText() {
