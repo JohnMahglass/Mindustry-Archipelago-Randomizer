@@ -123,7 +123,7 @@ public class ClientCommandController {
      * List the value of the received AP buffs.
      */
     private void executeBuffsCommand() {
-        chat.addLocalMessage(new APMessage("Buffs:\n    Construction speed: " + randomizer.worldState.constructionSpeedBuffPercentage + "%\n    Research discount: " + randomizer.worldState.researchDiscountBuffPercentage + "%"));
+        chat.addLocalMessage(new APMessage("Buffs:\n    Construction speed: " + randomizer.worldState.constructionSpeedBuffPercentage + "%\n    Research discount: " + randomizer.worldState.getResearchDiscountBuffPercentage() + "%"));
     }
 
     /**

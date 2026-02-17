@@ -513,9 +513,10 @@ public class Randomizer {
 
     private void startResearchDiscountEventListener() {
         Events.run(EventType.Trigger.update, () -> {
-            if (worldState.researchDiscountBuffPercentage != worldState.lastResearchDiscountBuffPercentage) {
+            int researchBuffValue = worldState.getResearchDiscountBuffPercentage();
+            if (researchBuffValue != worldState.lastResearchDiscountBuffPercentage) {
                 applyDiscount();
-                worldState.lastResearchDiscountBuffPercentage = worldState.researchDiscountBuffPercentage;
+                worldState.lastResearchDiscountBuffPercentage = researchBuffValue;
 
                 if (ui.research.isShown()) {
                     ui.research.view.rebuildAll();
@@ -525,7 +526,7 @@ public class Randomizer {
     }
 
     private void applyDiscount() {
-        float discountFactor = worldState.getBuffMultiplier(worldState.researchDiscountBuffPercentage);
+        float discountFactor = worldState.getBuffMultiplier(worldState.getResearchDiscountBuffPercentage());
 
         Vars.content.each(content -> {
             if (content instanceof UnlockableContent u && u.techNode != null) {
