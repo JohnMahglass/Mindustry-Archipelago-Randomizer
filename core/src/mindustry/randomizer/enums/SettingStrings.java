@@ -37,7 +37,9 @@ public enum SettingStrings {
     PROGRESSIVE_DRILLS("APprogressiveDrills"),
     PROGRESSIVE_GENERATORS("APprogressiveGenerators"),
     PROGRESSIVE_PUMPS("APprogressivePumps"),
-    RESEARCH_DISCOUNT("APresearchDiscount");
+    RESEARCH_DISCOUNT("APresearchDiscount"),
+    SECTORS_AS_LOCATIONS("APsectorAsLocations"),
+    RESOURCES_AS_LOCATIONS("APresourcesAsLocations");
 
 
     public final String value;

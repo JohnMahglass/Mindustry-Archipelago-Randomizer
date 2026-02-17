@@ -150,6 +150,10 @@ public class MindustryOptions {
     private boolean progressivePumps;
     /** Add research discount filler items */
     private boolean researchDiscount;
+    /** Are sector location in the tech tree*/
+    private boolean sectorsAsLocations;
+    /** Are resources location in the tech tree*/
+    private boolean resourcesAsLocations;
 
     /**
      * Contains the list of every available ability for the core units randomization.
@@ -227,6 +231,13 @@ public class MindustryOptions {
     public boolean getResearchDiscount(){
         return this.researchDiscount;
     }
+    public boolean getSectorsAsLocations(){
+        return this.sectorsAsLocations;
+    }
+    public boolean getResourcesAsLocations(){
+        return this.resourcesAsLocations;
+    }
+
 
     /**
      * Set forceDisableDeathLink and save the variable in settings.
@@ -310,6 +321,8 @@ public class MindustryOptions {
             this.progressiveGenerators = slotData.getProgressiveGenerators();
             this.progressivePumps = slotData.getProgressivePumps();
             this.researchDiscount = slotData.getResearchDiscount();
+            this.sectorsAsLocations = slotData.getSectorsAsLocations();
+            this.resourcesAsLocations = slotData.getResourcesAsLocations();
 
             this.optionsFilled = true;
             saveOptions();
@@ -866,6 +879,8 @@ public class MindustryOptions {
         settings.put(RESEARCH_DISCOUNT.value, getResearchDiscount());
         settings.put(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value, getMakeEarlyRoadblocksLocal());
         settings.put(AMOUNT_OF_RESOURCES_REQUIRED.value, getAmountOfResourcesRequired());
+        settings.put(SECTORS_AS_LOCATIONS.value, getSectorsAsLocations());
+        settings.put(RESOURCES_AS_LOCATIONS.value, getResourcesAsLocations());
         if (getTutorialSkip()) {
             if (getCampaign() == CampaignType.SERPULO) {
                 settings.put(FREE_LAUNCH_SERPULO.value, true);
@@ -902,6 +917,8 @@ public class MindustryOptions {
         this.researchDiscount = settings.getBool(RESEARCH_DISCOUNT.value);
         this.makeEarlyRoadblocksLocal = settings.getBool(AP_MAKE_EARLY_ROADBLOCKS_LOCAL.value);
         this.amountOfResourcesRequired = settings.getInt(AMOUNT_OF_RESOURCES_REQUIRED.value);
+        this.sectorsAsLocations = settings.getBool(SECTORS_AS_LOCATIONS.value);
+        this.resourcesAsLocations = settings.getBool(RESOURCES_AS_LOCATIONS.value);
 
         this.optionsFilled = true;
         if (this.randomizeCoreUnitsWeapon) {

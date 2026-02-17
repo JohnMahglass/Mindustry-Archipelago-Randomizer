@@ -538,30 +538,31 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
+            if (Vars.randomizer.worldState.options.getSectorsAsLocations()) {
+                node(onset, () -> {
+                    apNodeCapture(Vars.randomizer.worldState.complexLocations.erekirAegis, Seq.with(new Objectives.SectorComplete(onset)), () -> {
+                        apNodeCapture(createApLocation("Lake", lake, 452L), Seq.with(new Objectives.SectorComplete(aegis)), () -> {
 
-            node(onset, () -> {
-                apNodeCapture(Vars.randomizer.worldState.complexLocations.erekirAegis, Seq.with(new Objectives.SectorComplete(onset)), () -> {
-                    apNodeCapture(createApLocation("Lake", lake, 452L), Seq.with(new Objectives.SectorComplete(aegis)), () -> {
+                        });
 
-                    });
+                        apNodeCapture(createApLocation("Intersect", intersect, 453L), Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
+                            apNodeCapture(createApLocation("Atlas", atlas, 454L), Seq.with(new Objectives.SectorComplete(intersect)), () -> {
+                                apNodeCapture(createApLocation("Split", split, 455L), Seq.with(new Objectives.SectorComplete(atlas)), () -> {
 
-                    apNodeCapture(createApLocation("Intersect", intersect, 453L), Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
-                        apNodeCapture(createApLocation("Atlas", atlas, 454L), Seq.with(new Objectives.SectorComplete(intersect)), () -> {
-                            apNodeCapture(createApLocation("Split", split, 455L), Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+                                });
 
-                            });
+                                apNodeCapture(createApLocation("Basin", basin, 456L), Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+                                    apNodeCapture(createApLocation("Marsh", marsh, 457L), Seq.with(new Objectives.SectorComplete(basin)), () -> {
+                                        apNodeCapture(createApLocation("Ravine", ravine, 458L), Seq.with(new Objectives.SectorComplete(marsh)), () -> {
+                                            apNodeCapture(createApLocation("Caldera", caldera, 459L), Seq.with(new Objectives.SectorComplete(peaks)), () -> {
+                                                apNodeCapture(createApLocation("Stronghold", stronghold, 460L), Seq.with(new Objectives.SectorComplete(caldera)), () -> {
+                                                    apNodeCapture(createApLocation("Crevice", crevice, 461L), Seq.with(new Objectives.SectorComplete(stronghold)), () -> {
+                                                        apNodeCapture(createApLocation("Siege", siege, 462L), Seq.with(new Objectives.SectorComplete(crevice)), () -> {
+                                                            apNodeCapture(createApLocation("Crossroads", crossroads, 463L), Seq.with(new Objectives.SectorComplete(siege)), () -> {
+                                                                apNodeCapture(createApLocation("Karst", karst, 464L), Seq.with(new Objectives.SectorComplete(crossroads)), () -> {
+                                                                    apNodeCapture(createApLocation("Origin", origin, 465L), Seq.with(new Objectives.SectorComplete(karst)), () -> {
 
-                            apNodeCapture(createApLocation("Basin", basin, 456L), Seq.with(new Objectives.SectorComplete(atlas)), () -> {
-                                apNodeCapture(createApLocation("Marsh", marsh, 457L), Seq.with(new Objectives.SectorComplete(basin)), () -> {
-                                    apNodeCapture(createApLocation("Ravine", ravine, 458L), Seq.with(new Objectives.SectorComplete(marsh)), () -> {
-                                        apNodeCapture(createApLocation("Caldera", caldera, 459L), Seq.with(new Objectives.SectorComplete(peaks)), () -> {
-                                            apNodeCapture(createApLocation("Stronghold", stronghold, 460L), Seq.with(new Objectives.SectorComplete(caldera)), () -> {
-                                                apNodeCapture(createApLocation("Crevice", crevice, 461L), Seq.with(new Objectives.SectorComplete(stronghold)), () -> {
-                                                    apNodeCapture(createApLocation("Siege", siege, 462L), Seq.with(new Objectives.SectorComplete(crevice)), () -> {
-                                                        apNodeCapture(createApLocation("Crossroads", crossroads, 463L), Seq.with(new Objectives.SectorComplete(siege)), () -> {
-                                                            apNodeCapture(createApLocation("Karst", karst, 464L), Seq.with(new Objectives.SectorComplete(crossroads)), () -> {
-                                                                apNodeCapture(createApLocation("Origin", origin, 465L), Seq.with(new Objectives.SectorComplete(karst)), () -> {
-
+                                                                    });
                                                                 });
                                                             });
                                                         });
@@ -569,61 +570,155 @@ public abstract class ErekirTechTreeRandomizer extends TechTreeRandomizer {
                                                 });
                                             });
                                         });
-                                    });
 
-                                    apNodeCapture(createApLocation("Peaks", peaks, 466L), Seq.with(new Objectives.SectorComplete(marsh), new Objectives.SectorComplete(split)), () -> {
+                                        apNodeCapture(createApLocation("Peaks", peaks, 466L), Seq.with(new Objectives.SectorComplete(marsh), new Objectives.SectorComplete(split)), () -> {
+                                        });
                                     });
                                 });
                             });
                         });
                     });
                 });
-            });
+            } else {
+                node(onset, () -> {
+                    node(aegis, Seq.with(new Objectives.SectorComplete(onset)), () -> {
+                        node(lake, Seq.with(new Objectives.SectorComplete(aegis)), () -> {
 
-
-            apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L), Items.beryllium, () -> {
-                apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSand, Items.sand, () -> {
-                    apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSilicon, Items.silicon, () -> {
-                        apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L), Items.oxide, () -> {
-                        });
-                    });
-                });
-
-            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirWater, Liquids.water, () -> {
-                apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L), Liquids.ozone, () -> {
-                    apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L), Liquids.hydrogen, () -> {
-                        apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen, 507L), Liquids.nitrogen, () -> {
                         });
 
-                        apNodeProduce(createApLocation("Cyanogen Erekir", Liquids.cyanogen, 508L), Liquids.cyanogen, () -> {
-                            apNodeProduce(createApLocation("Neoplasm Erekir", Liquids.neoplasm, 509L), Liquids.neoplasm, () -> {
+                        node(intersect, Seq.with(new Objectives.SectorComplete(aegis), new Objectives.SectorComplete(lake)), () -> {
+                            node(atlas, Seq.with(new Objectives.SectorComplete(intersect)), () -> {
+                                node(split, Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+
+                                });
+
+                                node(basin, Seq.with(new Objectives.SectorComplete(atlas)), () -> {
+                                    node(marsh, Seq.with(new Objectives.SectorComplete(basin)), () -> {
+                                        node(ravine, Seq.with(new Objectives.SectorComplete(marsh)), () -> {
+                                            node(caldera, Seq.with(new Objectives.SectorComplete(peaks)), () -> {
+                                                node(stronghold, Seq.with(new Objectives.SectorComplete(caldera)), () -> {
+                                                    node(crevice, Seq.with(new Objectives.SectorComplete(stronghold)), () -> {
+                                                        node(siege, Seq.with(new Objectives.SectorComplete(crevice)), () -> {
+                                                            node(crossroads, Seq.with(new Objectives.SectorComplete(siege)), () -> {
+                                                                node(karst, Seq.with(new Objectives.SectorComplete(crossroads)), () -> {
+                                                                    node(origin, Seq.with(new Objectives.SectorComplete(karst)), () -> {
+
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+
+                                        node(peaks, Seq.with(new Objectives.SectorComplete(marsh), new Objectives.SectorComplete(split)), () -> {
+
+                                        });
+                                    });
+                                });
                             });
                         });
                     });
                 });
-            });
+            }
 
-                apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirGraphite, Items.graphite, () -> {
-                    apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 511L), Items.tungsten, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSlag, Liquids.slag, () -> {
-                        });
-
-                        apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 513L), Liquids.arkycite, () -> {
-                        });
-
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirThorium, Items.thorium, () -> {
-                            apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 515L), Items.carbide, () -> {
-                                //nodeProduce(Liquids.gallium, () -> {});
+            if (Vars.randomizer.worldState.options.getResourcesAsLocations()) {
+                apNodeProduce(createApLocation("Beryllium Erekir", Items.beryllium, 500L), Items.beryllium, () -> {
+                    apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSand, Items.sand, () -> {
+                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSilicon, Items.silicon, () -> {
+                            apNodeProduce(createApLocation("Oxide Erekir", Items.oxide, 503L), Items.oxide, () -> {
                             });
                         });
+                    });
 
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSurgeAlloy, Items.surgeAlloy, () -> {
-                            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirPhaseFabric, Items.phaseFabric, () -> {
+                    apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirWater, Liquids.water, () -> {
+                        apNodeProduce(createApLocation("Ozone Erekir", Liquids.ozone, 505L), Liquids.ozone, () -> {
+                            apNodeProduce(createApLocation("Hydrogen Erekir", Liquids.hydrogen, 506L), Liquids.hydrogen, () -> {
+                                apNodeProduce(createApLocation("Nitrogen Erekir", Liquids.nitrogen, 507L), Liquids.nitrogen, () -> {
+                                });
+
+                                apNodeProduce(createApLocation("Cyanogen Erekir", Liquids.cyanogen, 508L), Liquids.cyanogen, () -> {
+                                    apNodeProduce(createApLocation("Neoplasm Erekir", Liquids.neoplasm, 509L), Liquids.neoplasm, () -> {
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirGraphite, Items.graphite, () -> {
+                        apNodeProduce(createApLocation("Tungsten Erekir", Items.tungsten, 511L), Items.tungsten, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSlag, Liquids.slag, () -> {
+                            });
+
+                            apNodeProduce(createApLocation("Arkycite Erekir", Liquids.arkycite, 513L), Liquids.arkycite, () -> {
+                            });
+
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirThorium, Items.thorium, () -> {
+                                apNodeProduce(createApLocation("Carbide Erekir", Items.carbide, 515L), Items.carbide, () -> {
+                                    //nodeProduce(Liquids.gallium, () -> {});
+                                });
+                            });
+
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirSurgeAlloy, Items.surgeAlloy, () -> {
+                                apNodeProduce(Vars.randomizer.worldState.complexLocations.erekirPhaseFabric, Items.phaseFabric, () -> {
+                                });
                             });
                         });
                     });
                 });
-            });
+            } else {
+                nodeProduce(Items.beryllium, () -> {
+                    nodeProduce(Items.sand, () -> {
+                        nodeProduce(Items.silicon, () -> {
+                            nodeProduce(Items.oxide, () -> {
+                                //nodeProduce(Items.fissileMatter, () -> {});
+                            });
+                        });
+                    });
+
+                    nodeProduce(Liquids.water, () -> {
+                        nodeProduce(Liquids.ozone, () -> {
+                            nodeProduce(Liquids.hydrogen, () -> {
+                                nodeProduce(Liquids.nitrogen, () -> {
+
+                                });
+
+                                nodeProduce(Liquids.cyanogen, () -> {
+                                    nodeProduce(Liquids.neoplasm, () -> {
+
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    nodeProduce(Items.graphite, () -> {
+                        nodeProduce(Items.tungsten, () -> {
+                            nodeProduce(Liquids.slag, () -> {
+
+                            });
+
+                            nodeProduce(Liquids.arkycite, () -> {
+
+                            });
+
+                            nodeProduce(Items.thorium, () -> {
+                                nodeProduce(Items.carbide, () -> {
+
+                                    //nodeProduce(Liquids.gallium, () -> {});
+                                });
+
+                                nodeProduce(Items.surgeAlloy, () -> {
+                                    nodeProduce(Items.phaseFabric, () -> {
+
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            }
         });
     }
 }

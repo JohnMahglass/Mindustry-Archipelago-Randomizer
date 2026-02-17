@@ -235,6 +235,8 @@ public class WorldState {
         settings.remove(PROGRESSIVE_DRILLS.value);
         settings.remove(PROGRESSIVE_PUMPS.value);
         settings.remove(RESEARCH_DISCOUNT.value);
+        settings.remove(SECTORS_AS_LOCATIONS.value);
+        settings.remove(RESOURCES_AS_LOCATIONS.value);
     }
 
     /**

@@ -64,6 +64,12 @@ public class SlotData {
     @SerializedName("amount_of_resources_required")
     private int amountOfResourcesRequired = 2000;
 
+    @SerializedName("add_sectors_as_locations")
+    private boolean sectorsAsLocations = false;
+
+    @SerializedName("add_resources_as_locations")
+    private boolean resourcesAsLocations = false;
+
     public boolean getTutorialSkip() {
         return tutorialSkip;
     }
@@ -133,5 +139,10 @@ public class SlotData {
     public boolean getResearchDiscount() {
         return this.researchDiscount;
     }
-
+    public boolean getResourcesAsLocations() {
+        return this.resourcesAsLocations;
+    }
+    public boolean getSectorsAsLocations() {
+        return this.sectorsAsLocations;
+    }
 }

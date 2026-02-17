@@ -5,6 +5,7 @@ import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.Planets;
+import mindustry.content.UnitTypes;
 import mindustry.game.Objectives;
 
 import mindustry.game.Objectives.*;
@@ -604,149 +605,301 @@ public abstract class SerpuloTechTreeRandomizer extends TechTreeRandomizer {
                 });
             });
 
-            node(groundZero, () -> {
-                apNodeCapture(Vars.randomizer.worldState.complexLocations.serpuloFrozenForest, Seq.with(
-                        new SectorComplete(groundZero)
-                ), () -> {
-                    apNodeCapture(createApLocation("Craters", craters, 182L), Seq.with(
-                            new SectorComplete(frozenForest)
+            if (Vars.randomizer.worldState.options.getSectorsAsLocations()) {
+                node(groundZero, () -> {
+                    apNodeCapture(Vars.randomizer.worldState.complexLocations.serpuloFrozenForest, Seq.with(
+                            new SectorComplete(groundZero)
                     ), () -> {
-                        apNodeCapture(createApLocation("Ruinous Shores", ruinousShores, 183L), Seq.with(
-                                new SectorComplete(craters)
+                        apNodeCapture(createApLocation("Craters", craters, 182L), Seq.with(
+                                new SectorComplete(frozenForest)
                         ), () -> {
-                            apNodeCapture(createApLocation("Windswept Islands", windsweptIslands,
-                                    184L), Seq.with(
-                                    new SectorComplete(ruinousShores)
+                            apNodeCapture(createApLocation("Ruinous Shores", ruinousShores, 183L), Seq.with(
+                                    new SectorComplete(craters)
                             ), () -> {
-                                apNodeCapture(createApLocation("Tar Fields", tarFields, 185L), Seq.with(
-                                        new SectorComplete(windsweptIslands)
+                                apNodeCapture(createApLocation("Windswept Islands", windsweptIslands,
+                                        184L), Seq.with(
+                                        new SectorComplete(ruinousShores)
                                 ), () -> {
-                                    apNodeCapture(createApLocation("Impact 0078", impact0078, 186L), Seq.with(
-                                            new SectorComplete(tarFields)
+                                    apNodeCapture(createApLocation("Tar Fields", tarFields, 185L), Seq.with(
+                                            new SectorComplete(windsweptIslands)
                                     ), () -> {
-                                        apNodeCapture(createApLocation("Desolate Rift",
-                                                desolateRift, 187L), Seq.with(
-                                                new SectorComplete(impact0078)
+                                        apNodeCapture(createApLocation("Impact 0078", impact0078, 186L), Seq.with(
+                                                new SectorComplete(tarFields)
                                         ), () -> {
-                                            apNodeCapture(createApLocation("Planetary Terminal",
-                                                    planetaryTerminal, 188L), Seq.with(
-                                                    new SectorComplete(desolateRift),
-                                                    new SectorComplete(nuclearComplex),
-                                                    new SectorComplete(overgrowth),
-                                                    new SectorComplete(extractionOutpost),
-                                                    new SectorComplete(saltFlats)
+                                            apNodeCapture(createApLocation("Desolate Rift",
+                                                    desolateRift, 187L), Seq.with(
+                                                    new SectorComplete(impact0078)
+                                            ), () -> {
+                                                apNodeCapture(createApLocation("Planetary Terminal",
+                                                        planetaryTerminal, 188L), Seq.with(
+                                                        new SectorComplete(desolateRift),
+                                                        new SectorComplete(nuclearComplex),
+                                                        new SectorComplete(overgrowth),
+                                                        new SectorComplete(extractionOutpost),
+                                                        new SectorComplete(saltFlats)
+                                                ), () -> {
+
+                                                });
+                                            });
+                                        });
+                                    });
+
+                                    apNodeCapture(createApLocation("Extraction Outpost",
+                                            extractionOutpost, 189L), Seq.with(
+                                            new SectorComplete(stainedMountains),
+                                            new SectorComplete(windsweptIslands)
+                                    ), () -> {
+
+                                    });
+
+                                    apNodeCapture(createApLocation("Salt Flats", saltFlats, 190L), Seq.with(
+                                            new SectorComplete(windsweptIslands)
+                                    ), () -> {
+                                        apNodeCapture(createApLocation("Coastline", coastline, 191L), Seq.with(
+                                                new SectorComplete(windsweptIslands),
+                                                new SectorComplete(saltFlats)
+                                        ), () -> {
+                                            apNodeCapture(createApLocation("Naval Fortress",
+                                                    navalFortress, 192L), Seq.with(
+                                                    new SectorComplete(coastline),
+                                                    new SectorComplete(extractionOutpost)
                                             ), () -> {
 
                                             });
                                         });
                                     });
                                 });
+                            });
 
-                                apNodeCapture(createApLocation("Extraction Outpost",
-                                        extractionOutpost, 189L), Seq.with(
-                                        new SectorComplete(stainedMountains),
-                                        new SectorComplete(windsweptIslands)
+                            apNodeCapture(createApLocation("Overgrowth", overgrowth, 193L), Seq.with(
+                                    new SectorComplete(craters),
+                                    new SectorComplete(fungalPass)
+                            ), () -> {
+
+                            });
+                        });
+
+                        apNodeCapture(createApLocation("Biomass Facility", biomassFacility, 194L), Seq.with(
+                                new SectorComplete(frozenForest)
+                        ), () -> {
+                            apNodeCapture(createApLocation("Stained Mountains", stainedMountains, 195L), Seq.with(
+                                    new SectorComplete(biomassFacility)
+                            ), () -> {
+                                apNodeCapture(createApLocation("Fungal Pass", fungalPass, 196L), Seq.with(
+                                        new SectorComplete(stainedMountains)
                                 ), () -> {
-
-                                });
-
-                                apNodeCapture(createApLocation("Salt Flats", saltFlats, 190L), Seq.with(
-                                        new SectorComplete(windsweptIslands)
-                                ), () -> {
-                                    apNodeCapture(createApLocation("Coastline", coastline, 191L), Seq.with(
-                                            new SectorComplete(windsweptIslands),
-                                            new SectorComplete(saltFlats)
+                                    apNodeCapture(createApLocation("Nuclear Complex", nuclearComplex, 197L), Seq.with(
+                                            new SectorComplete(fungalPass)
                                     ), () -> {
-                                        apNodeCapture(createApLocation("Naval Fortress",
-                                                navalFortress, 192L), Seq.with(
-                                                new SectorComplete(coastline),
-                                                new SectorComplete(extractionOutpost)
-                                        ), () -> {
 
-                                        });
                                     });
                                 });
                             });
                         });
-
-                        apNodeCapture(createApLocation("Overgrowth", overgrowth, 193L), Seq.with(
-                                new SectorComplete(craters),
-                                new SectorComplete(fungalPass)
+                    });
+                });
+            } else {
+                node(groundZero, () -> {
+                    node(frozenForest, Seq.with(
+                            new SectorComplete(groundZero)
+                    ), () -> {
+                        node(craters, Seq.with(
+                                new SectorComplete(frozenForest)
                         ), () -> {
+                            node(ruinousShores, Seq.with(
+                                    new SectorComplete(craters)
+                            ), () -> {
+                                node(windsweptIslands, Seq.with(
+                                        new SectorComplete(ruinousShores)
+                                ), () -> {
+                                    node(tarFields, Seq.with(
+                                            new SectorComplete(windsweptIslands)
+                                    ), () -> {
+                                        node(impact0078, Seq.with(
+                                                new SectorComplete(tarFields)
+                                        ), () -> {
+                                            node(desolateRift, Seq.with(
+                                                    new SectorComplete(impact0078)
+                                            ), () -> {
+                                                node(planetaryTerminal, Seq.with(
+                                                        new SectorComplete(desolateRift),
+                                                        new SectorComplete(nuclearComplex),
+                                                        new SectorComplete(overgrowth),
+                                                        new SectorComplete(extractionOutpost),
+                                                        new SectorComplete(saltFlats)
+                                                ), () -> {
+
+                                                });
+                                            });
+                                        });
+                                    });
+
+                                    node(extractionOutpost, Seq.with(
+                                            new SectorComplete(stainedMountains),
+                                            new SectorComplete(windsweptIslands)
+                                    ), () -> {
+
+                                    });
+
+                                    node(saltFlats, Seq.with(
+                                            new SectorComplete(windsweptIslands)
+                                    ), () -> {
+                                        node(coastline, Seq.with(
+                                                new SectorComplete(windsweptIslands),
+                                                new SectorComplete(saltFlats)
+                                        ), () -> {
+                                            node(navalFortress, Seq.with(
+                                                    new SectorComplete(coastline),
+                                                    new SectorComplete(extractionOutpost)
+                                            ), () -> {
+
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+
+                            node(overgrowth, Seq.with(
+                                    new SectorComplete(craters),
+                                    new SectorComplete(fungalPass)
+                            ), () -> {
+
+                            });
+                        });
+
+                        node(biomassFacility, Seq.with(
+                                new SectorComplete(frozenForest)
+                        ), () -> {
+                            node(stainedMountains, Seq.with(
+                                    new SectorComplete(biomassFacility)
+                            ), () -> {
+                                node(fungalPass, Seq.with(
+                                        new SectorComplete(stainedMountains)
+                                ), () -> {
+                                    node(nuclearComplex, Seq.with(
+                                            new SectorComplete(fungalPass)
+                                    ), () -> {
+
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            }
+
+            if (Vars.randomizer.worldState.options.getResourcesAsLocations()) {
+                apNodeProduce(createApLocation("Copper Serpulo", Items.copper, 210L), Items.copper, () -> {
+                    apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloWater, Liquids.water, () -> {
+                    });
+
+                    apNodeProduce(createApLocation("Lead Serpulo", Items.lead, 212L), Items.lead, () -> {
+                        apNodeProduce(createApLocation("Titanium Serpulo", Items.titanium, 213L), Items.titanium, () -> {
+                            apNodeProduce(createApLocation("Cryofluid Serpulo", Liquids.cryofluid, 214L), Liquids.cryofluid, () -> {
+                            });
+
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloThorium, Items.thorium, () -> {
+                                apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSurgeAlloy, Items.surgeAlloy, () -> {
+                                });
+
+                                apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloPhaseFabric, Items.phaseFabric, () -> {
+                                });
+                            });
+                        });
+
+                        apNodeProduce(createApLocation("Metaglass Serpulo", Items.metaglass, 218L), Items.metaglass, () -> {
+                        });
+                    });
+
+                    apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSand, Items.sand, () -> {
+                        apNodeProduce(createApLocation("Scrap Serpulo", Items.scrap, 220L), Items.scrap, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSlag, Liquids.slag, () -> {
+                            });
+                        });
+
+                        apNodeProduce(createApLocation("Coal Serpulo", Items.coal, 222L), Items.coal, () -> {
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloGraphite, Items.graphite, () -> {
+                            });
+
+                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSilicon, Items.silicon, () -> {
+                            });
+
+                            apNodeProduce(createApLocation("Pyratite Serpulo", Items.pyratite, 225L), Items.pyratite, () -> {
+                                apNodeProduce(createApLocation("Blast Compound Serpulo", Items.blastCompound, 226L), Items.blastCompound, () -> {
+                                });
+                            });
+
+                            apNodeProduce(createApLocation("Spore Pod Serpulo", Items.sporePod, 227L), Items.sporePod, () -> {
+                            });
+
+                            apNodeProduce(createApLocation("Oil Serpulo", Liquids.oil, 228L), Liquids.oil, () -> {
+                                apNodeProduce(createApLocation("Plastanium Serpulo", Items.plastanium, 229L), Items.plastanium, () -> {
+                                });
+                            });
+                        });
+                    });
+                });
+            } else {
+                nodeProduce(Items.copper, () -> {
+                    nodeProduce(Liquids.water, () -> {
+
+                    });
+
+                    nodeProduce(Items.lead, () -> {
+                        nodeProduce(Items.titanium, () -> {
+                            nodeProduce(Liquids.cryofluid, () -> {
+
+                            });
+
+                            nodeProduce(Items.thorium, () -> {
+                                nodeProduce(Items.surgeAlloy, () -> {
+
+                                });
+
+                                nodeProduce(Items.phaseFabric, () -> {
+
+                                });
+                            });
+                        });
+
+                        nodeProduce(Items.metaglass, () -> {
 
                         });
                     });
 
-                    apNodeCapture(createApLocation("Biomass Facility", biomassFacility, 194L), Seq.with(
-                            new SectorComplete(frozenForest)
-                    ), () -> {
-                        apNodeCapture(createApLocation("Stained Mountains", stainedMountains, 195L), Seq.with(
-                                new SectorComplete(biomassFacility)
-                        ), () -> {
-                            apNodeCapture(createApLocation("Fungal Pass", fungalPass, 196L), Seq.with(
-                                    new SectorComplete(stainedMountains)
-                            ), () -> {
-                                apNodeCapture(createApLocation("Nuclear Complex", nuclearComplex, 197L), Seq.with(
-                                        new SectorComplete(fungalPass)
-                                ), () -> {
+                    nodeProduce(Items.sand, () -> {
+                        nodeProduce(Items.scrap, () -> {
+                            nodeProduce(Liquids.slag, () -> {
+
+                            });
+                        });
+
+                        nodeProduce(Items.coal, () -> {
+                            nodeProduce(Items.graphite, () -> {
+                                nodeProduce(Items.silicon, () -> {
+
+                                });
+                            });
+
+                            nodeProduce(Items.pyratite, () -> {
+                                nodeProduce(Items.blastCompound, () -> {
+
+                                });
+                            });
+
+                            nodeProduce(Items.sporePod, () -> {
+
+                            });
+
+                            nodeProduce(Liquids.oil, () -> {
+                                nodeProduce(Items.plastanium, () -> {
 
                                 });
                             });
                         });
                     });
                 });
-            });
-
-            apNodeProduce(createApLocation("Copper Serpulo", Items.copper, 210L), Items.copper, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloWater, Liquids.water, () -> {
-                });
-
-                apNodeProduce(createApLocation("Lead Serpulo", Items.lead, 212L), Items.lead, () -> {
-                    apNodeProduce(createApLocation("Titanium Serpulo", Items.titanium, 213L), Items.titanium, () -> {
-                        apNodeProduce(createApLocation("Cryofluid Serpulo", Liquids.cryofluid, 214L), Liquids.cryofluid, () -> {
-                        });
-
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloThorium, Items.thorium, () -> {
-                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSurgeAlloy, Items.surgeAlloy, () -> {
-                            });
-
-                            apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloPhaseFabric, Items.phaseFabric, () -> {
-                            });
-                        });
-                    });
-
-                    apNodeProduce(createApLocation("Metaglass Serpulo", Items.metaglass, 218L), Items.metaglass, () -> {
-                    });
-                });
-
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSand, Items.sand, () -> {
-                    apNodeProduce(createApLocation("Scrap Serpulo", Items.scrap, 220L), Items.scrap, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSlag, Liquids.slag, () -> {
-                        });
-                    });
-
-                    apNodeProduce(createApLocation("Coal Serpulo", Items.coal, 222L), Items.coal, () -> {
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloGraphite, Items.graphite, () -> {
-                        });
-
-                        apNodeProduce(Vars.randomizer.worldState.complexLocations.serpuloSilicon, Items.silicon, () -> {
-                        });
-
-                        apNodeProduce(createApLocation("Pyratite Serpulo", Items.pyratite, 225L), Items.pyratite, () -> {
-                            apNodeProduce(createApLocation("Blast Compound Serpulo", Items.blastCompound, 226L), Items.blastCompound, () -> {
-                            });
-                        });
-
-                        apNodeProduce(createApLocation("Spore Pod Serpulo", Items.sporePod, 227L), Items.sporePod, () -> {
-                        });
-
-                        apNodeProduce(createApLocation("Oil Serpulo", Liquids.oil, 228L), Liquids.oil, () -> {
-                            apNodeProduce(createApLocation("Plastanium Serpulo", Items.plastanium, 229L), Items.plastanium, () -> {
-                            });
-                        });
-                    });
-                });
-            });
+            }
         });
     }
 
