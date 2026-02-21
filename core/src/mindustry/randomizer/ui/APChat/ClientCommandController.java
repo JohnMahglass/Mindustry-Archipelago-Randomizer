@@ -434,6 +434,8 @@ public class ClientCommandController {
                         Display every selected options for game generation.
                         You need to have connected once to be able
                         to view selected options.
+                  [#FFDF29]/buffs[#FFFFFF]
+                        Display buffs value received from buff items.
                   [#FFDF29]/connect[#FFFFFF]
                         Connect using the information provided in
                         Settings -> Archipelago
