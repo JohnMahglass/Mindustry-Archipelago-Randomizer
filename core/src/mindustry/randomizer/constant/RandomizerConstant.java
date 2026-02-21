@@ -95,7 +95,7 @@ public class RandomizerConstant {
     public static final String RESET_AP_DATA = "Reset AP data";
     public static final String RESET_AP_DATA_WARNING = "Wipe campaign/research/saves and Archipelago related data and force exit the program.\n\nTo be used when you want to reset data and play a new multiworld.";
     public static final String APPLY_CHANGES = "Apply changes";
-    public static final String MANUALLY_VALIDATE_VICTORY = "Manually validate victory";
+    public static final String MANUALLY_VERIFY_VICTORY = "Manually verify victory";
 
     // Error
     public static final String NULL_CONTENT_UNLOCK_ERROR = "Content that was null was called for unlock.";

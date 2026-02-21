@@ -1,10 +1,10 @@
 # Mindustry integration for Archipelago (v0.5.0)
-https://github.com/ArchipelagoMW/Archipelago \
-Last update: 2026-01-31
+https://github.com/ArchipelagoMW/Archipelago  
+Last update: 2026-02-18
 
-This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repo for more information.
+This repo is a fork of Anuken's Mindustry (https://github.com/Anuken/Mindustry) and has been modified to be used with Archipelago. Visit their repository for more information.
 
-To generate a World(APworld), you will need to install the Mindustry World to your Archipelago folder. You can find the Mindustry World release here -> (https://github.com/JohnMahglass/Archipelago-Mindustry/releases)
+To generate a World(APworld), you will need to install the Mindustry World into your Archipelago custom_worlds folder. You can find the Mindustry World release here -> https://github.com/JohnMahglass/Archipelago-Mindustry/releases
 
 # Table of Contents
 1. [Introduction](#introduction)
@@ -14,34 +14,37 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 
 ### What has been changed from the vanilla game? <a name="introduction" />
 
-- Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in developement)
+- Save data are separated from vanilla game so that playing Archipelago doesn't erase your vanilla saves. (You should still backup your saves as this is in development)
 - Most node from the research tree has been replaced with location checks.
-- A "Victory" node has been added, researching this node will inform Archipelago that the player has finished their World. If both planet are selected as a campaign, each victory nodes need to be researched to complete the goal.
+- A "Victory" node has been added, researching this node will inform Archipelago that the player has completed their goal. If both planet are selected as a campaign, each victory nodes need to be researched to complete the goal.
 - A new menu has been added in Settings to configure Archipelago's settings.
 - You can use the chat to send messages to other client (If they support it).
 - Use '/help' in the client to list all client commands.
-- It is not possible to construct a fabricator if the associated unit has not been researched as well on Erekir planet.
-- The research tree now shows every nodes. This change makes it easier to plan a route if you need to get a specific location.
+- It is not possible to construct a fabricator type block if the associated unit has not been researched as well on Erekir planet.
+- The research tree now shows every nodes name. This change makes it easier to plan a route if you need to get to a specific location.
 
 
 ## Setup guide <a name="setup" />
 
 ### Windows
-1. Download the latest release.
-2. Extract the downloaded files in a directory.
+1. Go to the latest release.[https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases]
+2. Download the "Win_Mindustry_*.zip" file. (Replace the * symbol with the version)
+3. Extract the downloaded files **in its own** directory.
 3. Run `Mindustry-Archipelago.exe`
 4. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 5. Have fun.
 
 
 ### Linux
-1. Download the .jar file from the latest release.
-2. Make sure you have Java JRE installed. You can install the Java 17 JRE using the terminal:\
-   Ubuntu => `sudo apt install openjdk-17-jre`\
-   Arch based => `sudo pacman -S jdk17-openjdk`
+1. (Go to the latest release.[https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases]
+2. Download the "Linux_Mindustry_*.zip" file. (Replace the * symbol with the version)
+3. Extract the downloaded files **in its own** directory.
+2. Make sure you have Java JDK installed. You can install the Java 17 JDK using the terminal:\
+   Ubuntu => `sudo apt install openjdk-17-jre`  
+   Arch => `sudo pacman -S jdk17-openjdk`
 3. Open the terminal
-4. Make sure you are in the directory containing `Mindustry-Archipelago.jar` (The file you downloaded from the release page.)
-5. Run the game by typing `java -jar Mindustry-Archipelago.jar` in the terminal.
+4. Make sure you are in the directory containing `Mindustry-Archipelago.jar` (One of the files you downloaded from the release page.)
+5. Run the game by typing `java -jar Mindustry-Archipelago-v*.jar` in the terminal. (Replace the * symbol with the version)
 6. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 7. Have fun.
 
@@ -52,7 +55,9 @@ To generate a World(APworld), you will need to install the Mindustry World to yo
 
 ### Report a bug.
 You can report bugs that you find in the game's thread in the Archipelago Discord server, you 
-can find the Discord invite on the Archipelago website. You can find the game's thread by searching `Mindustry` in the "future-game-design" section.
+can find the Discord invite on the Archipelago website. You can find the game's thread by searching `Mindustry` in the `future-game-design` section.
+
+You can also open an issue in this repository.
 
 ## How to compile <a name="compile" />
 If you would like to compile this code on your machine you can follow these instructions:
@@ -71,7 +76,11 @@ If you would like to compile this code on your machine you can follow these inst
 11. The project should compile and run!
 
 
-## Contributors <a name="contributors" />
-- Antydon
-- Flashkirby
-- 9382
+## Contributing and Contributors <a name="contributors" />
+I accept PR's. If you would like to contribute and have questions, you can contact me on the official Archipelago Discord server. you
+can find the Discord invite on the Archipelago website. You can find the game's thread by searching `Mindustry` in the "future-game-design" section.
+
+### Contributors
+- @Antydon
+- @Flashkirby
+- @9382

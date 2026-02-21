@@ -254,7 +254,7 @@ public class ArchipelagoDialog extends BaseDialog {
             }
         }).size(150f, 60f).pad(4f);
 
-        buttonTable.button(RandomizerConstant.MANUALLY_VALIDATE_VICTORY, () -> {
+        buttonTable.button(RandomizerConstant.MANUALLY_VERIFY_VICTORY, () -> {
             if (randomizer.worldState.isVictoryConditionMet()) {
                 randomizer.sendGoalSignal();
             } else {

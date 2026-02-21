@@ -1,4 +1,4 @@
-Last update: 2025-03-20
+Last update: 2026-02-18
 # Mindustry randomizer setup guide
 ## Required software
 The custom [Mindustry client for Archipelago](https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases)
@@ -7,18 +7,25 @@ Mindustry is a free open-source game. If you enjoy the game, please consider sup
 
 ## Installation procedures
 ### Windows
-1. Download the latest release.
-2. Extract the downloaded files in a directory.
-3. Run "Mindustry-Archipelago.exe"
+1. Go to the latest release.[https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases]
+2. Download the "Win_Mindustry_*.zip" file. (Replace the * symbol with the version)
+3. Extract the downloaded files **in its own** directory.
+3. Run `Mindustry-Archipelago.exe`
+4. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
+5. Have fun.
 
 ### Linux
-1. Download the .jar file from the latest release.
-2. Make sure you have Java JRE installed. You can install the Java 17 JRE using the terminal:
-Ubuntu -> "sudo apt install openjdk-17-jre"
-Arch based -> "sudo pacman -S jdk17-openjdk"
-4. Open the terminal
-5. Make sure you are in the directory containing 'Mindustry-Archipelago.jar' (The file you downloaded from the release page.)
-6. Type "java -jar Mindustry-Archipelago.jar" in the terminal.
+1. (Go to the latest release.[https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases]
+2. Download the "Linux_Mindustry_*.zip" file. (Replace the * symbol with the version)
+3. Extract the downloaded files **in its own** directory.
+2. Make sure you have Java JDK installed. You can install the Java 17 JDK using the terminal:\
+   Ubuntu => `sudo apt install openjdk-17-jre`  
+   Arch => `sudo pacman -S jdk17-openjdk`
+3. Open the terminal
+4. Make sure you are in the directory containing `Mindustry-Archipelago.jar` (One of the files you downloaded from the release page.)
+5. Run the game by typing `java -jar Mindustry-Archipelago-v*.jar` in the terminal. (Replace the * symbol with the version)
+6. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
+7. Have fun.
 
 ## Connecting
 There is 2 way to connect to an Archipelago multiworld once you are in Mindustry game menu, the interface method and the command method. If you are playing a multiworld that requires a password you will be required to use the interface method.
@@ -40,13 +47,13 @@ There is 2 way to connect to an Archipelago multiworld once you are in Mindustry
 The client will now remember your connection informations. When resuming play, you will only need to use the ```/connect``` command (without arguments) to connect to the multiworld
 
 ## Playing multiple multiworld on the same computer
-If you would like to play multiple instance of mindustry in the same multiworld, you need to 
+If you would like to play multiple instance of Mindustry in the same multiworld, you need to 
 copy `Mindustry-Archipelago-version.exe` and `jre` to a different directory. Game settings and 
 game data are saved in the directory that holds `Mindustry-Archipelago-version.exe`.
 
 ## Create a config (.yaml) file
 There is currently no web pages for generating a Mindustry config file. In the meantime, you can 
-get a default config file from the release page of the Mindustry-Archipelago client.
+get a default config file from the release page or the apworld release page.
 
 ## About multiplayer
 Multiplayer is currently not supported, however it is a planned feature.

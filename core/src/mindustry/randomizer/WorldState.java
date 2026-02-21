@@ -613,7 +613,7 @@ public class WorldState {
         item3.items.add(UnitTypes.collaris);
         progressiveItems.add(item3);
 
-        items.put(MINDUSTRY_BASE_ID + 344, null);
+        items.put(MINDUSTRY_BASE_ID + 344, null); // Progressive Drills
         ProgressiveItem item4 = new ProgressiveItem(ProgressiveItemType.E_DRILLS,
                 MINDUSTRY_BASE_ID + 344, 3);
         item4.items.add(Blocks.impactDrill);
@@ -621,7 +621,7 @@ public class WorldState {
         item4.items.add(Blocks.eruptionDrill);
         progressiveItems.add(item4);
 
-        items.put(MINDUSTRY_BASE_ID + 345, null);
+        items.put(MINDUSTRY_BASE_ID + 345, null); // Progressive Generator
         ProgressiveItem item5 = new ProgressiveItem(ProgressiveItemType.E_GENERATORS,
                 MINDUSTRY_BASE_ID + 345, 4);
         item5.items.add(Blocks.chemicalCombustionChamber);
@@ -881,7 +881,7 @@ public class WorldState {
         items.put(MINDUSTRY_BASE_ID + 170, Items.surgeAlloy);
         items.put(MINDUSTRY_BASE_ID + 171, Items.phaseFabric);
 
-        items.put(MINDUSTRY_BASE_ID + 172, null);
+        items.put(MINDUSTRY_BASE_ID + 172, null); // Progressive Drills
         ProgressiveItem item9 = new ProgressiveItem(ProgressiveItemType.S_DRILLS,
                 MINDUSTRY_BASE_ID + 172, 3);
         item9.items.add(Blocks.pneumaticDrill);
@@ -889,7 +889,7 @@ public class WorldState {
         item9.items.add(Blocks.blastDrill);
         progressiveItems.add(item9);
 
-        items.put(MINDUSTRY_BASE_ID + 173, null);
+        items.put(MINDUSTRY_BASE_ID + 173, null); // Progressive Generators
         ProgressiveItem item10 = new ProgressiveItem(ProgressiveItemType.S_GENERATORS,
                 MINDUSTRY_BASE_ID + 173, 7);
         item10.items.add(Blocks.combustionGenerator);
