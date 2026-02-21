@@ -532,12 +532,19 @@ public class Randomizer {
 
         Vars.content.each(content -> {
             if (content instanceof UnlockableContent u && u.techNode != null) {
-                ItemStack[] base = u.techNode.originalRequirements;
-
-                for (int i = 0; i < u.techNode.requirements.length; i++) {
-                    int discountedAmount = Math.round(base[i].amount * (1f - discountFactor));
-                    u.techNode.requirements[i].amount = Math.max(base[i].amount > 0 ? 1 : 0, discountedAmount);
+                boolean isDiscountable = true;
+                if (u.name.equals("victory-erekir") || u.name.equals("victory-serpulo")) {
+                    isDiscountable = false;
                 }
+                if (isDiscountable) {
+                    ItemStack[] base = u.techNode.originalRequirements;
+
+                    for (int i = 0; i < u.techNode.requirements.length; i++) {
+                        int discountedAmount = Math.round(base[i].amount * (1f - discountFactor));
+                        u.techNode.requirements[i].amount = Math.max(base[i].amount > 0 ? 1 : 0, discountedAmount);
+                    }
+                }
+
             }
         });
     }

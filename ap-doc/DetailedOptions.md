@@ -176,7 +176,7 @@ When no filler or trap items are selected, the "Nothing" filler item will be add
 Adds the "Construction speed buff" to the filler item pool. This buff will increase the construction speed of the player and its units by increments of 10%.
 
 ### research_discount_buffs
-Adds the "Research discount buff" to the filler item pool. This buff will reduce the cost of researching nodes in the tech tree by increments of 5%. This buff is capped at a maximum value of 99%. When selecting this option, the randomization will prioritize placing 20 of this filler item before considering adding other filler items.
+Adds the "Research discount buff" to the filler item pool. This buff will reduce the cost of researching nodes in the tech tree by increments of 5%. This buff is capped at a maximum value of 99%. When selecting this option, the randomization will prioritize placing 20 of this filler item before considering adding other filler items. Does not apply discount for "Victory" nodes requirements.
 
 ### factory_malfunction_trap
 Requires to be connected to trigger. Adds the "Factory mafunction trap" to the filler item pool. This trap will cause a small amount of blocks from your factory to explode. The core unit is protected from this trap. 
