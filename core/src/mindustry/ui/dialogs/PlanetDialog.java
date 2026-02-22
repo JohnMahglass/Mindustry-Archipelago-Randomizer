@@ -402,7 +402,7 @@ public class PlanetDialog extends BaseDialog implements PlanetInterfaceRenderer{
         //preset sectors can only be selected once unlocked
         if(sector.preset != null){
             TechNode node = sector.preset.techNode;
-            if (randomizer.worldState.options.getOptionsFilled()) { // Ap sector nodes do not have a preset, need to use own randomizer logic to replicate vanilla behavior
+            if (randomizer.worldState.options.getOptionsFilled() && randomizer.worldState.options.getSectorsAsLocations()) { // Ap sector nodes do not have a preset, need to use own randomizer logic to replicate vanilla behavior
                 CampaignType campaign = randomizer.worldState.options.getCampaign();
                 if ((campaign == CampaignType.SERPULO || campaign == CampaignType.ALL) && sector.planet.name.equals(Planets.serpulo.name)) {
                     return randomizer.isSectorUnlocked(sector.preset);
