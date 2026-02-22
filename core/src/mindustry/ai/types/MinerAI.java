@@ -12,6 +12,7 @@ public class MinerAI extends AIController{
     public boolean mining = true;
     public Item targetItem;
     public Tile ore;
+    private int reTargetTimer;
 
     @Override
     public void updateMovement(){
@@ -29,6 +30,7 @@ public class MinerAI extends AIController{
         }
 
         if(mining){
+
             if(timer.get(timerTarget2, 60 * 4) || targetItem == null){
                 targetItem = unit.type.mineItems.min(i -> indexer.hasOre(i) && unit.canMine(i), i -> core.items.get(i));
             }
@@ -44,8 +46,19 @@ public class MinerAI extends AIController{
             if(unit.stack.amount >= unit.type.itemCapacity || (targetItem != null && !unit.acceptsItem(targetItem))){
                 mining = false;
             }else{
-                if(timer.get(timerTarget3, 60) && targetItem != null){
-                    ore = indexer.findClosestOre(unit, targetItem);
+
+                if (ore == null || timer.get(timerTarget3, 120)) {
+                    Tile closest = indexer.findClosestOre(unit, targetItem);
+
+                    if (closest != null) {
+                        if (ore == null) {
+                            ore = closest;
+                        } else {
+                            if (unit.dst2(closest) < unit.dst2(ore) - (15 * 15 * 8 * 8)) {
+                                ore = closest;
+                            }
+                        }
+                    }
                 }
 
                 if(ore != null){
