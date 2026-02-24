@@ -171,7 +171,8 @@ In this mode, **when every core of the Mindustry player has been destoryed** on 
 Customize the amount of chances the Mindustry player starts with when selecting the "Core Russian roulette" death link mode. The default value is 6, meaning a 1 / 6 chances of triggering the players death upon receiving a death link signal.
 
 ## FILLERS AND TRAPS
-When no filler or trap items are selected, the "Nothing" filler item will be added.
+When no filler or trap items are selected, the "Nothing" filler item will be added.  
+**IMPORTANT**:The current filler placement logic is a placeholder. Currently, the logic will try to place 20 research discount buffs if this option is selected. If there are still remaining locations to be filled, it will evenly place selected fillers and traps across the remaining locations. A proper weigth system will be implemented later.
 ### construction_speed_buffs
 Adds the "Construction speed buff" to the filler item pool. This buff will increase the construction speed of the player and its units by increments of 10%.
 
