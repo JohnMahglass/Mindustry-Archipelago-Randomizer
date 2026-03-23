@@ -27,7 +27,7 @@ To generate a World(APworld), you will need to install the Mindustry World into 
 ## Setup guide <a name="setup" />
 
 ### Windows
-1. Go to the latest release.[https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases]
+1. Go to the [latest release](https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases).
 2. Download the "Win_Mindustry_*.zip" file. (Replace the * symbol with the version)
 3. Extract the downloaded files **in its own** directory.
 3. Run `Mindustry-Archipelago.exe`
@@ -36,7 +36,7 @@ To generate a World(APworld), you will need to install the Mindustry World into 
 
 
 ### Linux
-1. (Go to the latest release.[https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases]
+1. Go to the [latest release](https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases).
 2. Download the "Linux_Mindustry_*.zip" file. (Replace the * symbol with the version)
 3. Extract the downloaded files **in its own** directory.
 2. Make sure you have Java JDK installed. You can install the Java 17 JDK using the terminal:\
