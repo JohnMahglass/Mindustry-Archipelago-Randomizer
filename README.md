@@ -84,3 +84,4 @@ can find the Discord invite on the Archipelago website. You can find the game's 
 - @Antydon
 - @Flashkirby
 - @9382
+- @EnolaK64
