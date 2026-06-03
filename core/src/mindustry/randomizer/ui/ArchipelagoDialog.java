@@ -156,17 +156,16 @@ public class ArchipelagoDialog extends BaseDialog {
         archipelagoTable.row();
         archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, RandomizerConstant.DEATH_LINK_OPTION)).width(archipelagoTable.getWidth())).get().left();
         archipelagoTable.row();
-        archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(1).colspan(4).padTop(0).padBottom(1).row();
-        archipelagoTable.check(RandomizerConstant.FORCE_DISABLE_DEATH_LINK, settings.getBool(FORCE_DISABLE_DEATH_LINK.value),  bool -> {
+        archipelagoTable.image().width(archipelagoTable.getWidth()).color(Color.gray).fillX().height(3).pad(6).colspan(4).padTop(0).padBottom(1).row();
+        archipelagoTable.check(RandomizerConstant.FORCE_DISABLE_DEATH_LINK, settings.getBool(FORCE_DISABLE_DEATH_LINK.value), bool -> {
             newForceDisableDeathLink = bool;
             forceDeathLinkChanged = true;
-        }).tooltip(RandomizerConstant.FORCE_DISABLE_DEATH_LINK_TOOLTIP).grow().padBottom(1f).size(320f, 60f).get().align(Align.left);
+        }).tooltip(RandomizerConstant.FORCE_DISABLE_DEATH_LINK_TOOLTIP).padBottom(1f).width(320f).get().left(); // increase width to fit text
         archipelagoTable.row();
-        archipelagoTable.check(RandomizerConstant.PROTECT_CAPTURED_SECTOR, settings.getBool(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value),
-                bool -> {
-                     newDeathLinkProtectSector = bool;
-                     deathLinkProtectedSectorChanged = true;
-                }).tooltip(RandomizerConstant.PROTECT_CAPTURED_SECTOR_TOOLTIP).padBottom(1f).get().left();
+        archipelagoTable.check(RandomizerConstant.PROTECT_CAPTURED_SECTOR, settings.getBool(AP_DEATH_LINK_PROTECT_CAPTURED_SECTOR.value), bool -> {
+             newDeathLinkProtectSector = bool;
+             deathLinkProtectedSectorChanged = true;
+        }).tooltip(RandomizerConstant.PROTECT_CAPTURED_SECTOR_TOOLTIP).padBottom(1f).width(320f).get().left(); // increase width to fit text
 
         archipelagoTable.row();
         archipelagoTable.table(info -> info.add(ChatColor.applyColor(LIGHTGRAY, RandomizerConstant.CHAT_OPTIONS)).width(archipelagoTable.getWidth())).padBottom(1f).get().left();
