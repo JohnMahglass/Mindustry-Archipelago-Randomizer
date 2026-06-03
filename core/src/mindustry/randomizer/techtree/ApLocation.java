@@ -43,10 +43,10 @@ public class ApLocation extends Block {
             onUnlock();
             Events.fire(new EventType.UnlockEvent(this));
             if (locationId != null) {
-                randomizer.checkLocation(locationId);
                 if (originalContent instanceof SectorPreset) {
                     randomizer.unlockSector(((SectorPreset) originalContent).sector.preset.name);
                 }
+                randomizer.checkLocation(locationId);
             } else {
                 RandomizerMessageHandler.printErrorWithReason(RandomizerConstant.NULL_LOCATION_ID);
             }
