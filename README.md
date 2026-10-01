@@ -26,25 +26,24 @@ To generate a World(APworld), you will need to install the Mindustry World into 
 
 ## Setup guide <a name="setup" />
 
+Optional automated launchers for Linux and Windows are in [tools/launcher](tools/launcher/README.md). They run the released client in a separate local installation and can manage a local room.
+
 ### Windows
 1. Go to the [latest release](https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases).
-2. Download the "Win_Mindustry_*.zip" file. (Replace the * symbol with the version)
-3. Extract the downloaded files **in its own** directory.
-3. Run `Mindustry-Archipelago.exe`
+2. Download the `Windows_Mindustry_*.zip` file and extract it into its own directory.
+3. Run the `Mindustry-Archipelago-*.exe` file in that directory.
 4. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 5. Have fun.
 
 
 ### Linux
 1. Go to the [latest release](https://github.com/JohnMahglass/Mindustry-Archipelago-Randomizer/releases).
-2. Download the "Linux_Mindustry_*.zip" file. (Replace the * symbol with the version)
-3. Extract the downloaded files **in its own** directory.
-2. Make sure you have Java JDK installed. You can install the Java 17 JDK using the terminal:\
+2. Download the `Linux_Mindustry_*.zip` file and extract it into its own directory.
+3. Make sure you have Java 17 installed. You can install it using the terminal:\
    Ubuntu => `sudo apt install openjdk-17-jre`  
    Arch => `sudo pacman -S jdk17-openjdk`
-3. Open the terminal
-4. Make sure you are in the directory containing `Mindustry-Archipelago.jar` (One of the files you downloaded from the release page.)
-5. Run the game by typing `java -jar Mindustry-Archipelago-v*.jar` in the terminal. (Replace the * symbol with the version)
+4. Open a terminal in the directory containing `Mindustry.jar`.
+5. Run `java -jar Mindustry.jar`.
 6. Go to Settings -> Archipelago and enter your game information to connect. (Or use the chat's client commands)
 7. Have fun.
 
